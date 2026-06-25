@@ -71,7 +71,9 @@
           ]
         },
         "replyKeyboardOptions": {},
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "name": "Bienvenida",
       "type": "n8n-nodes-base.telegram",
@@ -95,7 +97,9 @@
         "text": "¡Excelente elección! 📸\n\nMandame la foto del producto y yo me encargo del resto.",
         "replyMarkup": "replyKeyboard",
         "replyKeyboardOptions": {},
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "name": "Pedir Foto",
       "type": "n8n-nodes-base.telegram",
@@ -117,7 +121,9 @@
       "parameters": {
         "resource": "file",
         "fileId": "={{ $json.message.photo.reduce((prev, current) => (prev.file_size > current.file_size) ? prev : current).file_id }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "name": "Bajar Foto",
       "type": "n8n-nodes-base.telegram",
@@ -310,7 +316,9 @@
       "parameters": {
         "resource": "callback",
         "queryId": "={{ $json.callback_query.id }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -609,7 +617,9 @@
             }
           ]
         },
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "name": "Descriciones",
       "type": "n8n-nodes-base.telegram",
@@ -1527,7 +1537,8 @@
         "chatId": "={{ $json.chatId }}",
         "file": "={{ $json.imageURL }}",
         "additionalFields": {
-          "caption": "={{ $json.texto }}"
+          "caption": "={{ $json.texto }}",
+          "appendAttribution": false
         }
       },
       "type": "n8n-nodes-base.telegram",

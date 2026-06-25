@@ -1,0 +1,180 @@
+{
+  "id": "vy60xNtAvcVKRdAx",
+  "name": "Postly - HU2 OAuth Callback",
+  "active": true,
+  "nodes": [
+    {
+      "id": "f0000ea2-c7f3-46f4-a15c-e1f7f1d707e0",
+      "name": "Callback OAuth",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "oauth-callback",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "73baa38a-e510-4127-9cb4-9d893d2e4a1e"
+    },
+    {
+      "id": "b13ca20a-e262-4642-a431-c4a9776d4ad1",
+      "name": "Intercambiar code",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v19.0/oauth/access_token?client_id={{ $env.META_APP_ID }}&redirect_uri=https://viewable-zombie-linked.ngrok-free.dev/webhook/oauth-callback&client_secret={{ $env.META_APP_SECRET }}&code={{ $json.query.code }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "f5efe4e9-65c0-45c7-922b-7ba2f2f65ecf",
+      "name": "Token largo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id={{ $env.META_APP_ID }}&client_secret={{ $env.META_APP_SECRET }}&fb_exchange_token={{ $json.access_token }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "5207aaa5-389a-4234-aeff-3f93ec25263e",
+      "name": "Page Token",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v19.0/me/accounts?access_token={{ $json.access_token }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "ec09da93-5401-4b8a-a79f-7af10c9f777c",
+      "name": "Avisar usuario",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "chatId": "={{ $('Callback OAuth').item.json.query.state }}",
+        "text": "✅ ¡Vinculación exitosa! Tu cuenta de Meta quedó conectada a Postly.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      },
+      "webhookId": "68cf2645-26ff-48b2-950b-0b134edae19b"
+    },
+    {
+      "id": "c108884d-6a66-4de9-aea4-03c949358d38",
+      "name": "Responder navegador",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "<html><head><meta charset='utf-8'></head><body style='font-family:sans-serif;text-align:center;margin-top:60px'><h2>&#9989; Cuenta vinculada</h2><p>Tu cuenta de Meta qued&oacute; conectada a Postly.</p><p>Ya pod&eacute;s volver a Telegram.</p></body></html>",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Callback OAuth": {
+      "main": [
+        [
+          {
+            "node": "Intercambiar code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Intercambiar code": {
+      "main": [
+        [
+          {
+            "node": "Token largo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token largo": {
+      "main": [
+        [
+          {
+            "node": "Page Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Page Token": {
+      "main": [
+        [
+          {
+            "node": "Avisar usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Avisar usuario": {
+      "main": [
+        [
+          {
+            "node": "Responder navegador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
+}
