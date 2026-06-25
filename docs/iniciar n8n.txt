@@ -1,0 +1,10 @@
+cloudflared tunnel --url http://localhost:5678
+
+set WEBHOOK_URL=https://pie-designed-number-tough.trycloudflare.com/&& n8n start
+
+(cmd)
+
+
+$env:WEBHOOK_URL="https://mile-saying-wednesday-bedford.trycloudflare.com/"; n8n start
+
+(powershell)

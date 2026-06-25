@@ -1,0 +1,1989 @@
+{
+  "name": "Postly - Entrega Final Sprint 1 v2",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "61795154-e7d7-448e-bca6-b73a1fe541e2",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        -32
+      ],
+      "webhookId": "83282633-f22d-471e-afcd-d6de439b3a79",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"message\"][\"text\"]}}",
+              "value2": "/start"
+            }
+          ]
+        }
+      },
+      "name": "Es Start?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        -32
+      ],
+      "id": "4e3f9654-2ba5-428a-b31b-17348195450e"
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"message\"][\"chat\"][\"id\"]}}",
+        "text": "=¡Hola {{$json[\"message\"][\"from\"][\"first_name\"]}}! Bienvenido a Postly 🚀\n\n¿Qué vamos a crear hoy?",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "🚀 Nueva Publicación",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "📅 Mi Agenda",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "name": "Bienvenida",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        2576,
+        80
+      ],
+      "id": "184aaff1-6834-44d6-99fe-3acde356c077",
+      "webhookId": "ff7e5f9e-5c26-4265-b80f-762437e6b1ef",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"message\"][\"chat\"][\"id\"]}}",
+        "text": "¡Excelente elección! 📸\n\nMandame la foto del producto y yo me encargo del resto.",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "name": "Pedir Foto",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        2848,
+        240
+      ],
+      "id": "3666374c-219e-486c-b40e-eb884579f186",
+      "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.photo.reduce((prev, current) => (prev.file_size > current.file_size) ? prev : current).file_id }}",
+        "additionalFields": {}
+      },
+      "name": "Bajar Foto",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        2352,
+        656
+      ],
+      "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
+      "webhookId": "56b64642-17f1-4a1f-8a2f-b1bb09109b5a",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.message.photo.reverse()[0].file_id}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Es Imagen?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2096,
+        672
+      ],
+      "id": "e0c4ed0e-91c6-45d9-a528-74eed80f3c2e"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **FIRMA OBLIGATORIA:** Al final de *cada una* de las 3 opciones, debes incluir *exactamente* esta firma: \"-- Consultora de Belleza Independiente Mary Kay --\".\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags y la firma\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags y la firma\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags y la firma\"\n}",
+        "imageUrls": "={{ $json.secure_url }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        3056,
+        656
+      ],
+      "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
+      "name": "Analyze an image",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "KSLilanSYeOPXkGp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d9e474d1-e4cb-4fbe-b2d4-4052e6d5d64d",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "🏠 Volver al Inicio",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2160,
+        224
+      ],
+      "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
+      "name": "es volver al inicio?1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "ad7e5077-e329-4ca2-bd9d-cfe3c552cf9e"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ecbb649c-1120-476e-8711-e37bfa9c3509",
+                    "leftValue": "={{ $json.callback_query }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1904,
+        -32
+      ],
+      "id": "c74f4045-b799-42f0-ba61-a4edff1899ad",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "text": "=✏️ **¡Perfecto! Vamos a darle tu toque personal a la Opción que elegiste.**\n\n1️⃣ Copiá el texto de la Opción del mensaje que te mandé arriba.\n2️⃣ Pegalo acá en el chat.\n3️⃣ Hacele los cambios que quieras.\n4️⃣ ¡Enviámelo como un mensaje normal cuando esté listo! 🚀",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1648,
+        448
+      ],
+      "id": "806228f9-ee39-417a-9d60-f12be561e8c9",
+      "name": "Copiar Mensaje",
+      "webhookId": "210bc8ee-cbbe-49d8-8c6f-6a1dca1183ee",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1648,
+        240
+      ],
+      "id": "a07ae990-a109-4655-9290-ffd2acae603f",
+      "name": "Answer Query a callback",
+      "webhookId": "8a80905b-cf03-4d76-b23b-7b5ddbb14c65",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "text": "=📝 **¡Texto editado atrapado con éxito!**\n\nAquí tenés tu versión final lista para subir:\n\n----------------------- \n{{ $json.Copy_Final }}\n-----------------------  \n\n¿Lo enviamos a las redes de Mary Kay? 🚀",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar Ahora",
+                    "additionalFields": {
+                      "callback_data": "pub_final"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2608,
+        1152
+      ],
+      "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
+      "name": "Descripcion editada",
+      "webhookId": "8f0de786-4c9d-48a8-9e11-fa66e0a9bbc8",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "edit_1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "bf782a83-6380-4ce8-af98-062ff29f1801"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "05093dbc-3830-4a85-bc49-f523bd18a81b",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pub_1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0cda2d9e-2870-40a9-b258-62a9311aa5ec",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "edit_2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e9650f16-1a7f-4658-9503-b398dccb3c50",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pub_2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2fa9dbc1-9c11-48e7-8784-96fc845e3cd1",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "edit_3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c6b23d62-0d95-42b8-b462-687525a872c4",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pub_3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "be373a10-059e-4df3-8d29-78a936858e79",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pub_final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1296,
+        240
+      ],
+      "id": "ac8bbd7a-0eae-4e0b-86a5-ec1be34f4650",
+      "name": "Que boton toco?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{$node[\"Telegram Trigger\"].json[\"message\"][\"chat\"][\"id\"]}}",
+        "text": "=¡Análisis de Postly listo! 🪄 Aquí tienes las propuestas para tu post:\n\n🔵 **OPCIÓN 1 (Informativa):**\n{{ JSON.parse($node[\"Analyze an image\"].json.content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim()).opcion1 }}\n\n🟠 **OPCIÓN 2 (Vendedora):**\n{{ JSON.parse($node[\"Analyze an image\"].json.content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim()).opcion2 }}\n\n🟣 **OPCIÓN 3 (Divertida):**\n{{ JSON.parse($node[\"Analyze an image\"].json.content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim()).opcion3 }}\n\n¿Qué quieres hacer con estas opciones? 👇",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar Opción 1",
+                    "additionalFields": {
+                      "callback_data": "pub_1"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar Opción 1",
+                    "additionalFields": {
+                      "callback_data": "edit_1"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar Opción 2",
+                    "additionalFields": {
+                      "callback_data": "pub_2"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar Opción 2",
+                    "additionalFields": {
+                      "callback_data": "edit_2"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar Opción 3",
+                    "additionalFields": {
+                      "callback_data": "pub_3"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar Opción 3",
+                    "additionalFields": {
+                      "callback_data": "edit_3"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "name": "Descriciones",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        2960,
+        880
+      ],
+      "id": "314b9713-c8aa-43e8-be1d-c35462037c79",
+      "webhookId": "049fb0a0-29b0-4857-89ae-135678e67e11",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/dvqtepklc/image/upload",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "upload_preset",
+              "value": "postly_unsigned"
+            },
+            {
+              "name": "file",
+              "value": "=data:{{ $binary.data.mimeType }};base64,{{ $json.fotoBase64 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2816,
+        656
+      ],
+      "id": "fc5bb46b-364f-4ea9-ac54-16b8f885502e",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recorremos los datos\nconst items = $input.all();\n\nfor (let i = 0; i < items.length; i++) {\n  // Vamos a buscar el archivo binario al disco duro de n8n\n  const buffer = await this.helpers.getBinaryDataBuffer(i, 'data');\n  \n  // Lo transformamos a texto Base64\n  items[i].json.fotoBase64 = buffer.toString('base64');\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2592,
+        656
+      ],
+      "id": "8efae140-2d14-4fc8-8349-4841e875fb53",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "UserID": "={{ String($node[\"Telegram Trigger\"].json.message.chat.id) }}",
+            "Timestamp": "={{ $now.setZone('America/Argentina/Buenos_Aires').toISO() }}",
+            "ImageURL": "={{ $node[\"HTTP Request\"].json.secure_url }}",
+            "Copy_Op1": "={{ JSON.parse($node[\"Analyze an image\"].json.content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim()).opcion1 }}",
+            "Copy_Op2": "={{ JSON.parse($node[\"Analyze an image\"].json.content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim()).opcion2 }}",
+            "Copy_Op3": "={{ JSON.parse($node[\"Analyze an image\"].json.content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim()).opcion3 }}",
+            "Status": "Pendiente"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2672,
+        880
+      ],
+      "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
+      "name": "Consistencia",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "UserID",
+              "lookupValue": "={{ String($json.callback_query.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1648,
+        688
+      ],
+      "id": "9bea5be4-89d8-4845-aac0-849bd081206d",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Copy_Final": "={{ $node[\"Telegram Trigger\"].json.message.text }}",
+            "row_number": "={{ $json.row_number }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Final",
+              "displayName": "Copy_Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2320,
+        1152
+      ],
+      "id": "80947461-516d-4ec5-a2f7-945ededea964",
+      "name": "Descripcion en columna H",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "UserID",
+              "lookupValue": "={{ $json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2096,
+        912
+      ],
+      "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        912
+      ],
+      "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        912
+      ],
+      "id": "dcac6f49-c0b1-4a9c-92b9-3362d4fe9ce8",
+      "name": "Limit1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v19.0/17841435642266301/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.ImageURL_IG }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.Caption_IG }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $env.META_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1424,
+        1440
+      ],
+      "id": "0bc00573-b669-4591-ba8b-cf654348e7b4",
+      "name": "IG - Crear contenedor"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v19.0/17841435642266301/media_publish",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $env.META_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1936,
+        1440
+      ],
+      "id": "244d3a32-54a3-4afd-9b9a-d7d9184e0810",
+      "name": "IG - Publicar"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Publicado",
+            "row_number": "={{ $node[\"Limit1\"].json.row_number }}",
+            "PostID_IG": "={{ $node[\"IG - Publicar\"].json.id }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Copy_Final",
+              "displayName": "Copy_Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "PostID_IG",
+              "displayName": "PostID_IG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Reach",
+              "displayName": "Reach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Metricas_Enviadas",
+              "displayName": "Metricas_Enviadas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2720,
+        1440
+      ],
+      "id": "c5d60046-75ce-4dc9-b70e-1ff66bff3ca8",
+      "name": "Actualizar Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        1440
+      ],
+      "id": "d9fd9696-0be1-437f-9ccf-68b449a860a7",
+      "name": "Wait",
+      "webhookId": "9a0c3502-77cf-4da1-b6e4-906244332926"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst result = [];\n\n// Detecta qué botón tocó el usuario\nconst callbackData = $('Telegram Trigger').first().json.callback_query?.data || 'pub_1';\n\nfor (const item of items) {\n  const originalUrl = item.json.ImageURL;\n  const transformedUrl = originalUrl.replace('/upload/', '/upload/c_pad,ar_1:1,w_1080,b_white/');\n  \n  // Elige el caption correcto según el botón\n  let captionIG;\n  if (callbackData === 'pub_final' && item.json.Copy_Final) {\n    captionIG = item.json.Copy_Final;      // texto editado por el usuario\n  } else if (callbackData === 'pub_2') {\n    captionIG = item.json.Copy_Op2;        // opción 2\n  } else if (callbackData === 'pub_3') {\n    captionIG = item.json.Copy_Op3;        // opción 3\n  } else {\n    captionIG = item.json.Copy_Op1;        // opción 1 (default)\n  }\n  \n  result.push({\n    json: {\n      ...item.json,\n      ImageURL_IG: transformedUrl,\n      Caption_IG: captionIG\n    }\n  });\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        1440
+      ],
+      "id": "f3cb5c4c-e9f8-4c73-ae5e-c283e3b82fcc",
+      "name": "Resolucion - IG"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst result = [];\n\n// Patrones prohibidos por Mary Kay\nconst patronesPrecios = [\n  /\\$\\s?\\d+/g,                    // $1500, $ 1500\n  /\\d+[\\.,]\\d{3}/g,               // 1.500, 1,500\n  /\\d+%\\s?(off|desc)/gi,          // 50% off, 50% desc\n  /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi\n];\n\nconst FIRMA_OBLIGATORIA = \"-- Consultora de Belleza Independiente Mary Kay --\";\n\nfor (const item of items) {\n  let caption = item.json.Caption_IG || '';\n  let precioDetectado = false;\n  let patronEncontrado = '';\n\n  // 1. DETECCIÓN DE PRECIOS\n  for (const patron of patronesPrecios) {\n    const match = caption.match(patron);\n    if (match) {\n      precioDetectado = true;\n      patronEncontrado = match[0];\n      break;\n    }\n  }\n\n  // 2. Si hay precio, bloquea y avisa\n  if (precioDetectado) {\n    result.push({\n      json: {\n        ...item.json,\n        compliance_ok: false,\n        compliance_error: `⚠️ Postly detectó contenido prohibido: \"${patronEncontrado}\". Por las normas de Mary Kay no podés publicar precios ni promociones en el feed. Editá el texto e intentá de nuevo.`\n      }\n    });\n    continue;\n  }\n\n  // 3. VERIFICAR Y AGREGAR FIRMA\n  if (!caption.includes(FIRMA_OBLIGATORIA)) {\n    caption = caption + '\\n' + FIRMA_OBLIGATORIA;\n  }\n\n  result.push({\n    json: {\n      ...item.json,\n      Caption_IG: caption,\n      compliance_ok: true,\n      compliance_error: null\n    }\n  });\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        1440
+      ],
+      "id": "0fcd5086-dc0d-4074-b580-55dccadffdcb",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "131d5871-574e-43c7-9bc3-04aadf342826",
+              "leftValue": "={{ $json.compliance_ok }}",
+              "rightValue": "is true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1200,
+        1440
+      ],
+      "id": "7c7ddd1a-6f69-462d-82fa-1317760c63bf",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.callback_query.message.chat.id }}",
+        "text": "={{ $json.compliance_error }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2064,
+        1728
+      ],
+      "id": "cf3cd839-aef6-46dd-889c-5a2793b09c2f",
+      "name": "Telegram Error (Compliance)",
+      "webhookId": "9302d03a-8a08-4197-860d-97aba8b6d8a7",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.callback_query.message.chat.id }}",
+        "text": "=✅ *¡Publicación exitosa en Instagram!* 🎉  \n\nTu post de Mary Kay ya está en vivo 🚀 \n\n🔗 Ver publicación: \n{{ $json.permalink }}  \n\n_Publicado por Postly_ 🪄",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2464,
+        1440
+      ],
+      "id": "7aa72642-bb00-471b-b7a1-f2a29687259f",
+      "name": "Telegram Éxito",
+      "webhookId": "da570201-5356-4b6f-b1d1-ebe1ad47bd6b",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $env.META_ACCESS_TOKEN }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2192,
+        1440
+      ],
+      "id": "11a75188-b3f5-44b6-b775-bf6bfad378e3",
+      "name": "Permalink"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "🚀 Nueva Publicación",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "459904f6-8c90-4c85-96d5-c8260b77ca6c"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "648d5c97-c4c8-4e6f-812f-8aaffbe04ba3",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "📅 Mi Agenda",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        2320,
+        400
+      ],
+      "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
+      "name": "Es Nueva Pub?"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "UserID",
+              "lookupValue": "={{ $json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2848,
+        448
+      ],
+      "id": "1e3f1a4b-ff3f-4831-a142-bf80c797a73b",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $json.chatId }}",
+        "file": "={{ $json.imageURL }}",
+        "additionalFields": {
+          "caption": "={{ $json.texto }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3536,
+        448
+      ],
+      "id": "265d195f-02a7-4dca-9212-fe51220745ed",
+      "name": "Send a photo message",
+      "webhookId": "ef25fa65-02f5-45c8-bd80-c0c1c77b5c4c",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\n\nif (items.length === 0) {\n  return [{\n    json: {\n      chatId: chatId,\n      texto: '📭 Todavía no tenés publicaciones en tu agenda.\\n\\nTocá 🚀 Nueva Publicación para crear tu primer post.',\n      sinDatos: true\n    }\n  }];\n}\n\nconst result = [];\n\nfor (const item of items) {\n  const status = item.json.Status === 'Publicado' ? '🟢 Publicado' : '🔴 Pendiente';\n  const fecha = item.json.Timestamp \n    ? new Date(item.json.Timestamp).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })\n    : 'Sin fecha';\n  \n  const copyResumen = (item.json.Copy_Final || item.json.Copy_Op1 || '').substring(0, 100) + '...';\n  \n  const texto = `${status} — ${fecha}\\n\\n📝 ${copyResumen}`;\n  \n  result.push({\n    json: {\n      chatId: chatId,\n      texto: texto,\n      imageURL: item.json.ImageURL || null,\n      sinDatos: false\n    }\n  });\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3264,
+        448
+      ],
+      "id": "9f521499-9807-4033-b57a-db8c1ea1e3e1",
+      "name": "Armar tarjetas"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es Start?": {
+      "main": [
+        [
+          {
+            "node": "Bienvenida",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "es volver al inicio?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bajar Foto": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es Imagen?": {
+      "main": [
+        [
+          {
+            "node": "Bajar Foto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze an image": {
+      "main": [
+        [
+          {
+            "node": "Consistencia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es volver al inicio?1": {
+      "main": [
+        [
+          {
+            "node": "Bienvenida",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Es Nueva Pub?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Es Start?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Que boton toco?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Query a callback": {
+      "main": [
+        []
+      ]
+    },
+    "Que boton toco?": {
+      "main": [
+        [
+          {
+            "node": "Answer Query a callback",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Copiar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Copiar Mensaje",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Answer Query a callback",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Copiar Mensaje",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Answer Query a callback",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consistencia": {
+      "main": [
+        [
+          {
+            "node": "Descriciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descripcion en columna H": {
+      "main": [
+        [
+          {
+            "node": "Descripcion editada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Descripcion en columna H",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Resolucion - IG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG - Crear contenedor": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG - Publicar": {
+      "main": [
+        [
+          {
+            "node": "Permalink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "IG - Publicar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolucion - IG": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "IG - Crear contenedor",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram Error (Compliance)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "Telegram Éxito": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Permalink": {
+      "main": [
+        [
+          {
+            "node": "Telegram Éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es Nueva Pub?": {
+      "main": [
+        [
+          {
+            "node": "Pedir Foto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Es Imagen?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Armar tarjetas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar tarjetas": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "589da48d-9075-4cf5-85f2-7c276f98bc9e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6ab94f60245338f5fbac1de64504a3790401fd2574d862a73b858ab64fdce2f0"
+  },
+  "id": "VOgbHGLELJfRgVO5",
+  "tags": []
+}

@@ -1,0 +1,420 @@
+{
+  "name": "Postly - Feedback Loop",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -320,
+        -160
+      ],
+      "id": "1ed25b18-70e7-4f23-aded-49226d04c44d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Publicado"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -32,
+        -160
+      ],
+      "id": "54032118-c242-4a36-b1ea-c8160f626dc6",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.PostID_IG }}?fields=like_count,comments_count,timestamp&access_token={{ $env.META_ACCESS_TOKEN }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        496,
+        -160
+      ],
+      "id": "f851a5cc-122e-4d17-8f3d-39c1ebe2af55",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.UserID }}",
+        "text": "=📊 *Reporte de tu publicación*\n\n📅 Publicado el: {{ $json.fechaFormateada }}\n👁 Alcance: {{ $json.reach }}\n❤️ Likes: {{ $json.likes }}\n👀 Impresiones: {{ $json.impressions }}\n\n_Reporte generado por Postly_ 🪄",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1056,
+        -160
+      ],
+      "id": "444af563-e78c-4195-895c-681a06e8d9bd",
+      "name": "Send a text message",
+      "webhookId": "566f0550-9504-4144-8d05-fb81d6df0984",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Metricas_Enviadas": "Si",
+            "row_number": "={{ Number($('Get row(s) in sheet').first().json.row_number) }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Final",
+              "displayName": "Copy_Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "PostID_IG",
+              "displayName": "PostID_IG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Reach",
+              "displayName": "Reach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Metricas_Enviadas",
+              "displayName": "Metricas_Enviadas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1280,
+        -160
+      ],
+      "id": "99352da7-573e-4e42-a744-a917f7c12caf",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst sheetItems = $('Get row(s) in sheet').all();\nconst result = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const item = items[i];\n  const sheetData = sheetItems[i]?.json || {};\n\n  // Saltar filas ya procesadas o sin PostID\n  if (sheetData.Metricas_Enviadas === 'Si') continue;\n  if (!sheetData.PostID_IG) continue;\n\n  // Extraer métricas del response de Meta\n  const data = item.json.data || [];\n  const getMetric = (name) => {\n    const found = data.find(d => d.name === name);\n    return found?.values?.[0]?.value ?? 'N/D';\n  };\n\n  // Formatear fecha legible\n  const fechaRaw = sheetData.Timestamp || '';\n  let fechaFormateada = 'Sin fecha';\n  if (fechaRaw) {\n    fechaFormateada = new Date(fechaRaw).toLocaleDateString('es-AR', {\n      weekday: 'long',\n      day: '2-digit',\n      month: 'long',\n      year: 'numeric',\n      hour: '2-digit',\n      minute: '2-digit'\n    });\n  }\n\n  result.push({\n    json: {\n      ...sheetData,\n      impressions: getMetric('impressions'),\n      reach: getMetric('reach'),\n      likes: sheetData.Likes || 'N/D',\n      fechaFormateada,\n      row_number: Number(sheetData.row_number)  // forzar número explícitamente\n    }\n  });\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        -160
+      ],
+      "id": "d6f45477-4d25-4bcf-904b-30d255548910",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5d6c8709-beb0-4392-9cfc-5093c8921a2d",
+              "leftValue": "={{ $json.PostID_IG }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        256,
+        -160
+      ],
+      "id": "6f239faf-eb64-417a-a825-e31cc0fca918",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7676dbde-290c-44e5-bf63-242d7a481e92",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6ab94f60245338f5fbac1de64504a3790401fd2574d862a73b858ab64fdce2f0"
+  },
+  "id": "sDIBkXAXzhZo76Ez",
+  "tags": []
+}

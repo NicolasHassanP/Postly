@@ -1,0 +1,22 @@
+# === Secretos / credenciales — NUNCA subir ===
+.env
+.env.local
+*.key
+*.pem
+credentials.json
+**/credentials/
+
+# === n8n local ===
+.n8n/
+*.sqlite
+
+# === Sistema ===
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# === Temp / build ===
+node_modules/
+*.log
+*.tmp
+__pycache__/
