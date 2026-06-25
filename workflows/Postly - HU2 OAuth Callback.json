@@ -61,9 +61,10 @@
       ],
       "parameters": {
         "method": "GET",
-        "url": "=https://graph.facebook.com/v19.0/me/accounts?access_token={{ $json.access_token }}",
+        "url": "=https://graph.facebook.com/v19.0/{{ $env.META_PAGE_ID }}?fields=name,access_token,instagram_business_account&access_token={{ $json.access_token }}",
         "options": {}
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "id": "ec09da93-5401-4b8a-a79f-7af10c9f777c",
@@ -113,6 +114,130 @@
           }
         }
       }
+    },
+    {
+      "id": "b451f688-1582-444c-87b3-37d1ab04d561",
+      "name": "Preparar fila",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        200
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const state = $('Callback OAuth').first().json.query.state;\nconst tl = $('Token largo').first().json;\nconst longToken = tl.access_token;\nconst expiresIn = tl.expires_in || 5184000;\nconst page = $('Page Token').first().json || {};\nconst igAcc = page.instagram_business_account && page.instagram_business_account.id;\nconst expiresAt = new Date(Date.now() + expiresIn * 1000).toISOString();\nreturn [{ json: {\n  TelegramUserID: String(state || ''),\n  AccessToken: page.access_token || longToken,\n  ExpiresAt: expiresAt,\n  IGAccountID: igAcc || $env.IG_BUSINESS_ID || '',\n  PageID: page.id || $env.META_PAGE_ID || '',\n  PageName: page.name || ''\n} }];"
+      }
+    },
+    {
+      "id": "17085796-a52c-4701-ad3d-4da3522fa2a8",
+      "name": "Guardar token",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1300,
+        200
+      ],
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "TelegramUserID": "={{ $json.TelegramUserID }}",
+            "AccessToken": "={{ $json.AccessToken }}",
+            "ExpiresAt": "={{ $json.ExpiresAt }}",
+            "IGAccountID": "={{ $json.IGAccountID }}",
+            "PageID": "={{ $json.PageID }}",
+            "PageName": "={{ $json.PageName }}"
+          },
+          "matchingColumns": [
+            "TelegramUserID"
+          ],
+          "schema": [
+            {
+              "id": "TelegramUserID",
+              "displayName": "TelegramUserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AccessToken",
+              "displayName": "AccessToken",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ExpiresAt",
+              "displayName": "ExpiresAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "IGAccountID",
+              "displayName": "IGAccountID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PageID",
+              "displayName": "PageID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PageName",
+              "displayName": "PageName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "connections": {
@@ -153,7 +278,7 @@
       "main": [
         [
           {
-            "node": "Avisar usuario",
+            "node": "Preparar fila",
             "type": "main",
             "index": 0
           }
@@ -165,6 +290,28 @@
         [
           {
             "node": "Responder navegador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar fila": {
+      "main": [
+        [
+          {
+            "node": "Guardar token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar token": {
+      "main": [
+        [
+          {
+            "node": "Avisar usuario",
             "type": "main",
             "index": 0
           }
