@@ -1,5 +1,7 @@
 {
+  "id": "VOgbHGLELJfRgVO5",
   "name": "Postly - Entrega Final Sprint 1 v2",
+  "active": true,
   "nodes": [
     {
       "parameters": {
@@ -1558,7 +1560,6 @@
       "name": "Armar tarjetas"
     }
   ],
-  "pinData": {},
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -1974,16 +1975,10 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
-  },
-  "versionId": "589da48d-9075-4cf5-85f2-7c276f98bc9e",
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "6ab94f60245338f5fbac1de64504a3790401fd2574d862a73b858ab64fdce2f0"
-  },
-  "id": "VOgbHGLELJfRgVO5",
-  "tags": []
+    "binaryMode": "separate",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
 }

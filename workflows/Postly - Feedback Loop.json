@@ -1,5 +1,7 @@
 {
+  "id": "sDIBkXAXzhZo76Ez",
   "name": "Postly - Feedback Loop",
+  "active": false,
   "nodes": [
     {
       "parameters": {
@@ -336,7 +338,6 @@
       "name": "If"
     }
   ],
-  "pinData": {},
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -405,16 +406,10 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
-  },
-  "versionId": "7676dbde-290c-44e5-bf63-242d7a481e92",
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "6ab94f60245338f5fbac1de64504a3790401fd2574d862a73b858ab64fdce2f0"
-  },
-  "id": "sDIBkXAXzhZo76Ez",
-  "tags": []
+    "binaryMode": "separate",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
 }
