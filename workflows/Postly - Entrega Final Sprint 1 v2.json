@@ -49,8 +49,8 @@
     },
     {
       "parameters": {
-        "chatId": "={{$json[\"message\"][\"chat\"][\"id\"]}}",
-        "text": "=¡Hola {{$json[\"message\"][\"from\"][\"first_name\"]}}! Bienvenido a Postly 🚀\n\n¿Qué vamos a crear hoy?",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=¡Hola {{ $('Telegram Trigger').first().json.message.from.first_name }}! Bienvenido a Postly 🚀\n\n¿Qué vamos a crear hoy?",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
           "rows": [
@@ -93,7 +93,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{$json[\"message\"][\"chat\"][\"id\"]}}",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
         "text": "¡Excelente elección! 📸\n\nMandame la foto del producto y yo me encargo del resto.",
         "replyMarkup": "replyKeyboard",
         "replyKeyboardOptions": {},
@@ -105,8 +105,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2848,
-        240
+        3280,
+        16
       ],
       "id": "3666374c-219e-486c-b40e-eb884579f186",
       "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -121,16 +121,14 @@
       "parameters": {
         "resource": "file",
         "fileId": "={{ $json.message.photo.reduce((prev, current) => (prev.file_size > current.file_size) ? prev : current).file_id }}",
-        "additionalFields": {
-          "appendAttribution": false
-        }
+        "additionalFields": {}
       },
       "name": "Bajar Foto",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2352,
-        656
+        3008,
+        640
       ],
       "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
       "webhookId": "56b64642-17f1-4a1f-8a2f-b1bb09109b5a",
@@ -156,8 +154,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2096,
-        672
+        2688,
+        592
       ],
       "id": "e0c4ed0e-91c6-45d9-a528-74eed80f3c2e"
     },
@@ -178,8 +176,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        3056,
-        656
+        3120,
+        1024
       ],
       "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
       "name": "Analyze an image",
@@ -299,8 +297,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1648,
-        448
+        704,
+        288
       ],
       "id": "806228f9-ee39-417a-9d60-f12be561e8c9",
       "name": "Copiar Mensaje",
@@ -316,15 +314,13 @@
       "parameters": {
         "resource": "callback",
         "queryId": "={{ $json.callback_query.id }}",
-        "additionalFields": {
-          "appendAttribution": false
-        }
+        "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
         1648,
-        240
+        336
       ],
       "id": "a07ae990-a109-4655-9290-ffd2acae603f",
       "name": "Answer Query a callback",
@@ -625,8 +621,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2960,
-        880
+        3536,
+        1024
       ],
       "id": "314b9713-c8aa-43e8-be1d-c35462037c79",
       "webhookId": "049fb0a0-29b0-4857-89ae-135678e67e11",
@@ -659,8 +655,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2816,
-        656
+        2928,
+        1024
       ],
       "id": "fc5bb46b-364f-4ea9-ac54-16b8f885502e",
       "name": "HTTP Request"
@@ -672,8 +668,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2592,
-        656
+        2656,
+        960
       ],
       "id": "8efae140-2d14-4fc8-8349-4841e875fb53",
       "name": "Code in JavaScript"
@@ -780,8 +776,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2672,
-        880
+        3328,
+        1024
       ],
       "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
       "name": "Consistencia",
@@ -822,7 +818,7 @@
       "typeVersion": 4.7,
       "position": [
         1648,
-        688
+        848
       ],
       "id": "9bea5be4-89d8-4845-aac0-849bd081206d",
       "name": "Get row(s) in sheet",
@@ -960,7 +956,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2320,
+        2304,
         1152
       ],
       "id": "80947461-516d-4ec5-a2f7-945ededea964",
@@ -1036,7 +1032,7 @@
       "typeVersion": 1,
       "position": [
         1648,
-        912
+        1056
       ],
       "id": "dcac6f49-c0b1-4a9c-92b9-3362d4fe9ce8",
       "name": "Limit1"
@@ -1044,21 +1040,21 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://graph.facebook.com/v19.0/17841435642266301/media",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('HU3: Leer credenciales').first().json.IGAccountID }}/media",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
             {
               "name": "image_url",
-              "value": "={{ $json.ImageURL_IG }}"
+              "value": "={{ $('Code in JavaScript1').first().json.ImageURL_IG }}"
             },
             {
               "name": "caption",
-              "value": "={{ $json.Caption_IG }}"
+              "value": "={{ $('Code in JavaScript1').first().json.Caption_IG }}"
             },
             {
               "name": "access_token",
-              "value": "={{ $env.META_ACCESS_TOKEN }}"
+              "value": "={{ $json.AccessToken }}"
             }
           ]
         },
@@ -1076,7 +1072,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://graph.facebook.com/v19.0/17841435642266301/media_publish",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('HU3: Leer credenciales').first().json.IGAccountID }}/media_publish",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -1086,7 +1082,7 @@
             },
             {
               "name": "access_token",
-              "value": "={{ $env.META_ACCESS_TOKEN }}"
+              "value": "={{ $('HU3: Leer credenciales').first().json.AccessToken }}"
             }
           ]
         },
@@ -1414,7 +1410,7 @@
     },
     {
       "parameters": {
-        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $env.META_ACCESS_TOKEN }}",
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('HU3: Leer credenciales').first().json.AccessToken }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -1519,7 +1515,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2848,
+        3472,
         448
       ],
       "id": "1e3f1a4b-ff3f-4831-a142-bf80c797a73b",
@@ -1537,14 +1533,13 @@
         "chatId": "={{ $json.chatId }}",
         "file": "={{ $json.imageURL }}",
         "additionalFields": {
-          "caption": "={{ $json.texto }}",
-          "appendAttribution": false
+          "caption": "={{ $json.texto }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3536,
+        3936,
         448
       ],
       "id": "265d195f-02a7-4dca-9212-fe51220745ed",
@@ -1564,11 +1559,599 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3264,
+        3744,
         448
       ],
       "id": "9f521499-9807-4033-b57a-db8c1ea1e3e1",
       "name": "Armar tarjetas"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"message\"][\"text\"]}}",
+              "value2": "/vincular"
+            }
+          ]
+        }
+      },
+      "name": "Es Vincular?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        -256
+      ],
+      "id": "a1b2c3d4-0001-4001-8001-000000000001"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2448,
+        -128
+      ],
+      "id": "a1b2c3d4-0002-4002-8002-000000000002",
+      "name": "Buscar usuario",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a1b2c3d4-0006-4006-8006-000000000006",
+              "leftValue": "={{ Boolean($json.AccessToken) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2688,
+        -128
+      ],
+      "id": "a1b2c3d4-0003-4003-8003-000000000003",
+      "name": "¿Ya vinculado?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Para empezar a publicar necesito conectar tu cuenta de Instagram 📸\n\nTocá el botón de abajo, autorizá a Postly en Meta y volvé al chat. ¡Es un solo paso! 🔒",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "🔗 Conectar mi cuenta",
+                    "additionalFields": {
+                      "url": "=https://www.facebook.com/v19.0/dialog/oauth?client_id={{ $env.META_APP_ID }}&config_id={{ $env.META_CONFIG_ID }}&redirect_uri=https://viewable-zombie-linked.ngrok-free.dev/webhook/oauth-callback&response_type=code&state={{ $('Telegram Trigger').first().json.message.chat.id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2944,
+        -272
+      ],
+      "id": "a1b2c3d4-0004-4004-8004-000000000004",
+      "name": "Pedir vinculación",
+      "webhookId": "a1b2c3d4-0005-4005-8005-000000000005",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2560,
+        320
+      ],
+      "id": "b2c3d4e5-0001-4001-8001-000000000001",
+      "name": "HU3: Leer token",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/me?fields=id&access_token={{ $json.AccessToken }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2784,
+        320
+      ],
+      "id": "b2c3d4e5-0002-4002-8002-000000000002",
+      "name": "HU3: Validar token",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b2c3d4e5-0013-4013-8013-000000000013",
+              "leftValue": "={{ Boolean($json.id) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3008,
+        320
+      ],
+      "id": "b2c3d4e5-0003-4003-8003-000000000003",
+      "name": "HU3: ¿Token vigente?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🔒 Tu conexión con Instagram expiró o fue revocada desde Meta.\n\nReconectá tu cuenta para poder seguir publicando — es un solo toque.",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "🔗 Reconectar mi cuenta",
+                    "additionalFields": {
+                      "url": "=https://www.facebook.com/v19.0/dialog/oauth?client_id={{ $env.META_APP_ID }}&config_id={{ $env.META_CONFIG_ID }}&redirect_uri=https://viewable-zombie-linked.ngrok-free.dev/webhook/oauth-callback&response_type=code&state={{ $('Telegram Trigger').first().json.message.chat.id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3280,
+        240
+      ],
+      "id": "b2c3d4e5-0004-4004-8004-000000000004",
+      "name": "HU3: Re-vincular",
+      "webhookId": "b2c3d4e5-0005-4005-8005-000000000005",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.callback_query.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1312,
+        1696
+      ],
+      "id": "b2c3d4e5-0006-4006-8006-000000000006",
+      "name": "HU3: Leer credenciales",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "UserID",
+              "lookupValue": "={{ String($json.callback_query.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1648,
+        608
+      ],
+      "id": "c3d4e5f6-0001-4001-8001-000000000001",
+      "name": "A: Leer opción",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\nconst data = $('Telegram Trigger').first().json.callback_query.data;\nconst chatId = $('Telegram Trigger').first().json.callback_query.message.chat.id;\nlet texto;\nif (data === 'edit_2') texto = last.Copy_Op2;\nelse if (data === 'edit_3') texto = last.Copy_Op3;\nelse texto = last.Copy_Op1;\nreturn [{ json: { chatId, texto } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1872,
+        608
+      ],
+      "id": "c3d4e5f6-0002-4002-8002-000000000002",
+      "name": "A: Elegir opción"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "✏️ Copiá el texto de abajo, editalo a gusto y reenviámelo como un mensaje normal. 👇",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2096,
+        608
+      ],
+      "id": "c3d4e5f6-0003-4003-8003-000000000003",
+      "name": "A: Instrucción editar",
+      "webhookId": "c3d4e5f6-0007-4007-8007-000000000007",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "={{ $('A: Elegir opción').first().json.texto }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2320,
+        608
+      ],
+      "id": "c3d4e5f6-0004-4004-8004-000000000004",
+      "name": "A: Texto a editar",
+      "webhookId": "c3d4e5f6-0008-4008-8008-000000000008",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const fence3 = String.fromCharCode(96,96,96);\nconst raw = $('Analyze an image').first().json.content.parts[0].text;\nconst clean = raw.replace(new RegExp(fence3 + 'json','gi'), '').replace(new RegExp(fence3,'g'), '').trim();\nconst o = JSON.parse(clean);\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\nreturn [{ json: { op1: o.opcion1, op2: o.opcion2, op3: o.opcion3, chatId } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        880
+      ],
+      "id": "d4e5f6a7-0001-4001-8001-000000000001",
+      "name": "B: Parsear opciones"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "✨ ¡Listo! Te dejé 3 versiones para tu post. Copiá la que más te guste, o tocá Publicar / Editar abajo de cada una 👇",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3100,
+        760
+      ],
+      "id": "d4e5f6a7-0002-4002-8002-000000000002",
+      "name": "B: Intro opciones",
+      "webhookId": "d4e5f6a7-9002-4002-8002-000000000002",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $('B: Parsear opciones').first().json.op1 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar · Informativa",
+                    "additionalFields": {
+                      "callback_data": "pub_1"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar",
+                    "additionalFields": {
+                      "callback_data": "edit_1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3320,
+        760
+      ],
+      "id": "d4e5f6a7-0003-4003-8003-000000000003",
+      "name": "B: Opción 1",
+      "webhookId": "d4e5f6a7-9003-4003-8003-000000000003",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $('B: Parsear opciones').first().json.op2 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar · Vendedora",
+                    "additionalFields": {
+                      "callback_data": "pub_2"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar",
+                    "additionalFields": {
+                      "callback_data": "edit_2"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3320,
+        940
+      ],
+      "id": "d4e5f6a7-0004-4004-8004-000000000004",
+      "name": "B: Opción 2",
+      "webhookId": "d4e5f6a7-9004-4004-8004-000000000004",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $('B: Parsear opciones').first().json.op3 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar · Divertida",
+                    "additionalFields": {
+                      "callback_data": "pub_3"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar",
+                    "additionalFields": {
+                      "callback_data": "edit_3"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3320,
+        1120
+      ],
+      "id": "d4e5f6a7-0005-4005-8005-000000000005",
+      "name": "B: Opción 3",
+      "webhookId": "d4e5f6a7-9005-4005-8005-000000000005",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "connections": {
@@ -1587,14 +2170,14 @@
       "main": [
         [
           {
-            "node": "Bienvenida",
+            "node": "Buscar usuario",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "es volver al inicio?1",
+            "node": "Es Vincular?",
             "type": "main",
             "index": 0
           }
@@ -1691,7 +2274,7 @@
             "index": 0
           },
           {
-            "node": "Copiar Mensaje",
+            "node": "A: Leer opción",
             "type": "main",
             "index": 0
           }
@@ -1705,12 +2288,12 @@
         ],
         [
           {
-            "node": "Copiar Mensaje",
+            "node": "Answer Query a callback",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Answer Query a callback",
+            "node": "A: Leer opción",
             "type": "main",
             "index": 0
           }
@@ -1724,12 +2307,12 @@
         ],
         [
           {
-            "node": "Copiar Mensaje",
+            "node": "Answer Query a callback",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Answer Query a callback",
+            "node": "A: Leer opción",
             "type": "main",
             "index": 0
           }
@@ -1776,7 +2359,7 @@
       "main": [
         [
           {
-            "node": "Descriciones",
+            "node": "B: Parsear opciones",
             "type": "main",
             "index": 0
           }
@@ -1897,7 +2480,7 @@
       "main": [
         [
           {
-            "node": "IG - Crear contenedor",
+            "node": "HU3: Leer credenciales",
             "type": "main",
             "index": 0
           }
@@ -1942,7 +2525,7 @@
       "main": [
         [
           {
-            "node": "Pedir Foto",
+            "node": "HU3: Leer token",
             "type": "main",
             "index": 0
           }
@@ -1979,6 +2562,181 @@
         [
           {
             "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es Vincular?": {
+      "main": [
+        [
+          {
+            "node": "Pedir vinculación",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "es volver al inicio?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar usuario": {
+      "main": [
+        [
+          {
+            "node": "¿Ya vinculado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Ya vinculado?": {
+      "main": [
+        [
+          {
+            "node": "Bienvenida",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pedir vinculación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU3: Leer token": {
+      "main": [
+        [
+          {
+            "node": "HU3: Validar token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU3: Validar token": {
+      "main": [
+        [
+          {
+            "node": "HU3: ¿Token vigente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU3: ¿Token vigente?": {
+      "main": [
+        [
+          {
+            "node": "Pedir Foto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU3: Re-vincular",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU3: Leer credenciales": {
+      "main": [
+        [
+          {
+            "node": "IG - Crear contenedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "A: Leer opción": {
+      "main": [
+        [
+          {
+            "node": "A: Elegir opción",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "A: Elegir opción": {
+      "main": [
+        [
+          {
+            "node": "A: Instrucción editar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "A: Instrucción editar": {
+      "main": [
+        [
+          {
+            "node": "A: Texto a editar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B: Parsear opciones": {
+      "main": [
+        [
+          {
+            "node": "B: Intro opciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B: Intro opciones": {
+      "main": [
+        [
+          {
+            "node": "B: Opción 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B: Opción 1": {
+      "main": [
+        [
+          {
+            "node": "B: Opción 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B: Opción 2": {
+      "main": [
+        [
+          {
+            "node": "B: Opción 3",
             "type": "main",
             "index": 0
           }

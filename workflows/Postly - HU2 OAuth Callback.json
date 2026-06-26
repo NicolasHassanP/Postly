@@ -77,10 +77,30 @@
       ],
       "parameters": {
         "chatId": "={{ $('Callback OAuth').item.json.query.state }}",
-        "text": "✅ ¡Vinculación exitosa! Tu cuenta de Meta quedó conectada a Postly.",
+        "text": "✅ ¡Listo! Tu cuenta quedó conectada a Postly 🎉\n\n¿Arrancamos? Tocá 🚀 Nueva Publicación y mandame la primera foto.",
         "additionalFields": {
           "appendAttribution": false
-        }
+        },
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "🚀 Nueva Publicación",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "📅 Mi Agenda",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {}
       },
       "credentials": {
         "telegramApi": {
@@ -101,7 +121,7 @@
       ],
       "parameters": {
         "respondWith": "text",
-        "responseBody": "<html><head><meta charset='utf-8'></head><body style='font-family:sans-serif;text-align:center;margin-top:60px'><h2>&#9989; Cuenta vinculada</h2><p>Tu cuenta de Meta qued&oacute; conectada a Postly.</p><p>Ya pod&eacute;s volver a Telegram.</p></body></html>",
+        "responseBody": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Postly · Cuenta vinculada</title>\n<style>\n  :root { --rose:#e6326e; --ink:#1b1b1f; --muted:#6b7280; }\n  * { box-sizing:border-box; }\n  body {\n    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;\n    background:linear-gradient(160deg,#fff5f8 0%,#f5f3ff 100%); color:var(--ink); padding:24px;\n  }\n  .card {\n    background:#fff; border-radius:20px; padding:40px 32px; max-width:380px; width:100%;\n    text-align:center; box-shadow:0 12px 40px rgba(230,50,110,.12); animation:pop .4s ease;\n  }\n  @keyframes pop { from{opacity:0; transform:translateY(12px) scale(.98)} to{opacity:1; transform:none} }\n  .check {\n    width:72px; height:72px; margin:0 auto 20px; border-radius:50%;\n    background:#e9f9ef; display:flex; align-items:center; justify-content:center; font-size:38px;\n  }\n  h1 { font-size:22px; margin:0 0 10px; }\n  p { color:var(--muted); font-size:15px; line-height:1.5; margin:0 0 8px; }\n  .btn {\n    display:inline-block; margin-top:24px; background:var(--rose); color:#fff; text-decoration:none;\n    font-weight:600; font-size:15px; padding:13px 26px; border-radius:12px;\n    box-shadow:0 6px 18px rgba(230,50,110,.3);\n  }\n  .btn:active { transform:scale(.97); }\n  .brand { margin-top:28px; font-size:13px; color:#9ca3af; letter-spacing:.3px; }\n  .brand b { color:var(--rose); }\n</style>\n</head>\n<body>\n  <div class=\"card\">\n    <div class=\"check\">✅</div>\n    <h1>¡Cuenta vinculada!</h1>\n    <p>Tu cuenta de Meta quedó conectada a Postly.</p>\n    <p>Ya podés volver a Telegram y empezar a crear tus publicaciones.</p>\n    <a class=\"btn\" href=\"https://t.me/PostlyNicoTest_bot\">Volver a Telegram</a>\n    <div class=\"brand\">Hecho con <b>Postly</b> 🪄</div>\n  </div>\n</body>\n</html>",
         "options": {
           "responseCode": 200,
           "responseHeaders": {
