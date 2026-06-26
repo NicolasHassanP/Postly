@@ -50,9 +50,9 @@ Postly/
 └── .gitignore
 ```
 
-Workflows actuales: **`Postly - Entrega Final Sprint 1 v2`** (principal, ~36 nodos) y
-**`Postly - Feedback Loop`** (~7 nodos): Telegram, Google Sheets, HTTP Request (Meta), Code,
-Switch/IF, Gemini.
+Workflows actuales: **`Postly - Entrega Final Sprint 1 v2`** (principal, ~74 nodos),
+**`Postly - HU2 OAuth Callback`** (callback de vinculación) y **`Postly - Feedback Loop`** (~7 nodos):
+Telegram, Google Sheets, HTTP Request (Meta), Code, Switch/IF, Gemini.
 
 ---
 
@@ -120,7 +120,8 @@ Para obtener un token de larga duración (60 días) o un **Page Token (no expira
 # 4. Reiniciá:  .\start-n8n.ps1
 ```
 
-> 🔄 **Roadmap:** automatizar esto vía OAuth 2.0 (HU2) para que el token se obtenga y renueve solo.
+> ✅ **HU2 ya implementado:** el token se obtiene vía **OAuth 2.0 desde el bot** y se guarda **por-usuaria**
+> en la hoja *Usuarios*; la publicación usa ese token, no el de `.env`. Este script queda como utilidad/fallback.
 
 ---
 
@@ -135,16 +136,45 @@ this workflow". Coordinar quién edita (API vs UI) para no pisarse.
 
 ## Estado actual / Roadmap
 
-Según las Historias de Usuario de la tesis (Módulo A: Seguridad, Onboarding, Autenticación):
+Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo implementado:
 
-- ✅ **Infra estable** — URL pública fija (ngrok), n8n + Telegram + Gemini + Sheets funcionando.
-- ✅ **Token de Meta deshardcodeado** — leído de `.env` (interino; token largo de 60 días).
-- ✅ **Publicación a IG** funcionando end-to-end.
-- 🔜 **HU2 — Vinculación OAuth 2.0** — botón en el bot → autorización en Meta → callback en n8n →
-  token largo guardado en Sheets. *(En curso: falta "Facebook Login" + redirect URI en la App.)*
-- ⏳ **HU1 — Onboarding** de usuaria nueva (registro vía `/start` + Chat ID en Sheets).
-- ⏳ **HU3 — Validación** del ciclo de vida del token (re-autorización al expirar).
-- ⏳ **Migración a VPS** (objetivo documentado: Docker + proxy inverso + SSL).
+**Módulo A — Seguridad, Onboarding y Autenticación**
+- ✅ **HU1 — Registro e identificación** (`/start` → busca Chat ID en Sheets → onboarding vs sesión activa).
+- ✅ **HU2 — Vinculación OAuth 2.0** (botón Inline → autorización en Meta → callback en n8n → Page Token guardado en la hoja *Usuarios*).
+- ✅ **HU3 — Validación preventiva del token** (ping a la Graph API antes de crear; bloquea y ofrece reconectar).
+
+**Módulo B — Creación de Contenido con IA**
+- ✅ **HU4 — Análisis de imagen única** (foto → Gemini → 3 copys, parseo JSON).
+- ❌ **HU5 — Carruseles (hasta 10 imágenes)** — *pendiente (no requiere VPS)*.
+- ✅ **HU6 — Tres tonos** (Informativa / Vendedora / Divertida, botones, Humano-en-el-bucle).
+
+**Módulo C — Compliance (Centinela)**
+- ✅ **HU7 — Detección de precios en TEXTO** (RegEx, bloquea y avisa).
+- ❌ **HU8 — Detección de precios en IMÁGENES (OCR / visión)** — *pendiente (no requiere VPS)*.
+- ✅ **HU9 — Inyección de firma legal** (concatena la firma obligatoria de Mary Kay).
+
+**Módulo D — Publicación y Agenda**
+- ❌ **HU10 — Programación a futuro (Cron Scheduling)** — *requiere VPS (cron 24/7)*.
+- ✅ **HU11 — Visualización de agenda** (tarjetas con estado 🟢/🔴/🟡, últimas 5, casos borde).
+- ✅ **HU12 — Smart Re-post** + extensión "Retomar borrador" (cierra Pendientes, publish row-aware).
+
+**Módulo E — Multimedia y Analítica**
+- ❌ **HU13 — Normalización de video (FFmpeg, 9:16, H.264)** — *requiere VPS*.
+- ❌ **HU14 — Métricas de engagement (Cron 24h, likes/comments en la agenda)** — *requiere VPS (cron 24/7)*.
+
+> **Resumen: 9/14 implementadas.** Faltan **HU5** y **HU8** (ambas se pueden encarar ya, no dependen de infra) y **HU10 / HU13 / HU14** (dependen de la migración a VPS por necesitar Cron o FFmpeg corriendo 24/7).
+
+### Próximos pasos
+
+1. **HU5 (carruseles)** y **HU8 (OCR de precios en imagen)** — no dependen de infraestructura, se pueden hacer sobre el setup actual.
+2. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba HU10, HU13 y HU14. Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales).
+
+### Deudas técnicas conocidas
+
+- **Cifrado de credenciales:** la tesis pide guardar el token "cifrado" en Sheets; hoy se guarda en texto plano.
+- **HU3 en agenda:** la validación de token corre al crear contenido, no al abrir la agenda (decisión de alcance).
+- **HU9 desde BD:** la firma está hardcodeada en el nodo Code; la tesis sugiere leerla de la base y sumar hipervínculos de contacto.
+- **Publish "última fila":** en el flujo fresco, publicar apunta al último post (el `append` de n8n no devuelve el `row`). El "Retomar" sí es de fila exacta.
 
 ---
 
