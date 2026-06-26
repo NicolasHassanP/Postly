@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T23:24:12.264Z",
+  "updatedAt": "2026-06-26T23:28:29.469Z",
   "createdAt": "2026-04-12T06:37:37.618Z",
   "id": "VOgbHGLELJfRgVO5",
   "name": "Postly - Entrega Final Sprint 1 v2",
@@ -924,7 +924,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://graph.facebook.com/v19.0/{{ $('HU3: Leer credenciales').first().json.IGAccountID }}/media",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -956,7 +956,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://graph.facebook.com/v19.0/{{ $('HU3: Leer credenciales').first().json.IGAccountID }}/media_publish",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media_publish",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -966,7 +966,7 @@
             },
             {
               "name": "access_token",
-              "value": "={{ $('HU3: Leer credenciales').first().json.AccessToken }}"
+              "value": "={{ $('Descifrar credenciales').first().json.AccessToken }}"
             }
           ]
         },
@@ -1295,7 +1295,7 @@
     },
     {
       "parameters": {
-        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('HU3: Leer credenciales').first().json.AccessToken }}",
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('Descifrar credenciales').first().json.AccessToken }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -3030,6 +3030,42 @@
       ],
       "name": "HU3 Agenda: ¿Token vigente?",
       "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val; // texto plano (compat)\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4326,
+        -884
+      ],
+      "name": "Descifrar token"
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val; // texto plano (compat)\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3366,
+        -788
+      ],
+      "name": "Descifrar token (Agenda)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val; // texto plano (compat)\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2662,
+        508
+      ],
+      "name": "Descifrar credenciales"
     }
   ],
   "connections": {
@@ -3486,7 +3522,7 @@
       "main": [
         [
           {
-            "node": "HU3: Validar token",
+            "node": "Descifrar token",
             "type": "main",
             "index": 0
           }
@@ -3526,7 +3562,7 @@
       "main": [
         [
           {
-            "node": "IG - Crear contenedor",
+            "node": "Descifrar credenciales",
             "type": "main",
             "index": 0
           }
@@ -3857,7 +3893,7 @@
       "main": [
         [
           {
-            "node": "HU3 Agenda: Validar token",
+            "node": "Descifrar token (Agenda)",
             "type": "main",
             "index": 0
           }
@@ -3892,6 +3928,39 @@
           }
         ]
       ]
+    },
+    "Descifrar token": {
+      "main": [
+        [
+          {
+            "node": "HU3: Validar token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descifrar token (Agenda)": {
+      "main": [
+        [
+          {
+            "node": "HU3 Agenda: Validar token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descifrar credenciales": {
+      "main": [
+        [
+          {
+            "node": "IG - Crear contenedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -3905,9 +3974,9 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e20378f4-01f1-4688-a078-2e5e67c93601",
-  "activeVersionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
-  "versionCounter": 1093,
+  "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
+  "activeVersionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
+  "versionCounter": 1097,
   "triggerCount": 1,
   "shared": [
     {
@@ -3930,9 +3999,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-06-26T23:01:00.371Z",
-    "createdAt": "2026-06-26T23:01:00.371Z",
-    "versionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
+    "updatedAt": "2026-06-26T23:28:29.470Z",
+    "createdAt": "2026-06-26T23:28:29.470Z",
+    "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
     "workflowId": "VOgbHGLELJfRgVO5",
     "nodes": [
       {
@@ -4037,8 +4106,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1,
         "position": [
-          4256,
-          -768
+          5056,
+          -1072
         ],
         "id": "3666374c-219e-486c-b40e-eb884579f186",
         "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -4149,8 +4218,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          2752,
-          -352
+          2560,
+          -640
         ],
         "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
         "name": "es volver al inicio?1"
@@ -5293,8 +5362,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          3120,
-          -352
+          2928,
+          -368
         ],
         "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
         "name": "Es Nueva Pub?"
@@ -5319,7 +5388,7 @@
             "values": [
               {
                 "lookupColumn": "UserID",
-                "lookupValue": "={{ $json.message.chat.id }}"
+                "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
               }
             ]
           },
@@ -5411,8 +5480,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 1,
         "position": [
-          2320,
-          -672
+          2112,
+          -656
         ],
         "id": "a1b2c3d4-0001-4001-8001-000000000001"
       },
@@ -5520,8 +5589,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          2880,
-          -848
+          2560,
+          -880
         ],
         "id": "a1b2c3d4-0004-4004-8004-000000000004",
         "name": "Pedir vinculación",
@@ -5562,8 +5631,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          3616,
-          -656
+          4176,
+          -944
         ],
         "id": "b2c3d4e5-0001-4001-8001-000000000001",
         "name": "HU3: Leer token",
@@ -5583,8 +5652,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          3824,
-          -656
+          4480,
+          -944
         ],
         "id": "b2c3d4e5-0002-4002-8002-000000000002",
         "name": "HU3: Validar token",
@@ -5618,8 +5687,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          4032,
-          -656
+          4688,
+          -944
         ],
         "id": "b2c3d4e5-0003-4003-8003-000000000003",
         "name": "HU3: ¿Token vigente?"
@@ -5652,8 +5721,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4256,
-          -560
+          4896,
+          -672
         ],
         "id": "b2c3d4e5-0004-4004-8004-000000000004",
         "name": "HU3: Re-vincular",
@@ -6897,18 +6966,18 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          2880,
-          -336
+          3216,
+          -848
         ],
         "name": "HU3 Agenda: Leer token",
         "alwaysOutputData": true,
+        "id": "b45322b9-1d97-4813-a428-105a77e6402e",
         "credentials": {
           "googleSheetsOAuth2Api": {
             "id": "Ip1hgjqpbV1WTJpG",
             "name": "Google Sheets account"
           }
-        },
-        "id": "b45322b9-1d97-4813-a428-105a77e6402e"
+        }
       },
       {
         "parameters": {
@@ -6918,12 +6987,12 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          3088,
-          -336
+          3568,
+          -848
         ],
         "name": "HU3 Agenda: Validar token",
-        "onError": "continueRegularOutput",
-        "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131"
+        "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131",
+        "onError": "continueRegularOutput"
       },
       {
         "parameters": {
@@ -6953,8 +7022,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          3296,
-          -336
+          3824,
+          -672
         ],
         "name": "HU3 Agenda: ¿Token vigente?",
         "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
@@ -7828,18 +7897,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-06-26T23:01:03.287Z",
-        "id": 114,
+        "createdAt": "2026-06-26T23:28:32.048Z",
+        "id": 116,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
+        "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
         "event": "activated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       },
       {
-        "createdAt": "2026-06-26T23:01:01.204Z",
-        "id": 113,
+        "createdAt": "2026-06-26T23:28:30.280Z",
+        "id": 115,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
+        "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
         "event": "deactivated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       }

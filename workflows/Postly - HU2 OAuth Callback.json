@@ -1,7 +1,11 @@
 {
+  "updatedAt": "2026-06-26T00:02:36.726Z",
+  "createdAt": "2026-06-25T21:02:22.105Z",
   "id": "vy60xNtAvcVKRdAx",
   "name": "Postly - HU2 OAuth Callback",
+  "description": null,
   "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "id": "f0000ea2-c7f3-46f4-a15c-e1f7f1d707e0",
@@ -146,7 +150,7 @@
       ],
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "const state = $('Callback OAuth').first().json.query.state;\nconst tl = $('Token largo').first().json;\nconst longToken = tl.access_token;\nconst expiresIn = tl.expires_in || 5184000;\nconst page = $('Page Token').first().json || {};\nconst igAcc = page.instagram_business_account && page.instagram_business_account.id;\nconst expiresAt = new Date(Date.now() + expiresIn * 1000).toISOString();\nreturn [{ json: {\n  TelegramUserID: String(state || ''),\n  AccessToken: page.access_token || longToken,\n  ExpiresAt: expiresAt,\n  IGAccountID: igAcc || $env.IG_BUSINESS_ID || '',\n  PageID: page.id || $env.META_PAGE_ID || '',\n  PageName: page.name || ''\n} }];"
+        "jsCode": "// HU2 — Preparar fila para Usuarios. Token cifrado (AES-256-GCM) antes de guardar.\nconst crypto = require('crypto');\nconst ENC_KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex'); // 32 bytes\nfunction encrypt(plain) {\n  if (!plain) return plain;\n  const iv = crypto.randomBytes(12);\n  const cipher = crypto.createCipheriv('aes-256-gcm', ENC_KEY, iv);\n  const ct = Buffer.concat([cipher.update(String(plain), 'utf8'), cipher.final()]);\n  const tag = cipher.getAuthTag();\n  return 'enc:' + Buffer.concat([iv, tag, ct]).toString('base64');\n}\n\nconst state = $('Callback OAuth').first().json.query.state;\nconst tl = $('Token largo').first().json;\nconst longToken = tl.access_token;\nconst expiresIn = tl.expires_in || 5184000;\nconst page = $('Page Token').first().json || {};\nconst igAcc = page.instagram_business_account && page.instagram_business_account.id;\nconst expiresAt = new Date(Date.now() + expiresIn * 1000).toISOString();\nreturn [{ json: {\n  TelegramUserID: String(state || ''),\n  AccessToken: encrypt(page.access_token || longToken),\n  ExpiresAt: expiresAt,\n  IGAccountID: igAcc || $env.IG_BUSINESS_ID || '',\n  PageID: page.id || $env.META_PAGE_ID || '',\n  PageName: page.name || ''\n} }];"
       }
     },
     {
@@ -343,5 +347,413 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+  "activeVersionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+  "versionCounter": 38,
+  "triggerCount": 1,
+  "shared": [
+    {
+      "updatedAt": "2026-06-25T21:02:22.108Z",
+      "createdAt": "2026-06-25T21:02:22.108Z",
+      "role": "workflow:owner",
+      "workflowId": "vy60xNtAvcVKRdAx",
+      "projectId": "QboYNyHuH1ZUd1L0",
+      "project": {
+        "updatedAt": "2026-04-12T06:32:47.202Z",
+        "createdAt": "2026-04-12T06:32:22.430Z",
+        "id": "QboYNyHuH1ZUd1L0",
+        "name": "Nicolas Hassan <nikohassanpv@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
+      }
+    }
+  ],
+  "tags": [],
+  "activeVersion": {
+    "updatedAt": "2026-06-26T00:02:36.726Z",
+    "createdAt": "2026-06-26T00:02:36.726Z",
+    "versionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+    "workflowId": "vy60xNtAvcVKRdAx",
+    "nodes": [
+      {
+        "id": "f0000ea2-c7f3-46f4-a15c-e1f7f1d707e0",
+        "name": "Callback OAuth",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "oauth-callback",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "webhookId": "73baa38a-e510-4127-9cb4-9d893d2e4a1e"
+      },
+      {
+        "id": "b13ca20a-e262-4642-a431-c4a9776d4ad1",
+        "name": "Intercambiar code",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          220,
+          0
+        ],
+        "parameters": {
+          "method": "GET",
+          "url": "=https://graph.facebook.com/v19.0/oauth/access_token?client_id={{ $env.META_APP_ID }}&redirect_uri=https://viewable-zombie-linked.ngrok-free.dev/webhook/oauth-callback&client_secret={{ $env.META_APP_SECRET }}&code={{ $json.query.code }}",
+          "options": {}
+        }
+      },
+      {
+        "id": "f5efe4e9-65c0-45c7-922b-7ba2f2f65ecf",
+        "name": "Token largo",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          440,
+          0
+        ],
+        "parameters": {
+          "method": "GET",
+          "url": "=https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id={{ $env.META_APP_ID }}&client_secret={{ $env.META_APP_SECRET }}&fb_exchange_token={{ $json.access_token }}",
+          "options": {}
+        }
+      },
+      {
+        "id": "5207aaa5-389a-4234-aeff-3f93ec25263e",
+        "name": "Page Token",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          660,
+          0
+        ],
+        "parameters": {
+          "method": "GET",
+          "url": "=https://graph.facebook.com/v19.0/{{ $env.META_PAGE_ID }}?fields=name,access_token,instagram_business_account&access_token={{ $json.access_token }}",
+          "options": {}
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "ec09da93-5401-4b8a-a79f-7af10c9f777c",
+        "name": "Avisar usuario",
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          880,
+          0
+        ],
+        "parameters": {
+          "chatId": "={{ $('Callback OAuth').item.json.query.state }}",
+          "text": "✅ ¡Listo! Tu cuenta quedó conectada a Postly 🎉\n\n¿Arrancamos? Tocá 🚀 Nueva Publicación y mandame la primera foto.",
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "replyMarkup": "replyKeyboard",
+          "replyKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "text": "🚀 Nueva Publicación",
+                      "additionalFields": {}
+                    },
+                    {
+                      "text": "📅 Mi Agenda",
+                      "additionalFields": {}
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "replyKeyboardOptions": {}
+        },
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        },
+        "webhookId": "68cf2645-26ff-48b2-950b-0b134edae19b"
+      },
+      {
+        "id": "c108884d-6a66-4de9-aea4-03c949358d38",
+        "name": "Responder navegador",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1100,
+          0
+        ],
+        "parameters": {
+          "respondWith": "text",
+          "responseBody": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Postly · Cuenta vinculada</title>\n<style>\n  :root { --rose:#e6326e; --ink:#1b1b1f; --muted:#6b7280; }\n  * { box-sizing:border-box; }\n  body {\n    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;\n    background:linear-gradient(160deg,#fff5f8 0%,#f5f3ff 100%); color:var(--ink); padding:24px;\n  }\n  .card {\n    background:#fff; border-radius:20px; padding:40px 32px; max-width:380px; width:100%;\n    text-align:center; box-shadow:0 12px 40px rgba(230,50,110,.12); animation:pop .4s ease;\n  }\n  @keyframes pop { from{opacity:0; transform:translateY(12px) scale(.98)} to{opacity:1; transform:none} }\n  .check {\n    width:72px; height:72px; margin:0 auto 20px; border-radius:50%;\n    background:#e9f9ef; display:flex; align-items:center; justify-content:center; font-size:38px;\n  }\n  h1 { font-size:22px; margin:0 0 10px; }\n  p { color:var(--muted); font-size:15px; line-height:1.5; margin:0 0 8px; }\n  .btn {\n    display:inline-block; margin-top:24px; background:var(--rose); color:#fff; text-decoration:none;\n    font-weight:600; font-size:15px; padding:13px 26px; border-radius:12px;\n    box-shadow:0 6px 18px rgba(230,50,110,.3);\n  }\n  .btn:active { transform:scale(.97); }\n  .brand { margin-top:28px; font-size:13px; color:#9ca3af; letter-spacing:.3px; }\n  .brand b { color:var(--rose); }\n</style>\n</head>\n<body>\n  <div class=\"card\">\n    <div class=\"check\">✅</div>\n    <h1>¡Cuenta vinculada!</h1>\n    <p>Tu cuenta de Meta quedó conectada a Postly.</p>\n    <p>Ya podés volver a Telegram y empezar a crear tus publicaciones.</p>\n    <a class=\"btn\" href=\"https://t.me/PostlyNicoTest_bot\">Volver a Telegram</a>\n    <div class=\"brand\">Hecho con <b>Postly</b> 🪄</div>\n  </div>\n</body>\n</html>",
+          "options": {
+            "responseCode": 200,
+            "responseHeaders": {
+              "entries": [
+                {
+                  "name": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b451f688-1582-444c-87b3-37d1ab04d561",
+        "name": "Preparar fila",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1080,
+          200
+        ],
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "jsCode": "const state = $('Callback OAuth').first().json.query.state;\nconst tl = $('Token largo').first().json;\nconst longToken = tl.access_token;\nconst expiresIn = tl.expires_in || 5184000;\nconst page = $('Page Token').first().json || {};\nconst igAcc = page.instagram_business_account && page.instagram_business_account.id;\nconst expiresAt = new Date(Date.now() + expiresIn * 1000).toISOString();\nreturn [{ json: {\n  TelegramUserID: String(state || ''),\n  AccessToken: page.access_token || longToken,\n  ExpiresAt: expiresAt,\n  IGAccountID: igAcc || $env.IG_BUSINESS_ID || '',\n  PageID: page.id || $env.META_PAGE_ID || '',\n  PageName: page.name || ''\n} }];"
+        }
+      },
+      {
+        "id": "17085796-a52c-4701-ad3d-4da3522fa2a8",
+        "name": "Guardar token",
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          1300,
+          200
+        ],
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+            "mode": "list",
+            "cachedResultName": "Postly_DB"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "600115356",
+            "mode": "list",
+            "cachedResultName": "Usuarios"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "TelegramUserID": "={{ $json.TelegramUserID }}",
+              "AccessToken": "={{ $json.AccessToken }}",
+              "ExpiresAt": "={{ $json.ExpiresAt }}",
+              "IGAccountID": "={{ $json.IGAccountID }}",
+              "PageID": "={{ $json.PageID }}",
+              "PageName": "={{ $json.PageName }}"
+            },
+            "matchingColumns": [
+              "TelegramUserID"
+            ],
+            "schema": [
+              {
+                "id": "TelegramUserID",
+                "displayName": "TelegramUserID",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "AccessToken",
+                "displayName": "AccessToken",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "ExpiresAt",
+                "displayName": "ExpiresAt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "IGAccountID",
+                "displayName": "IGAccountID",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "PageID",
+                "displayName": "PageID",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "PageName",
+                "displayName": "PageName",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "Ip1hgjqpbV1WTJpG",
+            "name": "Google Sheets account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Callback OAuth": {
+        "main": [
+          [
+            {
+              "node": "Intercambiar code",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Intercambiar code": {
+        "main": [
+          [
+            {
+              "node": "Token largo",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Token largo": {
+        "main": [
+          [
+            {
+              "node": "Page Token",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Page Token": {
+        "main": [
+          [
+            {
+              "node": "Preparar fila",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Avisar usuario": {
+        "main": [
+          [
+            {
+              "node": "Responder navegador",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Preparar fila": {
+        "main": [
+          [
+            {
+              "node": "Guardar token",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Guardar token": {
+        "main": [
+          [
+            {
+              "node": "Avisar usuario",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Nicolas Hassan",
+    "name": null,
+    "description": null,
+    "autosaved": false,
+    "workflowPublishHistory": [
+      {
+        "createdAt": "2026-06-26T00:02:36.763Z",
+        "id": 66,
+        "workflowId": "vy60xNtAvcVKRdAx",
+        "versionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+        "event": "activated",
+        "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
+      },
+      {
+        "createdAt": "2026-06-26T00:02:36.804Z",
+        "id": 68,
+        "workflowId": "vy60xNtAvcVKRdAx",
+        "versionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+        "event": "activated",
+        "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
+      },
+      {
+        "createdAt": "2026-06-26T00:02:36.752Z",
+        "id": 65,
+        "workflowId": "vy60xNtAvcVKRdAx",
+        "versionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+        "event": "deactivated",
+        "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
+      },
+      {
+        "createdAt": "2026-06-26T00:02:36.791Z",
+        "id": 67,
+        "workflowId": "vy60xNtAvcVKRdAx",
+        "versionId": "b9d8f7b3-e9f6-46d1-b143-ad7c40f10ebb",
+        "event": "deactivated",
+        "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
+      }
+    ]
   }
 }
