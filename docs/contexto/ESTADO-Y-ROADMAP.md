@@ -75,18 +75,21 @@ Existe el workflow `Postly - Feedback Loop` (inactivo) como base. Necesita Cron 
 
 ## Deudas técnicas dentro de lo ya hecho
 
-Cosas que funcionan pero no son 100% fieles a la letra de la tesis:
+> **Actualización 2026-06-26:** las 3 deudas accionables fueron **saldadas** (commits `9c5483e`, `df1bce5`, `7f0c83a`).
 
-1. **Cifrado del token (HU2):** la tesis dice "credenciales **cifradas** en Google Sheets" (lo repite).
-   Hoy el Page Token se guarda en **texto plano** en la hoja *Usuarios*. Para ser literal: cifrar (ej. AES con
-   clave en `.env`) al guardar y descifrar al leer.
-2. **HU3 en agenda:** el criterio dice "cada evento de publicación **o de gestión de agenda**". Hoy la validación
-   corre al **crear** contenido, no al abrir la agenda (decisión de alcance consciente).
-3. **HU9 desde BD + contacto:** la firma está **hardcodeada** en el nodo Code; la tesis sugiere leerla de la
-   base de datos centralizada y sumar **hipervínculos de contacto**.
-4. **Publish "última fila":** en el flujo *fresco*, publicar apunta al **último** post del usuario (el `append`
-   de n8n no devuelve el `row_number` al crear). En uso normal es correcto; el caso raro (crear A, crear B,
-   publicar A) queda fuera de alcance. El **"Retomar borrador"** sí es de fila exacta (row-aware).
+1. **Cifrado del token (HU2):** ✅ **RESUELTO.** El Page Token se guarda **cifrado con AES-256-GCM** en la hoja
+   *Usuarios* (formato `enc:` + base64). El callback OAuth cifra al guardar; el principal descifra al leer
+   (3 Code nodes `Descifrar *`). Requiere `POSTLY_ENC_KEY` + `NODE_FUNCTION_ALLOW_BUILTIN=crypto` en `.env`.
+   Convive con texto plano (passthrough) para migración suave.
+2. **HU3 en agenda:** ✅ **RESUELTO.** "Mi Agenda" ahora valida el token antes de abrirse (mini-gate clonado:
+   Leer token → Validar `/me` → ¿Vigente?). Token caído → mensaje de reconectar.
+3. **HU9 desde BD + contacto:** ✅ **RESUELTO.** La firma se lee de la pestaña **`Config`** de `Postly_DB`
+   (columnas `firma`/`contacto`), con fallback a la línea legal. Se normaliza y reinserta limpia (la IA a veces
+   la escribe inline) y se suma el contacto en su renglón.
+4. **Publish "última fila":** ⏸️ **Fuera de alcance (sin cambios).** En el flujo *fresco*, publicar apunta al
+   **último** post del usuario (el `append` de n8n no devuelve el `row_number` al crear). En uso normal es
+   correcto; el caso raro (crear A, crear B, publicar A) queda fuera de alcance. El **"Retomar borrador"** sí es
+   de fila exacta (row-aware).
 
 ---
 
@@ -94,7 +97,7 @@ Cosas que funcionan pero no son 100% fieles a la letra de la tesis:
 
 1. **HU8 (OCR de precios en imagen)** — mejor relación esfuerzo/cierre; completa el Módulo C. *(sin VPS)*
 2. **HU5 (carruseles)** — más grande; completa el Módulo B. *(sin VPS)*
-3. **Deudas técnicas** (cifrado del token, firma desde BD) si se busca rigor con el doc.
+3. ✅ **Deudas técnicas** (cifrado del token, gateo de agenda, firma desde BD) — **hechas** (2026-06-26).
 4. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba **HU10, HU13, HU14** de una sola vez.
    Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente de resolver el medio de pago.
 
