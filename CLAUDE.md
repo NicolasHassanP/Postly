@@ -1,0 +1,48 @@
+# CLAUDE.md — Postly (Tesis n8n)
+
+Contexto de proyecto para Claude Code. Se carga automáticamente al abrir este repo.
+**Para el detalle completo, leer `docs/contexto/` (empezando por `ESTADO-Y-ROADMAP.md`).**
+
+## Qué es
+
+Postly: una **Consultora de Belleza Independiente (Mary Kay)** genera y publica contenido de Instagram/Facebook
+conversando con un **bot de Telegram**. La IA (Gemini) genera el copy, un **Compliance Sentinel** valida reglas
+legales (sin precios, firma obligatoria) y se publica vía **Meta Graph API**. Orquestado en **n8n**; persistencia
+en **Google Sheets**.
+
+`Telegram → n8n → Gemini → Compliance → Meta Graph API → Google Sheets`
+
+> **La tesis `docs/Tesis Postly Bontorno Hassan.docx` es la FUENTE DE LA VERDAD.** No desviarse de lo documentado.
+
+## Estado (9/14 HU)
+
+✅ HU1, HU2, HU3 (Módulo A) · HU4, HU6 (B) · HU7, HU9 (C) · HU11, HU12 (D).
+❌ HU5 (carruseles), HU8 (OCR precios en imagen) — *se pueden hacer ya*.
+❌ HU10, HU13, HU14 — *requieren migración a VPS (Cron/FFmpeg 24/7)*.
+Detalle y deudas técnicas: `docs/contexto/ESTADO-Y-ROADMAP.md`.
+
+## Cómo operar n8n (IMPORTANTE)
+
+- n8n self-hosted local (v2.15.1). Arranque: `.\start-n8n.ps1` (carga `.env` y levanta n8n).
+- URL pública estable: ngrok dominio fijo `https://viewable-zombie-linked.ngrok-free.dev` → localhost:5678.
+- **Editar workflows por la API**, no a mano: script Node que hace `GET /workflows/{id}` (header `X-N8N-API-KEY`),
+  muta nodos/conexiones en JS, escribe el `.json` al repo y hace `PUT`. En el `PUT`, enviar `settings` solo con
+  `{ executionOrder: "v1" }` (`binaryMode` da 400). Activar con `POST /workflows/{id}/activate`.
+- Tras editar por API el versionId cambia → **refrescar (F5)** la pestaña de n8n antes de tocarla.
+
+### Workflows
+- `VOgbHGLELJfRgVO5` — **"Postly - Entrega Final Sprint 1 v2"** (principal, ~74 nodos). NO se llama "main".
+- `vy60xNtAvcVKRdAx` — "Postly - HU2 OAuth Callback" (endpoint `/oauth-callback`).
+- `sDIBkXAXzhZo76Ez` — "Postly - Feedback Loop" (inactivo; base de HU14).
+
+### Gotchas
+- Google Sheets read: usar `alwaysOutputData: true` para que "0 filas" no corte la rama. `sheetName.value` = gid **sin** prefijo (`"600115356"`).
+- Si insertás un nodo que cambia `$json` (ej. un Sheets read), los nodos siguientes deben referenciar `$('Telegram Trigger').first().json...` en vez de `$json`.
+- Switch v3.4: regla = `{ conditions: { options, conditions:[...], combinator } }` — NO doble-anidar.
+- `$env` en expresiones requiere `N8N_BLOCK_ENV_ACCESS_IN_NODE=false` en `.env`.
+
+## Convenciones
+
+- Se trabaja **directo sobre `main`** (proyecto chico, sin PRs).
+- **Secretos (`.env`) nunca van a git.** La publicación usa el token **por-usuaria** de la hoja Usuarios (no `$env`).
+- DB = Google Sheets `Postly_DB` (id `1b85sqw...`): hoja `Hoja 1` (posts, gid=0) y `Usuarios` (credenciales, gid=600115356).
