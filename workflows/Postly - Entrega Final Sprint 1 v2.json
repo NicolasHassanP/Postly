@@ -16,8 +16,8 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        1648,
-        -32
+        1216,
+        -1088
       ],
       "webhookId": "83282633-f22d-471e-afcd-d6de439b3a79",
       "credentials": {
@@ -42,8 +42,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2160,
-        -32
+        2000,
+        -816
       ],
       "id": "4e3f9654-2ba5-428a-b31b-17348195450e"
     },
@@ -79,8 +79,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2576,
-        80
+        3744,
+        -1104
       ],
       "id": "184aaff1-6834-44d6-99fe-3acde356c077",
       "webhookId": "ff7e5f9e-5c26-4265-b80f-762437e6b1ef",
@@ -105,8 +105,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        3280,
-        16
+        4256,
+        -768
       ],
       "id": "3666374c-219e-486c-b40e-eb884579f186",
       "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -127,8 +127,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        3008,
-        640
+        3616,
+        224
       ],
       "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
       "webhookId": "56b64642-17f1-4a1f-8a2f-b1bb09109b5a",
@@ -154,8 +154,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2688,
-        592
+        3296,
+        240
       ],
       "id": "e0c4ed0e-91c6-45d9-a528-74eed80f3c2e"
     },
@@ -176,8 +176,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        2928,
-        912
+        4144,
+        464
       ],
       "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
       "name": "Analyze an image",
@@ -217,8 +217,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2160,
-        224
+        2752,
+        -352
       ],
       "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
       "name": "es volver al inicio?1"
@@ -280,8 +280,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        1904,
-        -32
+        1616,
+        -1088
       ],
       "id": "c74f4045-b799-42f0-ba61-a4edff1899ad",
       "name": "Switch"
@@ -295,8 +295,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1648,
-        336
+        1632,
+        -560
       ],
       "id": "a07ae990-a109-4655-9290-ffd2acae603f",
       "name": "Answer Query a callback",
@@ -336,8 +336,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2608,
-        1152
+        4032,
+        768
       ],
       "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
       "name": "Descripcion editada",
@@ -520,8 +520,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        1296,
-        240
+        1200,
+        -576
       ],
       "id": "ac8bbd7a-0eae-4e0b-86a5-ec1be34f4650",
       "name": "Que boton toco?"
@@ -548,8 +548,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2736,
-        912
+        4144,
+        224
       ],
       "id": "fc5bb46b-364f-4ea9-ac54-16b8f885502e",
       "name": "HTTP Request"
@@ -561,8 +561,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2560,
-        912
+        3888,
+        224
       ],
       "id": "8efae140-2d14-4fc8-8349-4841e875fb53",
       "name": "Code in JavaScript"
@@ -669,8 +669,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3120,
-        912
+        4416,
+        464
       ],
       "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
       "name": "Consistencia",
@@ -710,8 +710,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1648,
-        848
+        1632,
+        112
       ],
       "id": "9bea5be4-89d8-4845-aac0-849bd081206d",
       "name": "Get row(s) in sheet",
@@ -849,8 +849,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2304,
-        1152
+        3776,
+        768
       ],
       "id": "80947461-516d-4ec5-a2f7-945ededea964",
       "name": "Descripcion en columna H",
@@ -892,8 +892,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2096,
-        912
+        3296,
+        768
       ],
       "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
       "name": "Get row(s) in sheet1",
@@ -911,24 +911,11 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        2304,
-        912
+        3552,
+        768
       ],
       "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
       "name": "Limit"
-    },
-    {
-      "parameters": {
-        "keep": "lastItems"
-      },
-      "type": "n8n-nodes-base.limit",
-      "typeVersion": 1,
-      "position": [
-        1648,
-        1056
-      ],
-      "id": "dcac6f49-c0b1-4a9c-92b9-3362d4fe9ce8",
-      "name": "Limit1"
     },
     {
       "parameters": {
@@ -956,8 +943,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1424,
-        1440
+        2640,
+        752
       ],
       "id": "0bc00573-b669-4591-ba8b-cf654348e7b4",
       "name": "IG - Crear contenedor"
@@ -984,8 +971,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1936,
-        1440
+        2640,
+        1248
       ],
       "id": "244d3a32-54a3-4afd-9b9a-d7d9184e0810",
       "name": "IG - Publicar"
@@ -1011,7 +998,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "Status": "Publicado",
-            "row_number": "={{ $node[\"Limit1\"].json.row_number }}",
+            "row_number": "={{ $('Elegir fila a publicar').first().json.row_number }}",
             "PostID_IG": "={{ $node[\"IG - Publicar\"].json.id }}",
             "Copy_Final": "={{ $('Code in JavaScript1').first().json.Caption_IG }}"
           },
@@ -1169,8 +1156,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2720,
-        1440
+        2976,
+        1712
       ],
       "id": "c5d60046-75ce-4dc9-b70e-1ff66bff3ca8",
       "name": "Actualizar Sheets",
@@ -1186,8 +1173,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1680,
-        1440
+        2640,
+        992
       ],
       "id": "d9fd9696-0be1-437f-9ccf-68b449a860a7",
       "name": "Wait",
@@ -1195,13 +1182,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst result = [];\n\n// Detecta qué botón tocó el usuario\nconst callbackData = $('Telegram Trigger').first().json.callback_query?.data || 'pub_1';\n\nfor (const item of items) {\n  const originalUrl = item.json.ImageURL;\n  const transformedUrl = originalUrl.replace('/upload/', '/upload/c_pad,ar_1:1,w_1080,b_white/');\n  \n  // Elige el caption correcto según el botón\n  let captionIG;\n  if (callbackData === 'pub_final' && item.json.Copy_Final) {\n    captionIG = item.json.Copy_Final;      // texto editado por el usuario\n  } else if (callbackData === 'pub_2') {\n    captionIG = item.json.Copy_Op2;        // opción 2\n  } else if (callbackData === 'pub_3') {\n    captionIG = item.json.Copy_Op3;        // opción 3\n  } else {\n    captionIG = item.json.Copy_Op1;        // opción 1 (default)\n  }\n  \n  result.push({\n    json: {\n      ...item.json,\n      ImageURL_IG: transformedUrl,\n      Caption_IG: captionIG\n    }\n  });\n}\n\nreturn result;"
+        "jsCode": "const items = $input.all();\nconst result = [];\nfor (const item of items) {\n  const originalUrl = item.json.ImageURL;\n  const transformedUrl = originalUrl.replace('/upload/', '/upload/c_pad,ar_1:1,w_1080,b_white/');\n  const choice = item.json._choice || 'op1';\n  let captionIG;\n  if (choice === 'final' && item.json.Copy_Final) captionIG = item.json.Copy_Final;\n  else if (choice === 'op2') captionIG = item.json.Copy_Op2;\n  else if (choice === 'op3') captionIG = item.json.Copy_Op3;\n  else captionIG = item.json.Copy_Op1;\n  result.push({ json: { ...item.json, ImageURL_IG: transformedUrl, Caption_IG: captionIG } });\n}\nreturn result;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        736,
-        1440
+        2096,
+        112
       ],
       "id": "f3cb5c4c-e9f8-4c73-ae5e-c283e3b82fcc",
       "name": "Resolucion - IG"
@@ -1213,8 +1200,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        976,
-        1440
+        1856,
+        464
       ],
       "id": "0fcd5086-dc0d-4074-b580-55dccadffdcb",
       "name": "Code in JavaScript1"
@@ -1247,8 +1234,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1200,
-        1440
+        2112,
+        464
       ],
       "id": "7c7ddd1a-6f69-462d-82fa-1317760c63bf",
       "name": "If"
@@ -1264,8 +1251,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2064,
-        1728
+        2128,
+        880
       ],
       "id": "cf3cd839-aef6-46dd-889c-5a2793b09c2f",
       "name": "Telegram Error (Compliance)",
@@ -1289,8 +1276,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2464,
-        1440
+        2640,
+        1712
       ],
       "id": "7aa72642-bb00-471b-b7a1-f2a29687259f",
       "name": "Telegram Éxito",
@@ -1310,8 +1297,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2192,
-        1440
+        2640,
+        1488
       ],
       "id": "11a75188-b3f5-44b6-b775-bf6bfad378e3",
       "name": "Permalink"
@@ -1374,8 +1361,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        2320,
-        400
+        3120,
+        -352
       ],
       "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
       "name": "Es Nueva Pub?"
@@ -1409,8 +1396,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3472,
-        448
+        3616,
+        -336
       ],
       "id": "1e3f1a4b-ff3f-4831-a142-bf80c797a73b",
       "name": "Get row(s) in sheet2",
@@ -1427,9 +1414,6 @@
         "operation": "sendPhoto",
         "chatId": "={{ $json.chatId }}",
         "file": "={{ $json.imageURL }}",
-        "additionalFields": {
-          "caption": "={{ $json.texto }}"
-        },
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -1437,22 +1421,25 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🔄 Volver a publicar",
+                    "text": "={{ $json.estaPublicado ? '🔄 Volver a publicar' : '▶️ Retomar borrador' }}",
                     "additionalFields": {
-                      "callback_data": "=repost_{{ $json.rowNumber }}"
+                      "callback_data": "={{ ($json.estaPublicado ? 'repost_' : 'resume_') + $json.rowNumber }}"
                     }
                   }
                 ]
               }
             }
           ]
+        },
+        "additionalFields": {
+          "caption": "={{ $json.texto }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4208,
-        352
+        4640,
+        -208
       ],
       "id": "265d195f-02a7-4dca-9212-fe51220745ed",
       "name": "Send a photo message",
@@ -1466,13 +1453,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\nconst rows = items.map(i => i.json).filter(j => j && (j.UserID || j.ImageURL || j.Status || j.Copy_Final || j.Copy_Op1));\nif (rows.length === 0) {\n  return [{ json: { chatId, texto: '📭 Todavía no tenés publicaciones en tu agenda.\\n\\nTocá 🚀 Nueva Publicación para crear tu primer post.', sinDatos: true, hasImage: false } }];\n}\nconst ultimas = rows.slice(-5).reverse();\nconst result = [];\nfor (const r of ultimas) {\n  const st = (r.Status || '').toString().toLowerCase();\n  let estado;\n  if (st === 'publicado') estado = '🟢 Publicado';\n  else if (st === 'fallido') estado = '🟡 Fallido';\n  else estado = '🔴 Pendiente';\n  const fecha = r.Timestamp ? new Date(r.Timestamp).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Sin fecha';\n  const copy = (r.Copy_Final || r.Copy_Op1 || '').toString();\n  const copyResumen = copy.length > 120 ? copy.substring(0, 120) + '…' : (copy || '(sin texto)');\n  const texto = estado + ' — ' + fecha + '\\n\\n📝 ' + copyResumen;\n  const imageURL = r.ImageURL || null;\n  result.push({ json: { chatId, texto, imageURL, hasImage: !!imageURL, rowNumber: r.row_number || '', sinDatos: false } });\n}\nreturn result;"
+        "jsCode": "const items = $input.all();\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\nconst rows = items.map(i => i.json).filter(j => j && (j.UserID || j.ImageURL || j.Status || j.Copy_Final || j.Copy_Op1));\nif (rows.length === 0) {\n  return [{ json: { chatId, texto: '📭 Todavía no tenés publicaciones en tu agenda.\\n\\nTocá 🚀 Nueva Publicación para crear tu primer post.', sinDatos: true, hasImage: false, estaPublicado: false, rowNumber: '' } }];\n}\nconst ultimas = rows.slice(-5).reverse();\nconst result = [];\nfor (const r of ultimas) {\n  const st = (r.Status || '').toString().toLowerCase();\n  const estaPublicado = st === 'publicado';\n  let estado;\n  if (estaPublicado) estado = '🟢 Publicado';\n  else if (st === 'fallido') estado = '🟡 Fallido';\n  else estado = '🔴 Pendiente';\n  const fecha = r.Timestamp ? new Date(r.Timestamp).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Sin fecha';\n  const copy = (r.Copy_Final || r.Copy_Op1 || '').toString();\n  const copyResumen = copy.length > 120 ? copy.substring(0, 120) + '…' : (copy || '(sin texto)');\n  const texto = estado + ' — ' + fecha + '\\n\\n📝 ' + copyResumen;\n  const imageURL = r.ImageURL || null;\n  result.push({ json: { chatId, texto, imageURL, hasImage: !!imageURL, rowNumber: r.row_number || '', estaPublicado, sinDatos: false } });\n}\nreturn result;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3696,
-        128
+        3840,
+        -336
       ],
       "id": "9f521499-9807-4033-b57a-db8c1ea1e3e1",
       "name": "Armar tarjetas"
@@ -1492,8 +1479,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2160,
-        -256
+        2368,
+        -368
       ],
       "id": "a1b2c3d4-0001-4001-8001-000000000001"
     },
@@ -1526,8 +1513,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2448,
-        -128
+        2336,
+        -832
       ],
       "id": "a1b2c3d4-0002-4002-8002-000000000002",
       "name": "Buscar usuario",
@@ -1567,8 +1554,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2688,
-        -128
+        2624,
+        -832
       ],
       "id": "a1b2c3d4-0003-4003-8003-000000000003",
       "name": "¿Ya vinculado?"
@@ -1601,8 +1588,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2944,
-        -272
+        2624,
+        -560
       ],
       "id": "a1b2c3d4-0004-4004-8004-000000000004",
       "name": "Pedir vinculación",
@@ -1643,8 +1630,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2560,
-        320
+        3616,
+        -656
       ],
       "id": "b2c3d4e5-0001-4001-8001-000000000001",
       "name": "HU3: Leer token",
@@ -1664,8 +1651,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2784,
-        320
+        3824,
+        -656
       ],
       "id": "b2c3d4e5-0002-4002-8002-000000000002",
       "name": "HU3: Validar token",
@@ -1699,8 +1686,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3008,
-        320
+        4032,
+        -656
       ],
       "id": "b2c3d4e5-0003-4003-8003-000000000003",
       "name": "HU3: ¿Token vigente?"
@@ -1733,8 +1720,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3280,
-        240
+        4256,
+        -560
       ],
       "id": "b2c3d4e5-0004-4004-8004-000000000004",
       "name": "HU3: Re-vincular",
@@ -1775,8 +1762,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1312,
-        1696
+        2352,
+        448
       ],
       "id": "b2c3d4e5-0006-4006-8006-000000000006",
       "name": "HU3: Leer credenciales",
@@ -1814,8 +1801,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1648,
-        608
+        1632,
+        -112
       ],
       "id": "c3d4e5f6-0001-4001-8001-000000000001",
       "name": "A: Leer opción",
@@ -1834,7 +1821,7 @@
       "typeVersion": 2,
       "position": [
         1872,
-        608
+        -112
       ],
       "id": "c3d4e5f6-0002-4002-8002-000000000002",
       "name": "A: Elegir opción"
@@ -1851,7 +1838,7 @@
       "typeVersion": 1.2,
       "position": [
         2096,
-        608
+        -112
       ],
       "id": "c3d4e5f6-0003-4003-8003-000000000003",
       "name": "A: Instrucción editar",
@@ -1874,8 +1861,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2320,
-        608
+        2336,
+        -112
       ],
       "id": "c3d4e5f6-0004-4004-8004-000000000004",
       "name": "A: Texto a editar",
@@ -1894,8 +1881,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3312,
-        912
+        4672,
+        464
       ],
       "id": "d4e5f6a7-0001-4001-8001-000000000001",
       "name": "B: Parsear opciones"
@@ -1911,8 +1898,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3536,
-        1088
+        4912,
+        464
       ],
       "id": "d4e5f6a7-0002-4002-8002-000000000002",
       "name": "B: Intro opciones",
@@ -1958,8 +1945,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3744,
-        1088
+        5136,
+        304
       ],
       "id": "d4e5f6a7-0003-4003-8003-000000000003",
       "name": "B: Opción 1",
@@ -2005,8 +1992,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3744,
-        1280
+        5312,
+        304
       ],
       "id": "d4e5f6a7-0004-4004-8004-000000000004",
       "name": "B: Opción 2",
@@ -2052,8 +2039,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3744,
-        1472
+        5520,
+        304
       ],
       "id": "d4e5f6a7-0005-4005-8005-000000000005",
       "name": "B: Opción 3",
@@ -2093,8 +2080,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3936,
-        128
+        4080,
+        -336
       ],
       "id": "e5f6a7b8-0001-4001-8001-000000000001",
       "name": "¿Agenda vacía?"
@@ -2127,8 +2114,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3952,
-        464
+        4368,
+        -112
       ],
       "id": "e5f6a7b8-0002-4002-8002-000000000002",
       "name": "¿Tarjeta con foto?"
@@ -2144,8 +2131,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4208,
-        112
+        4368,
+        -352
       ],
       "id": "e5f6a7b8-0003-4003-8003-000000000003",
       "name": "Agenda vacía",
@@ -2161,9 +2148,6 @@
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "={{ $json.texto }}",
-        "additionalFields": {
-          "appendAttribution": false
-        },
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -2171,22 +2155,25 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🔄 Volver a publicar",
+                    "text": "={{ $json.estaPublicado ? '🔄 Volver a publicar' : '▶️ Retomar borrador' }}",
                     "additionalFields": {
-                      "callback_data": "=repost_{{ $json.rowNumber }}"
+                      "callback_data": "={{ ($json.estaPublicado ? 'repost_' : 'resume_') + $json.rowNumber }}"
                     }
                   }
                 ]
               }
             }
           ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4208,
-        560
+        4640,
+        32
       ],
       "id": "e5f6a7b8-0004-4004-8004-000000000004",
       "name": "Tarjeta sin foto",
@@ -2200,51 +2187,15 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "loose",
-            "version": 3
-          },
-          "conditions": [
-            {
-              "id": "f6a7b8c9-00c1",
-              "leftValue": "={{ ($json.callback_query.data || '').startsWith('repost_') }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        1100,
-        60
-      ],
-      "id": "f6a7b8c9-0001-4001-8001-000000000001",
-      "name": "¿Es repost?"
-    },
-    {
-      "parameters": {
         "resource": "callback",
         "queryId": "={{ $json.callback_query.id }}",
-        "additionalFields": {
-          "appendAttribution": false
-        }
+        "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        900,
-        -120
+        800,
+        -848
       ],
       "id": "f6a7b8c9-0002-4002-8002-000000000002",
       "name": "Repost: Answer callback",
@@ -2284,8 +2235,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        900,
-        200
+        192,
+        -464
       ],
       "id": "f6a7b8c9-0003-4003-8003-000000000003",
       "name": "Repost: Leer fila",
@@ -2303,8 +2254,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
-        200
+        192,
+        -256
       ],
       "id": "f6a7b8c9-0004-4004-8004-000000000004",
       "name": "Repost: Elegir fila"
@@ -2326,8 +2277,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        1340,
-        200
+        208,
+        -32
       ],
       "id": "f6a7b8c9-0005-4005-8005-000000000005",
       "name": "Repost: Analizar imagen",
@@ -2347,8 +2298,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1560,
-        200
+        208,
+        208
       ],
       "id": "f6a7b8c9-0006-4006-8006-000000000006",
       "name": "Repost: Parsear"
@@ -2455,8 +2406,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1780,
-        200
+        208,
+        432
       ],
       "id": "f6a7b8c9-0007-4007-8007-000000000007",
       "name": "Repost: Guardar fila",
@@ -2478,8 +2429,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2000,
-        200
+        496,
+        432
       ],
       "id": "f6a7b8c9-0008-4008-8008-000000000008",
       "name": "Repost: Intro",
@@ -2525,8 +2476,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2220,
-        100
+        208,
+        688
       ],
       "id": "f6a7b8c9-0009-4009-8009-000000000009",
       "name": "Repost: Opción 1",
@@ -2572,8 +2523,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2220,
-        260
+        448,
+        688
       ],
       "id": "f6a7b8c9-0010-4010-8010-000000000010",
       "name": "Repost: Opción 2",
@@ -2619,12 +2570,332 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2220,
-        420
+        672,
+        688
       ],
       "id": "f6a7b8c9-0011-4011-8011-000000000011",
       "name": "Repost: Opción 3",
       "webhookId": "f6a7b8c9-9011-4011-8011-000000000011",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-repost_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "repost_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-resume_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "resume_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-pubR_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pubR_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -800
+      ],
+      "id": "a7b8c9d0-0001-4001-8001-000000000001",
+      "name": "Router callback"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst data = $('Telegram Trigger').first().json.callback_query?.data || 'pub_1';\nlet targetRow = null, choice = 'op1';\nif (String(data).startsWith('pubR_')) {\n  const p = String(data).split('_');\n  targetRow = Number(p[1]);\n  choice = p[2] === 'final' ? 'final' : ('op' + p[2]);\n} else if (data === 'pub_2') choice = 'op2';\nelse if (data === 'pub_3') choice = 'op3';\nelse if (data === 'pub_final') choice = 'final';\nelse choice = 'op1';\nconst rows = items.map(i => i.json);\nlet row;\nif (targetRow != null) row = rows.find(r => Number(r.row_number) === targetRow) || rows[rows.length - 1];\nelse row = rows[rows.length - 1];\nreturn [{ json: { ...row, _choice: choice } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1872,
+        112
+      ],
+      "id": "a7b8c9d0-0002-4002-8002-000000000002",
+      "name": "Elegir fila a publicar"
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        -704
+      ],
+      "id": "a7b8c9d0-0003-4003-8003-000000000003",
+      "name": "Resume: Answer callback",
+      "webhookId": "a7b8c9d0-9003",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "UserID",
+              "lookupValue": "={{ String($json.callback_query.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        -288
+      ],
+      "id": "a7b8c9d0-0004-4004-8004-000000000004",
+      "name": "Resume: Leer fila",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst data = $('Telegram Trigger').first().json.callback_query.data;\nconst target = Number(String(data).split('_')[1]);\nconst chatId = $('Telegram Trigger').first().json.callback_query.message.chat.id;\nconst rows = items.map(i => i.json).filter(j => j && j.row_number != null);\nconst row = rows.find(r => Number(r.row_number) === target) || rows[rows.length - 1] || {};\nreturn [{ json: { rowNumber: row.row_number, op1: row.Copy_Op1 || '', op2: row.Copy_Op2 || '', op3: row.Copy_Op3 || '', imageURL: row.ImageURL || '', chatId } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "a7b8c9d0-0005-4005-8005-000000000005",
+      "name": "Resume: Elegir fila"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "▶️ Retomemos este borrador. Elegí qué versión publicar (la foto original se reutiliza) 👇",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        864,
+        0
+      ],
+      "id": "a7b8c9d0-0006-4006-8006-000000000006",
+      "name": "Resume: Intro",
+      "webhookId": "a7b8c9d0-9006",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "={{ $('Resume: Elegir fila').first().json.op1 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar · Informativa",
+                    "additionalFields": {
+                      "callback_data": "=pubR_{{ $('Resume: Elegir fila').first().json.rowNumber }}_1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1008,
+        368
+      ],
+      "id": "a7b8c9d0-0007-4007-8007-000000000007",
+      "name": "Resume: Opción 1",
+      "webhookId": "a7b8c9d0-9007-4007-8007-000000000007",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "={{ $('Resume: Elegir fila').first().json.op2 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar · Vendedora",
+                    "additionalFields": {
+                      "callback_data": "=pubR_{{ $('Resume: Elegir fila').first().json.rowNumber }}_2"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        368
+      ],
+      "id": "a7b8c9d0-0008-4008-8008-000000000008",
+      "name": "Resume: Opción 2",
+      "webhookId": "a7b8c9d0-9008-4008-8008-000000000008",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "={{ $('Resume: Elegir fila').first().json.op3 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Publicar · Divertida",
+                    "additionalFields": {
+                      "callback_data": "=pubR_{{ $('Resume: Elegir fila').first().json.rowNumber }}_3"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1392,
+        368
+      ],
+      "id": "a7b8c9d0-0009-4009-8009-000000000009",
+      "name": "Resume: Opción 3",
+      "webhookId": "a7b8c9d0-9009-4009-8009-000000000009",
       "credentials": {
         "telegramApi": {
           "id": "PavSlOIluhcuq1rF",
@@ -2732,7 +3003,7 @@
         ],
         [
           {
-            "node": "¿Es repost?",
+            "node": "Router callback",
             "type": "main",
             "index": 0
           }
@@ -2849,7 +3120,7 @@
       "main": [
         [
           {
-            "node": "Limit1",
+            "node": "Elegir fila a publicar",
             "type": "main",
             "index": 0
           }
@@ -2883,17 +3154,6 @@
         [
           {
             "node": "Descripcion en columna H",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Limit1": {
-      "main": [
-        [
-          {
-            "node": "Resolucion - IG",
             "type": "main",
             "index": 0
           }
@@ -3258,29 +3518,6 @@
         ]
       ]
     },
-    "¿Es repost?": {
-      "main": [
-        [
-          {
-            "node": "Repost: Answer callback",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Repost: Leer fila",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Que boton toco?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Repost: Leer fila": {
       "main": [
         [
@@ -3363,6 +3600,114 @@
         [
           {
             "node": "Repost: Opción 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router callback": {
+      "main": [
+        [
+          {
+            "node": "Repost: Answer callback",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Repost: Leer fila",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Resume: Answer callback",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Resume: Leer fila",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Que boton toco?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Elegir fila a publicar": {
+      "main": [
+        [
+          {
+            "node": "Resolucion - IG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume: Leer fila": {
+      "main": [
+        [
+          {
+            "node": "Resume: Elegir fila",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume: Elegir fila": {
+      "main": [
+        [
+          {
+            "node": "Resume: Intro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume: Intro": {
+      "main": [
+        [
+          {
+            "node": "Resume: Opción 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume: Opción 1": {
+      "main": [
+        [
+          {
+            "node": "Resume: Opción 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume: Opción 2": {
+      "main": [
+        [
+          {
+            "node": "Resume: Opción 3",
             "type": "main",
             "index": 0
           }
