@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T22:51:30.038Z",
+  "updatedAt": "2026-06-26T23:24:12.264Z",
   "createdAt": "2026-04-12T06:37:37.618Z",
   "id": "VOgbHGLELJfRgVO5",
   "name": "Postly - Entrega Final Sprint 1 v2",
@@ -109,8 +109,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        4256,
-        -768
+        5056,
+        -1072
       ],
       "id": "3666374c-219e-486c-b40e-eb884579f186",
       "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -221,8 +221,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2752,
-        -352
+        2560,
+        -640
       ],
       "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
       "name": "es volver al inicio?1"
@@ -1365,8 +1365,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        3120,
-        -352
+        2928,
+        -368
       ],
       "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
       "name": "Es Nueva Pub?"
@@ -1391,7 +1391,7 @@
           "values": [
             {
               "lookupColumn": "UserID",
-              "lookupValue": "={{ $json.message.chat.id }}"
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
             }
           ]
         },
@@ -1483,8 +1483,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2320,
-        -672
+        2112,
+        -656
       ],
       "id": "a1b2c3d4-0001-4001-8001-000000000001"
     },
@@ -1592,8 +1592,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2880,
-        -848
+        2560,
+        -880
       ],
       "id": "a1b2c3d4-0004-4004-8004-000000000004",
       "name": "Pedir vinculación",
@@ -1634,8 +1634,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3616,
-        -656
+        4176,
+        -944
       ],
       "id": "b2c3d4e5-0001-4001-8001-000000000001",
       "name": "HU3: Leer token",
@@ -1655,8 +1655,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        3824,
-        -656
+        4480,
+        -944
       ],
       "id": "b2c3d4e5-0002-4002-8002-000000000002",
       "name": "HU3: Validar token",
@@ -1690,8 +1690,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4032,
-        -656
+        4688,
+        -944
       ],
       "id": "b2c3d4e5-0003-4003-8003-000000000003",
       "name": "HU3: ¿Token vigente?"
@@ -1724,8 +1724,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4256,
-        -560
+        4896,
+        -672
       ],
       "id": "b2c3d4e5-0004-4004-8004-000000000004",
       "name": "HU3: Re-vincular",
@@ -2939,6 +2939,97 @@
         }
       },
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3216,
+        -848
+      ],
+      "name": "HU3 Agenda: Leer token",
+      "alwaysOutputData": true,
+      "id": "b45322b9-1d97-4813-a428-105a77e6402e",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/me?fields=id&access_token={{ $json.AccessToken }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3568,
+        -848
+      ],
+      "name": "HU3 Agenda: Validar token",
+      "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a1b2c3d4-0014-4014-8014-000000000014",
+              "leftValue": "={{ Boolean($json.id) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3824,
+        -672
+      ],
+      "name": "HU3 Agenda: ¿Token vigente?",
+      "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
     }
   ],
   "connections": {
@@ -3308,7 +3399,7 @@
         ],
         [
           {
-            "node": "Get row(s) in sheet2",
+            "node": "HU3 Agenda: Leer token",
             "type": "main",
             "index": 0
           }
@@ -3761,6 +3852,46 @@
           }
         ]
       ]
+    },
+    "HU3 Agenda: Leer token": {
+      "main": [
+        [
+          {
+            "node": "HU3 Agenda: Validar token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU3 Agenda: Validar token": {
+      "main": [
+        [
+          {
+            "node": "HU3 Agenda: ¿Token vigente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU3 Agenda: ¿Token vigente?": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU3: Re-vincular",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -3774,9 +3905,9 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "783066b3-05fc-4906-80bc-69cff60f694f",
-  "activeVersionId": "783066b3-05fc-4906-80bc-69cff60f694f",
-  "versionCounter": 1065,
+  "versionId": "e20378f4-01f1-4688-a078-2e5e67c93601",
+  "activeVersionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
+  "versionCounter": 1093,
   "triggerCount": 1,
   "shared": [
     {
@@ -3799,9 +3930,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-06-26T22:51:30.038Z",
-    "createdAt": "2026-06-26T22:51:30.038Z",
-    "versionId": "783066b3-05fc-4906-80bc-69cff60f694f",
+    "updatedAt": "2026-06-26T23:01:00.371Z",
+    "createdAt": "2026-06-26T23:01:00.371Z",
+    "versionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
     "workflowId": "VOgbHGLELJfRgVO5",
     "nodes": [
       {
@@ -4996,7 +5127,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// HU9 — Compliance Sentinel: bloqueo de precios (HU7) + firma legal desde Config (BD central)\nconst items = $('Resolucion - IG').all();\nconst result = [];\n\n// Firma/contacto desde la pestaña Config (BD central). Fallback a la línea legal histórica.\nconst FIRMA_FALLBACK = \"-- Consultora de Belleza Independiente Mary Kay --\";\n// Config = pestaña con columnas (firma | contacto) y una fila de datos. Headers case-insensitive.\nlet cfg = {};\ntry {\n  const row = (($('Leer Config').first() || {}).json) || {};\n  for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim();\n} catch (e) { /* Config ausente -> fallback */ }\n\nconst firmaLinea = cfg.firma || FIRMA_FALLBACK;\nconst contacto   = cfg.contacto || '';\n\n// Patrones prohibidos por Mary Kay (HU7 - detección de precios en texto)\nconst patronesPrecios = [\n  /\\$\\s?\\d+/g,                    // $1500, $ 1500\n  /\\d+[\\.,]\\d{3}/g,               // 1.500, 1,500\n  /\\d+%\\s?(off|desc)/gi,          // 50% off, 50% desc\n  /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi\n];\n\nfor (const item of items) {\n  let caption = item.json.Caption_IG || '';\n  let precioDetectado = false;\n  let patronEncontrado = '';\n\n  for (const patron of patronesPrecios) {\n    const match = caption.match(patron);\n    if (match) { precioDetectado = true; patronEncontrado = match[0]; break; }\n  }\n\n  if (precioDetectado) {\n    result.push({ json: { ...item.json, compliance_ok: false,\n      compliance_error: `⚠️ Postly detectó contenido prohibido: \"${patronEncontrado}\". Por las normas de Mary Kay no podés publicar precios ni promociones en el feed. Editá el texto e intentá de nuevo.` } });\n    continue;\n  }\n\n  // Firma legal obligatoria (puede venir ya escrita por la IA -> no duplicar)\n  if (!caption.includes(firmaLinea)) {\n    caption = caption + '\\n' + firmaLinea;\n  }\n  // Contacto: se agrega aparte, aunque la firma ya estuviera presente\n  if (contacto && !caption.includes(contacto)) {\n    caption = caption + '\\n' + contacto;\n  }\n\n  result.push({ json: { ...item.json, Caption_IG: caption, compliance_ok: true, compliance_error: null } });\n}\n\nreturn result;"
+          "jsCode": "// HU9 — Compliance Sentinel: bloqueo de precios (HU7) + firma legal desde Config (BD central)\nconst items = $('Resolucion - IG').all();\nconst result = [];\n\n// Firma/contacto desde la pestaña Config (BD central). Fallback a la línea legal histórica.\nconst FIRMA_FALLBACK = \"-- Consultora de Belleza Independiente Mary Kay --\";\n// Config = pestaña con columnas (firma | contacto) y una fila de datos. Headers case-insensitive.\nlet cfg = {};\ntry {\n  const row = (($('Leer Config').first() || {}).json) || {};\n  for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim();\n} catch (e) { /* Config ausente -> fallback */ }\n\nconst firmaLinea = cfg.firma || FIRMA_FALLBACK;\nconst contacto   = cfg.contacto || '';\n\n// Patrones prohibidos por Mary Kay (HU7 - detección de precios en texto)\nconst patronesPrecios = [\n  /\\$\\s?\\d+/g,                    // $1500, $ 1500\n  /\\d+[\\.,]\\d{3}/g,               // 1.500, 1,500\n  /\\d+%\\s?(off|desc)/gi,          // 50% off, 50% desc\n  /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi\n];\n\nfor (const item of items) {\n  let caption = item.json.Caption_IG || '';\n  let precioDetectado = false;\n  let patronEncontrado = '';\n\n  for (const patron of patronesPrecios) {\n    const match = caption.match(patron);\n    if (match) { precioDetectado = true; patronEncontrado = match[0]; break; }\n  }\n\n  if (precioDetectado) {\n    result.push({ json: { ...item.json, compliance_ok: false,\n      compliance_error: `⚠️ Postly detectó contenido prohibido: \"${patronEncontrado}\". Por las normas de Mary Kay no podés publicar precios ni promociones en el feed. Editá el texto e intentá de nuevo.` } });\n    continue;\n  }\n\n  // Normalizar: la IA a veces escribe la firma inline (pegada a los #).\n  // Quitamos firma/contacto donde estén y los reinsertamos limpios, cada uno en su renglón.\n  caption = caption.trim();\n  caption = caption.split(firmaLinea).join('').trim();\n  if (contacto) caption = caption.split(contacto).join('').trim();\n  caption = caption + '\\n' + firmaLinea;\n  if (contacto) caption = caption + '\\n' + contacto;\n\n  result.push({ json: { ...item.json, Caption_IG: caption, compliance_ok: true, compliance_error: null } });\n}\n\nreturn result;"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -6736,6 +6867,97 @@
           }
         },
         "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+            "mode": "list",
+            "cachedResultName": "Postly_DB"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "600115356",
+            "mode": "list",
+            "cachedResultName": "Usuarios"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "TelegramUserID",
+                "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
+              }
+            ]
+          },
+          "options": {
+            "returnFirstMatch": true
+          }
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          2880,
+          -336
+        ],
+        "name": "HU3 Agenda: Leer token",
+        "alwaysOutputData": true,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "Ip1hgjqpbV1WTJpG",
+            "name": "Google Sheets account"
+          }
+        },
+        "id": "b45322b9-1d97-4813-a428-105a77e6402e"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.facebook.com/v19.0/me?fields=id&access_token={{ $json.AccessToken }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          3088,
+          -336
+        ],
+        "name": "HU3 Agenda: Validar token",
+        "onError": "continueRegularOutput",
+        "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "a1b2c3d4-0014-4014-8014-000000000014",
+                "leftValue": "={{ Boolean($json.id) }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          3296,
+          -336
+        ],
+        "name": "HU3 Agenda: ¿Token vigente?",
+        "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
       }
     ],
     "connections": {
@@ -7105,7 +7327,7 @@
           ],
           [
             {
-              "node": "Get row(s) in sheet2",
+              "node": "HU3 Agenda: Leer token",
               "type": "main",
               "index": 0
             }
@@ -7558,6 +7780,46 @@
             }
           ]
         ]
+      },
+      "HU3 Agenda: Leer token": {
+        "main": [
+          [
+            {
+              "node": "HU3 Agenda: Validar token",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU3 Agenda: Validar token": {
+        "main": [
+          [
+            {
+              "node": "HU3 Agenda: ¿Token vigente?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU3 Agenda: ¿Token vigente?": {
+        "main": [
+          [
+            {
+              "node": "Get row(s) in sheet2",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HU3: Re-vincular",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Nicolas Hassan",
@@ -7566,18 +7828,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-06-26T22:51:32.342Z",
-        "id": 110,
+        "createdAt": "2026-06-26T23:01:03.287Z",
+        "id": 114,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "783066b3-05fc-4906-80bc-69cff60f694f",
+        "versionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
         "event": "activated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       },
       {
-        "createdAt": "2026-06-26T22:51:30.839Z",
-        "id": 109,
+        "createdAt": "2026-06-26T23:01:01.204Z",
+        "id": 113,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "783066b3-05fc-4906-80bc-69cff60f694f",
+        "versionId": "a5f8047c-dee4-4ef8-b97b-263530152c48",
         "event": "deactivated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       }
