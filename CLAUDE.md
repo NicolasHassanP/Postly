@@ -14,12 +14,13 @@ en **Google Sheets**.
 
 > **La tesis `docs/Tesis Postly Bontorno Hassan.docx` es la FUENTE DE LA VERDAD.** No desviarse de lo documentado.
 
-## Estado (9/14 HU)
+## Estado (10/14 HU)
 
-✅ HU1, HU2, HU3 (Módulo A) · HU4, HU6 (B) · HU7, HU9 (C) · HU11, HU12 (D).
-❌ HU5 (carruseles), HU8 (OCR precios en imagen) — *se pueden hacer ya*.
+✅ HU1, HU2, HU3 (Módulo A) · HU4, HU6 (B) · HU7, HU8, HU9 (C, **completo**) · HU11, HU12 (D).
+❌ HU5 (carruseles) — *se puede hacer ya, próximo paso*.
 ❌ HU10, HU13, HU14 — *requieren migración a VPS (Cron/FFmpeg 24/7)*.
-Detalle y deudas técnicas: `docs/contexto/ESTADO-Y-ROADMAP.md`.
+Las 3 deudas técnicas accionables (cifrado del token AES-256-GCM, gateo de agenda, firma desde BD) están saldadas.
+Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 
 ## Cómo operar n8n (IMPORTANTE)
 

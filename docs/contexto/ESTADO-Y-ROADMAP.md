@@ -1,7 +1,7 @@
 # Postly — Estado de implementación y Roadmap
 
 > Documento de handoff para el equipo de tesis (Bontorno · Hassan).
-> Última actualización: **2026-06-25**. Fuente de la verdad: `docs/Tesis Postly Bontorno Hassan.docx`.
+> Última actualización: **2026-06-26**. Fuente de la verdad: `docs/Tesis Postly Bontorno Hassan.docx`.
 
 Este documento mapea las **14 Historias de Usuario (HU)** de la tesis contra lo realmente implementado
 en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y propone el **orden de trabajo**.
@@ -10,11 +10,11 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 
 ## Resumen ejecutivo
 
-**9 de 14 HU implementadas (64%).**
+**10 de 14 HU implementadas (71%).**
 
 - ✅ **Módulo A — Seguridad/Onboarding/Auth:** completo (HU1, HU2, HU3).
 - 🟡 **Módulo B — Creación con IA:** parcial (HU4, HU6 ✅ · HU5 ❌).
-- 🟡 **Módulo C — Compliance:** parcial (HU7, HU9 ✅ · HU8 ❌).
+- ✅ **Módulo C — Compliance:** completo (HU7, HU8, HU9).
 - 🟡 **Módulo D — Publicación y Agenda:** parcial (HU11, HU12 ✅ · HU10 ❌).
 - ❌ **Módulo E — Multimedia y Analítica:** sin hacer (HU13, HU14 ❌).
 
@@ -31,7 +31,7 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 | HU5 | B | **Carruseles (hasta 10 imágenes)** | ❌ | **No implementado** |
 | HU6 | B | Selección de tono (3 estilos) | ✅ | Sí — Informativa/Vendedora/Divertida + HITL |
 | HU7 | C | Detección de precios en TEXTO (RegEx) | ✅ | Sí — bloquea y avisa |
-| HU8 | C | **Detección de precios en IMAGEN (OCR)** | ❌ | **No implementado** |
+| HU8 | C | Detección de precios en IMAGEN (visión Gemini) | ✅ | Sí — gate visual antes de generar copys, bloquea y avisa |
 | HU9 | C | Inyección de firma legal | ✅ | Sí (con matices, ver deudas) |
 | HU10 | D | **Programación a futuro (Cron)** | ❌ | **No implementado — requiere VPS** |
 | HU11 | D | Visualización de agenda | ✅ | Sí — tarjetas con estados, paginación |
@@ -49,13 +49,6 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 Hoy el bot solo procesa **una** imagen. La tesis pide recibir un **media group de Telegram (hasta 10 imágenes)**,
 que la IA proponga un **orden estético** (portada/hook + secuencia narrativa) y un **Wait** para que la usuaria
 confirme/reordene antes de generar el texto. Es una feature grande del módulo de creación.
-
-#### HU8 — Detección de precios en imágenes / OCR (Módulo C)
-Hoy el Compliance Sentinel solo escanea el **texto** (HU7, RegEx en el nodo `Code in JavaScript1`).
-La tesis pide que **Gemini analice visualmente la imagen** y **bloquee** la publicación si detecta un precio
-o promoción incrustada en los píxeles (placa gráfica). El prompt actual le pide a la IA "no inventar precios",
-pero **no existe un gate de compliance visual** que frene la publicación. Cierra el Módulo C. Es puro Gemini
-(ya existe el nodo de visión), de esfuerzo acotado.
 
 ### Depende de la migración a VPS (Cron / FFmpeg 24/7)
 
@@ -95,9 +88,9 @@ Existe el workflow `Postly - Feedback Loop` (inactivo) como base. Necesita Cron 
 
 ## Roadmap propuesto
 
-1. **HU8 (OCR de precios en imagen)** — mejor relación esfuerzo/cierre; completa el Módulo C. *(sin VPS)*
-2. **HU5 (carruseles)** — más grande; completa el Módulo B. *(sin VPS)*
-3. ✅ **Deudas técnicas** (cifrado del token, gateo de agenda, firma desde BD) — **hechas** (2026-06-26).
+1. ✅ **HU8 (detección visual de precios)** — **hecha** (2026-06-26). Cerró el Módulo C.
+2. ✅ **Deudas técnicas** (cifrado del token, gateo de agenda, firma desde BD) — **hechas** (2026-06-26).
+3. **HU5 (carruseles)** — más grande; completa el Módulo B. *(sin VPS)* — **siguiente paso sugerido**.
 4. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba **HU10, HU13, HU14** de una sola vez.
    Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente de resolver el medio de pago.
 
