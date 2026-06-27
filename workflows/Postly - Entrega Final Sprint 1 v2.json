@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T23:28:29.469Z",
+  "updatedAt": "2026-06-26T23:43:41.822Z",
   "createdAt": "2026-04-12T06:37:37.618Z",
   "id": "VOgbHGLELJfRgVO5",
   "name": "Postly - Entrega Final Sprint 1 v2",
@@ -174,7 +174,7 @@
           "cachedResultName": "models/gemini-2.5-flash"
         },
         "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **FIRMA OBLIGATORIA:** Al final de *cada una* de las 3 opciones, debes incluir *exactamente* esta firma: \"-- Consultora de Belleza Independiente Mary Kay --\".\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags y la firma\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags y la firma\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags y la firma\"\n}",
-        "imageUrls": "={{ $json.secure_url }}",
+        "imageUrls": "={{ $('HTTP Request').first().json.secure_url }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
@@ -1634,8 +1634,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        4176,
-        -944
+        4096,
+        -928
       ],
       "id": "b2c3d4e5-0001-4001-8001-000000000001",
       "name": "HU3: Leer token",
@@ -3038,10 +3038,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4326,
-        -884
+        4288,
+        -928
       ],
-      "name": "Descifrar token"
+      "name": "Descifrar token",
+      "id": "ea2a693a-524b-4a96-8bcf-2db722552e05"
     },
     {
       "parameters": {
@@ -3050,10 +3051,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3366,
-        -788
+        3392,
+        -848
       ],
-      "name": "Descifrar token (Agenda)"
+      "name": "Descifrar token (Agenda)",
+      "id": "8270f99f-71b6-4b09-bac8-346144e3fa00"
     },
     {
       "parameters": {
@@ -3062,10 +3064,106 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2662,
-        508
+        2688,
+        560
       ],
-      "name": "Descifrar credenciales"
+      "name": "Descifrar credenciales",
+      "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+        "imageUrls": "={{ $('HTTP Request').first().json.secure_url }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        4400,
+        224
+      ],
+      "name": "HU8: Detección visual",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "KSLilanSYeOPXkGp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU8 — parsea la detección visual de Gemini (fail-open ante JSON inválido)\nconst raw = ($('HU8: Detección visual').first().json.content.parts[0].text) || '';\nlet parsed = { tiene_precio: false, detalle: '' };\ntry {\n  parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim());\n} catch (e) { /* Gemini no devolvió JSON limpio -> no bloquear */ }\nreturn [{ json: {\n  tiene_precio: parsed.tiene_precio === true,\n  detalle: parsed.detalle || '',\n  secure_url: $('HTTP Request').first().json.secure_url\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4640,
+        224
+      ],
+      "name": "HU8: Parsear detección"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c1d2e3f4-0015-4015-8015-000000000015",
+              "leftValue": "={{ $json.tiene_precio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4880,
+        224
+      ],
+      "name": "HU8: ¿Imagen limpia?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "text": "=🚫 *Detecté un precio o promoción en la imagen.*\n\nPor las normas de Mary Kay no puedo publicar imágenes con precios, ofertas o descuentos incrustados (placas con $, % OFF, etc.).\n\n_Detalle:_ {{ $json.detalle }}\n\n📸 Mandame otra foto del producto sin precios y seguimos.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        5120,
+        80
+      ],
+      "name": "HU8: Imagen con precio",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "connections": {
@@ -3251,7 +3349,7 @@
       "main": [
         [
           {
-            "node": "Analyze an image",
+            "node": "HU8: Detección visual",
             "type": "main",
             "index": 0
           }
@@ -3961,6 +4059,46 @@
           }
         ]
       ]
+    },
+    "HU8: Detección visual": {
+      "main": [
+        [
+          {
+            "node": "HU8: Parsear detección",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU8: Parsear detección": {
+      "main": [
+        [
+          {
+            "node": "HU8: ¿Imagen limpia?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU8: ¿Imagen limpia?": {
+      "main": [
+        [
+          {
+            "node": "HU8: Imagen con precio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -3974,9 +4112,9 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
-  "activeVersionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
-  "versionCounter": 1097,
+  "versionId": "34f04336-6fa3-47c7-a3c6-76da4351e6e5",
+  "activeVersionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
+  "versionCounter": 1104,
   "triggerCount": 1,
   "shared": [
     {
@@ -3999,9 +4137,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-06-26T23:28:29.470Z",
-    "createdAt": "2026-06-26T23:28:29.470Z",
-    "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
+    "updatedAt": "2026-06-26T23:40:42.279Z",
+    "createdAt": "2026-06-26T23:40:42.279Z",
+    "versionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
     "workflowId": "VOgbHGLELJfRgVO5",
     "nodes": [
       {
@@ -4921,7 +5059,7 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "=https://graph.facebook.com/v19.0/{{ $('HU3: Leer credenciales').first().json.IGAccountID }}/media",
+          "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media",
           "sendBody": true,
           "bodyParameters": {
             "parameters": [
@@ -4953,7 +5091,7 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "=https://graph.facebook.com/v19.0/{{ $('HU3: Leer credenciales').first().json.IGAccountID }}/media_publish",
+          "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media_publish",
           "sendBody": true,
           "bodyParameters": {
             "parameters": [
@@ -4963,7 +5101,7 @@
               },
               {
                 "name": "access_token",
-                "value": "={{ $('HU3: Leer credenciales').first().json.AccessToken }}"
+                "value": "={{ $('Descifrar credenciales').first().json.AccessToken }}"
               }
             ]
           },
@@ -5292,7 +5430,7 @@
       },
       {
         "parameters": {
-          "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('HU3: Leer credenciales').first().json.AccessToken }}",
+          "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('Descifrar credenciales').first().json.AccessToken }}",
           "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
@@ -7027,6 +7165,45 @@
         ],
         "name": "HU3 Agenda: ¿Token vigente?",
         "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
+      },
+      {
+        "parameters": {
+          "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val; // texto plano (compat)\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4326,
+          -884
+        ],
+        "name": "Descifrar token",
+        "id": "ea2a693a-524b-4a96-8bcf-2db722552e05"
+      },
+      {
+        "parameters": {
+          "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val; // texto plano (compat)\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3366,
+          -788
+        ],
+        "name": "Descifrar token (Agenda)",
+        "id": "8270f99f-71b6-4b09-bac8-346144e3fa00"
+      },
+      {
+        "parameters": {
+          "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val; // texto plano (compat)\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2662,
+          508
+        ],
+        "name": "Descifrar credenciales",
+        "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
       }
     ],
     "connections": {
@@ -7483,7 +7660,7 @@
         "main": [
           [
             {
-              "node": "HU3: Validar token",
+              "node": "Descifrar token",
               "type": "main",
               "index": 0
             }
@@ -7523,7 +7700,7 @@
         "main": [
           [
             {
-              "node": "IG - Crear contenedor",
+              "node": "Descifrar credenciales",
               "type": "main",
               "index": 0
             }
@@ -7854,7 +8031,7 @@
         "main": [
           [
             {
-              "node": "HU3 Agenda: Validar token",
+              "node": "Descifrar token (Agenda)",
               "type": "main",
               "index": 0
             }
@@ -7889,6 +8066,39 @@
             }
           ]
         ]
+      },
+      "Descifrar token": {
+        "main": [
+          [
+            {
+              "node": "HU3: Validar token",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Descifrar token (Agenda)": {
+        "main": [
+          [
+            {
+              "node": "HU3 Agenda: Validar token",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Descifrar credenciales": {
+        "main": [
+          [
+            {
+              "node": "IG - Crear contenedor",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Nicolas Hassan",
@@ -7897,18 +8107,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-06-26T23:28:32.048Z",
-        "id": 116,
+        "createdAt": "2026-06-26T23:40:45.876Z",
+        "id": 118,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
+        "versionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
         "event": "activated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       },
       {
-        "createdAt": "2026-06-26T23:28:30.280Z",
-        "id": 115,
+        "createdAt": "2026-06-26T23:40:44.401Z",
+        "id": 117,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "4f7f2624-6457-4027-8fc8-2942a9193639",
+        "versionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
         "event": "deactivated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       }
