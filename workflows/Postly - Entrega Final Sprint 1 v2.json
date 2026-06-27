@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-27T01:13:59.278Z",
+  "updatedAt": "2026-06-27T03:21:37.485Z",
   "createdAt": "2026-04-12T06:37:37.618Z",
   "id": "VOgbHGLELJfRgVO5",
   "name": "Postly - Entrega Final Sprint 1 v2",
@@ -20,8 +20,8 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        1216,
-        -1088
+        -848,
+        -1920
       ],
       "webhookId": "83282633-f22d-471e-afcd-d6de439b3a79",
       "credentials": {
@@ -46,8 +46,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2096,
-        -1104
+        1136,
+        -3104
       ],
       "id": "4e3f9654-2ba5-428a-b31b-17348195450e"
     },
@@ -83,8 +83,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        3344,
-        -1136
+        2288,
+        -3232
       ],
       "id": "184aaff1-6834-44d6-99fe-3acde356c077",
       "webhookId": "ff7e5f9e-5c26-4265-b80f-762437e6b1ef",
@@ -109,8 +109,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        5056,
-        -1072
+        4368,
+        -3536
       ],
       "id": "3666374c-219e-486c-b40e-eb884579f186",
       "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -131,8 +131,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        3728,
-        224
+        4000,
+        -1504
       ],
       "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
       "webhookId": "56b64642-17f1-4a1f-8a2f-b1bb09109b5a",
@@ -158,8 +158,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        3296,
-        240
+        3216,
+        -2160
       ],
       "id": "e0c4ed0e-91c6-45d9-a528-74eed80f3c2e"
     },
@@ -180,13 +180,14 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        5120,
-        224
+        5456,
+        -1504
       ],
       "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
       "name": "Analyze an image",
       "retryOnFail": true,
-      "waitBetweenTries": 5000,
+      "waitBetweenTries": 35000,
+      "maxTries": 4,
       "credentials": {
         "googlePalmApi": {
           "id": "KSLilanSYeOPXkGp",
@@ -221,8 +222,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2560,
-        -640
+        1904,
+        -2880
       ],
       "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
       "name": "es volver al inicio?1"
@@ -284,8 +285,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        1616,
-        -1088
+        -80,
+        -1920
       ],
       "id": "c74f4045-b799-42f0-ba61-a4edff1899ad",
       "name": "Switch"
@@ -300,7 +301,7 @@
       "typeVersion": 1.2,
       "position": [
         1632,
-        -560
+        -736
       ],
       "id": "a07ae990-a109-4655-9290-ffd2acae603f",
       "name": "Answer Query a callback",
@@ -340,8 +341,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4384,
-        736
+        5440,
+        -896
       ],
       "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
       "name": "Descripcion editada",
@@ -525,7 +526,7 @@
       "typeVersion": 3.4,
       "position": [
         1200,
-        -576
+        -624
       ],
       "id": "ac8bbd7a-0eae-4e0b-86a5-ec1be34f4650",
       "name": "Que boton toco?"
@@ -552,8 +553,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        4144,
-        224
+        4480,
+        -1504
       ],
       "id": "fc5bb46b-364f-4ea9-ac54-16b8f885502e",
       "name": "HTTP Request"
@@ -565,8 +566,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3888,
-        224
+        4224,
+        -1504
       ],
       "id": "8efae140-2d14-4fc8-8349-4841e875fb53",
       "name": "Code in JavaScript"
@@ -673,8 +674,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        5344,
-        224
+        5680,
+        -1504
       ],
       "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
       "name": "Consistencia",
@@ -715,7 +716,7 @@
       "typeVersion": 4.7,
       "position": [
         1632,
-        112
+        0
       ],
       "id": "9bea5be4-89d8-4845-aac0-849bd081206d",
       "name": "Get row(s) in sheet",
@@ -853,8 +854,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        4128,
-        736
+        5120,
+        -896
       ],
       "id": "80947461-516d-4ec5-a2f7-945ededea964",
       "name": "Descripcion en columna H",
@@ -896,8 +897,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3632,
-        736
+        4496,
+        -896
       ],
       "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
       "name": "Get row(s) in sheet1",
@@ -915,8 +916,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        3904,
-        736
+        4800,
+        -896
       ],
       "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
       "name": "Limit"
@@ -947,8 +948,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2640,
-        752
+        3600,
+        -16
       ],
       "id": "0bc00573-b669-4591-ba8b-cf654348e7b4",
       "name": "IG - Crear contenedor"
@@ -975,8 +976,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2640,
-        1248
+        3952,
+        -16
       ],
       "id": "244d3a32-54a3-4afd-9b9a-d7d9184e0810",
       "name": "IG - Publicar"
@@ -1160,8 +1161,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2976,
-        1712
+        4592,
+        -16
       ],
       "id": "c5d60046-75ce-4dc9-b70e-1ff66bff3ca8",
       "name": "Actualizar Sheets",
@@ -1177,8 +1178,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2640,
-        992
+        3776,
+        -16
       ],
       "id": "d9fd9696-0be1-437f-9ccf-68b449a860a7",
       "name": "Wait",
@@ -1192,7 +1193,7 @@
       "typeVersion": 2,
       "position": [
         2096,
-        112
+        0
       ],
       "id": "f3cb5c4c-e9f8-4c73-ae5e-c283e3b82fcc",
       "name": "Resolucion - IG"
@@ -1204,8 +1205,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2000,
-        464
+        2528,
+        0
       ],
       "id": "0fcd5086-dc0d-4074-b580-55dccadffdcb",
       "name": "Code in JavaScript1"
@@ -1238,8 +1239,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2208,
-        464
+        2736,
+        0
       ],
       "id": "7c7ddd1a-6f69-462d-82fa-1317760c63bf",
       "name": "If"
@@ -1255,8 +1256,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2352,
-        752
+        3040,
+        224
       ],
       "id": "cf3cd839-aef6-46dd-889c-5a2793b09c2f",
       "name": "Telegram Error (Compliance)",
@@ -1280,8 +1281,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2640,
-        1712
+        4368,
+        -16
       ],
       "id": "7aa72642-bb00-471b-b7a1-f2a29687259f",
       "name": "Telegram Éxito",
@@ -1301,8 +1302,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2640,
-        1488
+        4160,
+        -16
       ],
       "id": "11a75188-b3f5-44b6-b775-bf6bfad378e3",
       "name": "Permalink"
@@ -1365,8 +1366,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        2928,
-        -368
+        2512,
+        -2992
       ],
       "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
       "name": "Es Nueva Pub?"
@@ -1400,8 +1401,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3616,
-        -336
+        4544,
+        -3056
       ],
       "id": "1e3f1a4b-ff3f-4831-a142-bf80c797a73b",
       "name": "Get row(s) in sheet2",
@@ -1442,8 +1443,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4640,
-        -208
+        5568,
+        -2928
       ],
       "id": "265d195f-02a7-4dca-9212-fe51220745ed",
       "name": "Send a photo message",
@@ -1462,8 +1463,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3840,
-        -336
+        4768,
+        -3056
       ],
       "id": "9f521499-9807-4033-b57a-db8c1ea1e3e1",
       "name": "Armar tarjetas"
@@ -1483,8 +1484,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        2112,
-        -656
+        1600,
+        -2896
       ],
       "id": "a1b2c3d4-0001-4001-8001-000000000001"
     },
@@ -1517,8 +1518,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2416,
-        -1120
+        1472,
+        -3184
       ],
       "id": "a1b2c3d4-0002-4002-8002-000000000002",
       "name": "Buscar usuario",
@@ -1558,8 +1559,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2720,
-        -1120
+        1744,
+        -3264
       ],
       "id": "a1b2c3d4-0003-4003-8003-000000000003",
       "name": "¿Ya vinculado?"
@@ -1592,8 +1593,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2560,
-        -880
+        1904,
+        -3120
       ],
       "id": "a1b2c3d4-0004-4004-8004-000000000004",
       "name": "Pedir vinculación",
@@ -1634,8 +1635,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        4096,
-        -928
+        3408,
+        -3392
       ],
       "id": "b2c3d4e5-0001-4001-8001-000000000001",
       "name": "HU3: Leer token",
@@ -1655,8 +1656,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        4480,
-        -944
+        3792,
+        -3408
       ],
       "id": "b2c3d4e5-0002-4002-8002-000000000002",
       "name": "HU3: Validar token",
@@ -1690,8 +1691,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4688,
-        -944
+        4000,
+        -3408
       ],
       "id": "b2c3d4e5-0003-4003-8003-000000000003",
       "name": "HU3: ¿Token vigente?"
@@ -1724,8 +1725,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4896,
-        -672
+        4208,
+        -3136
       ],
       "id": "b2c3d4e5-0004-4004-8004-000000000004",
       "name": "HU3: Re-vincular",
@@ -1766,8 +1767,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2512,
-        448
+        2992,
+        -16
       ],
       "id": "b2c3d4e5-0006-4006-8006-000000000006",
       "name": "HU3: Leer credenciales",
@@ -1806,7 +1807,7 @@
       "typeVersion": 4.7,
       "position": [
         1632,
-        -112
+        -400
       ],
       "id": "c3d4e5f6-0001-4001-8001-000000000001",
       "name": "A: Leer opción",
@@ -1825,7 +1826,7 @@
       "typeVersion": 2,
       "position": [
         1872,
-        -112
+        -400
       ],
       "id": "c3d4e5f6-0002-4002-8002-000000000002",
       "name": "A: Elegir opción"
@@ -1842,7 +1843,7 @@
       "typeVersion": 1.2,
       "position": [
         2096,
-        -112
+        -400
       ],
       "id": "c3d4e5f6-0003-4003-8003-000000000003",
       "name": "A: Instrucción editar",
@@ -1866,7 +1867,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        -112
+        -400
       ],
       "id": "c3d4e5f6-0004-4004-8004-000000000004",
       "name": "A: Texto a editar",
@@ -1885,8 +1886,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5600,
-        224
+        5936,
+        -1504
       ],
       "id": "d4e5f6a7-0001-4001-8001-000000000001",
       "name": "B: Parsear opciones"
@@ -1902,8 +1903,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5792,
-        -32
+        6128,
+        -1536
       ],
       "id": "d4e5f6a7-0002-4002-8002-000000000002",
       "name": "B: Intro opciones",
@@ -1949,8 +1950,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5952,
-        224
+        6368,
+        -1536
       ],
       "id": "d4e5f6a7-0003-4003-8003-000000000003",
       "name": "B: Opción 1",
@@ -1996,8 +1997,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        6192,
-        224
+        6576,
+        -1536
       ],
       "id": "d4e5f6a7-0004-4004-8004-000000000004",
       "name": "B: Opción 2",
@@ -2043,8 +2044,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        6416,
-        224
+        6800,
+        -1536
       ],
       "id": "d4e5f6a7-0005-4005-8005-000000000005",
       "name": "B: Opción 3",
@@ -2084,8 +2085,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4080,
-        -336
+        5008,
+        -3056
       ],
       "id": "e5f6a7b8-0001-4001-8001-000000000001",
       "name": "¿Agenda vacía?"
@@ -2118,8 +2119,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4368,
-        -112
+        5296,
+        -2832
       ],
       "id": "e5f6a7b8-0002-4002-8002-000000000002",
       "name": "¿Tarjeta con foto?"
@@ -2135,8 +2136,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4368,
-        -352
+        5296,
+        -3072
       ],
       "id": "e5f6a7b8-0003-4003-8003-000000000003",
       "name": "Agenda vacía",
@@ -2176,8 +2177,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4640,
-        32
+        5568,
+        -2688
       ],
       "id": "e5f6a7b8-0004-4004-8004-000000000004",
       "name": "Tarjeta sin foto",
@@ -2198,8 +2199,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        800,
-        -848
+        2592,
+        -960
       ],
       "id": "f6a7b8c9-0002-4002-8002-000000000002",
       "name": "Repost: Answer callback",
@@ -2239,8 +2240,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        192,
-        -464
+        1024,
+        -2368
       ],
       "id": "f6a7b8c9-0003-4003-8003-000000000003",
       "name": "Repost: Leer fila",
@@ -2258,8 +2259,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        192,
-        -256
+        1184,
+        -2368
       ],
       "id": "f6a7b8c9-0004-4004-8004-000000000004",
       "name": "Repost: Elegir fila"
@@ -2281,13 +2282,14 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        208,
-        -32
+        1376,
+        -2368
       ],
       "id": "f6a7b8c9-0005-4005-8005-000000000005",
       "name": "Repost: Analizar imagen",
       "retryOnFail": true,
-      "waitBetweenTries": 5000,
+      "waitBetweenTries": 35000,
+      "maxTries": 4,
       "credentials": {
         "googlePalmApi": {
           "id": "KSLilanSYeOPXkGp",
@@ -2302,8 +2304,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        208,
-        208
+        1536,
+        -2368
       ],
       "id": "f6a7b8c9-0006-4006-8006-000000000006",
       "name": "Repost: Parsear"
@@ -2410,8 +2412,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        208,
-        432
+        1712,
+        -2368
       ],
       "id": "f6a7b8c9-0007-4007-8007-000000000007",
       "name": "Repost: Guardar fila",
@@ -2433,8 +2435,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        496,
-        432
+        1904,
+        -2368
       ],
       "id": "f6a7b8c9-0008-4008-8008-000000000008",
       "name": "Repost: Intro",
@@ -2480,8 +2482,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        208,
-        688
+        2128,
+        -2368
       ],
       "id": "f6a7b8c9-0009-4009-8009-000000000009",
       "name": "Repost: Opción 1",
@@ -2527,8 +2529,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        448,
-        688
+        2320,
+        -2368
       ],
       "id": "f6a7b8c9-0010-4010-8010-000000000010",
       "name": "Repost: Opción 2",
@@ -2574,8 +2576,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        672,
-        688
+        2512,
+        -2368
       ],
       "id": "f6a7b8c9-0011-4011-8011-000000000011",
       "name": "Repost: Opción 3",
@@ -2656,6 +2658,94 @@
                 ],
                 "combinator": "and"
               }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-cfmCar_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cfmCar_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-origCar_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "origCar_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-pubCar_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pubCar_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "rt-editCar_",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "editCar_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
             }
           ]
         },
@@ -2666,8 +2756,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        0,
-        -800
+        224,
+        -1552
       ],
       "id": "a7b8c9d0-0001-4001-8001-000000000001",
       "name": "Router callback"
@@ -2680,7 +2770,7 @@
       "typeVersion": 2,
       "position": [
         1872,
-        112
+        0
       ],
       "id": "a7b8c9d0-0002-4002-8002-000000000002",
       "name": "Elegir fila a publicar"
@@ -2694,8 +2784,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        800,
-        -704
+        2592,
+        -768
       ],
       "id": "a7b8c9d0-0003-4003-8003-000000000003",
       "name": "Resume: Answer callback",
@@ -2926,8 +3016,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1792,
-        464
+        2320,
+        0
       ],
       "name": "Leer Config",
       "alwaysOutputData": true,
@@ -2969,8 +3059,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3216,
-        -848
+        3392,
+        -2976
       ],
       "name": "HU3 Agenda: Leer token",
       "alwaysOutputData": true,
@@ -2990,8 +3080,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        3568,
-        -848
+        3744,
+        -2976
       ],
       "name": "HU3 Agenda: Validar token",
       "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131",
@@ -3025,8 +3115,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3824,
-        -672
+        4000,
+        -2832
       ],
       "name": "HU3 Agenda: ¿Token vigente?",
       "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
@@ -3038,8 +3128,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4288,
-        -928
+        3600,
+        -3392
       ],
       "name": "Descifrar token",
       "id": "ea2a693a-524b-4a96-8bcf-2db722552e05"
@@ -3051,8 +3141,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3392,
-        -848
+        3568,
+        -2976
       ],
       "name": "Descifrar token (Agenda)",
       "id": "8270f99f-71b6-4b09-bac8-346144e3fa00"
@@ -3064,8 +3154,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2768,
-        448
+        3232,
+        -16
       ],
       "name": "Descifrar credenciales",
       "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
@@ -3087,11 +3177,14 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        4400,
-        224
+        4736,
+        -1504
       ],
       "name": "HU8: Detección visual",
       "id": "bc7465f8-d765-4787-8c7b-bfd191433c34",
+      "retryOnFail": true,
+      "maxTries": 4,
+      "waitBetweenTries": 35000,
       "credentials": {
         "googlePalmApi": {
           "id": "KSLilanSYeOPXkGp",
@@ -3106,8 +3199,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4640,
-        224
+        4976,
+        -1504
       ],
       "name": "HU8: Parsear detección",
       "id": "f0ce2aa1-bd72-4c0d-989c-ba632105cf5d"
@@ -3140,8 +3233,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4880,
-        224
+        5216,
+        -1504
       ],
       "name": "HU8: ¿Imagen limpia?",
       "id": "f285e2db-650b-4801-848e-42d12b5ae987"
@@ -3157,8 +3250,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5072,
-        -16
+        5440,
+        -1744
       ],
       "name": "HU8: Imagen con precio",
       "id": "811581f0-bb06-4c19-90e0-64617f3b5825",
@@ -3198,8 +3291,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3536,
-        352
+        3600,
+        -2112
       ],
       "name": "HU5: ¿Es carrusel?",
       "id": "55b41e45-6688-4370-b27f-a74e244246bd"
@@ -3212,7 +3305,7 @@
       "typeVersion": 2,
       "position": [
         3904,
-        480
+        -2128
       ],
       "name": "HU5: Buffer grupo",
       "id": "6522e325-d04d-4440-a657-63a93fbf5105"
@@ -3224,8 +3317,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        4288,
-        480
+        4192,
+        -2128
       ],
       "name": "HU5: Esperar grupo",
       "webhookId": "hu5-wait-grupo",
@@ -3240,8 +3333,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4800,
-        480
+        4688,
+        -2128
       ],
       "name": "HU5: Bajar foto",
       "id": "8dd72150-a703-486b-8bb8-69252f94b0bc",
@@ -3260,8 +3353,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5056,
-        480
+        4944,
+        -2128
       ],
       "name": "HU5: A base64",
       "id": "caba12e6-e532-4875-94ab-5c6429874e99"
@@ -3288,8 +3381,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        5312,
-        480
+        5200,
+        -2128
       ],
       "name": "HU5: Subir Cloudinary",
       "id": "bff33a9a-6231-463b-a4c3-7c0d6a16bfff"
@@ -3301,58 +3394,39 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5552,
-        480
+        5440,
+        -2128
       ],
       "name": "HU5: Juntar URLs",
       "id": "c1e2f6e9-39bf-44d8-a487-3bfd4b0101f1"
     },
     {
       "parameters": {
-        "resource": "image",
-        "operation": "analyze",
-        "modelId": {
-          "__rl": true,
-          "value": "models/gemini-2.5-flash",
-          "mode": "list",
-          "cachedResultName": "models/gemini-2.5-flash"
-        },
-        "text": "# ROL\nSos un director de arte experto en carruseles de Instagram para la marca Mary Kay.\n\n# TAREA\nTe paso varias imágenes de productos, numeradas del 1 al N en el orden en que aparecen.\nProponé el ORDEN NARRATIVO ÓPTIMO para un carrusel interactivo:\n- PORTADA (hook): la imagen de mayor impacto visual y contraste, para frenar el scroll.\n- SOPORTE: las imágenes que detallan beneficios/producto, en una secuencia lógica.\n- CIERRE: una imagen que funcione como cierre visual / llamado a la acción.\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nIMPORTANTE: las imágenes se numeran del 1 al N. En \"orden\" devolvé esos números (1..N). Si en \"preview\" mencionás\nuna imagen, referila por su número del 1 al N (NUNCA uses 0).\n{\"orden\": [números de imagen del 1 al N en el nuevo orden, ej: [1,3,2]], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia.\"}",
-        "imageUrls": "={{ $json.urlList }}",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.googleGemini",
-      "typeVersion": 1.1,
-      "position": [
-        5776,
-        480
-      ],
-      "name": "HU5: Ordenar",
-      "id": "81a182b3-496a-4c79-969f-8e821247e281",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "KSLilanSYeOPXkGp",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "// HU5 — parsea el orden (1-based) de Gemini, lo sanea a índices 0-based, arma mensaje y persiste el set para la Etapa 2\nconst raw = ($('HU5: Ordenar').first().json.content.parts[0].text) || '';\nlet parsed = { orden: [], preview: '' };\ntry { parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim()); } catch (e) {}\nconst juntar = $('HU5: Juntar URLs').first().json;\nconst images = juntar.images;\n// Gemini numera 1..N -> pasamos a índices 0-based\nlet orden = Array.isArray(parsed.orden)\n  ? parsed.orden.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= images.length).map(n => n - 1)\n  : [];\nconst seen = new Set(orden);\nfor (let i = 0; i < images.length; i++) if (!seen.has(i)) { orden.push(i); seen.add(i); }\norden = orden.slice(0, images.length);\nconst orderedUrls = orden.map(i => images[i].url);\nconst lineas = orden.map((origIdx, pos) => `${pos + 1}. imagen #${origIdx + 1}`).join('\\n');\nconst mensaje = `🖼️ Recibí tu carrusel de ${images.length} imágenes.\\n\\n*Orden narrativo propuesto:*\\n${lineas}\\n\\n_${parsed.preview || 'Secuencia optimizada para retención.'}_\\n\\n(Próxima etapa: confirmar/reordenar y generar el texto.)`;\nconst store = $getWorkflowStaticData('global');\nstore['carousel_' + juntar.gid] = { orderedUrls, total: images.length, ts: Date.now(), chatId: juntar.chatId };\nreturn [{ json: { chatId: juntar.chatId, gid: juntar.gid, total: images.length, orden, orderedUrls, preview: parsed.preview || '', mensaje } }];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        6032,
-        480
-      ],
-      "name": "HU5: Parsear orden",
-      "id": "3ebf4af4-d5bb-459d-b5f2-0a6dd874faea"
-    },
-    {
-      "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "={{ $json.mensaje }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Usar este orden",
+                    "additionalFields": {
+                      "callback_data": "=cfmCar_{{ $json.gid }}"
+                    }
+                  },
+                  {
+                    "text": "↩️ Usar mi orden",
+                    "additionalFields": {
+                      "callback_data": "=origCar_{{ $json.gid }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false
         }
@@ -3360,8 +3434,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        6256,
-        480
+        6432,
+        -1984
       ],
       "name": "HU5: Mostrar orden",
       "id": "39dd5dfb-e937-4246-bd0b-cc6d2fc6679c",
@@ -3380,11 +3454,882 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4544,
-        480
+        4464,
+        -2128
       ],
       "name": "HU5: ¿Ganador?",
       "id": "521b8045-ebea-470e-9331-0284dba416d7"
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1232,
+        -1776
+      ],
+      "name": "HU5: Answer carrusel",
+      "id": "11cf7ee1-c9ef-4e9b-92c3-82242eb1a60f",
+      "webhookId": "e1fc6188-3d4e-4bfe-9ca9-a40a2027ed30",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — confirm: elige set (ai u original) según el callback y lo recupera de static data\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst useAi = data.startsWith('cfmCar_');\nconst gid = data.replace(/^cfmCar_/, '').replace(/^origCar_/, '');\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = (useAi ? set.aiUrls : set.origUrls) || [];\nreturn [{ json: { chatId: set.chatId || cb.message.chat.id, gid, total: urls.length, urls, urlList: urls.join(','), useAi } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        -1776
+      ],
+      "name": "HU5: Preparar set",
+      "id": "7ad5331b-1fa0-47b7-bf3a-3cd43903a9db"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nActúa como Postly, experto en Marketing Digital y Copywriting para la marca Mary Kay, ayudando a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nTe paso las imágenes de un CARRUSEL de Instagram (varias fotos de productos Mary Kay) en el orden definido. Analizalas EN CONJUNTO como una sola publicación y generá tres (3) opciones de copy para el carrusel.\n\n# REGLAS CRÍTICAS (INCUMPLIMIENTO = ERROR)\n1. PROHIBIDO INVENTAR PRECIOS: no menciones montos, signo $ ni divisas.\n2. PROHIBIDO INVENTAR DESCUENTOS: no uses \"Oferta\", \"Promoción\", \"% OFF\", \"barato\" ni \"económico\".\n3. NO agregues firma: el sistema la inyecta después.\n\n# ESTILOS\n- OPCIÓN 1 — INFORMATIVA: educativa, beneficios e ingredientes, profesional.\n- OPCIÓN 2 — VENDEDORA: persuasiva, aspiracional, con un CTA claro para que te contacten.\n- OPCIÓN 3 — DIVERTIDA: fresca, cercana, con onda y hashtags de tendencia.\nCada opción con emojis y hashtags relevantes (ej. #MaryKay #CuidadoDeLaPiel).\n\n# FORMATO\nRespondé ÚNICA y EXCLUSIVAMENTE con un JSON válido, sin markdown ni bloques de código:\n{\"opcion1\":\"...\",\"opcion2\":\"...\",\"opcion3\":\"...\"}",
+        "imageUrls": "={{ $json.urlList }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1824,
+        -1776
+      ],
+      "name": "HU5: Generar copys",
+      "id": "c6c147f8-ac51-4333-b0de-bfbac3c0e10f",
+      "retryOnFail": true,
+      "maxTries": 4,
+      "waitBetweenTries": 35000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "KSLilanSYeOPXkGp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — parsea los 3 copys, persiste set+copys para 2b, arma textos de display con encabezado\nconst fence3 = String.fromCharCode(96,96,96);\nconst raw = ($('HU5: Generar copys').first().json.content.parts[0].text) || '';\nconst clean = raw.replace(new RegExp(fence3 + 'json','gi'), '').replace(new RegExp(fence3,'g'), '').trim();\nlet o = { opcion1: '', opcion2: '', opcion3: '' };\ntry { o = JSON.parse(clean); } catch (e) {}\nconst prep = $('HU5: Preparar set').first().json;\nconst store = $getWorkflowStaticData('global');\nconst prev = store['carousel_' + prep.gid] || {};\nstore['carousel_' + prep.gid] = { ...prev, urls: prep.urls, total: prep.total, chatId: prep.chatId, copys: [o.opcion1, o.opcion2, o.opcion3] };\nreturn [{ json: { chatId: prep.chatId, gid: prep.gid,\n  op1: '📝 *Opción Informativa*\\n\\n' + (o.opcion1 || ''),\n  op2: '💎 *Opción Vendedora*\\n\\n' + (o.opcion2 || ''),\n  op3: '🎉 *Opción Divertida*\\n\\n' + (o.opcion3 || '') } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        -1776
+      ],
+      "name": "HU5: Parsear copys",
+      "id": "09664a05-fa3d-4731-b240-a10a8d85fa41"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+        "text": "={{ $('HU5: Parsear copys').first().json.op1 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "📝 Publicar · Informativa",
+                    "additionalFields": {
+                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar",
+                    "additionalFields": {
+                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2416,
+        -1776
+      ],
+      "name": "HU5: Tono 1",
+      "id": "ede493eb-5f18-41fc-96c5-87a426825c31",
+      "webhookId": "d87cca07-3750-4616-8c54-9019e41b7c1a",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+        "text": "={{ $('HU5: Parsear copys').first().json.op2 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "💎 Publicar · Vendedora",
+                    "additionalFields": {
+                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar",
+                    "additionalFields": {
+                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2656,
+        -1776
+      ],
+      "name": "HU5: Tono 2",
+      "id": "07e93a30-774b-42fa-970f-3633a8f83936",
+      "webhookId": "96595447-f8fd-4018-80e2-c9f751b8e2ed",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+        "text": "={{ $('HU5: Parsear copys').first().json.op3 }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "🎉 Publicar · Divertida",
+                    "additionalFields": {
+                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar",
+                    "additionalFields": {
+                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2896,
+        -1776
+      ],
+      "name": "HU5: Tono 3",
+      "id": "8d21f147-fb01-4369-9c63-47c6080bcfab",
+      "webhookId": "539d5cf4-650a-48ee-a00b-5b6fc5e30612",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "h5c-0003-4003-8003-000000000003",
+              "leftValue": "={{ $json.tiene_precio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        6160,
+        -2128
+      ],
+      "name": "HU5: ¿Carrusel limpio?",
+      "id": "f29acfef-310a-4fea-8461-57976c9211d8"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=🚫 *Detecté un precio o promoción en una imagen del carrusel.*\n\nPor las normas de Mary Kay no puedo publicar imágenes con precios, ofertas o descuentos incrustados.\n\n_Detalle:_ {{ $json.detalle }}\n\n📸 Mandá el carrusel sin precios y seguimos.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        6416,
+        -2208
+      ],
+      "name": "HU5: Carrusel bloqueado",
+      "id": "1b0f1551-eacf-415d-a77b-166753fb9433",
+      "webhookId": "f68365a9-fff2-4ba1-9bd5-d5d1bad4a0f0",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2416,
+        -1552
+      ],
+      "name": "HU5: Edit answer",
+      "id": "19430bd9-2db1-4bc6-a7a7-b595aced25f8",
+      "webhookId": "a563392c-b24b-4bfb-a6d9-aaf48e290490",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — marca edición de carrusel pendiente para este chat (editCar_<gid>_<n>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('editCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = rest.slice(lastU + 1);\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nstore['editPending_' + chatId] = { gid, n: Number(n), ts: Date.now() };\nreturn [{ json: { chatId, gid, n } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        -1552
+      ],
+      "name": "HU5: Set edit pendiente",
+      "id": "1448c689-1b18-4983-8d12-00fa506c4034"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "✏️ Mandame el texto editado para esa opción del carrusel y lo aplico.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2896,
+        -1552
+      ],
+      "name": "HU5: Pedir texto",
+      "id": "efa51af6-c5d7-406d-b698-da4e96f25b2d",
+      "webhookId": "b3f9cb6d-5b2e-40cc-a84e-91f535f319d8",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — ¿hay una edición de carrusel pendiente para este chat? (intercepta texto plano)\nconst msg = $('Telegram Trigger').first().json.message;\nconst chatId = String(msg.chat.id);\nconst text = (msg && msg.text) || '';\nconst store = $getWorkflowStaticData('global');\nconst pend = store['editPending_' + chatId];\nconst pending = !!(pend && text);\nreturn [{ json: { pending, chatId, text, gid: pend ? pend.gid : '', n: pend ? pend.n : 0 } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4016,
+        -1120
+      ],
+      "name": "HU5: Check edit pendiente",
+      "id": "8c3deb6b-77ef-4c88-b886-b0f71a03753c"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "h5e-0004-4004-8004-000000000004",
+              "leftValue": "={{ $json.pending }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4256,
+        -1120
+      ],
+      "name": "HU5: ¿Edit pendiente?",
+      "id": "a653a2fa-a585-4f8e-b421-3d4bfec287c3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — aplica el texto editado al caption del carrusel y limpia el flag\nconst inp = $json;\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + inp.gid] || {};\nconst copys = set.copys || ['', '', ''];\ncopys[inp.n - 1] = inp.text;\nset.copys = copys;\nstore['carousel_' + inp.gid] = set;\ndelete store['editPending_' + inp.chatId];\nreturn [{ json: { chatId: inp.chatId, gid: inp.gid, n: inp.n, caption: inp.text } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4496,
+        -1120
+      ],
+      "name": "HU5: Aplicar edición",
+      "id": "fcdc206c-66e2-4e6b-bed1-0ff80a7cdf00"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=✅ Actualicé la opción {{ $json.n }} del carrusel:\n\n{{ $json.caption }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "📤 Publicar carrusel",
+                    "additionalFields": {
+                      "callback_data": "=pubCar_{{ $json.gid }}_{{ $json.n }}"
+                    }
+                  },
+                  {
+                    "text": "✏️ Editar de nuevo",
+                    "additionalFields": {
+                      "callback_data": "=editCar_{{ $json.gid }}_{{ $json.n }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4736,
+        -1120
+      ],
+      "name": "HU5: Reconfirmar",
+      "id": "ced9ae64-389d-4b51-8e87-2ac79eb38cdf",
+      "webhookId": "83a8743d-5642-49e6-a988-c50bac7f8deb",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nSos Postly: director de arte + Compliance Sentinel visual para la marca Mary Kay.\nTe paso las imágenes de un CARRUSEL de Instagram, numeradas del 1 al N en el orden en que aparecen.\n\n# TAREA\n1) COMPLIANCE: si CUALQUIER imagen contiene un precio o promoción incrustada en los píxeles (monto o cifra de precio,\n   símbolos de moneda $/US$/AR$/ARS/USD, lista de precios, o texto \"OFERTA\",\"PROMO\",\"DESCUENTO\",\"X% OFF\",\"2x1\",\"LIQUIDACIÓN\",\"SALE\",\"REBAJA\",\"GRATIS\"),\n   marcá tiene_precio=true e indicá en qué imagen (1..N) y qué viste. NO es infractor: nombres de producto, logos, texto\n   descriptivo sin precios, números que no son precios (SPF 30, 24h, 50 ml).\n2) ORDEN (solo si NO hay precio): proponé el ORDEN NARRATIVO ÓPTIMO para el carrusel: portada/hook de mayor impacto y\n   contraste, luego las de soporte (beneficios) en secuencia lógica, y un cierre/CTA. Devolvé los números 1..N en \"orden\".\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nSi en \"preview\" mencionás imágenes, referilas por su número del 1 al N (NUNCA 0).\n{\"tiene_precio\": false, \"detalle\": \"\", \"orden\": [1,3,2], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia\"}\nSi tiene_precio=true, \"orden\" puede ir vacío.",
+        "imageUrls": "={{ $json.urlList }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        5648,
+        -2128
+      ],
+      "name": "HU5: Analizar carrusel",
+      "retryOnFail": true,
+      "maxTries": 4,
+      "waitBetweenTries": 35000,
+      "id": "89545237-d03a-4e3e-b44c-08cd10e4df31",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "KSLilanSYeOPXkGp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — analiza compliance+orden en una sola pasada de Gemini\nconst raw = ($('HU5: Analizar carrusel').first().json.content.parts[0].text) || '';\nlet p = { tiene_precio: false, detalle: '', orden: [], preview: '' };\ntry { p = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim()); } catch (e) {}\nconst juntar = $('HU5: Juntar URLs').first().json;\nconst images = juntar.images;\nif (p.tiene_precio === true) {\n  return [{ json: { tiene_precio: true, detalle: p.detalle || '', chatId: juntar.chatId, gid: juntar.gid } }];\n}\nlet orden = Array.isArray(p.orden) ? p.orden.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= images.length).map(n => n - 1) : [];\nconst seen = new Set(orden);\nfor (let i = 0; i < images.length; i++) if (!seen.has(i)) { orden.push(i); seen.add(i); }\norden = orden.slice(0, images.length);\nconst orderedUrls = orden.map(i => images[i].url);\nconst lineas = orden.map((o, pos) => `${pos + 1}. imagen #${o + 1}`).join('\\n');\nconst mensaje = `🖼️ Recibí tu carrusel de ${images.length} imágenes.\\n\\n*Orden narrativo propuesto:*\\n${lineas}\\n\\n_${p.preview || 'Secuencia optimizada para retención.'}_\\n\\n¿Lo usamos así o preferís tu orden original?`;\nconst store = $getWorkflowStaticData('global');\nstore['carousel_' + juntar.gid] = { aiUrls: orderedUrls, origUrls: images.map(im => im.url), total: images.length, chatId: juntar.chatId };\nreturn [{ json: { tiene_precio: false, chatId: juntar.chatId, gid: juntar.gid, total: images.length, mensaje } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5872,
+        -2128
+      ],
+      "name": "HU5: Parsear análisis",
+      "id": "e6af6d5c-e470-4b44-8138-de624886fd73"
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        7400,
+        1000
+      ],
+      "name": "HU5: Pub answer",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.callback_query.message.chat.id) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        7620,
+        1000
+      ],
+      "name": "HU5: Pub leer cred",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val;\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv = raw.subarray(0, 12), tag = raw.subarray(12, 28), ct = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv); d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7840,
+        1000
+      ],
+      "name": "HU5: Pub descifrar"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "1036323678",
+          "mode": "list",
+          "cachedResultName": "Config"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        8060,
+        1000
+      ],
+      "name": "HU5: Pub leer Config",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 2b — arma el caption final (HU7 precios + HU9 firma) y recupera urls del set\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('pubCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = Number(rest.slice(lastU + 1));\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = set.urls || [];\nlet caption = (set.copys && set.copys[n - 1]) || '';\n// HU7 — precios en texto\nconst patrones = [/\\$\\s?\\d+/g, /\\d+[\\.,]\\d{3}/g, /\\d+%\\s?(off|desc)/gi, /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi];\nlet precio = null;\nfor (const p of patrones) { const m = caption.match(p); if (m) { precio = m[0]; break; } }\nif (precio) return [{ json: { blocked: true, chatId, blockMsg: '⚠️ El texto tiene contenido prohibido: \"' + precio + '\". Editá la opción e intentá de nuevo.' } }];\n// HU9 — firma desde Config\nconst cfg = {};\ntry { const row = $('HU5: Pub leer Config').first().json || {}; for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || '-- Consultora de Belleza Independiente Mary Kay --';\nconst contacto = cfg.contacto || '';\ncaption = caption.trim();\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\nreturn [{ json: { blocked: false, chatId, gid, n, caption, urls, cover: urls[0] || '', total: urls.length } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8280,
+        1000
+      ],
+      "name": "HU5: Pub preparar"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "h5p-0005-4005-8005-000000000005",
+              "leftValue": "={{ $json.blocked }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        8500,
+        1000
+      ],
+      "name": "HU5: ¿Pub limpio?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.blockMsg }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        8720,
+        800
+      ],
+      "name": "HU5: Pub bloqueado",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 2b — un item por imagen para crear los contenedores hijos\nconst prep = $('HU5: Pub preparar').first().json;\nreturn (prep.urls || []).map((u, i) => ({ json: { url: u, idx: i } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8720,
+        1000
+      ],
+      "name": "HU5: Expandir URLs"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('HU5: Pub descifrar').first().json.IGAccountID }}/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.url }}"
+            },
+            {
+              "name": "is_carousel_item",
+              "value": "true"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('HU5: Pub descifrar').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        8940,
+        1000
+      ],
+      "name": "HU5: Crear hijo"
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 2b — junta los ids de los contenedores hijos en CSV\nconst ids = $input.all().map(it => it.json.id).filter(Boolean);\nreturn [{ json: { children: ids.join(','), n: ids.length } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9160,
+        1000
+      ],
+      "name": "HU5: Juntar hijos"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('HU5: Pub descifrar').first().json.IGAccountID }}/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "CAROUSEL"
+            },
+            {
+              "name": "children",
+              "value": "={{ $json.children }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('HU5: Pub preparar').first().json.caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('HU5: Pub descifrar').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        9380,
+        1000
+      ],
+      "name": "HU5: Crear carrusel"
+    },
+    {
+      "parameters": {
+        "amount": 6,
+        "unit": "seconds"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        9600,
+        1000
+      ],
+      "name": "HU5: Wait pub",
+      "webhookId": "hu5-wait-pub"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('HU5: Pub descifrar').first().json.IGAccountID }}/media_publish",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('HU5: Pub descifrar').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        9820,
+        1000
+      ],
+      "name": "HU5: Publicar carrusel"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('HU5: Pub descifrar').first().json.AccessToken }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        10040,
+        1000
+      ],
+      "name": "HU5: Pub permalink"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "UserID": "={{ $('HU5: Pub preparar').first().json.chatId }}",
+            "Timestamp": "={{ $now.setZone('America/Argentina/Buenos_Aires').toISO() }}",
+            "ImageURL": "={{ $('HU5: Pub preparar').first().json.cover }}",
+            "Copy_Final": "={{ $('HU5: Pub preparar').first().json.caption }}",
+            "Status": "Publicado",
+            "PostID_IG": "={{ $('HU5: Publicar carrusel').first().json.id }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        10260,
+        1000
+      ],
+      "name": "HU5: Pub guardar",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('HU5: Pub preparar').first().json.chatId }}",
+        "text": "=✅ *¡Carrusel publicado en Instagram!* 🎉\n\nTu carrusel de {{ $('HU5: Pub preparar').first().json.total }} imágenes ya está en vivo 🚀\n\n🔗 {{ $json.permalink }}\n\n_Publicado por Postly_ 🪄",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        10480,
+        1000
+      ],
+      "name": "HU5: Pub éxito",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "connections": {
@@ -3439,7 +4384,7 @@
         ],
         [
           {
-            "node": "Get row(s) in sheet1",
+            "node": "HU5: Check edit pendiente",
             "type": "main",
             "index": 0
           }
@@ -4124,6 +5069,34 @@
         ],
         [
           {
+            "node": "HU5: Answer carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: Answer carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: Pub answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: Edit answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Que boton toco?",
             "type": "main",
             "index": 0
@@ -4398,29 +5371,7 @@
       "main": [
         [
           {
-            "node": "HU5: Ordenar",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HU5: Ordenar": {
-      "main": [
-        [
-          {
-            "node": "HU5: Parsear orden",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HU5: Parsear orden": {
-      "main": [
-        [
-          {
-            "node": "HU5: Mostrar orden",
+            "node": "HU5: Analizar carrusel",
             "type": "main",
             "index": 0
           }
@@ -4432,6 +5383,335 @@
         [
           {
             "node": "HU5: Bajar foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Answer carrusel": {
+      "main": [
+        [
+          {
+            "node": "HU5: Preparar set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Preparar set": {
+      "main": [
+        [
+          {
+            "node": "HU5: Generar copys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Generar copys": {
+      "main": [
+        [
+          {
+            "node": "HU5: Parsear copys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Parsear copys": {
+      "main": [
+        [
+          {
+            "node": "HU5: Tono 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Tono 1": {
+      "main": [
+        [
+          {
+            "node": "HU5: Tono 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Tono 2": {
+      "main": [
+        [
+          {
+            "node": "HU5: Tono 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: ¿Carrusel limpio?": {
+      "main": [
+        [
+          {
+            "node": "HU5: Carrusel bloqueado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: Mostrar orden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Edit answer": {
+      "main": [
+        [
+          {
+            "node": "HU5: Set edit pendiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Set edit pendiente": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pedir texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Check edit pendiente": {
+      "main": [
+        [
+          {
+            "node": "HU5: ¿Edit pendiente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: ¿Edit pendiente?": {
+      "main": [
+        [
+          {
+            "node": "HU5: Aplicar edición",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Aplicar edición": {
+      "main": [
+        [
+          {
+            "node": "HU5: Reconfirmar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Analizar carrusel": {
+      "main": [
+        [
+          {
+            "node": "HU5: Parsear análisis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Parsear análisis": {
+      "main": [
+        [
+          {
+            "node": "HU5: ¿Carrusel limpio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub answer": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub leer cred",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub leer cred": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub descifrar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub descifrar": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub leer Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub leer Config": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub preparar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub preparar": {
+      "main": [
+        [
+          {
+            "node": "HU5: ¿Pub limpio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: ¿Pub limpio?": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub bloqueado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: Expandir URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Expandir URLs": {
+      "main": [
+        [
+          {
+            "node": "HU5: Crear hijo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Crear hijo": {
+      "main": [
+        [
+          {
+            "node": "HU5: Juntar hijos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Juntar hijos": {
+      "main": [
+        [
+          {
+            "node": "HU5: Crear carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Crear carrusel": {
+      "main": [
+        [
+          {
+            "node": "HU5: Wait pub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Wait pub": {
+      "main": [
+        [
+          {
+            "node": "HU5: Publicar carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Publicar carrusel": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub permalink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub permalink": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub guardar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Pub guardar": {
+      "main": [
+        [
+          {
+            "node": "HU5: Pub éxito",
             "type": "main",
             "index": 0
           }
@@ -4481,6 +5761,87 @@
         "total": 4,
         "ts": 1782522900883,
         "chatId": "8601683646"
+      },
+      "carousel_g_14260184702962113": {
+        "orderedUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782523100/txwcahcekkxsktxhcznk.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782523100/rzirjeb4yjmwxricjxc8.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782523100/x5hynnvkeq169gzfjmnw.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782523100/jjdydmbzl8izgj9irwhz.jpg"
+        ],
+        "total": 4,
+        "ts": 1782523114254,
+        "chatId": "8601683646"
+      },
+      "carousel_g_14260216156029249": {
+        "aiUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/qhzcwu6velhqazzhfjjr.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/sunra8k7ccu4h9aoknbl.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/kvolyclqospjflobqhxl.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/ugxbyuj64mkkq62evv1g.jpg"
+        ],
+        "origUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/qhzcwu6velhqazzhfjjr.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/kvolyclqospjflobqhxl.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/sunra8k7ccu4h9aoknbl.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/ugxbyuj64mkkq62evv1g.jpg"
+        ],
+        "total": 4,
+        "chatId": "8601683646",
+        "urls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/qhzcwu6velhqazzhfjjr.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/sunra8k7ccu4h9aoknbl.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/kvolyclqospjflobqhxl.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527032/ugxbyuj64mkkq62evv1g.jpg"
+        ],
+        "copys": [
+          "Descubre la ciencia detrás de una piel masculina impecable con la línea MK Men. 🧔✨ Inicia tu ritual con el Daily Facial Wash, un limpiador que purifica y prepara la piel para el día. Luego, experimenta un afeitado superior con el Moisturizing Shave Cream, formulado para una deslizamiento suave y una hidratación que calma la piel y previene la irritación. Concluye tu rutina con el Ultimate Moisturizer, que hidrata profundamente y protege contra los factores ambientales, dejando la piel con una sensación de confort y vitalidad. ¡Invierte en el bienestar de tu piel!\n#MaryKay #MKMen #CuidadoMasculino #SkincareParaHombres #RutinaDeBelleza #PielSaludable #CuidadoFacialMasculino #ExpertosEnPiel",
+          "El hombre que sabe lo que quiere, elige MK Men. 💼✨ Si buscas una piel que refleje tu determinación y tu éxito, esta línea es para ti. Despierta tus sentidos con el Daily Facial Wash, diseñado para una limpieza profunda que energiza. Experimenta la suavidad de un afeitado perfecto con el Moisturizing Shave Cream, que protege y nutre tu piel. Y asegura una hidratación duradera y una protección vital con el Ultimate Moisturizer. No esperes más para darle a tu piel el trato que se merece. ¡Tu confianza comienza aquí! Pregúntame cómo hacer tu pedido y eleva tu rutina hoy mismo. ¡Envía un DM! 📩\n#MaryKay #MKMen #HombreConEstilo #PielDeHombre #ConquistaTuDía #BienestarMasculino #LookImpecable #CuidadoDeLujo #ContactaYa",
+          "¡Atención, caballeros! 📣 ¿Tu piel te pide a gritos un 'cariñito'? 😉 Con la línea MK Men, ¡le darás el mimo que necesita y más! El Daily Facial Wash es como un shot de energía para tu rostro. 🚀 ¿Afeitado? Cero drama con el Moisturizing Shave Cream. ¡Desliza que te desliza! Y para rematar, el Ultimate Moisturizer te deja la piel suavecita y lista para lo que venga. ¿Quién dijo que cuidarse era aburrido? ¡A brillar se ha dicho! ✨\n#MaryKay #MKMen #SkincareParaÉl #NoMasPielSeca #AfeitadoSmooth #RegaloTop #ParaMiNovio #ParaMiMarido #Cuídate #PielRadiante"
+        ]
+      },
+      "carousel_g_14260221683542849": {
+        "aiUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527722/okajvmwe1h5naev1c8wo.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527722/lkvgyhrijpwies96fjp9.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527723/pkgesvfyiq4u6ghvhyo4.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527723/ghe7snosmus7akc3fdzt.jpg"
+        ],
+        "origUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527723/pkgesvfyiq4u6ghvhyo4.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527722/okajvmwe1h5naev1c8wo.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527722/lkvgyhrijpwies96fjp9.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527723/ghe7snosmus7akc3fdzt.jpg"
+        ],
+        "total": 4,
+        "chatId": "8601683646",
+        "urls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527722/okajvmwe1h5naev1c8wo.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527722/lkvgyhrijpwies96fjp9.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527723/pkgesvfyiq4u6ghvhyo4.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782527723/ghe7snosmus7akc3fdzt.jpg"
+        ],
+        "copys": [
+          "Descubre la esencia del cuidado masculino con la línea MK Men de Mary Kay. 🧔🏻‍♂️ Este carrusel te presenta los aliados perfectos para una piel impecable. El Daily Facial Wash limpia profundamente, eliminando impurezas y dejando una sensación de frescura. Nuestra Moisturizing Shave Cream prepara la piel para un afeitado suave, minimizando la irritación y ofreciendo un deslizamiento perfecto. Finaliza tu rutina con el Ultimate Moisturizer, que hidrata y protege, mejorando la elasticidad y el aspecto general de la piel. Una rutina profesional, simple y efectiva para el hombre moderno. ✨ #MaryKay #MKMen #CuidadoMasculino #PielSaludable #RutinaDeBelleza",
+          "¡Eleva tu juego de cuidado personal! 🚀 Con el set MK Men, no solo cuidas tu piel, la transformas. Imagina un afeitado sin irritaciones, una piel limpia y fresca, y una hidratación que te mantiene luciendo lo mejor posible todo el día. Este es el secreto para la confianza que irradia. ¿Listo para sentir la diferencia? Desliza para ver la perfección en cada producto. No esperes más para darle a tu piel el tratamiento que se merece. ¡Contáctame hoy mismo para conseguir tu set MK Men y empezar a brillar! 📩 #MaryKayMen #GroomingGoals #ConfianzaMasculina #SkincareParaHombres #TransformaTuPiel",
+          "¡Atención, chicos! 🚨 ¿Vuestra piel pide a gritos un #glowup? ¡Llegó el escuadrón MK Men al rescate! 😎 Este trío dinámico es tu nueva obsesión: 💧 Un Daily Facial Wash que te despierta la cara (¡adiós, sueño!), ☁️ una Moisturizing Shave Cream para que el afeitado sea un paseo por las nubes, y ✨ un Ultimate Moisturizer para que tu piel se vea TOP y lista para conquistar el mundo. ¡Porque los hombres también merecen un skincare de 10! 😉 Desliza, enamórate y pregúntame cómo conseguir el tuyo. #MKMen #HombreConEstilo #SkincareHombres #RutinaFacial #FreshLook #MaryKay"
+        ]
+      },
+      "carousel_g_14260238356217769": {
+        "aiUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/kmvupmsk7hm5upvgejkn.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/fnnnwxwnokpo19sivxct.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/xsj4tvhbzbbebyd8cvfn.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/ovo85xee0aml7ed3io7n.jpg"
+        ],
+        "origUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/kmvupmsk7hm5upvgejkn.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/xsj4tvhbzbbebyd8cvfn.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/fnnnwxwnokpo19sivxct.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782529808/ovo85xee0aml7ed3io7n.jpg"
+        ],
+        "total": 4,
+        "chatId": "8601683646"
       }
     }
   },
@@ -4488,9 +5849,9 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "18e1cd16-6cba-4759-ab32-bdf1e4a73132",
-  "activeVersionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
-  "versionCounter": 1159,
+  "versionId": "c85ee209-4261-486a-9856-bd0c146a7d3c",
+  "activeVersionId": "c85ee209-4261-486a-9856-bd0c146a7d3c",
+  "versionCounter": 1330,
   "triggerCount": 1,
   "shared": [
     {
@@ -4513,9 +5874,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-06-27T01:12:59.642Z",
-    "createdAt": "2026-06-27T01:12:59.642Z",
-    "versionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
+    "updatedAt": "2026-06-27T03:21:37.486Z",
+    "createdAt": "2026-06-27T03:21:37.486Z",
+    "versionId": "c85ee209-4261-486a-9856-bd0c146a7d3c",
     "workflowId": "VOgbHGLELJfRgVO5",
     "nodes": [
       {
@@ -4531,8 +5892,8 @@
         "type": "n8n-nodes-base.telegramTrigger",
         "typeVersion": 1,
         "position": [
-          1216,
-          -1088
+          -848,
+          -1920
         ],
         "webhookId": "83282633-f22d-471e-afcd-d6de439b3a79",
         "credentials": {
@@ -4557,8 +5918,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 1,
         "position": [
-          2096,
-          -1104
+          1136,
+          -3104
         ],
         "id": "4e3f9654-2ba5-428a-b31b-17348195450e"
       },
@@ -4594,8 +5955,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1,
         "position": [
-          3344,
-          -1136
+          2288,
+          -3232
         ],
         "id": "184aaff1-6834-44d6-99fe-3acde356c077",
         "webhookId": "ff7e5f9e-5c26-4265-b80f-762437e6b1ef",
@@ -4620,8 +5981,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1,
         "position": [
-          5056,
-          -1072
+          4368,
+          -3536
         ],
         "id": "3666374c-219e-486c-b40e-eb884579f186",
         "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -4642,8 +6003,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1,
         "position": [
-          3728,
-          224
+          4000,
+          -1504
         ],
         "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
         "webhookId": "56b64642-17f1-4a1f-8a2f-b1bb09109b5a",
@@ -4669,8 +6030,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 1,
         "position": [
-          3296,
-          240
+          3216,
+          -2160
         ],
         "id": "e0c4ed0e-91c6-45d9-a528-74eed80f3c2e"
       },
@@ -4691,13 +6052,14 @@
         "type": "@n8n/n8n-nodes-langchain.googleGemini",
         "typeVersion": 1.1,
         "position": [
-          5120,
-          224
+          5456,
+          -1504
         ],
         "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
         "name": "Analyze an image",
         "retryOnFail": true,
-        "waitBetweenTries": 5000,
+        "waitBetweenTries": 35000,
+        "maxTries": 4,
         "credentials": {
           "googlePalmApi": {
             "id": "KSLilanSYeOPXkGp",
@@ -4732,8 +6094,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          2560,
-          -640
+          1904,
+          -2880
         ],
         "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
         "name": "es volver al inicio?1"
@@ -4795,8 +6157,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          1616,
-          -1088
+          -80,
+          -1920
         ],
         "id": "c74f4045-b799-42f0-ba61-a4edff1899ad",
         "name": "Switch"
@@ -4811,7 +6173,7 @@
         "typeVersion": 1.2,
         "position": [
           1632,
-          -560
+          -736
         ],
         "id": "a07ae990-a109-4655-9290-ffd2acae603f",
         "name": "Answer Query a callback",
@@ -4851,8 +6213,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4384,
-          736
+          5440,
+          -896
         ],
         "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
         "name": "Descripcion editada",
@@ -5036,7 +6398,7 @@
         "typeVersion": 3.4,
         "position": [
           1200,
-          -576
+          -624
         ],
         "id": "ac8bbd7a-0eae-4e0b-86a5-ec1be34f4650",
         "name": "Que boton toco?"
@@ -5063,8 +6425,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          4144,
-          224
+          4480,
+          -1504
         ],
         "id": "fc5bb46b-364f-4ea9-ac54-16b8f885502e",
         "name": "HTTP Request"
@@ -5076,8 +6438,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          3888,
-          224
+          4224,
+          -1504
         ],
         "id": "8efae140-2d14-4fc8-8349-4841e875fb53",
         "name": "Code in JavaScript"
@@ -5184,8 +6546,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          5344,
-          224
+          5680,
+          -1504
         ],
         "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
         "name": "Consistencia",
@@ -5226,7 +6588,7 @@
         "typeVersion": 4.7,
         "position": [
           1632,
-          112
+          0
         ],
         "id": "9bea5be4-89d8-4845-aac0-849bd081206d",
         "name": "Get row(s) in sheet",
@@ -5364,8 +6726,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          4128,
-          736
+          5120,
+          -896
         ],
         "id": "80947461-516d-4ec5-a2f7-945ededea964",
         "name": "Descripcion en columna H",
@@ -5407,8 +6769,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          3632,
-          736
+          4496,
+          -896
         ],
         "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
         "name": "Get row(s) in sheet1",
@@ -5426,8 +6788,8 @@
         "type": "n8n-nodes-base.limit",
         "typeVersion": 1,
         "position": [
-          3904,
-          736
+          4800,
+          -896
         ],
         "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
         "name": "Limit"
@@ -5458,8 +6820,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          2640,
-          752
+          3600,
+          -16
         ],
         "id": "0bc00573-b669-4591-ba8b-cf654348e7b4",
         "name": "IG - Crear contenedor"
@@ -5486,8 +6848,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          2640,
-          1248
+          3952,
+          -16
         ],
         "id": "244d3a32-54a3-4afd-9b9a-d7d9184e0810",
         "name": "IG - Publicar"
@@ -5671,8 +7033,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          2976,
-          1712
+          4592,
+          -16
         ],
         "id": "c5d60046-75ce-4dc9-b70e-1ff66bff3ca8",
         "name": "Actualizar Sheets",
@@ -5688,8 +7050,8 @@
         "type": "n8n-nodes-base.wait",
         "typeVersion": 1.1,
         "position": [
-          2640,
-          992
+          3776,
+          -16
         ],
         "id": "d9fd9696-0be1-437f-9ccf-68b449a860a7",
         "name": "Wait",
@@ -5703,7 +7065,7 @@
         "typeVersion": 2,
         "position": [
           2096,
-          112
+          0
         ],
         "id": "f3cb5c4c-e9f8-4c73-ae5e-c283e3b82fcc",
         "name": "Resolucion - IG"
@@ -5715,8 +7077,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2000,
-          464
+          2528,
+          0
         ],
         "id": "0fcd5086-dc0d-4074-b580-55dccadffdcb",
         "name": "Code in JavaScript1"
@@ -5749,8 +7111,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          2208,
-          464
+          2736,
+          0
         ],
         "id": "7c7ddd1a-6f69-462d-82fa-1317760c63bf",
         "name": "If"
@@ -5766,8 +7128,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          2352,
-          752
+          3040,
+          224
         ],
         "id": "cf3cd839-aef6-46dd-889c-5a2793b09c2f",
         "name": "Telegram Error (Compliance)",
@@ -5791,8 +7153,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          2640,
-          1712
+          4368,
+          -16
         ],
         "id": "7aa72642-bb00-471b-b7a1-f2a29687259f",
         "name": "Telegram Éxito",
@@ -5812,8 +7174,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          2640,
-          1488
+          4160,
+          -16
         ],
         "id": "11a75188-b3f5-44b6-b775-bf6bfad378e3",
         "name": "Permalink"
@@ -5876,8 +7238,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          2928,
-          -368
+          2512,
+          -2992
         ],
         "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
         "name": "Es Nueva Pub?"
@@ -5911,8 +7273,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          3616,
-          -336
+          4544,
+          -3056
         ],
         "id": "1e3f1a4b-ff3f-4831-a142-bf80c797a73b",
         "name": "Get row(s) in sheet2",
@@ -5953,8 +7315,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4640,
-          -208
+          5568,
+          -2928
         ],
         "id": "265d195f-02a7-4dca-9212-fe51220745ed",
         "name": "Send a photo message",
@@ -5973,8 +7335,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          3840,
-          -336
+          4768,
+          -3056
         ],
         "id": "9f521499-9807-4033-b57a-db8c1ea1e3e1",
         "name": "Armar tarjetas"
@@ -5994,8 +7356,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 1,
         "position": [
-          2112,
-          -656
+          1600,
+          -2896
         ],
         "id": "a1b2c3d4-0001-4001-8001-000000000001"
       },
@@ -6028,8 +7390,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          2416,
-          -1120
+          1472,
+          -3184
         ],
         "id": "a1b2c3d4-0002-4002-8002-000000000002",
         "name": "Buscar usuario",
@@ -6069,8 +7431,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          2720,
-          -1120
+          1744,
+          -3264
         ],
         "id": "a1b2c3d4-0003-4003-8003-000000000003",
         "name": "¿Ya vinculado?"
@@ -6103,8 +7465,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          2560,
-          -880
+          1904,
+          -3120
         ],
         "id": "a1b2c3d4-0004-4004-8004-000000000004",
         "name": "Pedir vinculación",
@@ -6145,8 +7507,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          4096,
-          -928
+          3408,
+          -3392
         ],
         "id": "b2c3d4e5-0001-4001-8001-000000000001",
         "name": "HU3: Leer token",
@@ -6166,8 +7528,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          4480,
-          -944
+          3792,
+          -3408
         ],
         "id": "b2c3d4e5-0002-4002-8002-000000000002",
         "name": "HU3: Validar token",
@@ -6201,8 +7563,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          4688,
-          -944
+          4000,
+          -3408
         ],
         "id": "b2c3d4e5-0003-4003-8003-000000000003",
         "name": "HU3: ¿Token vigente?"
@@ -6235,8 +7597,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4896,
-          -672
+          4208,
+          -3136
         ],
         "id": "b2c3d4e5-0004-4004-8004-000000000004",
         "name": "HU3: Re-vincular",
@@ -6277,8 +7639,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          2512,
-          448
+          2992,
+          -16
         ],
         "id": "b2c3d4e5-0006-4006-8006-000000000006",
         "name": "HU3: Leer credenciales",
@@ -6317,7 +7679,7 @@
         "typeVersion": 4.7,
         "position": [
           1632,
-          -112
+          -400
         ],
         "id": "c3d4e5f6-0001-4001-8001-000000000001",
         "name": "A: Leer opción",
@@ -6336,7 +7698,7 @@
         "typeVersion": 2,
         "position": [
           1872,
-          -112
+          -400
         ],
         "id": "c3d4e5f6-0002-4002-8002-000000000002",
         "name": "A: Elegir opción"
@@ -6353,7 +7715,7 @@
         "typeVersion": 1.2,
         "position": [
           2096,
-          -112
+          -400
         ],
         "id": "c3d4e5f6-0003-4003-8003-000000000003",
         "name": "A: Instrucción editar",
@@ -6377,7 +7739,7 @@
         "typeVersion": 1.2,
         "position": [
           2336,
-          -112
+          -400
         ],
         "id": "c3d4e5f6-0004-4004-8004-000000000004",
         "name": "A: Texto a editar",
@@ -6396,8 +7758,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          5600,
-          224
+          5936,
+          -1504
         ],
         "id": "d4e5f6a7-0001-4001-8001-000000000001",
         "name": "B: Parsear opciones"
@@ -6413,8 +7775,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          5792,
-          -32
+          6128,
+          -1536
         ],
         "id": "d4e5f6a7-0002-4002-8002-000000000002",
         "name": "B: Intro opciones",
@@ -6460,8 +7822,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          5952,
-          224
+          6368,
+          -1536
         ],
         "id": "d4e5f6a7-0003-4003-8003-000000000003",
         "name": "B: Opción 1",
@@ -6507,8 +7869,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          6192,
-          224
+          6576,
+          -1536
         ],
         "id": "d4e5f6a7-0004-4004-8004-000000000004",
         "name": "B: Opción 2",
@@ -6554,8 +7916,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          6416,
-          224
+          6800,
+          -1536
         ],
         "id": "d4e5f6a7-0005-4005-8005-000000000005",
         "name": "B: Opción 3",
@@ -6595,8 +7957,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          4080,
-          -336
+          5008,
+          -3056
         ],
         "id": "e5f6a7b8-0001-4001-8001-000000000001",
         "name": "¿Agenda vacía?"
@@ -6629,8 +7991,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          4368,
-          -112
+          5296,
+          -2832
         ],
         "id": "e5f6a7b8-0002-4002-8002-000000000002",
         "name": "¿Tarjeta con foto?"
@@ -6646,8 +8008,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4368,
-          -352
+          5296,
+          -3072
         ],
         "id": "e5f6a7b8-0003-4003-8003-000000000003",
         "name": "Agenda vacía",
@@ -6687,8 +8049,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4640,
-          32
+          5568,
+          -2688
         ],
         "id": "e5f6a7b8-0004-4004-8004-000000000004",
         "name": "Tarjeta sin foto",
@@ -6709,8 +8071,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          800,
-          -848
+          2592,
+          -960
         ],
         "id": "f6a7b8c9-0002-4002-8002-000000000002",
         "name": "Repost: Answer callback",
@@ -6750,8 +8112,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          192,
-          -464
+          1024,
+          -2368
         ],
         "id": "f6a7b8c9-0003-4003-8003-000000000003",
         "name": "Repost: Leer fila",
@@ -6769,8 +8131,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          192,
-          -256
+          1184,
+          -2368
         ],
         "id": "f6a7b8c9-0004-4004-8004-000000000004",
         "name": "Repost: Elegir fila"
@@ -6792,13 +8154,14 @@
         "type": "@n8n/n8n-nodes-langchain.googleGemini",
         "typeVersion": 1.1,
         "position": [
-          208,
-          -32
+          1376,
+          -2368
         ],
         "id": "f6a7b8c9-0005-4005-8005-000000000005",
         "name": "Repost: Analizar imagen",
         "retryOnFail": true,
-        "waitBetweenTries": 5000,
+        "waitBetweenTries": 35000,
+        "maxTries": 4,
         "credentials": {
           "googlePalmApi": {
             "id": "KSLilanSYeOPXkGp",
@@ -6813,8 +8176,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          208,
-          208
+          1536,
+          -2368
         ],
         "id": "f6a7b8c9-0006-4006-8006-000000000006",
         "name": "Repost: Parsear"
@@ -6921,8 +8284,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          208,
-          432
+          1712,
+          -2368
         ],
         "id": "f6a7b8c9-0007-4007-8007-000000000007",
         "name": "Repost: Guardar fila",
@@ -6944,8 +8307,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          496,
-          432
+          1904,
+          -2368
         ],
         "id": "f6a7b8c9-0008-4008-8008-000000000008",
         "name": "Repost: Intro",
@@ -6991,8 +8354,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          208,
-          688
+          2128,
+          -2368
         ],
         "id": "f6a7b8c9-0009-4009-8009-000000000009",
         "name": "Repost: Opción 1",
@@ -7038,8 +8401,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          448,
-          688
+          2320,
+          -2368
         ],
         "id": "f6a7b8c9-0010-4010-8010-000000000010",
         "name": "Repost: Opción 2",
@@ -7085,8 +8448,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          672,
-          688
+          2512,
+          -2368
         ],
         "id": "f6a7b8c9-0011-4011-8011-000000000011",
         "name": "Repost: Opción 3",
@@ -7167,6 +8530,94 @@
                   ],
                   "combinator": "and"
                 }
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "rt-cfmCar_",
+                      "leftValue": "={{ $json.callback_query.data }}",
+                      "rightValue": "cfmCar_",
+                      "operator": {
+                        "type": "string",
+                        "operation": "startsWith"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                }
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "rt-origCar_",
+                      "leftValue": "={{ $json.callback_query.data }}",
+                      "rightValue": "origCar_",
+                      "operator": {
+                        "type": "string",
+                        "operation": "startsWith"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                }
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "rt-pubCar_",
+                      "leftValue": "={{ $json.callback_query.data }}",
+                      "rightValue": "pubCar_",
+                      "operator": {
+                        "type": "string",
+                        "operation": "startsWith"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                }
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "rt-editCar_",
+                      "leftValue": "={{ $json.callback_query.data }}",
+                      "rightValue": "editCar_",
+                      "operator": {
+                        "type": "string",
+                        "operation": "startsWith"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                }
               }
             ]
           },
@@ -7177,8 +8628,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          0,
-          -800
+          224,
+          -1552
         ],
         "id": "a7b8c9d0-0001-4001-8001-000000000001",
         "name": "Router callback"
@@ -7191,7 +8642,7 @@
         "typeVersion": 2,
         "position": [
           1872,
-          112
+          0
         ],
         "id": "a7b8c9d0-0002-4002-8002-000000000002",
         "name": "Elegir fila a publicar"
@@ -7205,8 +8656,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          800,
-          -704
+          2592,
+          -768
         ],
         "id": "a7b8c9d0-0003-4003-8003-000000000003",
         "name": "Resume: Answer callback",
@@ -7437,8 +8888,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          1792,
-          464
+          2320,
+          0
         ],
         "name": "Leer Config",
         "alwaysOutputData": true,
@@ -7480,8 +8931,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          3216,
-          -848
+          3392,
+          -2976
         ],
         "name": "HU3 Agenda: Leer token",
         "alwaysOutputData": true,
@@ -7501,8 +8952,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          3568,
-          -848
+          3744,
+          -2976
         ],
         "name": "HU3 Agenda: Validar token",
         "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131",
@@ -7536,8 +8987,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          3824,
-          -672
+          4000,
+          -2832
         ],
         "name": "HU3 Agenda: ¿Token vigente?",
         "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
@@ -7549,8 +9000,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          4288,
-          -928
+          3600,
+          -3392
         ],
         "name": "Descifrar token",
         "id": "ea2a693a-524b-4a96-8bcf-2db722552e05"
@@ -7562,8 +9013,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          3392,
-          -848
+          3568,
+          -2976
         ],
         "name": "Descifrar token (Agenda)",
         "id": "8270f99f-71b6-4b09-bac8-346144e3fa00"
@@ -7575,8 +9026,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2768,
-          448
+          3232,
+          -16
         ],
         "name": "Descifrar credenciales",
         "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
@@ -7598,11 +9049,14 @@
         "type": "@n8n/n8n-nodes-langchain.googleGemini",
         "typeVersion": 1.1,
         "position": [
-          4400,
-          224
+          4736,
+          -1504
         ],
         "name": "HU8: Detección visual",
         "id": "bc7465f8-d765-4787-8c7b-bfd191433c34",
+        "retryOnFail": true,
+        "maxTries": 4,
+        "waitBetweenTries": 35000,
         "credentials": {
           "googlePalmApi": {
             "id": "KSLilanSYeOPXkGp",
@@ -7617,8 +9071,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          4640,
-          224
+          4976,
+          -1504
         ],
         "name": "HU8: Parsear detección",
         "id": "f0ce2aa1-bd72-4c0d-989c-ba632105cf5d"
@@ -7651,8 +9105,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          4880,
-          224
+          5216,
+          -1504
         ],
         "name": "HU8: ¿Imagen limpia?",
         "id": "f285e2db-650b-4801-848e-42d12b5ae987"
@@ -7668,8 +9122,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          5072,
-          -16
+          5440,
+          -1744
         ],
         "name": "HU8: Imagen con precio",
         "id": "811581f0-bb06-4c19-90e0-64617f3b5825",
@@ -7709,8 +9163,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          3536,
-          352
+          3600,
+          -2112
         ],
         "name": "HU5: ¿Es carrusel?",
         "id": "55b41e45-6688-4370-b27f-a74e244246bd"
@@ -7722,8 +9176,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          3856,
-          480
+          3904,
+          -2128
         ],
         "name": "HU5: Buffer grupo",
         "id": "6522e325-d04d-4440-a657-63a93fbf5105"
@@ -7735,8 +9189,8 @@
         "type": "n8n-nodes-base.wait",
         "typeVersion": 1.1,
         "position": [
-          4288,
-          480
+          4192,
+          -2128
         ],
         "name": "HU5: Esperar grupo",
         "webhookId": "hu5-wait-grupo",
@@ -7751,8 +9205,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4800,
-          480
+          4688,
+          -2128
         ],
         "name": "HU5: Bajar foto",
         "id": "8dd72150-a703-486b-8bb8-69252f94b0bc",
@@ -7771,8 +9225,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          5056,
-          480
+          4944,
+          -2128
         ],
         "name": "HU5: A base64",
         "id": "caba12e6-e532-4875-94ab-5c6429874e99"
@@ -7799,8 +9253,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          5312,
-          480
+          5200,
+          -2128
         ],
         "name": "HU5: Subir Cloudinary",
         "id": "bff33a9a-6231-463b-a4c3-7c0d6a16bfff"
@@ -7812,58 +9266,39 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          5552,
-          480
+          5440,
+          -2128
         ],
         "name": "HU5: Juntar URLs",
         "id": "c1e2f6e9-39bf-44d8-a487-3bfd4b0101f1"
       },
       {
         "parameters": {
-          "resource": "image",
-          "operation": "analyze",
-          "modelId": {
-            "__rl": true,
-            "value": "models/gemini-2.5-flash",
-            "mode": "list",
-            "cachedResultName": "models/gemini-2.5-flash"
-          },
-          "text": "# ROL\nSos un director de arte experto en carruseles de Instagram para la marca Mary Kay.\n\n# TAREA\nTe paso varias imágenes de productos, numeradas desde 0 en el orden en que aparecen.\nProponé el ORDEN NARRATIVO ÓPTIMO para un carrusel interactivo:\n- PORTADA (hook): la imagen de mayor impacto visual y contraste, para frenar el scroll.\n- SOPORTE: las imágenes que detallan beneficios/producto, en una secuencia lógica.\n- CIERRE: una imagen que funcione como cierre visual / llamado a la acción.\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown:\n{\"orden\": [lista de índices en el nuevo orden, ej: [2,0,1]], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia.\"}",
-          "imageUrls": "={{ $json.urlList }}",
-          "options": {}
-        },
-        "type": "@n8n/n8n-nodes-langchain.googleGemini",
-        "typeVersion": 1.1,
-        "position": [
-          5776,
-          480
-        ],
-        "name": "HU5: Ordenar",
-        "id": "81a182b3-496a-4c79-969f-8e821247e281",
-        "credentials": {
-          "googlePalmApi": {
-            "id": "KSLilanSYeOPXkGp",
-            "name": "Google Gemini(PaLM) Api account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "jsCode": "// HU5 — parsea el orden de Gemini, lo sanea, arma mensaje y persiste el set para la Etapa 2\nconst raw = ($('HU5: Ordenar').first().json.content.parts[0].text) || '';\nlet parsed = { orden: [], preview: '' };\ntry { parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim()); } catch (e) {}\nconst juntar = $('HU5: Juntar URLs').first().json;\nconst images = juntar.images;\nlet orden = Array.isArray(parsed.orden) ? parsed.orden.filter(i => Number.isInteger(i) && i >= 0 && i < images.length) : [];\nconst seen = new Set(orden);\nfor (let i = 0; i < images.length; i++) if (!seen.has(i)) { orden.push(i); seen.add(i); }\norden = orden.slice(0, images.length);\nconst orderedUrls = orden.map(i => images[i].url);\nconst lineas = orden.map((origIdx, pos) => `${pos + 1}. imagen #${origIdx + 1}`).join('\\n');\nconst mensaje = `🖼️ Recibí tu carrusel de ${images.length} imágenes.\\n\\n*Orden narrativo propuesto:*\\n${lineas}\\n\\n_${parsed.preview || 'Secuencia optimizada para retención.'}_\\n\\n(Próxima etapa: confirmar/reordenar y generar el texto.)`;\n// Persistir para la Etapa 2\nconst store = $getWorkflowStaticData('global');\nstore['carousel_' + juntar.gid] = { orderedUrls, total: images.length, ts: Date.now(), chatId: juntar.chatId };\nreturn [{ json: { chatId: juntar.chatId, gid: juntar.gid, total: images.length, orden, orderedUrls, preview: parsed.preview || '', mensaje } }];"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          6032,
-          480
-        ],
-        "name": "HU5: Parsear orden",
-        "id": "3ebf4af4-d5bb-459d-b5f2-0a6dd874faea"
-      },
-      {
-        "parameters": {
           "chatId": "={{ $json.chatId }}",
           "text": "={{ $json.mensaje }}",
+          "replyMarkup": "inlineKeyboard",
+          "inlineKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "text": "✅ Usar este orden",
+                      "additionalFields": {
+                        "callback_data": "=cfmCar_{{ $json.gid }}"
+                      }
+                    },
+                    {
+                      "text": "↩️ Usar mi orden",
+                      "additionalFields": {
+                        "callback_data": "=origCar_{{ $json.gid }}"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
           "additionalFields": {
             "appendAttribution": false
           }
@@ -7871,8 +9306,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          6256,
-          480
+          6432,
+          -1984
         ],
         "name": "HU5: Mostrar orden",
         "id": "39dd5dfb-e937-4246-bd0b-cc6d2fc6679c",
@@ -7891,11 +9326,525 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          4640,
-          576
+          4464,
+          -2128
         ],
         "name": "HU5: ¿Ganador?",
         "id": "521b8045-ebea-470e-9331-0284dba416d7"
+      },
+      {
+        "parameters": {
+          "resource": "callback",
+          "queryId": "={{ $json.callback_query.id }}",
+          "additionalFields": {}
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          1232,
+          -1776
+        ],
+        "name": "HU5: Answer carrusel",
+        "id": "11cf7ee1-c9ef-4e9b-92c3-82242eb1a60f",
+        "webhookId": "e1fc6188-3d4e-4bfe-9ca9-a40a2027ed30",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — confirm: elige set (ai u original) según el callback y lo recupera de static data\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst useAi = data.startsWith('cfmCar_');\nconst gid = data.replace(/^cfmCar_/, '').replace(/^origCar_/, '');\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = (useAi ? set.aiUrls : set.origUrls) || [];\nreturn [{ json: { chatId: set.chatId || cb.message.chat.id, gid, total: urls.length, urls, urlList: urls.join(','), useAi } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1552,
+          -1776
+        ],
+        "name": "HU5: Preparar set",
+        "id": "7ad5331b-1fa0-47b7-bf3a-3cd43903a9db"
+      },
+      {
+        "parameters": {
+          "resource": "image",
+          "operation": "analyze",
+          "modelId": {
+            "__rl": true,
+            "value": "models/gemini-2.5-flash",
+            "mode": "list",
+            "cachedResultName": "models/gemini-2.5-flash"
+          },
+          "text": "# ROL\nActúa como Postly, experto en Marketing Digital y Copywriting para la marca Mary Kay, ayudando a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nTe paso las imágenes de un CARRUSEL de Instagram (varias fotos de productos Mary Kay) en el orden definido. Analizalas EN CONJUNTO como una sola publicación y generá tres (3) opciones de copy para el carrusel.\n\n# REGLAS CRÍTICAS (INCUMPLIMIENTO = ERROR)\n1. PROHIBIDO INVENTAR PRECIOS: no menciones montos, signo $ ni divisas.\n2. PROHIBIDO INVENTAR DESCUENTOS: no uses \"Oferta\", \"Promoción\", \"% OFF\", \"barato\" ni \"económico\".\n3. NO agregues firma: el sistema la inyecta después.\n\n# ESTILOS\n- OPCIÓN 1 — INFORMATIVA: educativa, beneficios e ingredientes, profesional.\n- OPCIÓN 2 — VENDEDORA: persuasiva, aspiracional, con un CTA claro para que te contacten.\n- OPCIÓN 3 — DIVERTIDA: fresca, cercana, con onda y hashtags de tendencia.\nCada opción con emojis y hashtags relevantes (ej. #MaryKay #CuidadoDeLaPiel).\n\n# FORMATO\nRespondé ÚNICA y EXCLUSIVAMENTE con un JSON válido, sin markdown ni bloques de código:\n{\"opcion1\":\"...\",\"opcion2\":\"...\",\"opcion3\":\"...\"}",
+          "imageUrls": "={{ $json.urlList }}",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.googleGemini",
+        "typeVersion": 1.1,
+        "position": [
+          1824,
+          -1776
+        ],
+        "name": "HU5: Generar copys",
+        "id": "c6c147f8-ac51-4333-b0de-bfbac3c0e10f",
+        "retryOnFail": true,
+        "maxTries": 4,
+        "waitBetweenTries": 35000,
+        "credentials": {
+          "googlePalmApi": {
+            "id": "KSLilanSYeOPXkGp",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — parsea los 3 copys, persiste set+copys para 2b, arma textos de display con encabezado\nconst fence3 = String.fromCharCode(96,96,96);\nconst raw = ($('HU5: Generar copys').first().json.content.parts[0].text) || '';\nconst clean = raw.replace(new RegExp(fence3 + 'json','gi'), '').replace(new RegExp(fence3,'g'), '').trim();\nlet o = { opcion1: '', opcion2: '', opcion3: '' };\ntry { o = JSON.parse(clean); } catch (e) {}\nconst prep = $('HU5: Preparar set').first().json;\nconst store = $getWorkflowStaticData('global');\nconst prev = store['carousel_' + prep.gid] || {};\nstore['carousel_' + prep.gid] = { ...prev, urls: prep.urls, total: prep.total, chatId: prep.chatId, copys: [o.opcion1, o.opcion2, o.opcion3] };\nreturn [{ json: { chatId: prep.chatId, gid: prep.gid,\n  op1: '📝 *Opción Informativa*\\n\\n' + (o.opcion1 || ''),\n  op2: '💎 *Opción Vendedora*\\n\\n' + (o.opcion2 || ''),\n  op3: '🎉 *Opción Divertida*\\n\\n' + (o.opcion3 || '') } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2112,
+          -1776
+        ],
+        "name": "HU5: Parsear copys",
+        "id": "09664a05-fa3d-4731-b240-a10a8d85fa41"
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+          "text": "={{ $('HU5: Parsear copys').first().json.op1 }}",
+          "replyMarkup": "inlineKeyboard",
+          "inlineKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "text": "📝 Publicar · Informativa",
+                      "additionalFields": {
+                        "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                      }
+                    },
+                    {
+                      "text": "✏️ Editar",
+                      "additionalFields": {
+                        "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          2416,
+          -1776
+        ],
+        "name": "HU5: Tono 1",
+        "id": "ede493eb-5f18-41fc-96c5-87a426825c31",
+        "webhookId": "d87cca07-3750-4616-8c54-9019e41b7c1a",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+          "text": "={{ $('HU5: Parsear copys').first().json.op2 }}",
+          "replyMarkup": "inlineKeyboard",
+          "inlineKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "text": "💎 Publicar · Vendedora",
+                      "additionalFields": {
+                        "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                      }
+                    },
+                    {
+                      "text": "✏️ Editar",
+                      "additionalFields": {
+                        "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          2656,
+          -1776
+        ],
+        "name": "HU5: Tono 2",
+        "id": "07e93a30-774b-42fa-970f-3633a8f83936",
+        "webhookId": "96595447-f8fd-4018-80e2-c9f751b8e2ed",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+          "text": "={{ $('HU5: Parsear copys').first().json.op3 }}",
+          "replyMarkup": "inlineKeyboard",
+          "inlineKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "text": "🎉 Publicar · Divertida",
+                      "additionalFields": {
+                        "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                      }
+                    },
+                    {
+                      "text": "✏️ Editar",
+                      "additionalFields": {
+                        "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          2896,
+          -1776
+        ],
+        "name": "HU5: Tono 3",
+        "id": "8d21f147-fb01-4369-9c63-47c6080bcfab",
+        "webhookId": "539d5cf4-650a-48ee-a00b-5b6fc5e30612",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $json.callback_query.message.chat.id }}",
+          "text": "🚧 La publicación del carrusel llega en la próxima etapa (2b).",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          2592,
+          -1168
+        ],
+        "name": "HU5: Publicar (placeholder)",
+        "id": "55b6cafa-3063-486f-9778-500fc753afe7",
+        "webhookId": "efc7d936-0afe-49cc-ad64-af96b3fabfcd",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "h5c-0003-4003-8003-000000000003",
+                "leftValue": "={{ $json.tiene_precio }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          6160,
+          -2128
+        ],
+        "name": "HU5: ¿Carrusel limpio?",
+        "id": "f29acfef-310a-4fea-8461-57976c9211d8"
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $json.chatId }}",
+          "text": "=🚫 *Detecté un precio o promoción en una imagen del carrusel.*\n\nPor las normas de Mary Kay no puedo publicar imágenes con precios, ofertas o descuentos incrustados.\n\n_Detalle:_ {{ $json.detalle }}\n\n📸 Mandá el carrusel sin precios y seguimos.",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          6416,
+          -2208
+        ],
+        "name": "HU5: Carrusel bloqueado",
+        "id": "1b0f1551-eacf-415d-a77b-166753fb9433",
+        "webhookId": "f68365a9-fff2-4ba1-9bd5-d5d1bad4a0f0",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "callback",
+          "queryId": "={{ $json.callback_query.id }}",
+          "additionalFields": {}
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          2416,
+          -1552
+        ],
+        "name": "HU5: Edit answer",
+        "id": "19430bd9-2db1-4bc6-a7a7-b595aced25f8",
+        "webhookId": "a563392c-b24b-4bfb-a6d9-aaf48e290490",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — marca edición de carrusel pendiente para este chat (editCar_<gid>_<n>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('editCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = rest.slice(lastU + 1);\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nstore['editPending_' + chatId] = { gid, n: Number(n), ts: Date.now() };\nreturn [{ json: { chatId, gid, n } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2656,
+          -1552
+        ],
+        "name": "HU5: Set edit pendiente",
+        "id": "1448c689-1b18-4983-8d12-00fa506c4034"
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $json.chatId }}",
+          "text": "✏️ Mandame el texto editado para esa opción del carrusel y lo aplico.",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          2896,
+          -1552
+        ],
+        "name": "HU5: Pedir texto",
+        "id": "efa51af6-c5d7-406d-b698-da4e96f25b2d",
+        "webhookId": "b3f9cb6d-5b2e-40cc-a84e-91f535f319d8",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — ¿hay una edición de carrusel pendiente para este chat? (intercepta texto plano)\nconst msg = $('Telegram Trigger').first().json.message;\nconst chatId = String(msg.chat.id);\nconst text = (msg && msg.text) || '';\nconst store = $getWorkflowStaticData('global');\nconst pend = store['editPending_' + chatId];\nconst pending = !!(pend && text);\nreturn [{ json: { pending, chatId, text, gid: pend ? pend.gid : '', n: pend ? pend.n : 0 } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4016,
+          -1120
+        ],
+        "name": "HU5: Check edit pendiente",
+        "id": "8c3deb6b-77ef-4c88-b886-b0f71a03753c"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "h5e-0004-4004-8004-000000000004",
+                "leftValue": "={{ $json.pending }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          4256,
+          -1120
+        ],
+        "name": "HU5: ¿Edit pendiente?",
+        "id": "a653a2fa-a585-4f8e-b421-3d4bfec287c3"
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — aplica el texto editado al caption del carrusel y limpia el flag\nconst inp = $json;\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + inp.gid] || {};\nconst copys = set.copys || ['', '', ''];\ncopys[inp.n - 1] = inp.text;\nset.copys = copys;\nstore['carousel_' + inp.gid] = set;\ndelete store['editPending_' + inp.chatId];\nreturn [{ json: { chatId: inp.chatId, gid: inp.gid, n: inp.n, caption: inp.text } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4496,
+          -1120
+        ],
+        "name": "HU5: Aplicar edición",
+        "id": "fcdc206c-66e2-4e6b-bed1-0ff80a7cdf00"
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $json.chatId }}",
+          "text": "=✅ Actualicé la opción {{ $json.n }} del carrusel:\n\n{{ $json.caption }}",
+          "replyMarkup": "inlineKeyboard",
+          "inlineKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "text": "📤 Publicar carrusel",
+                      "additionalFields": {
+                        "callback_data": "=pubCar_{{ $json.gid }}_{{ $json.n }}"
+                      }
+                    },
+                    {
+                      "text": "✏️ Editar de nuevo",
+                      "additionalFields": {
+                        "callback_data": "=editCar_{{ $json.gid }}_{{ $json.n }}"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          4736,
+          -1120
+        ],
+        "name": "HU5: Reconfirmar",
+        "id": "ced9ae64-389d-4b51-8e87-2ac79eb38cdf",
+        "webhookId": "83a8743d-5642-49e6-a988-c50bac7f8deb",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "image",
+          "operation": "analyze",
+          "modelId": {
+            "__rl": true,
+            "value": "models/gemini-2.5-flash",
+            "mode": "list",
+            "cachedResultName": "models/gemini-2.5-flash"
+          },
+          "text": "# ROL\nSos Postly: director de arte + Compliance Sentinel visual para la marca Mary Kay.\nTe paso las imágenes de un CARRUSEL de Instagram, numeradas del 1 al N en el orden en que aparecen.\n\n# TAREA\n1) COMPLIANCE: si CUALQUIER imagen contiene un precio o promoción incrustada en los píxeles (monto o cifra de precio,\n   símbolos de moneda $/US$/AR$/ARS/USD, lista de precios, o texto \"OFERTA\",\"PROMO\",\"DESCUENTO\",\"X% OFF\",\"2x1\",\"LIQUIDACIÓN\",\"SALE\",\"REBAJA\",\"GRATIS\"),\n   marcá tiene_precio=true e indicá en qué imagen (1..N) y qué viste. NO es infractor: nombres de producto, logos, texto\n   descriptivo sin precios, números que no son precios (SPF 30, 24h, 50 ml).\n2) ORDEN (solo si NO hay precio): proponé el ORDEN NARRATIVO ÓPTIMO para el carrusel: portada/hook de mayor impacto y\n   contraste, luego las de soporte (beneficios) en secuencia lógica, y un cierre/CTA. Devolvé los números 1..N en \"orden\".\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nSi en \"preview\" mencionás imágenes, referilas por su número del 1 al N (NUNCA 0).\n{\"tiene_precio\": false, \"detalle\": \"\", \"orden\": [1,3,2], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia\"}\nSi tiene_precio=true, \"orden\" puede ir vacío.",
+          "imageUrls": "={{ $json.urlList }}",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.googleGemini",
+        "typeVersion": 1.1,
+        "position": [
+          5648,
+          -2128
+        ],
+        "name": "HU5: Analizar carrusel",
+        "retryOnFail": true,
+        "maxTries": 4,
+        "waitBetweenTries": 35000,
+        "id": "89545237-d03a-4e3e-b44c-08cd10e4df31",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "KSLilanSYeOPXkGp",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — analiza compliance+orden en una sola pasada de Gemini\nconst raw = ($('HU5: Analizar carrusel').first().json.content.parts[0].text) || '';\nlet p = { tiene_precio: false, detalle: '', orden: [], preview: '' };\ntry { p = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim()); } catch (e) {}\nconst juntar = $('HU5: Juntar URLs').first().json;\nconst images = juntar.images;\nif (p.tiene_precio === true) {\n  return [{ json: { tiene_precio: true, detalle: p.detalle || '', chatId: juntar.chatId, gid: juntar.gid } }];\n}\nlet orden = Array.isArray(p.orden) ? p.orden.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= images.length).map(n => n - 1) : [];\nconst seen = new Set(orden);\nfor (let i = 0; i < images.length; i++) if (!seen.has(i)) { orden.push(i); seen.add(i); }\norden = orden.slice(0, images.length);\nconst orderedUrls = orden.map(i => images[i].url);\nconst lineas = orden.map((o, pos) => `${pos + 1}. imagen #${o + 1}`).join('\\n');\nconst mensaje = `🖼️ Recibí tu carrusel de ${images.length} imágenes.\\n\\n*Orden narrativo propuesto:*\\n${lineas}\\n\\n_${p.preview || 'Secuencia optimizada para retención.'}_\\n\\n¿Lo usamos así o preferís tu orden original?`;\nconst store = $getWorkflowStaticData('global');\nstore['carousel_' + juntar.gid] = { aiUrls: orderedUrls, origUrls: images.map(im => im.url), total: images.length, chatId: juntar.chatId };\nreturn [{ json: { tiene_precio: false, chatId: juntar.chatId, gid: juntar.gid, total: images.length, mensaje } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          5872,
+          -2128
+        ],
+        "name": "HU5: Parsear análisis",
+        "id": "e6af6d5c-e470-4b44-8138-de624886fd73"
       }
     ],
     "connections": {
@@ -7950,7 +9899,7 @@
           ],
           [
             {
-              "node": "Get row(s) in sheet1",
+              "node": "HU5: Check edit pendiente",
               "type": "main",
               "index": 0
             }
@@ -8635,6 +10584,34 @@
           ],
           [
             {
+              "node": "HU5: Answer carrusel",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HU5: Answer carrusel",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HU5: Publicar (placeholder)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HU5: Edit answer",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
               "node": "Que boton toco?",
               "type": "main",
               "index": 0
@@ -8909,29 +10886,7 @@
         "main": [
           [
             {
-              "node": "HU5: Ordenar",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "HU5: Ordenar": {
-        "main": [
-          [
-            {
-              "node": "HU5: Parsear orden",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "HU5: Parsear orden": {
-        "main": [
-          [
-            {
-              "node": "HU5: Mostrar orden",
+              "node": "HU5: Analizar carrusel",
               "type": "main",
               "index": 0
             }
@@ -8948,6 +10903,174 @@
             }
           ]
         ]
+      },
+      "HU5: Answer carrusel": {
+        "main": [
+          [
+            {
+              "node": "HU5: Preparar set",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Preparar set": {
+        "main": [
+          [
+            {
+              "node": "HU5: Generar copys",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Generar copys": {
+        "main": [
+          [
+            {
+              "node": "HU5: Parsear copys",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Parsear copys": {
+        "main": [
+          [
+            {
+              "node": "HU5: Tono 1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Tono 1": {
+        "main": [
+          [
+            {
+              "node": "HU5: Tono 2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Tono 2": {
+        "main": [
+          [
+            {
+              "node": "HU5: Tono 3",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: ¿Carrusel limpio?": {
+        "main": [
+          [
+            {
+              "node": "HU5: Carrusel bloqueado",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HU5: Mostrar orden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Edit answer": {
+        "main": [
+          [
+            {
+              "node": "HU5: Set edit pendiente",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Set edit pendiente": {
+        "main": [
+          [
+            {
+              "node": "HU5: Pedir texto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Check edit pendiente": {
+        "main": [
+          [
+            {
+              "node": "HU5: ¿Edit pendiente?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: ¿Edit pendiente?": {
+        "main": [
+          [
+            {
+              "node": "HU5: Aplicar edición",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Get row(s) in sheet1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Aplicar edición": {
+        "main": [
+          [
+            {
+              "node": "HU5: Reconfirmar",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Analizar carrusel": {
+        "main": [
+          [
+            {
+              "node": "HU5: Parsear análisis",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Parsear análisis": {
+        "main": [
+          [
+            {
+              "node": "HU5: ¿Carrusel limpio?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Nicolas Hassan",
@@ -8956,18 +11079,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-06-27T01:13:01.981Z",
-        "id": 128,
+        "createdAt": "2026-06-27T03:21:39.760Z",
+        "id": 144,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
+        "versionId": "c85ee209-4261-486a-9856-bd0c146a7d3c",
         "event": "activated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       },
       {
-        "createdAt": "2026-06-27T01:13:00.474Z",
-        "id": 127,
+        "createdAt": "2026-06-27T03:21:38.295Z",
+        "id": 143,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
+        "versionId": "c85ee209-4261-486a-9856-bd0c146a7d3c",
         "event": "deactivated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       }
