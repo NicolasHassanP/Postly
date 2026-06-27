@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T23:43:41.822Z",
+  "updatedAt": "2026-06-27T01:13:59.278Z",
   "createdAt": "2026-04-12T06:37:37.618Z",
   "id": "VOgbHGLELJfRgVO5",
   "name": "Postly - Entrega Final Sprint 1 v2",
@@ -131,7 +131,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        3616,
+        3728,
         224
       ],
       "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
@@ -180,8 +180,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.1,
       "position": [
-        4144,
-        464
+        5120,
+        224
       ],
       "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
       "name": "Analyze an image",
@@ -340,8 +340,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4032,
-        768
+        4384,
+        736
       ],
       "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
       "name": "Descripcion editada",
@@ -673,8 +673,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        4416,
-        464
+        5344,
+        224
       ],
       "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
       "name": "Consistencia",
@@ -853,8 +853,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3776,
-        768
+        4128,
+        736
       ],
       "id": "80947461-516d-4ec5-a2f7-945ededea964",
       "name": "Descripcion en columna H",
@@ -896,8 +896,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3296,
-        768
+        3632,
+        736
       ],
       "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
       "name": "Get row(s) in sheet1",
@@ -915,8 +915,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        3552,
-        768
+        3904,
+        736
       ],
       "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
       "name": "Limit"
@@ -1885,8 +1885,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4672,
-        464
+        5600,
+        224
       ],
       "id": "d4e5f6a7-0001-4001-8001-000000000001",
       "name": "B: Parsear opciones"
@@ -1902,8 +1902,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4912,
-        464
+        5792,
+        -32
       ],
       "id": "d4e5f6a7-0002-4002-8002-000000000002",
       "name": "B: Intro opciones",
@@ -1949,8 +1949,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5136,
-        304
+        5952,
+        224
       ],
       "id": "d4e5f6a7-0003-4003-8003-000000000003",
       "name": "B: Opción 1",
@@ -1996,8 +1996,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5312,
-        304
+        6192,
+        224
       ],
       "id": "d4e5f6a7-0004-4004-8004-000000000004",
       "name": "B: Opción 2",
@@ -2043,8 +2043,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5520,
-        304
+        6416,
+        224
       ],
       "id": "d4e5f6a7-0005-4005-8005-000000000005",
       "name": "B: Opción 3",
@@ -3064,8 +3064,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2688,
-        560
+        2768,
+        448
       ],
       "name": "Descifrar credenciales",
       "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
@@ -3091,6 +3091,7 @@
         224
       ],
       "name": "HU8: Detección visual",
+      "id": "bc7465f8-d765-4787-8c7b-bfd191433c34",
       "credentials": {
         "googlePalmApi": {
           "id": "KSLilanSYeOPXkGp",
@@ -3108,7 +3109,8 @@
         4640,
         224
       ],
-      "name": "HU8: Parsear detección"
+      "name": "HU8: Parsear detección",
+      "id": "f0ce2aa1-bd72-4c0d-989c-ba632105cf5d"
     },
     {
       "parameters": {
@@ -3141,7 +3143,8 @@
         4880,
         224
       ],
-      "name": "HU8: ¿Imagen limpia?"
+      "name": "HU8: ¿Imagen limpia?",
+      "id": "f285e2db-650b-4801-848e-42d12b5ae987"
     },
     {
       "parameters": {
@@ -3154,16 +3157,234 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5120,
-        80
+        5072,
+        -16
       ],
       "name": "HU8: Imagen con precio",
+      "id": "811581f0-bb06-4c19-90e0-64617f3b5825",
+      "webhookId": "d2332e4d-afbf-4265-9b22-a3101c1b5611",
       "credentials": {
         "telegramApi": {
           "id": "PavSlOIluhcuq1rF",
           "name": "Telegram account"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "h5a-0001-4001-8001-000000000001",
+              "leftValue": "={{ $json.message.media_group_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3536,
+        352
+      ],
+      "name": "HU5: ¿Es carrusel?",
+      "id": "55b41e45-6688-4370-b27f-a74e244246bd"
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — buffer en archivo local (fs.appendFileSync se serializa en el proceso Node -> sin clobbering)\nconst fsm = require('fs');\nconst BUF = 'C:/Users/Nico/AppData/Local/Temp/postly_carrusel_buffer.tsv';\nconst msg = $('Telegram Trigger').first().json.message;\nconst gid = 'g_' + String(msg.media_group_id);\nconst photo = msg.photo.reduce((a, b) => (a.file_size > b.file_size ? a : b));\nconst line = [gid, photo.file_id, String(msg.chat.id), Date.now()].join('\\t') + '\\n';\nfsm.appendFileSync(BUF, line, 'utf8');\nreturn [{ json: { gid, file_id: photo.file_id, chatId: String(msg.chat.id) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3904,
+        480
+      ],
+      "name": "HU5: Buffer grupo",
+      "id": "6522e325-d04d-4440-a657-63a93fbf5105"
+    },
+    {
+      "parameters": {
+        "amount": 4
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4288,
+        480
+      ],
+      "name": "HU5: Esperar grupo",
+      "webhookId": "hu5-wait-grupo",
+      "id": "5f93f9bb-2a72-45cf-8434-7df32a153c4a"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4800,
+        480
+      ],
+      "name": "HU5: Bajar foto",
+      "id": "8dd72150-a703-486b-8bb8-69252f94b0bc",
+      "webhookId": "78812c91-6522-4c8d-a262-c884d067b140",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nfor (let i = 0; i < items.length; i++) {\n  const buffer = await this.helpers.getBinaryDataBuffer(i, 'data');\n  items[i].json.fotoBase64 = buffer.toString('base64');\n}\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5056,
+        480
+      ],
+      "name": "HU5: A base64",
+      "id": "caba12e6-e532-4875-94ab-5c6429874e99"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/dvqtepklc/image/upload",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "upload_preset",
+              "value": "postly_unsigned"
+            },
+            {
+              "name": "file",
+              "value": "=data:{{ $binary.data.mimeType }};base64,{{ $json.fotoBase64 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        5312,
+        480
+      ],
+      "name": "HU5: Subir Cloudinary",
+      "id": "bff33a9a-6231-463b-a4c3-7c0d6a16bfff"
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — junta las N secure_url en un solo item, conservando chatId/gid desde Recolectar\nconst urls = $input.all().map(it => it.json.secure_url);\nconst rec = $('HU5: ¿Ganador?').all();\nconst chatId = rec[0].json.chatId;\nconst gid = rec[0].json.gid;\nconst images = urls.map((u, i) => ({ idx: i, url: u }));\nreturn [{ json: { chatId, gid, total: images.length, images, urlList: urls.join(',') } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5552,
+        480
+      ],
+      "name": "HU5: Juntar URLs",
+      "id": "c1e2f6e9-39bf-44d8-a487-3bfd4b0101f1"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nSos un director de arte experto en carruseles de Instagram para la marca Mary Kay.\n\n# TAREA\nTe paso varias imágenes de productos, numeradas del 1 al N en el orden en que aparecen.\nProponé el ORDEN NARRATIVO ÓPTIMO para un carrusel interactivo:\n- PORTADA (hook): la imagen de mayor impacto visual y contraste, para frenar el scroll.\n- SOPORTE: las imágenes que detallan beneficios/producto, en una secuencia lógica.\n- CIERRE: una imagen que funcione como cierre visual / llamado a la acción.\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nIMPORTANTE: las imágenes se numeran del 1 al N. En \"orden\" devolvé esos números (1..N). Si en \"preview\" mencionás\nuna imagen, referila por su número del 1 al N (NUNCA uses 0).\n{\"orden\": [números de imagen del 1 al N en el nuevo orden, ej: [1,3,2]], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia.\"}",
+        "imageUrls": "={{ $json.urlList }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        5776,
+        480
+      ],
+      "name": "HU5: Ordenar",
+      "id": "81a182b3-496a-4c79-969f-8e821247e281",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "KSLilanSYeOPXkGp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — parsea el orden (1-based) de Gemini, lo sanea a índices 0-based, arma mensaje y persiste el set para la Etapa 2\nconst raw = ($('HU5: Ordenar').first().json.content.parts[0].text) || '';\nlet parsed = { orden: [], preview: '' };\ntry { parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim()); } catch (e) {}\nconst juntar = $('HU5: Juntar URLs').first().json;\nconst images = juntar.images;\n// Gemini numera 1..N -> pasamos a índices 0-based\nlet orden = Array.isArray(parsed.orden)\n  ? parsed.orden.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= images.length).map(n => n - 1)\n  : [];\nconst seen = new Set(orden);\nfor (let i = 0; i < images.length; i++) if (!seen.has(i)) { orden.push(i); seen.add(i); }\norden = orden.slice(0, images.length);\nconst orderedUrls = orden.map(i => images[i].url);\nconst lineas = orden.map((origIdx, pos) => `${pos + 1}. imagen #${origIdx + 1}`).join('\\n');\nconst mensaje = `🖼️ Recibí tu carrusel de ${images.length} imágenes.\\n\\n*Orden narrativo propuesto:*\\n${lineas}\\n\\n_${parsed.preview || 'Secuencia optimizada para retención.'}_\\n\\n(Próxima etapa: confirmar/reordenar y generar el texto.)`;\nconst store = $getWorkflowStaticData('global');\nstore['carousel_' + juntar.gid] = { orderedUrls, total: images.length, ts: Date.now(), chatId: juntar.chatId };\nreturn [{ json: { chatId: juntar.chatId, gid: juntar.gid, total: images.length, orden, orderedUrls, preview: parsed.preview || '', mensaje } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6032,
+        480
+      ],
+      "name": "HU5: Parsear orden",
+      "id": "3ebf4af4-d5bb-459d-b5f2-0a6dd874faea"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.mensaje }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        6256,
+        480
+      ],
+      "name": "HU5: Mostrar orden",
+      "id": "39dd5dfb-e937-4246-bd0b-cc6d2fc6679c",
+      "webhookId": "29975e5e-6e46-4f9d-9896-c5c165f8c30f",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HU5 — ganador determinístico: lee el archivo, filtra mi gid, gana la 1ra línea; junta los N file_id y limpia\nconst fsm = require('fs');\nconst BUF = 'C:/Users/Nico/AppData/Local/Temp/postly_carrusel_buffer.tsv';\nconst myFileId = String($('HU5: Buffer grupo').first().json.file_id);\nconst gid = String($('HU5: Buffer grupo').first().json.gid);\nlet lines = [];\ntry { lines = fsm.readFileSync(BUF, 'utf8').split('\\n').filter(Boolean); } catch (e) {}\nconst mine = lines.map(l => l.split('\\t')).filter(p => p[0] === gid);\nif (!mine.length) return [];\nif (String(mine[0][1]) !== myFileId) return []; // no soy el ganador -> corto\nconst seen = new Set(); const fileIds = [];\nfor (const p of mine) { const fid = p[1]; if (!seen.has(fid)) { seen.add(fid); fileIds.push(fid); } }\nconst ten = fileIds.slice(0, 10);\nconst chatId = mine[0][2];\nconst rest = lines.filter(l => l.split('\\t')[0] !== gid); // limpiar las líneas de este grupo\ntry { fsm.writeFileSync(BUF, rest.length ? rest.join('\\n') + '\\n' : '', 'utf8'); } catch (e) {}\nreturn ten.map((fid, i) => ({ json: { file_id: fid, idx: i, chatId, gid, total: ten.length } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4544,
+        480
+      ],
+      "name": "HU5: ¿Ganador?",
+      "id": "521b8045-ebea-470e-9331-0284dba416d7"
     }
   ],
   "connections": {
@@ -3211,7 +3432,7 @@
       "main": [
         [
           {
-            "node": "Bajar Foto",
+            "node": "HU5: ¿Es carrusel?",
             "type": "main",
             "index": 0
           }
@@ -4099,6 +4320,123 @@
           }
         ]
       ]
+    },
+    "HU5: ¿Es carrusel?": {
+      "main": [
+        [
+          {
+            "node": "HU5: Buffer grupo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Bajar Foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Buffer grupo": {
+      "main": [
+        [
+          {
+            "node": "HU5: Esperar grupo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Esperar grupo": {
+      "main": [
+        [
+          {
+            "node": "HU5: ¿Ganador?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Bajar foto": {
+      "main": [
+        [
+          {
+            "node": "HU5: A base64",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: A base64": {
+      "main": [
+        [
+          {
+            "node": "HU5: Subir Cloudinary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Subir Cloudinary": {
+      "main": [
+        [
+          {
+            "node": "HU5: Juntar URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Juntar URLs": {
+      "main": [
+        [
+          {
+            "node": "HU5: Ordenar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Ordenar": {
+      "main": [
+        [
+          {
+            "node": "HU5: Parsear orden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Parsear orden": {
+      "main": [
+        [
+          {
+            "node": "HU5: Mostrar orden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: ¿Ganador?": {
+      "main": [
+        [
+          {
+            "node": "HU5: Bajar foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -4107,14 +4445,52 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "staticData": null,
+  "staticData": {
+    "global": {
+      "carousel_14260167183726825": {
+        "orderedUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782520906/ungpsu3dp8gzorylntvm.jpg"
+        ],
+        "total": 1,
+        "ts": 1782520932070,
+        "chatId": 8601683646
+      },
+      "carousel_g_14260174084135753": {
+        "orderedUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782521782/ej4djoxzeoataplfepme.jpg"
+        ],
+        "total": 1,
+        "ts": 1782521812227,
+        "chatId": "8601683646"
+      },
+      "carousel_g_14260180468296625": {
+        "orderedUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782522569/vlcyoporusqgo0lldmf3.jpg"
+        ],
+        "total": 1,
+        "ts": 1782522580066,
+        "chatId": "8601683646"
+      },
+      "carousel_g_14260183002106089": {
+        "orderedUrls": [
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782522888/veaiymautjno7zaa80ew.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782522888/myah8hx9ukbcv2bcbmp3.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782522888/s0u9uaxu0pqdiuak3u5q.jpg",
+          "https://res.cloudinary.com/dvqtepklc/image/upload/v1782522888/jmbkkegerrh6uhd6ztvd.jpg"
+        ],
+        "total": 4,
+        "ts": 1782522900883,
+        "chatId": "8601683646"
+      }
+    }
+  },
   "meta": {
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "34f04336-6fa3-47c7-a3c6-76da4351e6e5",
-  "activeVersionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
-  "versionCounter": 1104,
+  "versionId": "18e1cd16-6cba-4759-ab32-bdf1e4a73132",
+  "activeVersionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
+  "versionCounter": 1159,
   "triggerCount": 1,
   "shared": [
     {
@@ -4137,9 +4513,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-06-26T23:40:42.279Z",
-    "createdAt": "2026-06-26T23:40:42.279Z",
-    "versionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
+    "updatedAt": "2026-06-27T01:12:59.642Z",
+    "createdAt": "2026-06-27T01:12:59.642Z",
+    "versionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
     "workflowId": "VOgbHGLELJfRgVO5",
     "nodes": [
       {
@@ -4266,7 +4642,7 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1,
         "position": [
-          3616,
+          3728,
           224
         ],
         "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
@@ -4309,14 +4685,14 @@
             "cachedResultName": "models/gemini-2.5-flash"
           },
           "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **FIRMA OBLIGATORIA:** Al final de *cada una* de las 3 opciones, debes incluir *exactamente* esta firma: \"-- Consultora de Belleza Independiente Mary Kay --\".\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags y la firma\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags y la firma\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags y la firma\"\n}",
-          "imageUrls": "={{ $json.secure_url }}",
+          "imageUrls": "={{ $('HTTP Request').first().json.secure_url }}",
           "options": {}
         },
         "type": "@n8n/n8n-nodes-langchain.googleGemini",
         "typeVersion": 1.1,
         "position": [
-          4144,
-          464
+          5120,
+          224
         ],
         "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
         "name": "Analyze an image",
@@ -4475,8 +4851,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4032,
-          768
+          4384,
+          736
         ],
         "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
         "name": "Descripcion editada",
@@ -4808,8 +5184,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          4416,
-          464
+          5344,
+          224
         ],
         "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
         "name": "Consistencia",
@@ -4988,8 +5364,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          3776,
-          768
+          4128,
+          736
         ],
         "id": "80947461-516d-4ec5-a2f7-945ededea964",
         "name": "Descripcion en columna H",
@@ -5031,8 +5407,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          3296,
-          768
+          3632,
+          736
         ],
         "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
         "name": "Get row(s) in sheet1",
@@ -5050,8 +5426,8 @@
         "type": "n8n-nodes-base.limit",
         "typeVersion": 1,
         "position": [
-          3552,
-          768
+          3904,
+          736
         ],
         "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
         "name": "Limit"
@@ -5769,8 +6145,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          4176,
-          -944
+          4096,
+          -928
         ],
         "id": "b2c3d4e5-0001-4001-8001-000000000001",
         "name": "HU3: Leer token",
@@ -6020,8 +6396,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          4672,
-          464
+          5600,
+          224
         ],
         "id": "d4e5f6a7-0001-4001-8001-000000000001",
         "name": "B: Parsear opciones"
@@ -6037,8 +6413,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          4912,
-          464
+          5792,
+          -32
         ],
         "id": "d4e5f6a7-0002-4002-8002-000000000002",
         "name": "B: Intro opciones",
@@ -6084,8 +6460,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          5136,
-          304
+          5952,
+          224
         ],
         "id": "d4e5f6a7-0003-4003-8003-000000000003",
         "name": "B: Opción 1",
@@ -6131,8 +6507,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          5312,
-          304
+          6192,
+          224
         ],
         "id": "d4e5f6a7-0004-4004-8004-000000000004",
         "name": "B: Opción 2",
@@ -6178,8 +6554,8 @@
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "position": [
-          5520,
-          304
+          6416,
+          224
         ],
         "id": "d4e5f6a7-0005-4005-8005-000000000005",
         "name": "B: Opción 3",
@@ -7173,8 +7549,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          4326,
-          -884
+          4288,
+          -928
         ],
         "name": "Descifrar token",
         "id": "ea2a693a-524b-4a96-8bcf-2db722552e05"
@@ -7186,8 +7562,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          3366,
-          -788
+          3392,
+          -848
         ],
         "name": "Descifrar token (Agenda)",
         "id": "8270f99f-71b6-4b09-bac8-346144e3fa00"
@@ -7199,11 +7575,327 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2662,
-          508
+          2768,
+          448
         ],
         "name": "Descifrar credenciales",
         "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
+      },
+      {
+        "parameters": {
+          "resource": "image",
+          "operation": "analyze",
+          "modelId": {
+            "__rl": true,
+            "value": "models/gemini-2.5-flash",
+            "mode": "list",
+            "cachedResultName": "models/gemini-2.5-flash"
+          },
+          "text": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+          "imageUrls": "={{ $('HTTP Request').first().json.secure_url }}",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.googleGemini",
+        "typeVersion": 1.1,
+        "position": [
+          4400,
+          224
+        ],
+        "name": "HU8: Detección visual",
+        "id": "bc7465f8-d765-4787-8c7b-bfd191433c34",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "KSLilanSYeOPXkGp",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU8 — parsea la detección visual de Gemini (fail-open ante JSON inválido)\nconst raw = ($('HU8: Detección visual').first().json.content.parts[0].text) || '';\nlet parsed = { tiene_precio: false, detalle: '' };\ntry {\n  parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim());\n} catch (e) { /* Gemini no devolvió JSON limpio -> no bloquear */ }\nreturn [{ json: {\n  tiene_precio: parsed.tiene_precio === true,\n  detalle: parsed.detalle || '',\n  secure_url: $('HTTP Request').first().json.secure_url\n} }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4640,
+          224
+        ],
+        "name": "HU8: Parsear detección",
+        "id": "f0ce2aa1-bd72-4c0d-989c-ba632105cf5d"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "c1d2e3f4-0015-4015-8015-000000000015",
+                "leftValue": "={{ $json.tiene_precio }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          4880,
+          224
+        ],
+        "name": "HU8: ¿Imagen limpia?",
+        "id": "f285e2db-650b-4801-848e-42d12b5ae987"
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+          "text": "=🚫 *Detecté un precio o promoción en la imagen.*\n\nPor las normas de Mary Kay no puedo publicar imágenes con precios, ofertas o descuentos incrustados (placas con $, % OFF, etc.).\n\n_Detalle:_ {{ $json.detalle }}\n\n📸 Mandame otra foto del producto sin precios y seguimos.",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          5072,
+          -16
+        ],
+        "name": "HU8: Imagen con precio",
+        "id": "811581f0-bb06-4c19-90e0-64617f3b5825",
+        "webhookId": "d2332e4d-afbf-4265-9b22-a3101c1b5611",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "h5a-0001-4001-8001-000000000001",
+                "leftValue": "={{ $json.message.media_group_id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "exists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          3536,
+          352
+        ],
+        "name": "HU5: ¿Es carrusel?",
+        "id": "55b41e45-6688-4370-b27f-a74e244246bd"
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — buffer en archivo local (fs.appendFileSync se serializa en el proceso Node -> sin clobbering)\nconst fsm = require('fs');\nconst BUF = 'C:/Users/Nico/AppData/Local/Temp/postly_carrusel_buffer.tsv';\nconst msg = $('Telegram Trigger').first().json.message;\nconst gid = 'g_' + String(msg.media_group_id);\nconst photo = msg.photo.reduce((a, b) => (a.file_size > b.file_size ? a : b));\nconst line = [gid, photo.file_id, String(msg.chat.id), Date.now()].join('\\t') + '\\n';\nfsm.appendFileSync(BUF, line, 'utf8');\nreturn [{ json: { gid, file_id: photo.file_id, chatId: String(msg.chat.id) } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3856,
+          480
+        ],
+        "name": "HU5: Buffer grupo",
+        "id": "6522e325-d04d-4440-a657-63a93fbf5105"
+      },
+      {
+        "parameters": {
+          "amount": 4
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          4288,
+          480
+        ],
+        "name": "HU5: Esperar grupo",
+        "webhookId": "hu5-wait-grupo",
+        "id": "5f93f9bb-2a72-45cf-8434-7df32a153c4a"
+      },
+      {
+        "parameters": {
+          "resource": "file",
+          "fileId": "={{ $json.file_id }}",
+          "additionalFields": {}
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          4800,
+          480
+        ],
+        "name": "HU5: Bajar foto",
+        "id": "8dd72150-a703-486b-8bb8-69252f94b0bc",
+        "webhookId": "78812c91-6522-4c8d-a262-c884d067b140",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all();\nfor (let i = 0; i < items.length; i++) {\n  const buffer = await this.helpers.getBinaryDataBuffer(i, 'data');\n  items[i].json.fotoBase64 = buffer.toString('base64');\n}\nreturn items;"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          5056,
+          480
+        ],
+        "name": "HU5: A base64",
+        "id": "caba12e6-e532-4875-94ab-5c6429874e99"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.cloudinary.com/v1_1/dvqtepklc/image/upload",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "upload_preset",
+                "value": "postly_unsigned"
+              },
+              {
+                "name": "file",
+                "value": "=data:{{ $binary.data.mimeType }};base64,{{ $json.fotoBase64 }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          5312,
+          480
+        ],
+        "name": "HU5: Subir Cloudinary",
+        "id": "bff33a9a-6231-463b-a4c3-7c0d6a16bfff"
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — junta las N secure_url en un solo item, conservando chatId/gid desde Recolectar\nconst urls = $input.all().map(it => it.json.secure_url);\nconst rec = $('HU5: ¿Ganador?').all();\nconst chatId = rec[0].json.chatId;\nconst gid = rec[0].json.gid;\nconst images = urls.map((u, i) => ({ idx: i, url: u }));\nreturn [{ json: { chatId, gid, total: images.length, images, urlList: urls.join(',') } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          5552,
+          480
+        ],
+        "name": "HU5: Juntar URLs",
+        "id": "c1e2f6e9-39bf-44d8-a487-3bfd4b0101f1"
+      },
+      {
+        "parameters": {
+          "resource": "image",
+          "operation": "analyze",
+          "modelId": {
+            "__rl": true,
+            "value": "models/gemini-2.5-flash",
+            "mode": "list",
+            "cachedResultName": "models/gemini-2.5-flash"
+          },
+          "text": "# ROL\nSos un director de arte experto en carruseles de Instagram para la marca Mary Kay.\n\n# TAREA\nTe paso varias imágenes de productos, numeradas desde 0 en el orden en que aparecen.\nProponé el ORDEN NARRATIVO ÓPTIMO para un carrusel interactivo:\n- PORTADA (hook): la imagen de mayor impacto visual y contraste, para frenar el scroll.\n- SOPORTE: las imágenes que detallan beneficios/producto, en una secuencia lógica.\n- CIERRE: una imagen que funcione como cierre visual / llamado a la acción.\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown:\n{\"orden\": [lista de índices en el nuevo orden, ej: [2,0,1]], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia.\"}",
+          "imageUrls": "={{ $json.urlList }}",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.googleGemini",
+        "typeVersion": 1.1,
+        "position": [
+          5776,
+          480
+        ],
+        "name": "HU5: Ordenar",
+        "id": "81a182b3-496a-4c79-969f-8e821247e281",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "KSLilanSYeOPXkGp",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — parsea el orden de Gemini, lo sanea, arma mensaje y persiste el set para la Etapa 2\nconst raw = ($('HU5: Ordenar').first().json.content.parts[0].text) || '';\nlet parsed = { orden: [], preview: '' };\ntry { parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim()); } catch (e) {}\nconst juntar = $('HU5: Juntar URLs').first().json;\nconst images = juntar.images;\nlet orden = Array.isArray(parsed.orden) ? parsed.orden.filter(i => Number.isInteger(i) && i >= 0 && i < images.length) : [];\nconst seen = new Set(orden);\nfor (let i = 0; i < images.length; i++) if (!seen.has(i)) { orden.push(i); seen.add(i); }\norden = orden.slice(0, images.length);\nconst orderedUrls = orden.map(i => images[i].url);\nconst lineas = orden.map((origIdx, pos) => `${pos + 1}. imagen #${origIdx + 1}`).join('\\n');\nconst mensaje = `🖼️ Recibí tu carrusel de ${images.length} imágenes.\\n\\n*Orden narrativo propuesto:*\\n${lineas}\\n\\n_${parsed.preview || 'Secuencia optimizada para retención.'}_\\n\\n(Próxima etapa: confirmar/reordenar y generar el texto.)`;\n// Persistir para la Etapa 2\nconst store = $getWorkflowStaticData('global');\nstore['carousel_' + juntar.gid] = { orderedUrls, total: images.length, ts: Date.now(), chatId: juntar.chatId };\nreturn [{ json: { chatId: juntar.chatId, gid: juntar.gid, total: images.length, orden, orderedUrls, preview: parsed.preview || '', mensaje } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          6032,
+          480
+        ],
+        "name": "HU5: Parsear orden",
+        "id": "3ebf4af4-d5bb-459d-b5f2-0a6dd874faea"
+      },
+      {
+        "parameters": {
+          "chatId": "={{ $json.chatId }}",
+          "text": "={{ $json.mensaje }}",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          6256,
+          480
+        ],
+        "name": "HU5: Mostrar orden",
+        "id": "39dd5dfb-e937-4246-bd0b-cc6d2fc6679c",
+        "webhookId": "29975e5e-6e46-4f9d-9896-c5c165f8c30f",
+        "credentials": {
+          "telegramApi": {
+            "id": "PavSlOIluhcuq1rF",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// HU5 — ganador determinístico: lee el archivo, filtra mi gid, gana la 1ra línea; junta los N file_id y limpia\nconst fsm = require('fs');\nconst BUF = 'C:/Users/Nico/AppData/Local/Temp/postly_carrusel_buffer.tsv';\nconst myFileId = String($('HU5: Buffer grupo').first().json.file_id);\nconst gid = String($('HU5: Buffer grupo').first().json.gid);\nlet lines = [];\ntry { lines = fsm.readFileSync(BUF, 'utf8').split('\\n').filter(Boolean); } catch (e) {}\nconst mine = lines.map(l => l.split('\\t')).filter(p => p[0] === gid);\nif (!mine.length) return [];\nif (String(mine[0][1]) !== myFileId) return []; // no soy el ganador -> corto\nconst seen = new Set(); const fileIds = [];\nfor (const p of mine) { const fid = p[1]; if (!seen.has(fid)) { seen.add(fid); fileIds.push(fid); } }\nconst ten = fileIds.slice(0, 10);\nconst chatId = mine[0][2];\nconst rest = lines.filter(l => l.split('\\t')[0] !== gid); // limpiar las líneas de este grupo\ntry { fsm.writeFileSync(BUF, rest.length ? rest.join('\\n') + '\\n' : '', 'utf8'); } catch (e) {}\nreturn ten.map((fid, i) => ({ json: { file_id: fid, idx: i, chatId, gid, total: ten.length } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4640,
+          576
+        ],
+        "name": "HU5: ¿Ganador?",
+        "id": "521b8045-ebea-470e-9331-0284dba416d7"
       }
     ],
     "connections": {
@@ -7251,7 +7943,7 @@
         "main": [
           [
             {
-              "node": "Bajar Foto",
+              "node": "HU5: ¿Es carrusel?",
               "type": "main",
               "index": 0
             }
@@ -7389,7 +8081,7 @@
         "main": [
           [
             {
-              "node": "Analyze an image",
+              "node": "HU8: Detección visual",
               "type": "main",
               "index": 0
             }
@@ -8099,6 +8791,163 @@
             }
           ]
         ]
+      },
+      "HU8: Detección visual": {
+        "main": [
+          [
+            {
+              "node": "HU8: Parsear detección",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU8: Parsear detección": {
+        "main": [
+          [
+            {
+              "node": "HU8: ¿Imagen limpia?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU8: ¿Imagen limpia?": {
+        "main": [
+          [
+            {
+              "node": "HU8: Imagen con precio",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Analyze an image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: ¿Es carrusel?": {
+        "main": [
+          [
+            {
+              "node": "HU5: Buffer grupo",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Bajar Foto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Buffer grupo": {
+        "main": [
+          [
+            {
+              "node": "HU5: Esperar grupo",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Esperar grupo": {
+        "main": [
+          [
+            {
+              "node": "HU5: ¿Ganador?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Bajar foto": {
+        "main": [
+          [
+            {
+              "node": "HU5: A base64",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: A base64": {
+        "main": [
+          [
+            {
+              "node": "HU5: Subir Cloudinary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Subir Cloudinary": {
+        "main": [
+          [
+            {
+              "node": "HU5: Juntar URLs",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Juntar URLs": {
+        "main": [
+          [
+            {
+              "node": "HU5: Ordenar",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Ordenar": {
+        "main": [
+          [
+            {
+              "node": "HU5: Parsear orden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: Parsear orden": {
+        "main": [
+          [
+            {
+              "node": "HU5: Mostrar orden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HU5: ¿Ganador?": {
+        "main": [
+          [
+            {
+              "node": "HU5: Bajar foto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Nicolas Hassan",
@@ -8107,18 +8956,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-06-26T23:40:45.876Z",
-        "id": 118,
+        "createdAt": "2026-06-27T01:13:01.981Z",
+        "id": 128,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
+        "versionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
         "event": "activated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       },
       {
-        "createdAt": "2026-06-26T23:40:44.401Z",
-        "id": 117,
+        "createdAt": "2026-06-27T01:13:00.474Z",
+        "id": 127,
         "workflowId": "VOgbHGLELJfRgVO5",
-        "versionId": "d19b0114-cc8a-43f6-a98a-f6255a4969ca",
+        "versionId": "19ddb914-be4e-4dac-b40b-0f2a5662776f",
         "event": "deactivated",
         "userId": "fe7a7209-8448-4eb2-9a99-6d3541278c27"
       }
