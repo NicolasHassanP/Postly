@@ -28,7 +28,7 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 | HU2 | A | Vinculación OAuth 2.0 | ✅ | Sí — botón → Meta → callback → token en Sheets |
 | HU3 | A | Validación preventiva del token | ✅ | Sí — ping antes de crear, bloqueo + reconectar |
 | HU4 | B | Análisis de imagen única | ✅ | Sí — foto → Gemini → 3 copys (JSON) |
-| HU5 | B | Carruseles (hasta 10 imágenes) | 🟡 | Etapa 1 hecha (ingesta media group + orden IA); falta Etapa 2 (confirmar/publicar) |
+| HU5 | B | Carruseles (hasta 10 imágenes) | 🟡 | Implementada e2e (ingesta + orden + confirmar/editar + publicación carrusel); pendiente test e2e por cuota Gemini |
 | HU6 | B | Selección de tono (3 estilos) | ✅ | Sí — Informativa/Vendedora/Divertida + HITL |
 | HU7 | C | Detección de precios en TEXTO (RegEx) | ✅ | Sí — bloquea y avisa |
 | HU8 | C | Detección de precios en IMAGEN (visión Gemini) | ✅ | Sí — gate visual antes de generar copys, bloquea y avisa |
@@ -90,7 +90,7 @@ Existe el workflow `Postly - Feedback Loop` (inactivo) como base. Necesita Cron 
 
 1. ✅ **HU8 (detección visual de precios)** — **hecha** (2026-06-26). Cerró el Módulo C.
 2. ✅ **Deudas técnicas** (cifrado del token, gateo de agenda, firma desde BD) — **hechas** (2026-06-26).
-3. 🟡 **HU5 (carruseles)** — **Etapa 1 hecha** (2026-06-26): ingesta de media group (buffer en archivo local por el clobbering de Sheets/estado) + orden narrativo IA. **Falta Etapa 2:** botones confirmar/reordenar + generación de texto + publicación de carrusel real en IG (Graph API multi-contenedor).
+3. 🟡 **HU5 (carruseles)** — **implementada de punta a punta** (Etapa 1 2026-06-26 + Etapa 2 2026-06-27): ingesta de media group (buffer en archivo local), orden narrativo IA, gate de compliance visual, confirmar/reordenar, editar caption, y publicación de carrusel real en IG (Graph API multi-contenedor). **Pendiente test e2e** (edición + publicación) — bloqueado por la cuota del free tier de Gemini agotada el 2026-06-27; retomar con cuota fresca o billing.
 4. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba **HU10, HU13, HU14** de una sola vez.
    Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente de resolver el medio de pago.
 
