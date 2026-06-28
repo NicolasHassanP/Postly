@@ -17,6 +17,8 @@ Operación del n8n vivo de Postly (self-hosted, v2.15.1, local en la PC de Nico)
 - `PUT /workflows/{id}` solo acepta `name, nodes, connections, settings(, staticData)`. Hay que **filtrar `settings`** a claves permitidas (p.ej. `executionOrder`); `binaryMode` la rechaza con 400.
 - Activar: `POST /workflows/{id}/activate`.
 - Editar por API **bumpea el versionId** → las pestañas del navegador abiertas quedan viejas y tiran "someone else just updated this workflow". Tras editar por API, **refrescar (F5)** la pestaña antes de tocar. Coordinar quién edita (API vs UI) para no pisarse.
+- **⚠️ ENCODING — NO usar PowerShell `Get-Content` para leer el `.json` y re-PUTearlo.** PS 5.1 lo lee como ANSI (Windows-1252), no UTF-8, y corrompe TODOS los emojis/acentos del workflow (mojibake tipo `ðŸš€`, `Â¡Hola`, `QuÃ©`) al hacer el PUT. Pasó el 2026-06-28 y rompió todos los mensajes del bot. **Editar siempre con un script Node** (`fs.readFileSync(...,'utf8')` + `fetch` PUT, ambos UTF-8 safe). Script de referencia: GET/mutate-por-nombre-de-nodo/PUT. Si algo corrompió el texto, recuperar la base limpia con `git show "HEAD:workflows/<archivo>.json"` y re-aplicar los cambios solo con Node.
+- El `.json` del repo trae un bloque `activeVersion` (snapshot viejo de solo-lectura) que **duplica los nodos** → editar por texto plano puede pegar en la copia equivocada o fallar por no-unicidad. Mutar **objetos de `wf.nodes` por `name`** (no string-replace global). El PUT solo manda los `nodes`/`connections` top-level.
 
 **$env en expresiones:** n8n bloquea `$env` por defecto. Hace falta `N8N_BLOCK_ENV_ACCESS_IN_NODE=false` en `.env` (ya puesto), sino tira "access to env vars denied".
 
@@ -28,6 +30,6 @@ Operación del n8n vivo de Postly (self-hosted, v2.15.1, local en la PC de Nico)
 
 **Rate limit Gemini:** free tier de gemini-2.5-flash topea en 20 requests (compartido por todo el proyecto). Mitigado con retry 4x35s en los nodos Gemini. Para demo fluida: habilitar billing en la API key.
 
-**Estado workflows (2026-06-27):** principal `VOgbHGLELJfRgVO5` = 128 nodos. Pestañas `Config` (gid 1036323678, firma/contacto) y `CarruselBuffer` (gid 305649968, sin uso tras pivot a fs) en Postly_DB.
+**Estado workflows (2026-06-28):** principal `VOgbHGLELJfRgVO5` = 129 nodos (se agregó `HU5: Crear pendiente`). Pestañas `Config` (gid 1036323678, firma/contacto) y `CarruselBuffer` (gid 305649968, sin uso tras pivot a fs) en Postly_DB.
 
 **Backups:** antes de parchear se bajan a `.backups/` (gitignored, pueden tener tokens viejos). Ver [[postly-critical-path]].
