@@ -50,7 +50,7 @@ Postly/
 └── .gitignore
 ```
 
-Workflows actuales: **`Postly - Entrega Final Sprint 1 v2`** (principal, ~128 nodos),
+Workflows actuales: **`Postly - Entrega Final Sprint 1 v2`** (principal, ~129 nodos),
 **`Postly - HU2 OAuth Callback`** (callback de vinculación) y **`Postly - Feedback Loop`** (~7 nodos):
 Telegram, Google Sheets, HTTP Request (Meta), Code, Switch/IF, Gemini.
 
@@ -149,7 +149,7 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 
 **Módulo B — Creación de Contenido con IA**
 - ✅ **HU4 — Análisis de imagen única** (foto → Gemini → 3 copys, parseo JSON).
-- 🟡 **HU5 — Carruseles (hasta 10 imágenes)** — *implementada de punta a punta* (ingesta de media group, orden narrativo IA, gate de compliance visual, confirmar/reordenar, editar caption, publicación de carrusel en IG vía Graph API). **Pendiente test e2e** (bloqueado por cuota del free tier de Gemini).
+- ✅ **HU5 — Carruseles (hasta 10 imágenes)** — *validada e2e (2026-06-28)*: ingesta de media group, orden narrativo IA, gate de compliance visual, confirmar/reordenar, editar caption, publicación de carrusel en IG vía Graph API y guardado en Sheets (fila Pendiente → Publicado).
 - ✅ **HU6 — Tres tonos** (Informativa / Vendedora / Divertida, botones, Humano-en-el-bucle).
 
 **Módulo C — Compliance (Centinela)** — *completo*
@@ -166,12 +166,12 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 - ❌ **HU13 — Normalización de video (FFmpeg, 9:16, H.264)** — *requiere VPS*.
 - ❌ **HU14 — Métricas de engagement (Cron 24h, likes/comments en la agenda)** — *requiere VPS (cron 24/7)*.
 
-> **Resumen: 10/14 implementadas + HU5 e2e (pendiente test).** Solo quedan **HU10 / HU13 / HU14**, las tres bloqueadas por la migración a VPS (necesitan Cron o FFmpeg corriendo 24/7).
+> **Resumen: 11/14 implementadas.** Módulos A, B y C completos. Solo quedan **HU10 / HU13 / HU14**, las tres bloqueadas por la migración a VPS (necesitan Cron o FFmpeg corriendo 24/7).
 
 ### Próximos pasos
 
-1. **Validar HU5 e2e** (edición + publicación de carrusel) con cuota de Gemini fresca o billing habilitado.
-2. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba HU10, HU13 y HU14. Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales).
+1. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba HU10, HU13 y HU14 de una sola vez. Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente resolver el medio de pago.
+2. *(Opcional, sin VPS)* adelantar la lógica de **HU14** (métricas vía Graph API → Sheets) con disparo manual; solo el Cron de 24h queda para el server.
 
 ### Deudas técnicas — saldadas
 
@@ -184,6 +184,8 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 
 - **Agregación de carrusel:** Telegram entrega un media group como mensajes separados (N ejecuciones concurrentes). Se usa un **buffer en archivo local** (`fs.appendFileSync`, serializado por el proceso Node) porque el estado en memoria y el `append` de Google Sheets se pisan bajo concurrencia.
 - **Rate limit de Gemini:** el free tier topea en 20 requests; mitigado con reintentos y fusionando llamadas. Para una demo fluida conviene habilitar billing en la API key.
+- **Fixes de la validación de HU5 (2026-06-28):** (1) link del post en el mensaje de éxito del carrusel; (2) el carrusel ahora crea **fila Pendiente** al ingestar y la **actualiza** al publicar (`appendOrUpdate` por `ImageURL`), guardando los 3 tonos como el post simple; (3) la **firma** la inyecta siempre el nodo dedicado — se sacó del prompt de la IA también para imagen única. Detalle en `docs/contexto/ESTADO-Y-ROADMAP.md`.
+- **Editar el workflow por API en Windows:** usar siempre un script **Node** (UTF-8); `Get-Content` de PowerShell lee el `.json` como ANSI y corrompe los emojis/acentos (mojibake) al re-PUTearlo.
 
 ---
 

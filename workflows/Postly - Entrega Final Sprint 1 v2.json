@@ -173,7 +173,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash"
         },
-        "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **FIRMA OBLIGATORIA:** Al final de *cada una* de las 3 opciones, debes incluir *exactamente* esta firma: \"-- Consultora de Belleza Independiente Mary Kay --\".\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags y la firma\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags y la firma\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags y la firma\"\n}",
+        "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **NO AGREGUES FIRMA:** No incluyas ninguna firma ni la línea \"-- Consultora de Belleza Independiente Mary Kay --\"; del agregado de la firma se encarga el sistema automáticamente después.\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags\"\n}",
         "imageUrls": "={{ $('HTTP Request').first().json.secure_url }}",
         "options": {}
       },
@@ -2275,7 +2275,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash"
         },
-        "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **FIRMA OBLIGATORIA:** Al final de *cada una* de las 3 opciones, debes incluir *exactamente* esta firma: \"-- Consultora de Belleza Independiente Mary Kay --\".\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags y la firma\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags y la firma\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags y la firma\"\n}",
+        "text": "# ROL\nActúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.\n\n# TAREA\nAnaliza detenidamente la imagen adjunta. Identifica los productos Mary Kay visibles (su tipo, función y línea si es posible, ej: TimeWise, Clear Proof, MKMen). Luego, basándote *únicamente* en lo visual y en el conocimiento general de la marca (sin inventar datos técnicos), genera tres (3) opciones de copy para un post de Instagram.\n\n# REGLAS CRÍTICAS DE NEGOCIO (INCUMPLIMIENTO = ERROR)\n1. **PROHIBIDO INVENTAR PRECIOS:** No menciones montos, signos de pesos ($) ni divisas.\n2. **PROHIBIDO INVENTAR DESCUENTOS:** No uses palabras como \"Oferta\", \"Promoción\", \"X% OFF\", ni digas que un producto es \"barato\" o \"económico\".\n3. **NO AGREGUES FIRMA:** No incluyas ninguna firma ni la línea \"-- Consultora de Belleza Independiente Mary Kay --\"; del agregado de la firma se encarga el sistema automáticamente después.\n\n# ESTRUCTURA DE LA RESPUESTA\nGenera tres opciones claramente separadas con los siguientes enfoques:\n\n---\n## OPCIÓN 1: TONO INFORMATIVO (EL EXPERTO)\n- **Foco:** Educación y Beneficios.\n- **Estilo:** Profesional, claro, centrado en la ciencia del cuidado de la piel o los ingredientes clave (ej: \"Ayuda a combatir los signos de la edad\", \"Hidratación profunda\"). Explica *para qué sirve* el producto de la foto. Usa emojis sutiles y profesionales.\n\n---\n## OPCIÓN 2: TONO VENDEDOR (EL IMPULSOR)\n- **Foco:** Conversión y Deseo.\n- **Estilo:** Persuasivo, aspiracional, centrado en los *resultados* y en el sentimiento de \"merecerlo\". Usa un Call to Action (CTA) claro para que te contacten (ej: \"Enviame un MD y armamos tu rutina ideal\"). Usa emojis que denoten brillo, lujo y acción.\n\n---\n## OPCIÓN 3: TONO DIVERTIDO (EL AMIGO)\n- **Foco:** Engagement y Relatabilidad.\n- **Estilo:** Moderno, fresco, con onda de \"amiga a amiga\". Usá referencias a situaciones cotidianas (ej: \"Cuando necesitás un spa en casa\", \"Tu aliado para los lunes\"). Incluí más emojis, hashtags de tendencia y un tono relajado.\n---\n\n# NOTAS PARA LA IA\n- Si la imagen es borrosa o no identificas el producto, genera copys genéricos sobre \"Cuidado de la piel Mary Kay\" o \"Belleza que te empodera\". Tambien podes investigar para ver que producto es, no inventes nombres.\n- Usa hashtags relevantes al final de cada copy (ej: #MaryKayArgentina #CuidadoDeLaPiel #BellezaIndependiente).\n\n---\n#INSTRUCCIÓN DE FORMATO CRÍTICA:\nTu respuesta debe ser ÚNICA y EXCLUSIVAMENTE un objeto JSON válido, sin ningún texto adicional, sin saludos y sin bloques de código Markdown (no uses ```json). La estructura exacta debe ser esta:\n{\n\"opcion1\": \"Aquí el texto informativo con emojis y hashtags\",\n\"opcion2\": \"Aquí el texto vendedor con emojis y hashtags\",\n\"opcion3\": \"Aquí el texto divertido con emojis y hashtags\"\n}",
         "imageUrls": "={{ $('Repost: Elegir fila').first().json.ImageURL }}",
         "options": {}
       },
@@ -3529,7 +3529,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// HU5 — parsea los 3 copys, persiste set+copys para 2b, arma textos de display con encabezado\nconst fence3 = String.fromCharCode(96,96,96);\nconst raw = ($('HU5: Generar copys').first().json.content.parts[0].text) || '';\nconst clean = raw.replace(new RegExp(fence3 + 'json','gi'), '').replace(new RegExp(fence3,'g'), '').trim();\nlet o = { opcion1: '', opcion2: '', opcion3: '' };\ntry { o = JSON.parse(clean); } catch (e) {}\nconst prep = $('HU5: Preparar set').first().json;\nconst store = $getWorkflowStaticData('global');\nconst prev = store['carousel_' + prep.gid] || {};\nstore['carousel_' + prep.gid] = { ...prev, urls: prep.urls, total: prep.total, chatId: prep.chatId, copys: [o.opcion1, o.opcion2, o.opcion3] };\nreturn [{ json: { chatId: prep.chatId, gid: prep.gid,\n  op1: '📝 *Opción Informativa*\\n\\n' + (o.opcion1 || ''),\n  op2: '💎 *Opción Vendedora*\\n\\n' + (o.opcion2 || ''),\n  op3: '🎉 *Opción Divertida*\\n\\n' + (o.opcion3 || '') } }];"
+        "jsCode": "// HU5 — parsea los 3 copys, persiste set+copys para 2b, arma textos de display con encabezado\nconst fence3 = String.fromCharCode(96,96,96);\nconst raw = ($('HU5: Generar copys').first().json.content.parts[0].text) || '';\nconst clean = raw.replace(new RegExp(fence3 + 'json','gi'), '').replace(new RegExp(fence3,'g'), '').trim();\nlet o = { opcion1: '', opcion2: '', opcion3: '' };\ntry { o = JSON.parse(clean); } catch (e) {}\nconst prep = $('HU5: Preparar set').first().json;\nconst store = $getWorkflowStaticData('global');\nconst prev = store['carousel_' + prep.gid] || {};\nstore['carousel_' + prep.gid] = { ...prev, urls: prep.urls, total: prep.total, chatId: prep.chatId, copys: [o.opcion1, o.opcion2, o.opcion3] };\nreturn [{ json: { chatId: prep.chatId, gid: prep.gid, cover: (prep.urls && prep.urls[0]) || '', c1: o.opcion1 || '', c2: o.opcion2 || '', c3: o.opcion3 || '',\n  op1: '📝 *Opción Informativa*\\n\\n' + (o.opcion1 || ''),\n  op2: '💎 *Opción Vendedora*\\n\\n' + (o.opcion2 || ''),\n  op3: '🎉 *Opción Divertida*\\n\\n' + (o.opcion3 || '') } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4056,7 +4056,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// HU5 2b — arma el caption final (HU7 precios + HU9 firma) y recupera urls del set\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('pubCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = Number(rest.slice(lastU + 1));\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = set.urls || [];\nlet caption = (set.copys && set.copys[n - 1]) || '';\n// HU7 — precios en texto\nconst patrones = [/\\$\\s?\\d+/g, /\\d+[\\.,]\\d{3}/g, /\\d+%\\s?(off|desc)/gi, /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi];\nlet precio = null;\nfor (const p of patrones) { const m = caption.match(p); if (m) { precio = m[0]; break; } }\nif (precio) return [{ json: { blocked: true, chatId, blockMsg: '⚠️ El texto tiene contenido prohibido: \"' + precio + '\". Editá la opción e intentá de nuevo.' } }];\n// HU9 — firma desde Config\nconst cfg = {};\ntry { const row = $('HU5: Pub leer Config').first().json || {}; for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || '-- Consultora de Belleza Independiente Mary Kay --';\nconst contacto = cfg.contacto || '';\ncaption = caption.trim();\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\nreturn [{ json: { blocked: false, chatId, gid, n, caption, urls, cover: urls[0] || '', total: urls.length } }];"
+        "jsCode": "// HU5 2b — arma el caption final (HU7 precios + HU9 firma) y recupera urls del set\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('pubCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = Number(rest.slice(lastU + 1));\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = set.urls || [];\nlet caption = (set.copys && set.copys[n - 1]) || '';\n// HU7 — precios en texto\nconst patrones = [/\\$\\s?\\d+/g, /\\d+[\\.,]\\d{3}/g, /\\d+%\\s?(off|desc)/gi, /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi];\nlet precio = null;\nfor (const p of patrones) { const m = caption.match(p); if (m) { precio = m[0]; break; } }\nif (precio) return [{ json: { blocked: true, chatId, blockMsg: '⚠️ El texto tiene contenido prohibido: \"' + precio + '\". Editá la opción e intentá de nuevo.' } }];\n// HU9 — firma desde Config\nconst cfg = {};\ntry { const row = $('HU5: Pub leer Config').first().json || {}; for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || '-- Consultora de Belleza Independiente Mary Kay --';\nconst contacto = cfg.contacto || '';\ncaption = caption.trim();\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\nreturn [{ json: { blocked: false, chatId, gid, n, caption, copys: set.copys || [], urls, cover: urls[0] || '', total: urls.length } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4267,7 +4267,7 @@
     },
     {
       "parameters": {
-        "operation": "append",
+        "operation": "appendOrUpdate",
         "documentId": {
           "__rl": true,
           "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
@@ -4288,10 +4288,157 @@
             "ImageURL": "={{ $('HU5: Pub preparar').first().json.cover }}",
             "Copy_Final": "={{ $('HU5: Pub preparar').first().json.caption }}",
             "Status": "Publicado",
-            "PostID_IG": "={{ $('HU5: Publicar carrusel').first().json.id }}"
+            "PostID_IG": "={{ $('HU5: Publicar carrusel').first().json.id }}",
+            "Copy_Op1": "={{ $('HU5: Pub preparar').first().json.copys[0] }}",
+            "Copy_Op2": "={{ $('HU5: Pub preparar').first().json.copys[1] }}",
+            "Copy_Op3": "={{ $('HU5: Pub preparar').first().json.copys[2] }}"
           },
-          "matchingColumns": [],
-          "schema": []
+          "matchingColumns": [
+            "ImageURL"
+          ],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "Copy_Final",
+              "displayName": "Copy_Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "PostID_IG",
+              "displayName": "PostID_IG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Reach",
+              "displayName": "Reach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "Metricas_Enviadas",
+              "displayName": "Metricas_Enviadas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "readOnly": true,
+              "removed": false
+            }
+          ]
         },
         "options": {}
       },
@@ -4312,7 +4459,7 @@
     {
       "parameters": {
         "chatId": "={{ $('HU5: Pub preparar').first().json.chatId }}",
-        "text": "=✅ *¡Carrusel publicado en Instagram!* 🎉\n\nTu carrusel de {{ $('HU5: Pub preparar').first().json.total }} imágenes ya está en vivo 🚀\n\n🔗 {{ $json.permalink }}\n\n_Publicado por Postly_ 🪄",
+        "text": "=✅ *¡Carrusel publicado en Instagram!* 🎉\n\nTu carrusel de {{ $('HU5: Pub preparar').first().json.total }} imágenes ya está en vivo 🚀\n\n🔗 Ver publicación: \n{{ $('HU5: Pub permalink').first().json.permalink }}\n\n_Publicado por Postly_ 🪄",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -4328,6 +4475,51 @@
         "telegramApi": {
           "id": "PavSlOIluhcuq1rF",
           "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "UserID": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+            "Timestamp": "={{ $now.setZone('America/Argentina/Buenos_Aires').toISO() }}",
+            "ImageURL": "={{ $('HU5: Parsear copys').first().json.cover }}",
+            "Copy_Op1": "={{ $('HU5: Parsear copys').first().json.c1 }}",
+            "Copy_Op2": "={{ $('HU5: Parsear copys').first().json.c2 }}",
+            "Copy_Op3": "={{ $('HU5: Parsear copys').first().json.c3 }}",
+            "Status": "Pendiente"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2264,
+        -1956
+      ],
+      "name": "HU5: Crear pendiente",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ip1hgjqpbV1WTJpG",
+          "name": "Google Sheets account"
         }
       }
     }
@@ -5426,7 +5618,7 @@
       "main": [
         [
           {
-            "node": "HU5: Tono 1",
+            "node": "HU5: Crear pendiente",
             "type": "main",
             "index": 0
           }
@@ -5712,6 +5904,17 @@
         [
           {
             "node": "HU5: Pub éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Crear pendiente": {
+      "main": [
+        [
+          {
+            "node": "HU5: Tono 1",
             "type": "main",
             "index": 0
           }

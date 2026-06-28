@@ -14,10 +14,10 @@ en **Google Sheets**.
 
 > **La tesis `docs/Tesis Postly Bontorno Hassan.docx` es la FUENTE DE LA VERDAD.** No desviarse de lo documentado.
 
-## Estado (10/14 HU)
+## Estado (11/14 HU)
 
-✅ HU1, HU2, HU3 (Módulo A) · HU4, HU6 (B) · HU7, HU8, HU9 (C, **completo**) · HU11, HU12 (D).
-❌ HU5 (carruseles) — *se puede hacer ya, próximo paso*.
+✅ HU1, HU2, HU3 (Módulo A) · HU4, **HU5**, HU6 (B, **completo**) · HU7, HU8, HU9 (C, **completo**) · HU11, HU12 (D).
+✅ HU5 (carruseles) — *validada e2e el 2026-06-28: publica, edita y guarda en Sheets*.
 ❌ HU10, HU13, HU14 — *requieren migración a VPS (Cron/FFmpeg 24/7)*.
 Las 3 deudas técnicas accionables (cifrado del token AES-256-GCM, gateo de agenda, firma desde BD) están saldadas.
 Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
@@ -32,7 +32,7 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 - Tras editar por API el versionId cambia → **refrescar (F5)** la pestaña de n8n antes de tocarla.
 
 ### Workflows
-- `VOgbHGLELJfRgVO5` — **"Postly - Entrega Final Sprint 1 v2"** (principal, ~74 nodos). NO se llama "main".
+- `VOgbHGLELJfRgVO5` — **"Postly - Entrega Final Sprint 1 v2"** (principal, ~129 nodos). NO se llama "main".
 - `vy60xNtAvcVKRdAx` — "Postly - HU2 OAuth Callback" (endpoint `/oauth-callback`).
 - `sDIBkXAXzhZo76Ez` — "Postly - Feedback Loop" (inactivo; base de HU14).
 

@@ -1,7 +1,7 @@
 # Postly — Estado de implementación y Roadmap
 
 > Documento de handoff para el equipo de tesis (Bontorno · Hassan).
-> Última actualización: **2026-06-26**. Fuente de la verdad: `docs/Tesis Postly Bontorno Hassan.docx`.
+> Última actualización: **2026-06-28**. Fuente de la verdad: `docs/Tesis Postly Bontorno Hassan.docx`.
 
 Este documento mapea las **14 Historias de Usuario (HU)** de la tesis contra lo realmente implementado
 en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y propone el **orden de trabajo**.
@@ -10,13 +10,15 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 
 ## Resumen ejecutivo
 
-**10 de 14 HU implementadas (71%).**
+**11 de 14 HU implementadas (79%).**
 
 - ✅ **Módulo A — Seguridad/Onboarding/Auth:** completo (HU1, HU2, HU3).
-- 🟡 **Módulo B — Creación con IA:** parcial (HU4, HU6 ✅ · HU5 ❌).
+- ✅ **Módulo B — Creación con IA:** completo (HU4, HU5, HU6).
 - ✅ **Módulo C — Compliance:** completo (HU7, HU8, HU9).
 - 🟡 **Módulo D — Publicación y Agenda:** parcial (HU11, HU12 ✅ · HU10 ❌).
 - ❌ **Módulo E — Multimedia y Analítica:** sin hacer (HU13, HU14 ❌).
+
+> Las 3 HU restantes (HU10, HU13, HU14) están **todas bloqueadas por la migración a VPS** (Cron o FFmpeg 24/7). No queda feature accionable sin el servidor.
 
 ---
 
@@ -28,7 +30,7 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 | HU2 | A | Vinculación OAuth 2.0 | ✅ | Sí — botón → Meta → callback → token en Sheets |
 | HU3 | A | Validación preventiva del token | ✅ | Sí — ping antes de crear, bloqueo + reconectar |
 | HU4 | B | Análisis de imagen única | ✅ | Sí — foto → Gemini → 3 copys (JSON) |
-| HU5 | B | Carruseles (hasta 10 imágenes) | 🟡 | Implementada e2e (ingesta + orden + confirmar/editar + publicación carrusel); pendiente test e2e por cuota Gemini |
+| HU5 | B | Carruseles (hasta 10 imágenes) | ✅ | Sí — validada e2e (2026-06-28): ingesta media group + orden IA + confirmar/editar + publicación de carrusel en IG + guardado en Sheets |
 | HU6 | B | Selección de tono (3 estilos) | ✅ | Sí — Informativa/Vendedora/Divertida + HITL |
 | HU7 | C | Detección de precios en TEXTO (RegEx) | ✅ | Sí — bloquea y avisa |
 | HU8 | C | Detección de precios en IMAGEN (visión Gemini) | ✅ | Sí — gate visual antes de generar copys, bloquea y avisa |
@@ -45,10 +47,14 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 
 ### Se puede hacer YA (no depende de la migración a VPS)
 
-#### HU5 — Carruseles (Módulo B)
-Hoy el bot solo procesa **una** imagen. La tesis pide recibir un **media group de Telegram (hasta 10 imágenes)**,
-que la IA proponga un **orden estético** (portada/hook + secuencia narrativa) y un **Wait** para que la usuaria
-confirme/reordene antes de generar el texto. Es una feature grande del módulo de creación.
+**Nada pendiente.** HU5 era el último ítem libre de VPS y quedó **validada e2e el 2026-06-28**. Todo lo que
+resta (HU10, HU13, HU14) depende del servidor 24/7.
+
+> Avances posibles *sin* VPS sobre las HU bloqueadas (opcionales, adelantan trabajo):
+> - **HU14:** construir y testear con **disparo manual** la lógica de métricas (GET Graph API → likes/comments
+>   → Sheets → leer en "Mi Agenda"); solo el Cron de 24h necesita el VPS. Base: workflow `Postly - Feedback Loop`.
+> - **HU13:** evaluar **Cloudinary** (ya en uso) para transformar video (9:16, H.264, recorte) en lugar de FFmpeg
+>   — destrabaría HU13 sin VPS, pero **se desvía de lo documentado** (la tesis especifica FFmpeg); requiere visto bueno del director.
 
 ### Depende de la migración a VPS (Cron / FFmpeg 24/7)
 
@@ -90,9 +96,32 @@ Existe el workflow `Postly - Feedback Loop` (inactivo) como base. Necesita Cron 
 
 1. ✅ **HU8 (detección visual de precios)** — **hecha** (2026-06-26). Cerró el Módulo C.
 2. ✅ **Deudas técnicas** (cifrado del token, gateo de agenda, firma desde BD) — **hechas** (2026-06-26).
-3. 🟡 **HU5 (carruseles)** — **implementada de punta a punta** (Etapa 1 2026-06-26 + Etapa 2 2026-06-27): ingesta de media group (buffer en archivo local), orden narrativo IA, gate de compliance visual, confirmar/reordenar, editar caption, y publicación de carrusel real en IG (Graph API multi-contenedor). **Pendiente test e2e** (edición + publicación) — bloqueado por la cuota del free tier de Gemini agotada el 2026-06-27; retomar con cuota fresca o billing.
+3. ✅ **HU5 (carruseles)** — **completa y validada e2e** (Etapa 1 2026-06-26 + Etapa 2 2026-06-27 + validación + fixes 2026-06-28): ingesta de media group (buffer en archivo local), orden narrativo IA, gate de compliance visual, confirmar/reordenar, editar caption, y publicación de carrusel real en IG (Graph API multi-contenedor). Cerró el Módulo B.
 4. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba **HU10, HU13, HU14** de una sola vez.
    Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente de resolver el medio de pago.
+   Único frente que queda. Mientras tanto se puede adelantar la lógica no-Cron de HU14 con disparo manual.
+
+---
+
+## Fixes de la validación de HU5 (2026-06-28)
+
+Al probar el carrusel e2e surgieron varios bugs/inconsistencias, ya corregidos en el workflow principal:
+
+1. **Link del post vacío** en el mensaje de éxito del carrusel: `HU5: Pub éxito` leía `$json.permalink`, pero su
+   nodo de entrada es el de Google Sheets (sin ese campo). Ahora referencia `$('HU5: Pub permalink')`.
+2. **Carrusel no guardaba los 3 tonos:** el post simple guarda `Copy_Op1/2/3` (fila Pendiente al ingestar) y el
+   carrusel solo hacía un `append` al publicar con `Copy_Final`. Se unificó:
+   - Nuevo nodo **`HU5: Crear pendiente`** (append, `Status: Pendiente`) tras `HU5: Parsear copys` → crea la fila
+     con los 3 tonos al ingestar, igual que el post simple.
+   - **`HU5: Pub guardar`** pasó de `append` a **`appendOrUpdate` matcheando por `ImageURL`**: al publicar
+     actualiza esa misma fila (Pendiente → Publicado, con `PostID_IG`), sin duplicar.
+3. **Firma centralizada:** se editaron los prompts de imagen única (`Analyze an image`, `Repost: Analizar imagen`)
+   para que la IA **no** agregue la firma; del agregado se encarga el nodo dedicado (Compliance Sentinel / `Config`),
+   igual que ya hacía el carrusel. `Copy_Op*` quedan crudos; `Copy_Final` lleva la firma.
+
+> **Gotcha de edición por API (Windows):** NO leer el `.json` con PowerShell `Get-Content` para re-PUTearlo —
+> PS 5.1 lo lee como ANSI y corrompe todos los emojis/acentos (mojibake). Editar siempre con script **Node**
+> (`readFileSync('utf8')` + `fetch`). Si se corrompe, recuperar con `git show "HEAD:workflows/<archivo>.json"`.
 
 ---
 
