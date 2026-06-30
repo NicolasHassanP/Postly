@@ -18,7 +18,7 @@ en **Google Sheets**.
 
 ✅ HU1, HU2, HU3 (Módulo A) · HU4, **HU5**, HU6 (B, **completo**) · HU7, HU8, HU9 (C, **completo**) · **HU10**, HU11, HU12 (D, **completo***) · **HU14** (E, **parcial** — falta HU13).
 ✅ HU5 (carruseles) — *validada e2e el 2026-06-28: publica, edita y guarda en Sheets*.
-✅ **HU10** (programación a futuro / Cron) — *imagen única, validada e2e el 2026-06-30: agenda desde el bot, el Cron publica al llegar la hora*. Pendiente: carruseles agendados.
+✅ **HU10** (programación a futuro / Cron) — *imagen única **y carruseles**, validada e2e el 2026-06-30: agenda desde el bot (con edición), el Cron publica al llegar la hora y notifica*.
 ✅ **HU14** (métricas de engagement) — *validada e2e el 2026-06-30: Cron 24h trae likes/comentarios de Graph API, persiste en Sheets y se ven en Mi Agenda*.
 ⏳ HU13 — *desbloqueada (VPS 24/7 operativo); falta implementarla (normalización de video con FFmpeg)*.
 Las 3 deudas técnicas accionables (cifrado del token AES-256-GCM, gateo de agenda, firma desde BD) están saldadas.
