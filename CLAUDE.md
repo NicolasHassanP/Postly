@@ -3,6 +3,16 @@
 Contexto de proyecto para Claude Code. Se carga automáticamente al abrir este repo.
 **Para el detalle completo, leer `docs/contexto/` (empezando por `ESTADO-Y-ROADMAP.md`).**
 
+> ⚠️ **ACCIÓN PENDIENTE (asignada a Nico, abierta desde 2026-06-29):** se migró n8n a un VPS real
+> (DonWeb) pero la migración **no está cerrada**. Si estás arrancando una sesión nueva y esto sigue
+> sin resolverse, **avisale al usuario de esto antes de ponerte a hacer cualquier otra cosa** —
+> es la tarea con prioridad sobre todo lo demás en este repo hasta que se cierre. Detalle completo
+> y paso a paso en [`docs/contexto/memoria-claude/postly-vps-migration.md`](docs/contexto/memoria-claude/postly-vps-migration.md)
+> (sección "Pendiente — próximos pasos"). Resumen: reconectar credenciales (Telegram/Sheets/Gemini)
+> en la nueva instancia, actualizar redirect URIs en Meta App y Google Cloud Console, re-registrar
+> el webhook de Telegram, activar los workflows, y apagar la instancia local. Una vez resuelto,
+> borrar este bloque.
+
 ## Qué es
 
 Postly: una **Consultora de Belleza Independiente (Mary Kay)** genera y publica contenido de Instagram/Facebook
