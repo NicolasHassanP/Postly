@@ -1,0 +1,577 @@
+{
+  "name": "Postly - Programador",
+  "nodes": [
+    {
+      "name": "Cada 5 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Leer programados",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        220,
+        300
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
+      },
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Programado"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Filtrar vencidos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const now=Date.now();\nconst out=[];\nfor(const it of $input.all()){\n  const r=it.json;\n  if(!r.Fecha_Programada) continue;\n  const t=new Date(r.Fecha_Programada).getTime();\n  if(isFinite(t) && t<=now){\n    out.push({ json: { UserID:r.UserID, ImageURL:r.ImageURL, Caption:r.Copy_Final, row_number:r.row_number } });\n  }\n}\nreturn out;"
+      }
+    },
+    {
+      "name": "Publicar (sub-wf)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        300
+      ],
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "E2Ot8wCDiuj8SZnK",
+          "mode": "list",
+          "cachedResultName": "Postly - Publicar Post"
+        },
+        "mode": "each",
+        "options": {}
+      }
+    },
+    {
+      "name": "Marcar Publicado",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        880,
+        180
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
+      },
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Status": "Publicado",
+            "PostID_IG": "={{ $json.PostID_IG }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Final",
+              "displayName": "Copy_Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PostID_IG",
+              "displayName": "PostID_IG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reach",
+              "displayName": "Reach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Metricas_Enviadas",
+              "displayName": "Metricas_Enviadas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha_Programada",
+              "displayName": "Fecha_Programada",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Notificar éxito",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "IIn3wwgzKv4iGZkP",
+          "name": "Telegram account"
+        }
+      },
+      "parameters": {
+        "chatId": "={{ $('Publicar (sub-wf)').item.json.UserID }}",
+        "text": "=✅ ¡Tu publicación programada ya está en vivo en Instagram!\n\n🔗 {{ $('Publicar (sub-wf)').item.json.permalink }}\n\n_Postly_",
+        "additionalFields": {}
+      }
+    },
+    {
+      "name": "Marcar Fallido",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        880,
+        420
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
+      },
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Status": "Fallido"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "UserID",
+              "displayName": "UserID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op1",
+              "displayName": "Copy_Op1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op2",
+              "displayName": "Copy_Op2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Op3",
+              "displayName": "Copy_Op3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Copy_Final",
+              "displayName": "Copy_Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PostID_IG",
+              "displayName": "PostID_IG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reach",
+              "displayName": "Reach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Metricas_Enviadas",
+              "displayName": "Metricas_Enviadas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha_Programada",
+              "displayName": "Fecha_Programada",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Notificar fallo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        420
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "IIn3wwgzKv4iGZkP",
+          "name": "Telegram account"
+        }
+      },
+      "parameters": {
+        "chatId": "={{ $json.UserID }}",
+        "text": "=⚠️ No se pudo publicar tu posteo programado. Lo marcamos como Fallido; revisalo desde /agenda.\n\nDetalle: {{ $json.error && $json.error.message ? $json.error.message : 'error desconocido' }}",
+        "additionalFields": {}
+      }
+    }
+  ],
+  "connections": {
+    "Cada 5 min": {
+      "main": [
+        [
+          {
+            "node": "Leer programados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer programados": {
+      "main": [
+        [
+          {
+            "node": "Filtrar vencidos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar vencidos": {
+      "main": [
+        [
+          {
+            "node": "Publicar (sub-wf)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publicar (sub-wf)": {
+      "main": [
+        [
+          {
+            "node": "Marcar Publicado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Marcar Fallido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Marcar Publicado": {
+      "main": [
+        [
+          {
+            "node": "Notificar éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Marcar Fallido": {
+      "main": [
+        [
+          {
+            "node": "Notificar fallo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "name": "Postly - Publicar Post",
+  "nodes": [
+    {
+      "id": "trg",
+      "name": "PP Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "usr",
+      "name": "Buscar usuario",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('PP Trigger').first().json.UserID) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "id": "dec",
+      "name": "Descifrar credenciales",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val) {\n  if (!val || typeof val !== 'string' || !val.startsWith('enc:')) return val;\n  const raw = Buffer.from(val.slice(4), 'base64');\n  const iv  = raw.subarray(0, 12);\n  const tag = raw.subarray(12, 28);\n  const ct  = raw.subarray(28);\n  const d = crypto.createDecipheriv('aes-256-gcm', KEY, iv);\n  d.setAuthTag(tag);\n  return Buffer.concat([d.update(ct), d.final()]).toString('utf8');\n}\nreturn $input.all().map(item => ({ json: { ...item.json, AccessToken: decrypt(item.json.AccessToken) } }));"
+      }
+    },
+    {
+      "id": "cnt",
+      "name": "IG - Crear contenedor",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $('PP Trigger').first().json.ImageURL }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('PP Trigger').first().json.Caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "wt",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "webhookId": "pp-wait-001"
+    },
+    {
+      "id": "pub",
+      "name": "IG - Publicar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media_publish",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('Descifrar credenciales').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "perm",
+      "name": "Permalink",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1320,
+        0
+      ],
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('Descifrar credenciales').first().json.AccessToken }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "sal",
+      "name": "PP Salida",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const t=$('PP Trigger').first().json;\nconst p=$input.first().json;\nreturn [{ json: { ok:true, PostID_IG: p.id, permalink: p.permalink, UserID: t.UserID, row_number: t.row_number } }];"
+      }
+    }
+  ],
+  "connections": {
+    "PP Trigger": {
+      "main": [
+        [
+          {
+            "node": "Buscar usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar usuario": {
+      "main": [
+        [
+          {
+            "node": "Descifrar credenciales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descifrar credenciales": {
+      "main": [
+        [
+          {
+            "node": "IG - Crear contenedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG - Crear contenedor": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "IG - Publicar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG - Publicar": {
+      "main": [
+        [
+          {
+            "node": "Permalink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Permalink": {
+      "main": [
+        [
+          {
+            "node": "PP Salida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
