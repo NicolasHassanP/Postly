@@ -1,0 +1,349 @@
+{
+  "name": "Postly - Publicar Carrusel",
+  "nodes": [
+    {
+      "name": "PC Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {},
+      "id": "3657ad41-35b6-419d-ad9d-5a1fc54b5df1"
+    },
+    {
+      "name": "Buscar usuario",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        200,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
+      },
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "600115356",
+          "mode": "list",
+          "cachedResultName": "Usuarios"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TelegramUserID",
+              "lookupValue": "={{ String($('PC Trigger').first().json.UserID) }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "id": "de048f7a-df5c-4178-ba6e-553be9c450ea"
+    },
+    {
+      "name": "Descifrar credenciales",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst KEY = Buffer.from($env.POSTLY_ENC_KEY, 'hex');\nfunction decrypt(val){ if(!val||typeof val!=='string'||!val.startsWith('enc:')) return val; const raw=Buffer.from(val.slice(4),'base64'); const iv=raw.subarray(0,12),tag=raw.subarray(12,28),ct=raw.subarray(28); const d=crypto.createDecipheriv('aes-256-gcm',KEY,iv); d.setAuthTag(tag); return Buffer.concat([d.update(ct),d.final()]).toString('utf8'); }\nreturn $input.all().map(it=>({ json: { ...it.json, AccessToken: decrypt(it.json.AccessToken) } }));"
+      },
+      "id": "df8b26ce-fe79-4cc3-a7ab-dddfa24367ff"
+    },
+    {
+      "name": "Expandir URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Publicar Carrusel — un item por URL (split por salto de línea o coma)\nconst trig = $('PC Trigger').first().json;\nconst list = String(trig.Carousel_URLs || '').split(/[\\r\\n,]+/).map(s => s.trim()).filter(Boolean);\nreturn list.map((u, i) => ({ json: { url: u, idx: i } }));\n"
+      },
+      "id": "7038655b-95a9-46df-bcfb-db0111c47180"
+    },
+    {
+      "name": "Crear hijo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        800,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.url }}"
+            },
+            {
+              "name": "is_carousel_item",
+              "value": "true"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('Descifrar credenciales').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d16f017b-9a83-4b85-964f-7526997d5502"
+    },
+    {
+      "name": "Juntar hijos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Publicar Carrusel — junta los ids de contenedores hijos en CSV\nconst ids = $input.all().map(it => it.json.id).filter(Boolean);\nreturn [{ json: { children: ids.join(','), n: ids.length } }];\n"
+      },
+      "id": "03f128e8-ba6e-433c-b679-3260fa2a5ac2"
+    },
+    {
+      "name": "Crear carrusel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1200,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "CAROUSEL"
+            },
+            {
+              "name": "children",
+              "value": "={{ $json.children }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('PC Trigger').first().json.Caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('Descifrar credenciales').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1c495136-2bec-4d43-bb12-1024e90a8339"
+    },
+    {
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1400,
+        0
+      ],
+      "parameters": {
+        "amount": 8,
+        "unit": "seconds"
+      },
+      "webhookId": "pc-wait-001",
+      "id": "12df1748-a1b8-4770-8968-e236aed96ba5"
+    },
+    {
+      "name": "Publicar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1600,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $('Descifrar credenciales').first().json.IGAccountID }}/media_publish",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('Descifrar credenciales').first().json.AccessToken }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "161ba72c-4144-43ff-9f7e-a349baf46911"
+    },
+    {
+      "name": "Permalink",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1800,
+        0
+      ],
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.id }}?fields=permalink&access_token={{ $('Descifrar credenciales').first().json.AccessToken }}",
+        "options": {}
+      },
+      "id": "a50d307d-ac0f-486f-9a4c-e846b124bbef"
+    },
+    {
+      "name": "PC Salida",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Publicar Carrusel — salida estandarizada para el Cron\nconst t = $('PC Trigger').first().json;\nconst p = $input.first().json; // respuesta de Permalink {permalink, id}\nreturn [{ json: { ok: true, PostID_IG: p.id, permalink: p.permalink, UserID: t.UserID, row_number: t.row_number } }];\n"
+      },
+      "id": "587ec3dd-4efb-4f27-b0e5-ec69ac30d6ad"
+    }
+  ],
+  "connections": {
+    "PC Trigger": {
+      "main": [
+        [
+          {
+            "node": "Buscar usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar usuario": {
+      "main": [
+        [
+          {
+            "node": "Descifrar credenciales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descifrar credenciales": {
+      "main": [
+        [
+          {
+            "node": "Expandir URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Expandir URLs": {
+      "main": [
+        [
+          {
+            "node": "Crear hijo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear hijo": {
+      "main": [
+        [
+          {
+            "node": "Juntar hijos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Juntar hijos": {
+      "main": [
+        [
+          {
+            "node": "Crear carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear carrusel": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Publicar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publicar": {
+      "main": [
+        [
+          {
+            "node": "Permalink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Permalink": {
+      "main": [
+        [
+          {
+            "node": "PC Salida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

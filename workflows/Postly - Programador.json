@@ -18,7 +18,8 @@
             }
           ]
         }
-      }
+      },
+      "id": "dac019f9-f564-4c17-a82f-c637a7cb0135"
     },
     {
       "name": "Leer programados",
@@ -57,7 +58,8 @@
           ]
         },
         "options": {}
-      }
+      },
+      "id": "ff5502aa-fb4d-4740-bfc0-ed2757a99093"
     },
     {
       "name": "Filtrar vencidos",
@@ -68,8 +70,9 @@
         300
       ],
       "parameters": {
-        "jsCode": "const now=Date.now();\nconst out=[];\nfor(const it of $input.all()){\n  const r=it.json;\n  if(!r.Fecha_Programada) continue;\n  const t=new Date(r.Fecha_Programada).getTime();\n  if(isFinite(t) && t<=now){\n    out.push({ json: { UserID:r.UserID, ImageURL:r.ImageURL, Caption:r.Copy_Final, row_number:r.row_number } });\n  }\n}\nreturn out;"
-      }
+        "jsCode": "// HU10 — filtra filas vencidas; pasa Carousel_URLs para que el Cron ramifique single vs carrusel\nconst now = Date.now();\nconst out = [];\nfor (const it of $input.all()) {\n  const r = it.json;\n  if (!r.Fecha_Programada) continue;\n  const t = new Date(r.Fecha_Programada).getTime();\n  if (isFinite(t) && t <= now) {\n    out.push({ json: { UserID: r.UserID, ImageURL: r.ImageURL, Caption: r.Copy_Final, Carousel_URLs: r.Carousel_URLs || '', row_number: r.row_number } });\n  }\n}\nreturn out;\n"
+      },
+      "id": "179b99a2-5715-4c64-8bea-76f92deaf0fb"
     },
     {
       "name": "Publicar (sub-wf)",
@@ -90,7 +93,8 @@
         },
         "mode": "each",
         "options": {}
-      }
+      },
+      "id": "2e89210d-1e1e-4f25-be79-3c3b9151c9c2"
     },
     {
       "name": "Marcar Publicado",
@@ -272,7 +276,8 @@
           "convertFieldsToString": false
         },
         "options": {}
-      }
+      },
+      "id": "8d811d4c-f615-4097-9a21-bb977a45a68d"
     },
     {
       "name": "Notificar éxito",
@@ -289,10 +294,12 @@
         }
       },
       "parameters": {
-        "chatId": "={{ $('Publicar (sub-wf)').item.json.UserID }}",
-        "text": "=✅ ¡Tu publicación programada ya está en vivo en Instagram!\n\n🔗 {{ $('Publicar (sub-wf)').item.json.permalink }}\n\n_Postly_",
+        "chatId": "={{ $('Resultado OK').item.json.UserID }}",
+        "text": "=✅ ¡Tu publicación programada ya está en vivo en Instagram!\n\n🔗 {{ $('Resultado OK').item.json.permalink }}\n\n_Postly_",
         "additionalFields": {}
-      }
+      },
+      "id": "5b9b4660-f4b2-4465-b722-be184dbea994",
+      "webhookId": "95a2d986-1b4d-443f-bbd0-46df973573a5"
     },
     {
       "name": "Marcar Fallido",
@@ -473,7 +480,8 @@
           "convertFieldsToString": false
         },
         "options": {}
-      }
+      },
+      "id": "46617340-c146-4837-9896-9f79b5eb23ef"
     },
     {
       "name": "Notificar fallo",
@@ -490,10 +498,90 @@
         }
       },
       "parameters": {
-        "chatId": "={{ $json.UserID }}",
-        "text": "=⚠️ No se pudo publicar tu posteo programado. Lo marcamos como Fallido; revisalo desde /agenda.\n\nDetalle: {{ $json.error && $json.error.message ? $json.error.message : 'error desconocido' }}",
+        "chatId": "={{ $('Resultado Fallo').item.json.UserID }}",
+        "text": "=⚠️ No se pudo publicar tu posteo programado. Lo marcamos como Fallido; revisalo desde /agenda.",
         "additionalFields": {}
-      }
+      },
+      "id": "b7a01852-4f2f-4a6a-9c06-eef0f188144b",
+      "webhookId": "248c8478-bfe5-4738-aae8-8b2b08bc776c"
+    },
+    {
+      "name": "¿Carrusel?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        660,
+        480
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "car-001",
+              "leftValue": "={{ $json.Carousel_URLs }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f67f71e8-0f68-4175-a928-33da788b4d05"
+    },
+    {
+      "name": "Publicar Carrusel (sub-wf)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        560
+      ],
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "Ig7Od1NzQu1zzkLQ",
+          "mode": "list",
+          "cachedResultName": "Postly - Publicar Carrusel"
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "id": "d8f3d9ff-b801-47eb-bd02-1f9d95fa56e1"
+    },
+    {
+      "name": "Resultado OK",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        160
+      ],
+      "parameters": {},
+      "id": "a347ef43-73c5-4086-ae0e-c475080bd63e"
+    },
+    {
+      "name": "Resultado Fallo",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        440
+      ],
+      "parameters": {},
+      "id": "a8fae790-1822-40a3-8489-228403f1a851"
     }
   ],
   "connections": {
@@ -523,7 +611,7 @@
       "main": [
         [
           {
-            "node": "Publicar (sub-wf)",
+            "node": "¿Carrusel?",
             "type": "main",
             "index": 0
           }
@@ -534,14 +622,14 @@
       "main": [
         [
           {
-            "node": "Marcar Publicado",
+            "node": "Resultado OK",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Marcar Fallido",
+            "node": "Resultado Fallo",
             "type": "main",
             "index": 0
           }
@@ -564,6 +652,64 @@
         [
           {
             "node": "Notificar fallo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Carrusel?": {
+      "main": [
+        [
+          {
+            "node": "Publicar Carrusel (sub-wf)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Publicar (sub-wf)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publicar Carrusel (sub-wf)": {
+      "main": [
+        [
+          {
+            "node": "Resultado OK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Resultado Fallo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resultado OK": {
+      "main": [
+        [
+          {
+            "node": "Marcar Publicado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resultado Fallo": {
+      "main": [
+        [
+          {
+            "node": "Marcar Fallido",
             "type": "main",
             "index": 0
           }
