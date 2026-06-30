@@ -28,9 +28,9 @@ autónoma en Facebook e Instagram.
 
 `Disparo (Telegram) → Enrutamiento (n8n) → Inferencia (Gemini) → Auditoría (Compliance) → Inyección (Meta) → Registro (Sheets)`
 
-> **Hosting:** la tesis define como objetivo un **VPS self-hosted** (Docker + proxy inverso + SSL).
-> Hoy, en desarrollo, corremos **n8n local** expuesto con un **túnel de ngrok** (URL estable gratis).
-> El paso a VPS queda pendiente (ver *Roadmap*).
+> **Hosting:** en **producción** corre sobre un **VPS self-hosted** (DonWeb · Docker + Caddy + SSL) en
+> `https://vps-6120781-x.dattaweb.com`, operativo 24/7 desde el 2026-06-29. El setup local + ngrok que
+> se describe más abajo queda como **referencia de desarrollo** (ya no es el entorno productivo).
 
 ---
 
@@ -50,9 +50,14 @@ Postly/
 └── .gitignore
 ```
 
-Workflows actuales: **`Postly - Entrega Final Sprint 1 v2`** (principal, ~129 nodos),
-**`Postly - HU2 OAuth Callback`** (callback de vinculación) y **`Postly - Feedback Loop`** (~7 nodos):
-Telegram, Google Sheets, HTTP Request (Meta), Code, Switch/IF, Gemini.
+Workflows actuales:
+- **`Postly - Entrega Final Sprint 1 v2`** — principal (~141 nodos): todo el flujo conversacional.
+- **`Postly - HU2 OAuth Callback`** — callback de vinculación OAuth.
+- **`Postly - Programador`** — Cron (cada 5 min) de **programación a futuro** (HU10): publica los posts agendados al llegar la hora.
+- **`Postly - Publicar Post`** / **`Postly - Publicar Carrusel`** — sub-workflows de publicación (imagen única / carrusel) invocados por el Cron.
+- **`Postly - Feedback Loop`** — Cron diario (HU14) de **métricas**: trae likes/comentarios de la Graph API y los persiste en Sheets.
+
+Nodos usados: Telegram, Google Sheets, HTTP Request (Meta), Code, Switch/IF, Gemini, Schedule Trigger, Execute Workflow.
 
 ---
 
@@ -65,6 +70,9 @@ Telegram, Google Sheets, HTTP Request (Meta), Code, Switch/IF, Gemini.
 ---
 
 ## Puesta en marcha
+
+> **Producción:** ya corre en el VPS (`https://vps-6120781-x.dattaweb.com`, Docker + Caddy + SSL); no
+> requiere estos pasos. Lo de abajo es para **levantar una instancia local de desarrollo** (Windows + ngrok).
 
 ```bash
 git clone https://github.com/NicolasHassanP/Postly.git
@@ -100,7 +108,7 @@ El `.env` **no se sube a git**. `start-n8n.ps1` lo carga al arrancar n8n.
 | `META_ACCESS_TOKEN` | Token de Meta de fallback (la publicación real usa el token **por-usuaria, cifrado** de la hoja *Usuarios*) |
 | `META_APP_ID` / `META_APP_SECRET` / `META_CONFIG_ID` / `META_PAGE_ID` | App de Meta (intercambio de tokens y OAuth/HU2) |
 | `IG_BUSINESS_ID` | ID de la cuenta de Instagram Business |
-| `WEBHOOK_URL` | URL pública estable (dominio de ngrok) |
+| `WEBHOOK_URL` | URL pública estable (en producción: `https://vps-6120781-x.dattaweb.com`; en dev local: el dominio de ngrok) |
 | `N8N_API_KEY` | API key de tu n8n (para editar workflows por API). **Personal de cada máquina** |
 | `N8N_BLOCK_ENV_ACCESS_IN_NODE` | Debe ser `false` para que las expresiones y los Code nodes puedan leer `$env` |
 | `POSTLY_ENC_KEY` | Clave AES-256-GCM (hex, 32 bytes) que cifra el token de Meta en Sheets (HU2). Si se pierde, hay que re-vincular |
@@ -157,21 +165,20 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 - ✅ **HU8 — Detección de precios en IMÁGENES (visión Gemini)** — gate visual antes de generar copys; bloquea si detecta precio/promo incrustado.
 - ✅ **HU9 — Inyección de firma legal** (firma leída de la pestaña `Config` de la BD, con contacto).
 
-**Módulo D — Publicación y Agenda**
-- ❌ **HU10 — Programación a futuro (Cron Scheduling)** — *requiere VPS (cron 24/7)*.
-- ✅ **HU11 — Visualización de agenda** (tarjetas con estado 🟢/🔴/🟡, últimas 5, casos borde).
+**Módulo D — Publicación y Agenda** — *completo*
+- ✅ **HU10 — Programación a futuro (Cron Scheduling)** — *validada e2e (2026-06-30)*: botón "🗓 Programar" → fecha/hora → fila `Programado`; el Cron `Postly - Programador` publica solo al llegar la hora (imagen única **y carruseles**) y notifica por Telegram.
+- ✅ **HU11 — Visualización de agenda** (tarjetas con estado 🟢/🔴/🟡, últimas 5, casos borde, **métricas ❤️/💬**).
 - ✅ **HU12 — Smart Re-post** + extensión "Retomar borrador" (cierra Pendientes, publish row-aware).
 
 **Módulo E — Multimedia y Analítica**
-- ❌ **HU13 — Normalización de video (FFmpeg, 9:16, H.264)** — *requiere VPS*.
-- ❌ **HU14 — Métricas de engagement (Cron 24h, likes/comments en la agenda)** — *requiere VPS (cron 24/7)*.
+- ❌ **HU13 — Normalización de video (FFmpeg, 9:16, H.264)** — *pendiente: requiere instalar FFmpeg en el container del VPS*.
+- ✅ **HU14 — Métricas de engagement** — *validada e2e (2026-06-30)*: Cron diario (`Postly - Feedback Loop`) trae likes/comentarios de la Graph API con el token por-usuaria, los persiste en Sheets y se ven en "Mi Agenda".
 
-> **Resumen: 11/14 implementadas.** Módulos A, B y C completos. Solo quedan **HU10 / HU13 / HU14**, las tres bloqueadas por la migración a VPS (necesitan Cron o FFmpeg corriendo 24/7).
+> **Resumen: 13/14 implementadas.** Módulos A, B, C y D completos. Solo queda **HU13** (FFmpeg).
 
 ### Próximos pasos
 
-1. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba HU10, HU13 y HU14 de una sola vez. Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente resolver el medio de pago.
-2. *(Opcional, sin VPS)* adelantar la lógica de **HU14** (métricas vía Graph API → Sheets) con disparo manual; solo el Cron de 24h queda para el server.
+1. **HU13 — Normalización de video (FFmpeg):** la única HU pendiente. Requiere agregar FFmpeg al container de n8n en el VPS (vía `docker-compose`/imagen custom) y llamarlo desde el flujo para forzar 9:16 / H.264 / ≤60s.
 
 ### Deudas técnicas — saldadas
 
@@ -182,7 +189,9 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 
 ### Notas técnicas de la última iteración
 
-- **Agregación de carrusel:** Telegram entrega un media group como mensajes separados (N ejecuciones concurrentes). Se usa un **buffer en archivo local** (`fs.appendFileSync`, serializado por el proceso Node) porque el estado en memoria y el `append` de Google Sheets se pisan bajo concurrencia.
+- **Agregación de carrusel:** Telegram entrega un media group como mensajes separados (N ejecuciones concurrentes). Se usa un **buffer en archivo** (`fs.appendFileSync` a `/tmp/postly_carrusel_buffer.tsv` en el VPS Linux, serializado por el proceso Node) porque el estado en memoria y el `append` de Google Sheets se pisan bajo concurrencia.
+- **Migración a VPS (2026-06-29) y sus regresiones:** pasar de Windows+ngrok a un VPS Linux (n8n 2.27.5) destapó bugs específicos de plataforma que se corrigieron: ruta del buffer de carrusel (`C:/Users/...` → `/tmp/`), URLs de OAuth que apuntaban al ngrok viejo, `mappingMode:defineBelow` que ahora exige `schema` no vacío, y `$('Nodo')` que pierde las comillas si el nombre es un identificador JS válido (se usan nombres con espacio + nodos `NoOp` para merge de ramas preservando el *pairing*).
+- **Programación a futuro (HU10):** la fecha se guarda en ISO con offset `-03:00` (evita ambigüedad de timezone del server); el Cron poolea cada 5 min (lag ≤5 min, por diseño). Las URLs de carrusel se guardan **una por línea** en `Carousel_URLs`.
 - **Rate limit de Gemini:** el free tier topea en 20 requests; mitigado con reintentos y fusionando llamadas. Para una demo fluida conviene habilitar billing en la API key.
 - **Fixes de la validación de HU5 (2026-06-28):** (1) link del post en el mensaje de éxito del carrusel; (2) el carrusel ahora crea **fila Pendiente** al ingestar y la **actualiza** al publicar (`appendOrUpdate` por `ImageURL`), guardando los 3 tonos como el post simple; (3) la **firma** la inyecta siempre el nodo dedicado — se sacó del prompt de la IA también para imagen única. Detalle en `docs/contexto/ESTADO-Y-ROADMAP.md`.
 - **Editar el workflow por API en Windows:** usar siempre un script **Node** (UTF-8); `Get-Content` de PowerShell lee el `.json` como ANSI y corrompe los emojis/acentos (mojibake) al re-PUTearlo.
