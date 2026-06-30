@@ -347,8 +347,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        5104,
-        -1024
+        6976,
+        -976
       ],
       "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
       "name": "Descripcion editada",
@@ -860,8 +860,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        4784,
-        -1024
+        6656,
+        -976
       ],
       "id": "80947461-516d-4ec5-a2f7-945ededea964",
       "name": "Descripcion en columna H",
@@ -903,8 +903,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        4160,
-        -1024
+        6032,
+        -976
       ],
       "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
       "name": "Get row(s) in sheet1",
@@ -922,8 +922,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        4464,
-        -1024
+        6336,
+        -976
       ],
       "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
       "name": "Limit"
@@ -1464,7 +1464,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\nconst rows = items.map(i => i.json).filter(j => j && (j.UserID || j.ImageURL || j.Status || j.Copy_Final || j.Copy_Op1));\nif (rows.length === 0) {\n  return [{ json: { chatId, texto: '📭 Todavía no tenés publicaciones en tu agenda.\\n\\nTocá 🚀 Nueva Publicación para crear tu primer post.', sinDatos: true, hasImage: false, estaPublicado: false, rowNumber: '' } }];\n}\nconst ultimas = rows.slice(-5).reverse();\nconst result = [];\nfor (const r of ultimas) {\n  const st = (r.Status || '').toString().toLowerCase();\n  const estaPublicado = st === 'publicado';\n  let estado;\n  if (estaPublicado) estado = '🟢 Publicado';\n  else if (st === 'fallido') estado = '🟡 Fallido';\n  else estado = '🔴 Pendiente';\n  const fecha = r.Timestamp ? new Date(r.Timestamp).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Sin fecha';\n  const copy = (r.Copy_Final || r.Copy_Op1 || '').toString();\n  const copyResumen = copy.length > 120 ? copy.substring(0, 120) + '…' : (copy || '(sin texto)');\n  const texto = estado + ' — ' + fecha + '\\n\\n📝 ' + copyResumen;\n  const imageURL = r.ImageURL || null;\n  result.push({ json: { chatId, texto, imageURL, hasImage: !!imageURL, rowNumber: r.row_number || '', estaPublicado, sinDatos: false } });\n}\nreturn result;"
+        "jsCode": "const items = $input.all();\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\nconst rows = items.map(i => i.json).filter(j => j && (j.UserID || j.ImageURL || j.Status || j.Copy_Final || j.Copy_Op1));\nif (rows.length === 0) {\n  return [{ json: { chatId, texto: '📭 Todavía no tenés publicaciones en tu agenda.\\n\\nTocá 🚀 Nueva Publicación para crear tu primer post.', sinDatos: true, hasImage: false, estaPublicado: false, rowNumber: '' } }];\n}\nconst ultimas = rows.slice(-5).reverse();\nconst result = [];\nfor (const r of ultimas) {\n  const st = (r.Status || '').toString().toLowerCase();\n  const estaPublicado = st === 'publicado';\n  let estado;\n  if (estaPublicado) estado = '🟢 Publicado';\n  else if (st === 'fallido') estado = '🟡 Fallido';\n  else estado = '🔴 Pendiente';\n  const fecha = r.Timestamp ? new Date(r.Timestamp).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Sin fecha';\n  const copy = (r.Copy_Final || r.Copy_Op1 || '').toString();\n  const copyResumen = copy.length > 120 ? copy.substring(0, 120) + '…' : (copy || '(sin texto)');\n  let texto = estado + ' — ' + fecha + '\\n\\n📝 ' + copyResumen;\n  if (estaPublicado) {\n    const _lk = (r.Likes !== undefined && r.Likes !== '' && r.Likes !== 'N/D') ? r.Likes : 0;\n    const _cm = (r.Comments !== undefined && r.Comments !== '' && r.Comments !== 'N/D') ? r.Comments : 0;\n    texto += '\\n\\n❤️ ' + _lk + ' · 💬 ' + _cm;\n  }\n  const imageURL = r.ImageURL || null;\n  result.push({ json: { chatId, texto, imageURL, hasImage: !!imageURL, rowNumber: r.row_number || '', estaPublicado, sinDatos: false } });\n}\nreturn result;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -3847,8 +3847,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3680,
-        -1248
+        5552,
+        -1200
       ],
       "name": "HU5: Check edit pendiente",
       "id": "8c3deb6b-77ef-4c88-b886-b0f71a03753c"
@@ -3881,8 +3881,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        3920,
-        -1248
+        5792,
+        -1200
       ],
       "name": "HU5: ¿Edit pendiente?",
       "id": "a653a2fa-a585-4f8e-b421-3d4bfec287c3"
@@ -3894,8 +3894,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4160,
-        -1248
+        6032,
+        -1200
       ],
       "name": "HU5: Aplicar edición",
       "id": "fcdc206c-66e2-4e6b-bed1-0ff80a7cdf00"
@@ -3934,8 +3934,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4400,
-        -1248
+        6272,
+        -1200
       ],
       "name": "HU5: Reconfirmar",
       "id": "ced9ae64-389d-4b51-8e87-2ac79eb38cdf",
@@ -4585,13 +4585,6 @@
       }
     },
     {
-      "name": "Sched: ¿es prog?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        -200,
-        1600
-      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -4614,62 +4607,67 @@
           "combinator": "and"
         },
         "options": {}
-      }
+      },
+      "name": "Sched: ¿es prog?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3488,
+        -1232
+      ],
+      "id": "d25b640d-fbd0-42d7-9418-345be4f36a02"
     },
     {
+      "parameters": {
+        "jsCode": "// HU10 — guarda en staticData que este chat está agendando, con el copy elegido (prog_<choice>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst choice = data.slice('prog_'.length); // '1' | '2' | '3' | 'final'\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nstore['schedulePending_' + chatId] = { choice, ts: Date.now() };\nreturn [{ json: { chatId, choice } }];\n"
+      },
       "name": "Sched: Set pendiente",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        20,
-        1600
+        3728,
+        -1232
       ],
-      "parameters": {
-        "jsCode": "// HU10 — guarda en staticData que este chat está agendando, con el copy elegido (prog_<choice>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst choice = data.slice('prog_'.length); // '1' | '2' | '3' | 'final'\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nstore['schedulePending_' + chatId] = { choice, ts: Date.now() };\nreturn [{ json: { chatId, choice } }];\n"
-      }
+      "id": "3c43ce65-97ca-44c0-9ed3-7d26bc4468e6"
     },
     {
-      "name": "Sched: Pedir fecha",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        240,
-        1600
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "IIn3wwgzKv4iGZkP",
-          "name": "Telegram account"
-        }
-      },
       "parameters": {
         "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
         "text": "🗓 ¿Para cuándo querés programarlo?\n\nMandame la fecha y hora así: *DD/MM HH:MM*  (ej: 05/07 18:30)",
         "additionalFields": {
           "appendAttribution": false
         }
+      },
+      "name": "Sched: Pedir fecha",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3936,
+        -1232
+      ],
+      "id": "d9e14270-033d-4932-9171-065686bdc2dd",
+      "webhookId": "0c68f1a2-7c96-4856-bcd5-8e13d75cf13e",
+      "credentials": {
+        "telegramApi": {
+          "id": "IIn3wwgzKv4iGZkP",
+          "name": "Telegram account"
+        }
       }
     },
     {
+      "parameters": {
+        "jsCode": "// HU10 — ¿este chat está esperando una fecha para agendar? (intercepta texto plano antes de la lógica de edición)\nconst msg = $('Telegram Trigger').first().json.message;\nconst chatId = String(msg.chat.id);\nconst text = (msg && msg.text) || '';\nconst store = $getWorkflowStaticData('global');\nconst pend = store['schedulePending_' + chatId];\nconst pending = !!(pend && text);\nreturn [{ json: { pending, chatId } }];\n"
+      },
       "name": "Sched: Check pendiente",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -200,
-        1900
+        3488,
+        -928
       ],
-      "parameters": {
-        "jsCode": "// HU10 — ¿este chat está esperando una fecha para agendar? (intercepta texto plano antes de la lógica de edición)\nconst msg = $('Telegram Trigger').first().json.message;\nconst chatId = String(msg.chat.id);\nconst text = (msg && msg.text) || '';\nconst store = $getWorkflowStaticData('global');\nconst pend = store['schedulePending_' + chatId];\nconst pending = !!(pend && text);\nreturn [{ json: { pending, chatId } }];\n"
-      }
+      "id": "0585a3cb-2386-4cbf-a4b4-d223c10a7658"
     },
     {
-      "name": "Sched: ¿pendiente?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        20,
-        1900
-      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -4693,23 +4691,17 @@
           "combinator": "and"
         },
         "options": {}
-      }
+      },
+      "name": "Sched: ¿pendiente?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3728,
+        -928
+      ],
+      "id": "c8f415df-5d5f-4a59-b81d-8c8259364c12"
     },
     {
-      "name": "Sched: Leer última fila",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        240,
-        1900
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "4iefueJJLW6dNhpt",
-          "name": "Google Sheets account"
-        }
-      },
       "parameters": {
         "documentId": {
           "__rl": true,
@@ -4723,7 +4715,6 @@
           "mode": "list",
           "cachedResultName": "Hoja 1"
         },
-        "options": {},
         "filtersUI": {
           "values": [
             {
@@ -4731,24 +4722,26 @@
               "lookupValue": "={{ String($('Telegram Trigger').first().json.message.chat.id) }}"
             }
           ]
-        }
-      }
-    },
-    {
-      "name": "Sched: Leer Config",
+        },
+        "options": {}
+      },
+      "name": "Sched: Leer última fila",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        460,
-        1900
+        3936,
+        -928
       ],
       "alwaysOutputData": true,
+      "id": "d0daaee3-b277-49d0-80cb-12c566e42e87",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "4iefueJJLW6dNhpt",
           "name": "Google Sheets account"
         }
-      },
+      }
+    },
+    {
       "parameters": {
         "documentId": {
           "__rl": true,
@@ -4763,28 +4756,37 @@
           "cachedResultName": "Config"
         },
         "options": {}
+      },
+      "name": "Sched: Leer Config",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4160,
+        -928
+      ],
+      "alwaysOutputData": true,
+      "id": "7191e830-fc22-48ec-8ab6-334e6ee67f15",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
       }
     },
     {
+      "parameters": {
+        "jsCode": "// HU10 — parsea la fecha (DD/MM HH:MM, hora Argentina), valida, corre compliance+firma sobre el copy elegido\nconst trig = $('Telegram Trigger').first().json;\nconst msg = trig.message;\nconst chatId = String(msg.chat.id);\nconst text = String((msg && msg.text) || '').trim();\nconst store = $getWorkflowStaticData('global');\nconst pend = store['schedulePending_' + chatId] || {};\nconst choice = pend.choice || 'final';\n\n// última fila del usuario\nconst rows = $('Sched: Leer última fila').all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\n\nlet copy;\nif (choice === '1') copy = last.Copy_Op1;\nelse if (choice === '2') copy = last.Copy_Op2;\nelse if (choice === '3') copy = last.Copy_Op3;\nelse copy = last.Copy_Final || last.Copy_Op1;\ncopy = String(copy || '').trim();\n\n// parse DD/MM HH:MM -> ISO con offset -03:00 (Argentina)\nfunction parseFecha(t) {\n  const m = t.match(/^(\\d{1,2})\\/(\\d{1,2})\\s+(\\d{1,2}):(\\d{2})$/);\n  if (!m) return null;\n  const dd = Number(m[1]), MM = Number(m[2]), hh = Number(m[3]), mm = Number(m[4]);\n  if (MM < 1 || MM > 12 || dd < 1 || dd > 31 || hh > 23 || mm > 59) return null;\n  const year = new Date().getFullYear();\n  const iso = year + '-' + String(MM).padStart(2, '0') + '-' + String(dd).padStart(2, '0') + 'T' + String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0') + ':00-03:00';\n  const d = new Date(iso);\n  if (isNaN(d.getTime())) return null;\n  return { iso, ms: d.getTime() };\n}\n\nconst parsed = parseFecha(text);\nif (!parsed) {\n  return [{ json: { valid: false, chatId, errorMsg: '❌ No entendí la fecha. Mandámela así: DD/MM HH:MM (ej: 05/07 18:30).' } }];\n}\nif (parsed.ms <= Date.now()) {\n  return [{ json: { valid: false, chatId, errorMsg: '❌ Esa fecha y hora ya pasaron. Mandá una futura: DD/MM HH:MM.' } }];\n}\n\n// compliance + firma (réplica de \"Code in JavaScript1\")\nconst FIRMA_FALLBACK = '-- Consultora de Belleza Independiente Mary Kay --';\nlet cfg = {};\ntry { const c = (($('Sched: Leer Config').first() || {}).json) || {}; for (const h of Object.keys(c)) cfg[h.trim().toLowerCase()] = String(c[h] == null ? '' : c[h]).trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || FIRMA_FALLBACK;\nconst contacto = cfg.contacto || '';\n\nconst patrones = [/\\$\\s?\\d+/g, /\\d+[\\.,]\\d{3}/g, /\\d+%\\s?(off|desc)/gi, /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi];\nlet pat = '';\nfor (const p of patrones) { const mm = copy.match(p); if (mm) { pat = mm[0]; break; } }\nif (pat) {\n  delete store['schedulePending_' + chatId]; // copy con precio: hay que rehacer\n  return [{ json: { valid: false, chatId, errorMsg: '⚠️ Postly detectó contenido prohibido: \"' + pat + '\". No podés programar precios ni promociones. Editá el texto y empezá de nuevo.' } }];\n}\n\nlet caption = copy;\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\n\ndelete store['schedulePending_' + chatId]; // éxito: limpiar estado\nreturn [{ json: { valid: true, chatId, caption, fecha_iso: parsed.iso, row_number: last.row_number, human: text } }];\n"
+      },
       "name": "Sched: Procesar",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        680,
-        1900
+        4384,
+        -928
       ],
-      "parameters": {
-        "jsCode": "// HU10 — parsea la fecha (DD/MM HH:MM, hora Argentina), valida, corre compliance+firma sobre el copy elegido\nconst trig = $('Telegram Trigger').first().json;\nconst msg = trig.message;\nconst chatId = String(msg.chat.id);\nconst text = String((msg && msg.text) || '').trim();\nconst store = $getWorkflowStaticData('global');\nconst pend = store['schedulePending_' + chatId] || {};\nconst choice = pend.choice || 'final';\n\n// última fila del usuario\nconst rows = $('Sched: Leer última fila').all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\n\nlet copy;\nif (choice === '1') copy = last.Copy_Op1;\nelse if (choice === '2') copy = last.Copy_Op2;\nelse if (choice === '3') copy = last.Copy_Op3;\nelse copy = last.Copy_Final || last.Copy_Op1;\ncopy = String(copy || '').trim();\n\n// parse DD/MM HH:MM -> ISO con offset -03:00 (Argentina)\nfunction parseFecha(t) {\n  const m = t.match(/^(\\d{1,2})\\/(\\d{1,2})\\s+(\\d{1,2}):(\\d{2})$/);\n  if (!m) return null;\n  const dd = Number(m[1]), MM = Number(m[2]), hh = Number(m[3]), mm = Number(m[4]);\n  if (MM < 1 || MM > 12 || dd < 1 || dd > 31 || hh > 23 || mm > 59) return null;\n  const year = new Date().getFullYear();\n  const iso = year + '-' + String(MM).padStart(2, '0') + '-' + String(dd).padStart(2, '0') + 'T' + String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0') + ':00-03:00';\n  const d = new Date(iso);\n  if (isNaN(d.getTime())) return null;\n  return { iso, ms: d.getTime() };\n}\n\nconst parsed = parseFecha(text);\nif (!parsed) {\n  return [{ json: { valid: false, chatId, errorMsg: '❌ No entendí la fecha. Mandámela así: DD/MM HH:MM (ej: 05/07 18:30).' } }];\n}\nif (parsed.ms <= Date.now()) {\n  return [{ json: { valid: false, chatId, errorMsg: '❌ Esa fecha y hora ya pasaron. Mandá una futura: DD/MM HH:MM.' } }];\n}\n\n// compliance + firma (réplica de \"Code in JavaScript1\")\nconst FIRMA_FALLBACK = '-- Consultora de Belleza Independiente Mary Kay --';\nlet cfg = {};\ntry { const c = (($('Sched: Leer Config').first() || {}).json) || {}; for (const h of Object.keys(c)) cfg[h.trim().toLowerCase()] = String(c[h] == null ? '' : c[h]).trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || FIRMA_FALLBACK;\nconst contacto = cfg.contacto || '';\n\nconst patrones = [/\\$\\s?\\d+/g, /\\d+[\\.,]\\d{3}/g, /\\d+%\\s?(off|desc)/gi, /\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi];\nlet pat = '';\nfor (const p of patrones) { const mm = copy.match(p); if (mm) { pat = mm[0]; break; } }\nif (pat) {\n  delete store['schedulePending_' + chatId]; // copy con precio: hay que rehacer\n  return [{ json: { valid: false, chatId, errorMsg: '⚠️ Postly detectó contenido prohibido: \"' + pat + '\". No podés programar precios ni promociones. Editá el texto y empezá de nuevo.' } }];\n}\n\nlet caption = copy;\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\n\ndelete store['schedulePending_' + chatId]; // éxito: limpiar estado\nreturn [{ json: { valid: true, chatId, caption, fecha_iso: parsed.iso, row_number: last.row_number, human: text } }];\n"
-      }
+      "id": "b5e301f8-19fd-4406-939a-23e9ee8de29f"
     },
     {
-      "name": "Sched: ¿válido?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        900,
-        1900
-      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -4808,22 +4810,17 @@
           "combinator": "and"
         },
         "options": {}
-      }
+      },
+      "name": "Sched: ¿válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4608,
+        -928
+      ],
+      "id": "bdb86c57-d582-4ecd-8f54-57cc37250d06"
     },
     {
-      "name": "Sched: Guardar",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        1120,
-        1820
-      ],
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "4iefueJJLW6dNhpt",
-          "name": "Google Sheets account"
-        }
-      },
       "parameters": {
         "operation": "update",
         "documentId": {
@@ -4991,49 +4988,67 @@
           "convertFieldsToString": false
         },
         "options": {}
+      },
+      "name": "Sched: Guardar",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4816,
+        -1008
+      ],
+      "id": "e8197acc-fdfd-475c-8ea6-4c6f9d31e8ee",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
+        }
       }
     },
     {
-      "name": "Sched: Confirmar",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1340,
-        1820
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "IIn3wwgzKv4iGZkP",
-          "name": "Telegram account"
-        }
-      },
       "parameters": {
         "chatId": "={{ $('Sched: Procesar').first().json.chatId }}",
         "text": "=🗓 ¡Listo! Tu publicación quedó *programada* para {{ $('Sched: Procesar').first().json.human }}. Postly la sube sola. 🚀",
         "additionalFields": {
           "appendAttribution": false
         }
-      }
-    },
-    {
-      "name": "Sched: Error",
+      },
+      "name": "Sched: Confirmar",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1120,
-        2000
+        5040,
+        -1008
       ],
+      "id": "0558bd12-3fd4-45e2-ac79-890bb67cf510",
+      "webhookId": "139c8fd1-f0c1-4678-a636-e22126f90ed7",
       "credentials": {
         "telegramApi": {
           "id": "IIn3wwgzKv4iGZkP",
           "name": "Telegram account"
         }
-      },
+      }
+    },
+    {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "={{ $json.errorMsg }}",
         "additionalFields": {
           "appendAttribution": false
+        }
+      },
+      "name": "Sched: Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4816,
+        -832
+      ],
+      "id": "1cc70a0e-4e42-4e92-b973-d9fd42e839f1",
+      "webhookId": "ded8e869-3b4d-4d38-8f67-40f2898b112a",
+      "credentials": {
+        "telegramApi": {
+          "id": "IIn3wwgzKv4iGZkP",
+          "name": "Telegram account"
         }
       }
     }
