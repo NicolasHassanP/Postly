@@ -1,7 +1,7 @@
 # Postly — Estado de implementación y Roadmap
 
 > Documento de handoff para el equipo de tesis (Bontorno · Hassan).
-> Última actualización: **2026-06-28**. Fuente de la verdad: `docs/Tesis Postly Bontorno Hassan.docx`.
+> Última actualización: **2026-06-29**. Fuente de la verdad: `docs/Tesis Postly Bontorno Hassan.docx`.
 
 Este documento mapea las **14 Historias de Usuario (HU)** de la tesis contra lo realmente implementado
 en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y propone el **orden de trabajo**.
@@ -97,9 +97,13 @@ Existe el workflow `Postly - Feedback Loop` (inactivo) como base. Necesita Cron 
 1. ✅ **HU8 (detección visual de precios)** — **hecha** (2026-06-26). Cerró el Módulo C.
 2. ✅ **Deudas técnicas** (cifrado del token, gateo de agenda, firma desde BD) — **hechas** (2026-06-26).
 3. ✅ **HU5 (carruseles)** — **completa y validada e2e** (Etapa 1 2026-06-26 + Etapa 2 2026-06-27 + validación + fixes 2026-06-28): ingesta de media group (buffer en archivo local), orden narrativo IA, gate de compliance visual, confirmar/reordenar, editar caption, y publicación de carrusel real en IG (Graph API multi-contenedor). Cerró el Módulo B.
-4. **Migración a VPS** (Docker + proxy inverso + SSL) — destraba **HU10, HU13, HU14** de una sola vez.
-   Bloqueada por Oracle Cloud (rechazo de tarjetas virtuales); pendiente de resolver el medio de pago.
-   Único frente que queda. Mientras tanto se puede adelantar la lógica no-Cron de HU14 con disparo manual.
+4. ✅ **Migración a VPS** (Docker + Caddy + SSL) — **hecha (2026-06-29)**, en DonWeb (hosting argentino, pago en
+   pesos sin tarjeta internacional). Oracle Cloud, Azure for Students y DigitalOcean quedaron descartados por
+   problemas de tarjeta/cuota — detalle completo en `memoria-claude/postly-vps-migration.md`. Esto destraba
+   **HU10 y HU14** (necesitan el server corriendo 24/7); **HU13** además necesita implementar FFmpeg, que
+   todavía no está hecho. **Pendiente antes de dar la migración por cerrada:** reconectar credenciales
+   (Telegram, Sheets, Gemini) en la nueva instancia, actualizar redirect URIs en Meta App y Google Cloud
+   Console, y apagar la instancia local — ver el detalle paso a paso en `memoria-claude/postly-vps-migration.md`.
 
 ---
 

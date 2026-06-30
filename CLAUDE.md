@@ -24,6 +24,12 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 
 ## Cómo operar n8n (IMPORTANTE)
 
+> **2026-06-29: migración a VPS real completada** (DonWeb, Docker + Caddy + SSL en
+> `vps-6120781-x.dattaweb.com`). Pasa a ser el entorno principal, reemplazando el setup local + ngrok.
+> Pendiente: reconectar credenciales y redirect URIs — detalle paso a paso en
+> `docs/contexto/memoria-claude/postly-vps-migration.md`. El setup local de abajo queda como
+> referencia para desarrollo, ya no es el entorno de producción.
+
 - n8n self-hosted local (v2.15.1). Arranque: `.\start-n8n.ps1` (carga `.env` y levanta n8n).
 - URL pública estable: ngrok dominio fijo `https://viewable-zombie-linked.ngrok-free.dev` → localhost:5678.
 - **Editar workflows por la API**, no a mano: script Node que hace `GET /workflows/{id}` (header `X-N8N-API-KEY`),
