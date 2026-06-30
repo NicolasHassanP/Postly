@@ -18,7 +18,7 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 - 🟡 **Módulo D — Publicación y Agenda:** parcial (HU11, HU12 ✅ · HU10 ❌).
 - ❌ **Módulo E — Multimedia y Analítica:** sin hacer (HU13, HU14 ❌).
 
-> Las 3 HU restantes (HU10, HU13, HU14) están **todas bloqueadas por la migración a VPS** (Cron o FFmpeg 24/7). No queda feature accionable sin el servidor.
+> **2026-06-29: la migración a VPS ya está hecha y operativa** (DonWeb, Docker + Caddy + SSL en `https://vps-6120781-x.dattaweb.com`). Las 3 HU restantes (HU10, HU13, HU14) **ya NO están bloqueadas** — falta implementarlas sobre el servidor 24/7 (Cron / FFmpeg / métricas).
 
 ---
 
@@ -45,10 +45,10 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 
 ## Lo que falta (detalle)
 
-### Se puede hacer YA (no depende de la migración a VPS)
+### Se puede hacer YA
 
-**Nada pendiente.** HU5 era el último ítem libre de VPS y quedó **validada e2e el 2026-06-28**. Todo lo que
-resta (HU10, HU13, HU14) depende del servidor 24/7.
+Con el **VPS operativo** (migración cerrada el 2026-06-29), las 3 HU restantes (HU10, HU13, HU14) ya están
+**desbloqueadas y son accionables**. Falta implementarlas — ver el detalle de cada una abajo.
 
 > Avances posibles *sin* VPS sobre las HU bloqueadas (opcionales, adelantan trabajo):
 > - **HU14:** construir y testear con **disparo manual** la lógica de métricas (GET Graph API → likes/comments

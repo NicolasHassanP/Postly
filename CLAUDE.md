@@ -3,16 +3,6 @@
 Contexto de proyecto para Claude Code. Se carga automáticamente al abrir este repo.
 **Para el detalle completo, leer `docs/contexto/` (empezando por `ESTADO-Y-ROADMAP.md`).**
 
-> ⚠️ **ACCIÓN PENDIENTE (asignada a Nico, abierta desde 2026-06-29):** se migró n8n a un VPS real
-> (DonWeb) pero la migración **no está cerrada**. Si estás arrancando una sesión nueva y esto sigue
-> sin resolverse, **avisale al usuario de esto antes de ponerte a hacer cualquier otra cosa** —
-> es la tarea con prioridad sobre todo lo demás en este repo hasta que se cierre. Detalle completo
-> y paso a paso en [`docs/contexto/memoria-claude/postly-vps-migration.md`](docs/contexto/memoria-claude/postly-vps-migration.md)
-> (sección "Pendiente — próximos pasos"). Resumen: reconectar credenciales (Telegram/Sheets/Gemini)
-> en la nueva instancia, actualizar redirect URIs en Meta App y Google Cloud Console, re-registrar
-> el webhook de Telegram, activar los workflows, y apagar la instancia local. Una vez resuelto,
-> borrar este bloque.
-
 ## Qué es
 
 Postly: una **Consultora de Belleza Independiente (Mary Kay)** genera y publica contenido de Instagram/Facebook
@@ -28,17 +18,19 @@ en **Google Sheets**.
 
 ✅ HU1, HU2, HU3 (Módulo A) · HU4, **HU5**, HU6 (B, **completo**) · HU7, HU8, HU9 (C, **completo**) · HU11, HU12 (D).
 ✅ HU5 (carruseles) — *validada e2e el 2026-06-28: publica, edita y guarda en Sheets*.
-❌ HU10, HU13, HU14 — *requieren migración a VPS (Cron/FFmpeg 24/7)*.
+⏳ HU10, HU13, HU14 — *desbloqueadas: el VPS 24/7 ya está operativo; falta implementarlas (Cron/FFmpeg/métricas)*.
 Las 3 deudas técnicas accionables (cifrado del token AES-256-GCM, gateo de agenda, firma desde BD) están saldadas.
 Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 
 ## Cómo operar n8n (IMPORTANTE)
 
-> **2026-06-29: migración a VPS real completada** (DonWeb, Docker + Caddy + SSL en
-> `vps-6120781-x.dattaweb.com`). Pasa a ser el entorno principal, reemplazando el setup local + ngrok.
-> Pendiente: reconectar credenciales y redirect URIs — detalle paso a paso en
-> `docs/contexto/memoria-claude/postly-vps-migration.md`. El setup local de abajo queda como
-> referencia para desarrollo, ya no es el entorno de producción.
+> **2026-06-29: migración a VPS real COMPLETADA y OPERATIVA** (DonWeb, Docker + Caddy + SSL en
+> `https://vps-6120781-x.dattaweb.com`). Es el entorno principal de producción: bot validado e2e
+> respondiendo desde el VPS, credenciales reconectadas (Telegram/Gemini/Sheets), redirect URIs
+> actualizados en Meta y Google Cloud Console, webhook de Telegram apuntando al VPS, workflows
+> *Entrega Final* y *HU2 OAuth Callback* activos (*Feedback Loop* inactivo, base de HU14). El setup
+> local + ngrok de abajo queda como referencia de desarrollo, **ya no es producción** (apagado).
+> Detalle de la migración: `docs/contexto/memoria-claude/postly-vps-migration.md`.
 
 - n8n self-hosted local (v2.15.1). Arranque: `.\start-n8n.ps1` (carga `.env` y levanta n8n).
 - URL pública estable: ngrok dominio fijo `https://viewable-zombie-linked.ngrok-free.dev` → localhost:5678.

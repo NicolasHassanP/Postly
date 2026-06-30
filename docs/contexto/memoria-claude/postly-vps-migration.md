@@ -49,16 +49,20 @@ Proveedor argentino, cobra en **pesos** vía Mercado Pago, transferencia bancari
 
 **Workflows:** los 3 `.json` de `workflows/` se importaron manualmente vía la UI (Build a workflow → ⋯ → Import from File) — las credenciales **no viajan en el JSON**, hay que recrearlas en la instancia nueva.
 
-## Pendiente — próximos pasos (para Nico)
+## Cierre de la migración (COMPLETADA — 2026-06-29)
 
-1. **Recrear las 3 credenciales** en la nueva instancia (no se migran automáticamente):
-   - **Telegram** (Bot Token) — Nico tiene el token original.
-   - **Google Gemini (PaLM) API** — evaluar usar una API key **propia** en vez de la compartida (la de Nico venía con la cuota free agotada, ver [[postly-n8n-ops]]); así cada uno tiene sus 20 req/día separados.
-   - **Google Sheets OAuth2** — **antes** de crear esta credencial, agregar en Google Cloud Console (Authorized redirect URIs) la nueva URL: `https://vps-6120781-x.dattaweb.com/rest/oauth2-credential/callback`. Si no, el OAuth falla con redirect_uri_mismatch.
-2. **Mapear** esas 3 credenciales en los nodos correspondientes de los 3 workflows ya importados.
-3. **Actualizar la Meta App** (developers.facebook.com): agregar `https://vps-6120781-x.dattaweb.com/webhook/oauth-callback` en *Valid OAuth Redirect URIs*, reemplazando el de ngrok (`viewable-zombie-linked.ngrok-free.dev`).
-4. **Re-registrar el webhook de Telegram** apuntando al nuevo dominio (el bot solo puede tener un webhook activo; si sigue apuntando al ngrok viejo, los mensajes no van a llegar al VPS).
-5. **Activar** los 3 workflows en la instancia nueva (quedan inactivos tras importar).
-6. **Apagar la instancia local** (`start-n8n.ps1` + túnel ngrok) una vez confirmado que todo funciona en el VPS, para no tener dos instancias respondiendo al mismo bot en simultáneo.
+Todos los pasos pendientes se ejecutaron y el bot quedó validado e2e respondiendo desde el VPS (flujo de nueva publicación pidiendo fotos OK):
 
-Ver [[postly-n8n-ops]] (arranque/edición del n8n local, ya parcialmente obsoleto tras esta migración) y [[postly-meta-setup]] (config original de la App de Meta).
+1. ✅ **Credenciales recreadas** en la instancia del VPS:
+   - **Telegram** (Bot Token) — recuperado de BotFather (`/mybots → API Token`; OJO: el valor que muestra n8n en una credencial ya guardada es un placeholder `__n8n_BLANK_VALUE_...`, NO el token real — no se puede copiar de una instancia a otra).
+   - **Google Gemini (PaLM) API** — API key propia.
+   - **Google Sheets OAuth2** — con el redirect URI `https://vps-6120781-x.dattaweb.com/rest/oauth2-credential/callback` ya agregado en Google Cloud Console.
+2. ✅ **Credenciales mapeadas por la API del VPS** (no a mano): 72 nodos en total (principal: 43 Telegram + 19 Sheets + 5 Gemini = 67; Feedback Loop: 3; HU2 OAuth Callback: 2). IDs de credencial en el VPS: Telegram `IIn3wwgzKv4iGZkP`, Gemini `QElexXPnmOFhjG7S`, Sheets `4iefueJJLW6dNhpt`. **Gotcha:** al importar por la UI, n8n borra las referencias de credencial (quedan en 0); hubo que reconstruirlas, no remapear. Además el workflow principal importado estaba 1 nodo desactualizado (faltaba `HU5: Crear pendiente`, 128 vs 129) → se pisó con la versión completa del repo. IDs de workflow en el VPS: principal `0aclc0NlBheOGHvI`, Feedback Loop `OysyuGLsr13qSxWB`, HU2 OAuth `QFo4nOvKD0BmrltV`.
+3. ✅ **Meta App** actualizada: `https://vps-6120781-x.dattaweb.com/webhook/oauth-callback` en *Valid OAuth Redirect URIs*.
+4. ✅ **Webhook de Telegram** apuntando al VPS — se registra automáticamente al activar el workflow con Telegram Trigger.
+5. ✅ **Workflows activados**: *Entrega Final* y *HU2 OAuth Callback* activos; *Feedback Loop* queda inactivo (base de HU14).
+6. ✅ **Instancia local apagada** (`start-n8n.ps1` + ngrok).
+
+**Gotcha al editar por API:** si la pestaña del workflow está abierta en la UI con una versión vieja cacheada, al tocarla la guarda encima y revierte el PUT (nos pasó: el principal volvió a 128 nodos / 0 credenciales). Cerrar la pestaña o F5 antes; e idealmente PUT + activate en una sola corrida.
+
+Ver [[postly-n8n-ops]] (arranque/edición del n8n local, ya obsoleto como producción tras esta migración) y [[postly-meta-setup]] (config original de la App de Meta).
