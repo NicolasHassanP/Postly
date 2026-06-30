@@ -16,10 +16,10 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 - ✅ **Módulo B — Creación con IA:** completo (HU4, HU5, HU6).
 - ✅ **Módulo C — Compliance:** completo (HU7, HU8, HU9).
 - ✅ **Módulo D — Publicación y Agenda:** completo (HU10 ✅ imagen única · HU11, HU12 ✅).
-- ❌ **Módulo E — Multimedia y Analítica:** sin hacer (HU13, HU14 ❌).
+- 🟡 **Módulo E — Multimedia y Analítica:** parcial (HU14 ✅ métricas · HU13 ❌ FFmpeg).
 
 > **2026-06-29: migración a VPS hecha y operativa** (DonWeb, Docker + Caddy + SSL en `https://vps-6120781-x.dattaweb.com`).
-> **2026-06-30: HU10 (programación a futuro) implementada y validada e2e** para imagen única (workflows `Postly - Publicar Post` + `Postly - Programador` + botón "Programar" en el principal). Quedan **HU13 (FFmpeg) y HU14 (métricas)** del Módulo E, ya desbloqueadas por el VPS, y los **carruseles agendados** como fast-follow de HU10.
+> **2026-06-30: HU10 (programación a futuro) y HU14 (métricas) implementadas y validadas e2e.** HU10: imagen única (`Postly - Publicar Post` + `Postly - Programador` + botón "Programar"). HU14: `Postly - Feedback Loop` reescrito (Cron 10:00, likes/comentarios por-usuaria desde Graph API) + métricas en Mi Agenda. Queda **solo HU13 (FFmpeg)** del Módulo E (ya desbloqueada por el VPS), más los **carruseles agendados** como fast-follow de HU10.
 
 ---
 
@@ -40,7 +40,7 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 | HU11 | D | Visualización de agenda | ✅ | Sí — tarjetas con estados, paginación |
 | HU12 | D | Smart Re-post | ✅ | Sí + extensión "Retomar borrador" |
 | HU13 | E | **Normalización de video (FFmpeg)** | ❌ | **No implementado — requiere VPS** |
-| HU14 | E | **Métricas de engagement (Cron 24h)** | ❌ | **No implementado — requiere VPS** |
+| HU14 | E | **Métricas de engagement (Cron 24h)** | ✅ | **Validado e2e (2026-06-30): likes/comentarios en Mi Agenda, Cron diario 10:00** |
 
 ---
 
@@ -49,14 +49,11 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 ### Se puede hacer YA
 
 Con el **VPS operativo** (migración cerrada el 2026-06-29), las HU restantes quedaron desbloqueadas.
-**HU10 ya está implementada** (imagen única, 2026-06-30). Quedan **HU13 (FFmpeg)** y **HU14 (métricas)**,
-más el **fast-follow de carruseles agendados** en HU10 — detalle de cada una abajo.
+**HU10 y HU14 ya están implementadas** (2026-06-30). Queda **solo HU13 (FFmpeg)**, más el **fast-follow de
+carruseles agendados** en HU10 — detalle abajo.
 
-> Avances posibles *sin* VPS sobre las HU bloqueadas (opcionales, adelantan trabajo):
-> - **HU14:** construir y testear con **disparo manual** la lógica de métricas (GET Graph API → likes/comments
->   → Sheets → leer en "Mi Agenda"); solo el Cron de 24h necesita el VPS. Base: workflow `Postly - Feedback Loop`.
-> - **HU13:** evaluar **Cloudinary** (ya en uso) para transformar video (9:16, H.264, recorte) en lugar de FFmpeg
->   — destrabaría HU13 sin VPS, pero **se desvía de lo documentado** (la tesis especifica FFmpeg); requiere visto bueno del director.
+> Nota sobre HU13: se podría evaluar **Cloudinary** (ya en uso) para transformar video (9:16, H.264, recorte)
+> en lugar de FFmpeg — pero **se desvía de lo documentado** (la tesis especifica FFmpeg); requiere visto bueno del director.
 
 ### Depende de la migración a VPS (Cron / FFmpeg 24/7)
 
