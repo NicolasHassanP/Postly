@@ -15,10 +15,11 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 - ✅ **Módulo A — Seguridad/Onboarding/Auth:** completo (HU1, HU2, HU3).
 - ✅ **Módulo B — Creación con IA:** completo (HU4, HU5, HU6).
 - ✅ **Módulo C — Compliance:** completo (HU7, HU8, HU9).
-- 🟡 **Módulo D — Publicación y Agenda:** parcial (HU11, HU12 ✅ · HU10 ❌).
+- ✅ **Módulo D — Publicación y Agenda:** completo (HU10 ✅ imagen única · HU11, HU12 ✅).
 - ❌ **Módulo E — Multimedia y Analítica:** sin hacer (HU13, HU14 ❌).
 
-> **2026-06-29: la migración a VPS ya está hecha y operativa** (DonWeb, Docker + Caddy + SSL en `https://vps-6120781-x.dattaweb.com`). Las 3 HU restantes (HU10, HU13, HU14) **ya NO están bloqueadas** — falta implementarlas sobre el servidor 24/7 (Cron / FFmpeg / métricas).
+> **2026-06-29: migración a VPS hecha y operativa** (DonWeb, Docker + Caddy + SSL en `https://vps-6120781-x.dattaweb.com`).
+> **2026-06-30: HU10 (programación a futuro) implementada y validada e2e** para imagen única (workflows `Postly - Publicar Post` + `Postly - Programador` + botón "Programar" en el principal). Quedan **HU13 (FFmpeg) y HU14 (métricas)** del Módulo E, ya desbloqueadas por el VPS, y los **carruseles agendados** como fast-follow de HU10.
 
 ---
 
@@ -35,7 +36,7 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 | HU7 | C | Detección de precios en TEXTO (RegEx) | ✅ | Sí — bloquea y avisa |
 | HU8 | C | Detección de precios en IMAGEN (visión Gemini) | ✅ | Sí — gate visual antes de generar copys, bloquea y avisa |
 | HU9 | C | Inyección de firma legal | ✅ | Sí (con matices, ver deudas) |
-| HU10 | D | **Programación a futuro (Cron)** | ❌ | **No implementado — requiere VPS** |
+| HU10 | D | **Programación a futuro (Cron)** | ✅ | **Imagen única, validada e2e (2026-06-30). Pendiente: carruseles** |
 | HU11 | D | Visualización de agenda | ✅ | Sí — tarjetas con estados, paginación |
 | HU12 | D | Smart Re-post | ✅ | Sí + extensión "Retomar borrador" |
 | HU13 | E | **Normalización de video (FFmpeg)** | ❌ | **No implementado — requiere VPS** |
@@ -47,8 +48,9 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 
 ### Se puede hacer YA
 
-Con el **VPS operativo** (migración cerrada el 2026-06-29), las 3 HU restantes (HU10, HU13, HU14) ya están
-**desbloqueadas y son accionables**. Falta implementarlas — ver el detalle de cada una abajo.
+Con el **VPS operativo** (migración cerrada el 2026-06-29), las HU restantes quedaron desbloqueadas.
+**HU10 ya está implementada** (imagen única, 2026-06-30). Quedan **HU13 (FFmpeg)** y **HU14 (métricas)**,
+más el **fast-follow de carruseles agendados** en HU10 — detalle de cada una abajo.
 
 > Avances posibles *sin* VPS sobre las HU bloqueadas (opcionales, adelantan trabajo):
 > - **HU14:** construir y testear con **disparo manual** la lógica de métricas (GET Graph API → likes/comments
