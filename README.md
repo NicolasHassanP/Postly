@@ -51,7 +51,7 @@ Postly/
 ```
 
 Workflows actuales:
-- **`Postly - Entrega Final Sprint 1 v2`** — principal (~141 nodos): todo el flujo conversacional.
+- **`Postly - Entrega Final Sprint 1 v2`** — principal (~184 nodos): todo el flujo conversacional (foto, carrusel, video; IG + FB).
 - **`Postly - HU2 OAuth Callback`** — callback de vinculación OAuth.
 - **`Postly - Programador`** — Cron (cada 5 min) de **programación a futuro** (HU10): publica los posts agendados al llegar la hora.
 - **`Postly - Publicar Post`** / **`Postly - Publicar Carrusel`** — sub-workflows de publicación (imagen única / carrusel) invocados por el Cron.
@@ -112,7 +112,7 @@ El `.env` **no se sube a git**. `start-n8n.ps1` lo carga al arrancar n8n.
 | `N8N_API_KEY` | API key de tu n8n (para editar workflows por API). **Personal de cada máquina** |
 | `N8N_BLOCK_ENV_ACCESS_IN_NODE` | Debe ser `false` para que las expresiones y los Code nodes puedan leer `$env` |
 | `POSTLY_ENC_KEY` | Clave AES-256-GCM (hex, 32 bytes) que cifra el token de Meta en Sheets (HU2). Si se pierde, hay que re-vincular |
-| `NODE_FUNCTION_ALLOW_BUILTIN` | `crypto,fs` — habilita `require('crypto')` (cifrado del token) y `require('fs')` (buffer del carrusel HU5) en los Code nodes |
+| `NODE_FUNCTION_ALLOW_BUILTIN` | `crypto,fs,child_process` — habilita `require('crypto')` (cifrado del token), `require('fs')` (buffer del carrusel HU5) y `require('child_process')` (ejecutar **FFmpeg** para HU13) en los Code nodes |
 
 ---
 
@@ -170,15 +170,18 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 - ✅ **HU11 — Visualización de agenda** (tarjetas con estado 🟢/🔴/🟡, últimas 5, casos borde, **métricas ❤️/💬**).
 - ✅ **HU12 — Smart Re-post** + extensión "Retomar borrador" (cierra Pendientes, publish row-aware).
 
-**Módulo E — Multimedia y Analítica**
-- ❌ **HU13 — Normalización de video (FFmpeg, 9:16, H.264)** — *pendiente: requiere instalar FFmpeg en el container del VPS*.
+**Módulo E — Multimedia y Analítica** — *completo*
+- ✅ **HU13 — Normalización de video (FFmpeg, 9:16, H.264, ≤60s)** — *validada e2e (2026-07-02)*: se manda un video → se descarga de Telegram → **FFmpeg** (en el VPS, vía `require('child_process')` en un Code node) lo fuerza a **1080×1920 / H.264 / ≤60s**; si dura más de 60s **pregunta si recortar**; extrae un frame para que Gemini genere los 3 copys; se publica como **Reel en Instagram** (con polling del estado del contenedor) **y como video en la página de Facebook**.
 - ✅ **HU14 — Métricas de engagement** — *validada e2e (2026-06-30)*: Cron diario (`Postly - Feedback Loop`) trae likes/comentarios de la Graph API con el token por-usuaria, los persiste en Sheets y se ven en "Mi Agenda".
 
-> **Resumen: 13/14 implementadas.** Módulos A, B, C y D completos. Solo queda **HU13** (FFmpeg).
+> **Resumen: 14/14 implementadas.** Los 5 módulos (A–E) completos y validados e2e.
 
-### Próximos pasos
+### Extras implementados (más allá de las 14 HU)
 
-1. **HU13 — Normalización de video (FFmpeg):** la única HU pendiente. Requiere agregar FFmpeg al container de n8n en el VPS (vía `docker-compose`/imagen custom) y llamarlo desde el flujo para forzar 9:16 / H.264 / ≤60s.
+- ✅ **Publicación en Facebook** (además de Instagram): imagen única, carrusel (álbum multi-foto) y video, con el mismo copy y compliance.
+- ✅ **Sincronización automática desde Instagram**: al abrir "Mi Agenda" el bot trae los posts publicados de IG con sus likes/comentarios frescos.
+- ✅ **Métricas de ambas redes en la agenda**: cada publicación muestra `📷 IG ❤️ 💬` y `📘 FB ❤️ 💬`.
+- ✅ **Anti-duplicación**: dedup por `callback_query.id` (posts simples) y candado atómico vía `editMessageText` (carruseles, que tardan más).
 
 ### Deudas técnicas — saldadas
 

@@ -10,16 +10,19 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 
 ## Resumen ejecutivo
 
-**11 de 14 HU implementadas (79%).**
+**14 de 14 HU implementadas (100%) — proyecto COMPLETO y validado e2e.**
 
 - ✅ **Módulo A — Seguridad/Onboarding/Auth:** completo (HU1, HU2, HU3).
 - ✅ **Módulo B — Creación con IA:** completo (HU4, HU5, HU6).
 - ✅ **Módulo C — Compliance:** completo (HU7, HU8, HU9).
-- ✅ **Módulo D — Publicación y Agenda:** completo (HU10 ✅ imagen única · HU11, HU12 ✅).
-- 🟡 **Módulo E — Multimedia y Analítica:** parcial (HU14 ✅ métricas · HU13 ❌ FFmpeg).
+- ✅ **Módulo D — Publicación y Agenda:** completo (HU10 · HU11 · HU12).
+- ✅ **Módulo E — Multimedia y Analítica:** completo (HU13 ✅ FFmpeg/video · HU14 ✅ métricas).
 
-> **2026-06-29: migración a VPS hecha y operativa** (DonWeb, Docker + Caddy + SSL en `https://vps-6120781-x.dattaweb.com`).
-> **2026-06-30: HU10 (programación a futuro) y HU14 (métricas) implementadas y validadas e2e.** HU10: imagen única (`Postly - Publicar Post` + `Postly - Programador` + botón "Programar"). HU14: `Postly - Feedback Loop` reescrito (Cron 10:00, likes/comentarios por-usuaria desde Graph API) + métricas en Mi Agenda. Queda **solo HU13 (FFmpeg)** del Módulo E (ya desbloqueada por el VPS), más los **carruseles agendados** como fast-follow de HU10.
+> **2026-06-29: migración a VPS operativa** (DonWeb, Docker + Caddy + SSL en `https://vps-6120781-x.dattaweb.com`).
+> **2026-06-30: HU10 (programación) y HU14 (métricas) validadas e2e.**
+> **2026-07-02: HU13 (video/FFmpeg) implementada y validada e2e — proyecto al 14/14.** Video → FFmpeg (child_process en Code node) normaliza a 1080×1920/H.264/≤60s (con confirmación de recorte si dura +60s) → frame → Gemini 3 copys → **Reel en IG (polling) + video en FB**.
+>
+> **Extras (más allá de las 14 HU):** publicación en **Facebook** (imagen/carrusel/video); **sincronización desde Instagram** al abrir Mi Agenda; **métricas de ambas redes** en las tarjetas; **anti-duplicación** (dedup callback_id + candado `editMessageText`); **compliance de precios reforzado** en los 3 flujos + CTA de contacto obligatorio en los 3 copys.
 
 ---
 
@@ -36,10 +39,10 @@ en los workflows de n8n, lista las **deudas técnicas** dentro de lo ya hecho, y
 | HU7 | C | Detección de precios en TEXTO (RegEx) | ✅ | Sí — bloquea y avisa |
 | HU8 | C | Detección de precios en IMAGEN (visión Gemini) | ✅ | Sí — gate visual antes de generar copys, bloquea y avisa |
 | HU9 | C | Inyección de firma legal | ✅ | Sí (con matices, ver deudas) |
-| HU10 | D | **Programación a futuro (Cron)** | ✅ | **Imagen única, validada e2e (2026-06-30). Pendiente: carruseles** |
-| HU11 | D | Visualización de agenda | ✅ | Sí — tarjetas con estados, paginación |
+| HU10 | D | **Programación a futuro (Cron)** | ✅ | Sí — imagen única **y carruseles**, validada e2e (2026-06-30) |
+| HU11 | D | Visualización de agenda | ✅ | Sí — tarjetas con estados, paginación, métricas IG+FB |
 | HU12 | D | Smart Re-post | ✅ | Sí + extensión "Retomar borrador" |
-| HU13 | E | **Normalización de video (FFmpeg)** | ❌ | **No implementado — requiere VPS** |
+| HU13 | E | **Normalización de video (FFmpeg)** | ✅ | **Validada e2e (2026-07-02): FFmpeg 1080×1920/H.264/≤60s + Reel IG + video FB** |
 | HU14 | E | **Métricas de engagement (Cron 24h)** | ✅ | **Validado e2e (2026-06-30): likes/comentarios en Mi Agenda, Cron diario 10:00** |
 
 ---
