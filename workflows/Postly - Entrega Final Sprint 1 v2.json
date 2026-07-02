@@ -1011,8 +1011,7 @@
             "Status": "Publicado",
             "row_number": "={{ $('Elegir fila a publicar').first().json.row_number }}",
             "PostID_IG": "={{ $node[\"IG - Publicar\"].json.id }}",
-            "Copy_Final": "={{ $('Code in JavaScript1').first().json.Caption_IG }}",
-            "PostID_FB": "={{ $('FB - Publicar foto').first().json.post_id || '' }}"
+            "Copy_Final": "={{ $('Code in JavaScript1').first().json.Caption_IG }}"
           },
           "matchingColumns": [
             "row_number"
@@ -5395,7 +5394,10 @@
       ],
       "id": "d4feb850-ae39-4d2a-b4d4-d66a401de8fa",
       "name": "FB - Publicar foto",
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -6665,6 +6667,71 @@
         "telegramApi": {
           "id": "IIn3wwgzKv4iGZkP",
           "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1b85sqwEiSsyVpX7FUNmNiIOxpKl_WyuKFyZk7ELOrkc",
+          "mode": "list",
+          "cachedResultName": "Postly_DB"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Elegir fila a publicar').first().json.row_number }}",
+            "PostID_FB": "={{ $('FB - Publicar foto').first().json.post_id || '' }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PostID_FB",
+              "displayName": "PostID_FB",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        5032,
+        968
+      ],
+      "name": "FB guardar ID",
+      "id": "5cdfb27e-7e73-42dd-bbdc-f70d642c6af4",
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4iefueJJLW6dNhpt",
+          "name": "Google Sheets account"
         }
       }
     }
@@ -8625,6 +8692,17 @@
         [
           {
             "node": "Video: pub éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB - Publicar foto": {
+      "main": [
+        [
+          {
+            "node": "FB guardar ID",
             "type": "main",
             "index": 0
           }
