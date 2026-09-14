@@ -1,0 +1,30 @@
+ID,Consultora,Canal,Contenido_real,Etiqueta_consultora,Etiqueta_externa,Ground_truth,Resultado_sistema,Veredicto,Notas
+c1inf1,C1,Texto,"Desmaquillante + '30% OFF'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,precio/promo en texto
+c1inf2,C1,Texto,"Loción TimeWise '2x1' Día de la Madre",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,promo 2x1 en texto
+c1inf3,C1,Imagen,"Crema contorno de ojos (TEXTO SIN PRECIO)",INFRACTOR,INFRACTOR,INFRACTOR,Publico,,"FN — defecto de producto (fuera del alcance de compliance): tinta corrida en el envase"
+c1inf4,C1,Texto,"Gel limpiador MK Men a $15.500",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,precio en texto
+c1inf5,C1,Texto,"Limpiador 4 en 1 a $14.800",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,precio en texto
+c2inf1,C2,Texto,"Crema hidratante a AR$ 19.800",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,precio en texto
+c2inf2,C2,Texto,"Primer FPS 15 a $2.500",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,precio en texto
+c2inf3,C2,Imagen,"Desmaquillante (TEXTO SIN PRECIO)",INFRACTOR,INFRACTOR,INFRACTOR,Publico,,"FN — defecto de producto (fuera del alcance de compliance): tapa rota"
+c2inf4,C2,Texto,"Primer FPS 15 a $1.990 'oferta'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,precio+oferta en texto
+c2inf5,C2,Texto,"Línea Matificante '25% de descuento'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,descuento en texto
+c3inf1,C3,Texto,"Set MK Men '15% de descuento'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,descuento en texto
+c3inf2,C3,Texto,"Set TimeWise '2x1'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,promo 2x1 en texto
+c3inf3,C3,Texto,"Set Milagroso 'envío GRATIS'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,promo (gratis) en texto
+c3inf4,C3,Texto,"Hidratante '30% de descuento'",INFRACTOR,INFRACTOR,INFRACTOR,Bloqueo,,descuento en texto
+c1pub1,C1,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c1pub2,C1,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c1pub3,C1,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c1pub4,C1,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c1pub5,C1,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c2pub1,C2,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c2pub2,C2,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c2pub3,C2,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c2pub4,C2,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c2pub5,C2,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c3pub1,C3,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c3pub2,C3,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c3pub3,C3,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c3pub4,C3,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,
+c3pub5,C3,Mixto,"Publicación informativa de feed",LIMPIO,LIMPIO,LIMPIO,Publico,,

@@ -1,0 +1,41 @@
+ID,Canal,Clase_real,Contenido_entrada,Que_prueba_patron,Resultado_esperado,Resultado_obtenido,Veredicto,Prediccion_a_confirmar
+R01,Texto,INFRACTOR,"Nuevo labial líquido 💄 $3.200. Escribime por privado.",Precio con símbolo,Bloquear,,,TP
+R02,Texto,INFRACTOR,"Set de skincare completo a $8500 🌿",Precio con símbolo,Bloquear,,,TP
+R03,Texto,INFRACTOR,"Perfume floral, 4500 pesos, hacé tu pedido 💐",Monto + palabra 'pesos',Bloquear,,,TP
+R04,Texto,INFRACTOR,"OFERTA de la semana en toda la línea de rostro ✨",Vocabulario comercial,Bloquear,,,TP
+R05,Texto,INFRACTOR,"Base HD con 25% off por tiempo limitado",Descuento % off,Bloquear,,,TP
+R06,Texto,INFRACTOR,"Rubor en polvo, cuesta 2800 💗",Palabra precio + número,Bloquear,,,TP
+R07,Texto,INFRACTOR,"2x1 en labiales seleccionados 💄",Vocabulario comercial (2x1),Bloquear,,,TP
+R08,Texto,INFRACTOR,"Crema de noche antiedad — US$ 35 🌙",Precio con símbolo US$,Bloquear,,,TP
+R09,Texto,INFRACTOR,"Kit de brochas en 3 cuotas sin interés 🖌️",Cuotas / sin interés,Bloquear,,,TP
+R10,Texto,INFRACTOR,"PROMO especial, consultá disponibilidad 🌷",Vocabulario comercial (promo),Bloquear,,,TP
+R11,Texto,INFRACTOR,"Máscara de pestañas, vale $2900 👁️",Palabra precio + símbolo,Bloquear,,,TP
+R12,Texto,INFRACTOR,"Descuento del 15% en tu primera compra",Vocabulario comercial (descuento),Bloquear,,,TP
+R13,Texto,INFRACTOR,"Sérum vitamina C 💧 a 5200 pesos",Monto + palabra 'pesos',Bloquear,,,TP
+R14,Texto,INFRACTOR,"Labial mate edición limitada $4100 💋",Precio con símbolo,Bloquear,,,TP
+R15,Texto,INFRACTOR,"Gloss con brillo, 3600 pesos, envío incluido",Monto + palabra 'pesos',Bloquear,,,TP
+R16,Texto,INFRACTOR,"Te lo dejo en tres mil quinientos, escribime 🌸",CASO LIMITE: precio en palabras,Bloquear,,,Probable FN
+R17,Texto,INFRACTOR,"Combo mamá e hija a mitad de precio 💕",CASO LIMITE: promo sin número,Bloquear,,,Probable FN
+R18,Texto,INFRACTOR,"Escribime y te paso la lista de precios 💌",CASO LIMITE: 'precios' sin número,Bloquear,,,Probable FN
+R19,Imagen,INFRACTOR,"[IMAGEN] Placa con 'OFERTA $1990' sobre foto de producto.",Vision HU8: precio incrustado,Bloquear,Bloqueo (visión HU8: detectó '¡OFERTA!' y '$1990'),,TP (bot)
+R20,Imagen,INFRACTOR,"[IMAGEN] Foto de producto con precio '$2500' en etiqueta clara.",Vision HU8: precio en etiqueta,Bloquear,Bloqueo (visión HU8: detectó '$2500' en etiqueta),,TP (bot)
+R21,Texto,LIMPIO,"Rutina de 3 pasos para una piel luminosa 🌿",Número de pasos (B.4),Publicar,,,TN
+R22,Texto,LIMPIO,"Hidratación que dura todo el día 💧",Copy informativo,Publicar,,,TN
+R23,Texto,LIMPIO,"Nuevo tono de labial: coral vibrante 💄",Copy informativo,Publicar,,,TN
+R24,Texto,LIMPIO,"Protector solar SPF 50, cuidado diario ☀️",Número técnico SPF,Publicar,,,TN
+R25,Texto,LIMPIO,"Descubrí tu base ideal según tu subtono 🌸",Copy informativo,Publicar,,,TN
+R26,Texto,LIMPIO,"Set de 5 brochas profesionales 🖌️",Número de piezas,Publicar,,,TN
+R27,Texto,LIMPIO,"Agendá tu asesoría de belleza por privado 💬",Copy informativo (venta consultiva),Publicar,,,TN
+R28,Texto,LIMPIO,"Resultados visibles en 4 semanas ✨",Número de semanas,Publicar,,,TN
+R29,Texto,LIMPIO,"Máscara de pestañas para una mirada intensa 👁️",Copy informativo,Publicar,,,TN
+R30,Texto,LIMPIO,"Tips de skincare para el verano 🧴",Copy informativo,Publicar,,,TN
+R31,Texto,LIMPIO,"Limpieza facial profunda en casa 🧼",Copy informativo,Publicar,,,TN
+R32,Texto,LIMPIO,"Contorno de ojos con ácido hialurónico 💧",Copy informativo,Publicar,,,TN
+R33,Texto,LIMPIO,"Labios suaves e hidratados todo el invierno ❄️",Copy informativo,Publicar,,,TN
+R34,Texto,LIMPIO,"Aromas florales para cada momento del día 🌷",Copy informativo,Publicar,,,TN
+R35,Texto,LIMPIO,"Cuidá tu piel con nuestra línea Botanical 🌿",Copy informativo,Publicar,,,TN
+R36,Texto,LIMPIO,"Más de 20.000 mujeres ya confían en la marca 💖",CASO LIMITE: número grande con miles,Publicar,,,Probable FP
+R37,Texto,LIMPIO,"Celebramos el aniversario 2.025 con novedades 🎉",CASO LIMITE: año con formato miles,Publicar,,,Probable FP
+R38,Texto,LIMPIO,"Este sérum rebaja visiblemente las líneas de expresión ✨",CASO LIMITE: 'rebaja' no comercial,Publicar,,,Probable FP
+R39,Imagen,LIMPIO,"[IMAGEN] Foto limpia de producto con logo Mary Kay, sin texto de precio.",Vision HU8: imagen limpia,Publicar,Publicó (generó 3 copys),,TN (bot)
+R40,Imagen,LIMPIO,"[IMAGEN] Foto de producto con 'SPF 50' y '50 ml' visibles en el envase.",CASO LIMITE vision: números técnicos,Publicar,Publicó (generó 3 copys; NO confundió SPF 50 / 50 ml con precio),,TN confirmado (bot)
