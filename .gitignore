@@ -24,3 +24,19 @@ __pycache__/
 # Backups de workflows (pueden tener tokens viejos)
 .backups/
 docs/contexto/backups/
+
+# === Datos de terceros — contenido real de consultoras (NUNCA subir) ===
+avance/infractoras/
+avance/pub consultoras/
+avance/Encuesta*.pdf
+
+# === Dictámenes de auditoría (evaluaciones del trabajo, no artefactos del proyecto) ===
+avance/Dictamen_*.pdf
+avance/Cuarta Auditoria*.docx
+
+# === Versiones intermedias y respaldos (git ya es el respaldo) ===
+*.bak-*
+avance/Tesis Postly Bontorno Hassan-1.docx
+avance/Tesis Postly Bontorno Hassan-1 (editado)*.docx
+workflows/_local-*-respaldo-*.json
+avance/_*.py
