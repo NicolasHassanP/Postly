@@ -15,11 +15,11 @@ Estado en Meta for Developers (confirmado por Nico 2026-06-25):
 
 **Falta para HU2 (OAuth Authorization Code):**
 - Producto **"Facebook Login"** en la App (Nico cree que no lo tiene).
-- Registrar el **redirect URI** (webhook de n8n) en *Valid OAuth Redirect URIs*, ej. `https://viewable-zombie-linked.ngrok-free.dev/webhook/meta-callback`.
+- Registrar el **redirect URI** (webhook de n8n) en *Valid OAuth Redirect URIs*, ej. `https://<dominio-ngrok>/webhook/meta-callback`.
 - Scopes de publicación (instagram_content_publish, pages_show_list, etc.).
 
 **Honestidad / alcance:** el onboarding self-service para usuarias reales requiere **App Review** de Meta. Para el MVP de tesis NO hace falta: correr en **modo desarrollo** + agregar la cuenta de prueba como **tester** de la App. Encaja con el framing "sandbox/pre-experimental" del doc. App Review = trabajo futuro.
 
 **Secretos:** App ID / App Secret van a `.env` (META_APP_ID, META_APP_SECRET), NO al chat ni hardcodeados. App ID público: 951310281090450.
 
-**HU2 — progreso (2026-06-25):** Producto "Inicio de sesión con Facebook para empresas" (FB Login for Business) configurado. **Configuración creada → config_id `1348643850539258`** (token de usuario, permisos: instagram_basic, instagram_content_publish, pages_read_engagement, pages_show_list). Redirect URI registrado: `https://viewable-zombie-linked.ngrok-free.dev/webhook/oauth-callback`. **Workflow callback creado y activo en n8n: "Postly - HU2 OAuth Callback" (id vy60xNtAvcVKRdAx)** — webhook GET /oauth-callback → intercambia code→corto→largo→Page Token → avisa por Telegram → responde HTML. Falta: probar round-trip + agregar guardado en Sheets (hoja "Usuarios") + Parte 1 (botón en el bot). URL login usa config_id (FB Login for Business). Ver [[postly-critical-path]] [[postly-n8n-ops]].
+**HU2 — progreso (2026-06-25):** Producto "Inicio de sesión con Facebook para empresas" (FB Login for Business) configurado. **Configuración creada → config_id `1348643850539258`** (token de usuario, permisos: instagram_basic, instagram_content_publish, pages_read_engagement, pages_show_list). Redirect URI registrado: `https://<dominio-ngrok>/webhook/oauth-callback`. **Workflow callback creado y activo en n8n: "Postly - HU2 OAuth Callback" (id vy60xNtAvcVKRdAx)** — webhook GET /oauth-callback → intercambia code→corto→largo→Page Token → avisa por Telegram → responde HTML. Falta: probar round-trip + agregar guardado en Sheets (hoja "Usuarios") + Parte 1 (botón en el bot). URL login usa config_id (FB Login for Business). Ver [[postly-critical-path]] [[postly-n8n-ops]].

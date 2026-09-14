@@ -15,7 +15,7 @@ Postly (tesis n8n, autores Hassan + Bontorno, UTN FRM 2026). La doc `docs/Tesis 
 
 **Camino acordado (doc-faithful):** la tesis (Sprint 1) documenta **VPS + Docker + proxy inverso + SSL/TLS** y declara el self-hosting como NFR "innegociable". El destino final es VPS (skill `n8n-self-hosting`), pero Oracle Cloud rechazó las tarjetas virtuales (MercadoPago/Lemon) y el usuario no quiso usar la de un familiar **por ahora**. Oracle queda pendiente.
 
-**Estado actual (2026-06-25):** URL estable provisional vía **ngrok dominio estático gratis `https://viewable-zombie-linked.ngrok-free.dev`** → localhost:5678. n8n corre local con `WEBHOOK_URL` apuntando ahí. Túnel verificado (healthz OK). Credencial Google Sheets **reconectada** (había que cargar el redirect URI `https://viewable-zombie-linked.ngrok-free.dev/rest/oauth2-credential/callback` en Google Cloud Console — ahora una sola vez porque el dominio es fijo). Telegram + Gemini + Sheets funcionando.
+**Estado actual (2026-06-25):** URL estable provisional vía **ngrok dominio estático gratis `https://<dominio-ngrok>`** → localhost:5678. n8n corre local con `WEBHOOK_URL` apuntando ahí. Túnel verificado (healthz OK). Credencial Google Sheets **reconectada** (había que cargar el redirect URI `https://<dominio-ngrok>/rest/oauth2-credential/callback` en Google Cloud Console — ahora una sola vez porque el dominio es fijo). Telegram + Gemini + Sheets funcionando.
 
 **Interino RESUELTO (2026-06-25):** se dejó de hardcodear el token de Meta. Token largo de usuario (60 días) en `.env` como `META_ACCESS_TOKEN`; los 4 nodos httpRequest leen `{{ $env.META_ACCESS_TOKEN }}`. **Publicación a IG confirmada funcionando.** Para renovar: actualizar `.env` + reiniciar con `.\start-n8n.ps1`, sin tocar nodos.
 

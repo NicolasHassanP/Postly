@@ -87,8 +87,9 @@ cp .env.example .env       # completar valores (Nico comparte el .env real por p
 ngrok http 5678 --url https://<tu-dominio>.ngrok-free.dev
 ```
 
-> ⚠️ El dominio no se publica en este repositorio: es una URL directa a una máquina personal y el repo
-> es público. Vive en el `.env` como `N8N_BASE_URL`. Y **conviene bajar el túnel cuando no se usa**:
+> ⚠️ El dominio no está en el árbol de este repositorio —es una URL directa a una máquina personal y el
+> repo es público—; vive en el `.env` como `N8N_BASE_URL`. Aun así, **commits anteriores lo contienen**:
+> el historial de git no se reescribió. Por eso **conviene bajar el túnel cuando no se usa**:
 > los `webhookId` de los workflows sí están en el repo y los webhooks de n8n no tienen autenticación,
 > así que mientras el túnel esté arriba se los puede disparar desde afuera (el riesgo concreto es
 > ejecuciones no deseadas y consumo de cuota de Gemini, no acceso a las cuentas: los tokens
