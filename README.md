@@ -28,9 +28,11 @@ autónoma en Facebook e Instagram.
 
 `Disparo (Telegram) → Enrutamiento (n8n) → Inferencia (Gemini) → Auditoría (Compliance) → Inyección (Meta) → Registro (Sheets)`
 
-> **Hosting:** en **producción** corre sobre un **VPS self-hosted** (DonWeb · Docker + Caddy + SSL) en
-> `https://vps-6120781-x.dattaweb.com`, operativo 24/7 desde el 2026-06-29. El setup local + ngrok que
-> se describe más abajo queda como **referencia de desarrollo** (ya no es el entorno productivo).
+> **Hosting:** el sistema **se desplegó y se validó de extremo a extremo** sobre un **VPS self-hosted**
+> (DonWeb · Docker + Caddy + SSL), operativo 24/7 entre el 2026-06-29 y septiembre de 2026: sobre esa
+> instancia se ejecutaron las validaciones de las 14 HU y las mediciones del Capítulo 5 de la tesis.
+> Ese servidor ya **no está contratado**. El entorno de trabajo actual es el de **n8n self-hosted local
+> + túnel ngrok** que se describe más abajo.
 
 ---
 
@@ -51,7 +53,7 @@ Postly/
 ```
 
 Workflows actuales:
-- **`Postly - Entrega Final Sprint 1 v2`** — principal (~184 nodos): todo el flujo conversacional (foto, carrusel, video; IG + FB).
+- **`Postly - Entrega Final Sprint 1 v2`** — principal (185 nodos): todo el flujo conversacional (foto, carrusel, video; IG + FB).
 - **`Postly - HU2 OAuth Callback`** — callback de vinculación OAuth.
 - **`Postly - Programador`** — Cron (cada 5 min) de **programación a futuro** (HU10): publica los posts agendados al llegar la hora.
 - **`Postly - Publicar Post`** / **`Postly - Publicar Carrusel`** — sub-workflows de publicación (imagen única / carrusel) invocados por el Cron.
@@ -71,8 +73,8 @@ Nodos usados: Telegram, Google Sheets, HTTP Request (Meta), Code, Switch/IF, Gem
 
 ## Puesta en marcha
 
-> **Producción:** ya corre en el VPS (`https://vps-6120781-x.dattaweb.com`, Docker + Caddy + SSL); no
-> requiere estos pasos. Lo de abajo es para **levantar una instancia local de desarrollo** (Windows + ngrok).
+> Estos son los pasos del **entorno actual**: n8n self-hosted local (Windows) detrás de un túnel ngrok.
+> El despliegue en VPS con Docker + Caddy, sobre el que se validó el sistema, quedó dado de baja.
 
 ```bash
 git clone https://github.com/NicolasHassanP/Postly.git
@@ -80,10 +82,17 @@ cd Postly
 cp .env.example .env       # completar valores (Nico comparte el .env real por privado)
 ```
 
-**1. Levantar el túnel** (terminal 1) — usa el dominio estático de ngrok:
+**1. Levantar el túnel** (terminal 1) — con tu dominio estático de ngrok:
 ```powershell
-ngrok http 5678 --url https://viewable-zombie-linked.ngrok-free.dev
+ngrok http 5678 --url https://<tu-dominio>.ngrok-free.dev
 ```
+
+> ⚠️ El dominio no se publica en este repositorio: es una URL directa a una máquina personal y el repo
+> es público. Vive en el `.env` como `N8N_BASE_URL`. Y **conviene bajar el túnel cuando no se usa**:
+> los `webhookId` de los workflows sí están en el repo y los webhooks de n8n no tienen autenticación,
+> así que mientras el túnel esté arriba se los puede disparar desde afuera (el riesgo concreto es
+> ejecuciones no deseadas y consumo de cuota de Gemini, no acceso a las cuentas: los tokens
+> por-usuaria están cifrados en la hoja y el webhook no los expone).
 
 **2. Arrancar n8n** (terminal 2) — el script carga el `.env` y levanta n8n:
 ```powershell
@@ -94,8 +103,9 @@ ngrok http 5678 --url https://viewable-zombie-linked.ngrok-free.dev
 credenciales (Telegram, Google Sheets, Gemini) desde tu propia cuenta.
 
 > ℹ️ **Piezas personales (no se comparten en el `.env`):** el **dominio + authtoken de ngrok** y el
-> **`N8N_API_KEY`** son de cada máquina/cuenta. Si corrés en otra PC con otro dominio de ngrok,
-> hay que actualizar `WEBHOOK_URL` y los *redirect URIs* en Google Cloud y Meta.
+> **`N8N_API_KEY_LOCAL`** son de cada máquina/cuenta —la API key de n8n es por instancia—. Si corrés
+> en otra PC con otro dominio de ngrok, hay que actualizar `WEBHOOK_URL`, `N8N_BASE_URL` y los
+> *redirect URIs* en Google Cloud y Meta.
 
 ---
 
@@ -108,8 +118,9 @@ El `.env` **no se sube a git**. `start-n8n.ps1` lo carga al arrancar n8n.
 | `META_ACCESS_TOKEN` | Token de Meta de fallback (la publicación real usa el token **por-usuaria, cifrado** de la hoja *Usuarios*) |
 | `META_APP_ID` / `META_APP_SECRET` / `META_CONFIG_ID` / `META_PAGE_ID` | App de Meta (intercambio de tokens y OAuth/HU2) |
 | `IG_BUSINESS_ID` | ID de la cuenta de Instagram Business |
-| `WEBHOOK_URL` | URL pública estable (en producción: `https://vps-6120781-x.dattaweb.com`; en dev local: el dominio de ngrok) |
-| `N8N_API_KEY` | API key de tu n8n (para editar workflows por API). **Personal de cada máquina** |
+| `WEBHOOK_URL` | URL pública estable con la que n8n arma los webhooks (el dominio de ngrok) |
+| `N8N_BASE_URL` | Misma URL pública, la usan los scripts de `scripts/` para hablar con la API de n8n. **No se hardcodea en el repo** |
+| `N8N_API_KEY_LOCAL` | API key de tu n8n (para editar workflows por API). **Es por instancia**: un JWT firmado con el secreto de ese n8n, no sirve en otro. Se genera en *Settings → n8n API* |
 | `N8N_BLOCK_ENV_ACCESS_IN_NODE` | Debe ser `false` para que las expresiones y los Code nodes puedan leer `$env` |
 | `POSTLY_ENC_KEY` | Clave AES-256-GCM (hex, 32 bytes) que cifra el token de Meta en Sheets (HU2). Si se pierde, hay que re-vincular |
 | `NODE_FUNCTION_ALLOW_BUILTIN` | `crypto,fs,child_process` — habilita `require('crypto')` (cifrado del token), `require('fs')` (buffer del carrusel HU5) y `require('child_process')` (ejecutar **FFmpeg** para HU13) en los Code nodes |
@@ -144,6 +155,19 @@ header `X-N8N-API-KEY`). **Ojo:** editar por API cambia la versión del workflow
 pestaña abierta en n8n, **refrescala (F5)** antes de tocar, o vas a ver "someone else just updated
 this workflow". Coordinar quién edita (API vs UI) para no pisarse.
 
+Scripts disponibles (todos toman el host de `N8N_BASE_URL` y la key de `N8N_API_KEY_LOCAL`):
+
+| Script | Qué hace |
+|--------|----------|
+| `probe-local-n8n.mjs` | Solo lectura: lista los workflows de la instancia y diffea el principal contra el `.json` del repo |
+| `deploy-local-n8n.mjs` | Despliega el workflow del repo a la instancia. Remapea las credenciales por nombre a los IDs locales y conserva los `webhookId` existentes, así no hay que reconectar nada a mano. Respalda antes de escribir |
+| `import-local-workflows.mjs` | Crea el Programador y los sub-workflows de HU10 si faltan, remapeando las referencias entre ellos |
+| `fix-compliance-patterns.mjs` | Aplica el set canónico de patrones del Centinela a los 4 nodos que auditan precios. Idempotente |
+
+Todos aceptan `--deploy`; sin ese flag hacen *dry-run* e informan qué cambiarían. Las **credenciales
+y los `webhookId` son por instancia**, así que un `.json` exportado de otro n8n no se puede subir tal
+cual: de eso se encarga el remapeo de `deploy-local-n8n.mjs`.
+
 ---
 
 ## Estado actual / Roadmap
@@ -171,7 +195,7 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 - ✅ **HU12 — Smart Re-post** + extensión "Retomar borrador" (cierra Pendientes, publish row-aware).
 
 **Módulo E — Multimedia y Analítica** — *completo*
-- ✅ **HU13 — Normalización de video (FFmpeg, 9:16, H.264, ≤60s)** — *validada e2e (2026-07-02)*: se manda un video → se descarga de Telegram → **FFmpeg** (en el VPS, vía `require('child_process')` en un Code node) lo fuerza a **1080×1920 / H.264 / ≤60s**; si dura más de 60s **pregunta si recortar**; extrae un frame para que Gemini genere los 3 copys; se publica como **Reel en Instagram** (con polling del estado del contenedor) **y como video en la página de Facebook**.
+- ✅ **HU13 — Normalización de video (FFmpeg, 9:16, H.264, ≤60s)** — *validada e2e (2026-07-02)*: se manda un video → se descarga de Telegram → **FFmpeg** (vía `require('child_process')` en un Code node, invocado por nombre y resuelto por PATH) lo fuerza a **1080×1920 / H.264 / ≤60s**; si dura más de 60s **pregunta si recortar**; extrae un frame para que Gemini genere los 3 copys; se publica como **Reel en Instagram** (con polling del estado del contenedor) **y como video en la página de Facebook**.
 - ✅ **HU14 — Métricas de engagement** — *validada e2e (2026-06-30)*: Cron diario (`Postly - Feedback Loop`) trae likes/comentarios de la Graph API con el token por-usuaria, los persiste en Sheets y se ven en "Mi Agenda".
 
 > **Resumen: 14/14 implementadas.** Los 5 módulos (A–E) completos y validados e2e.
@@ -192,7 +216,7 @@ Mapeo de las **14 Historias de Usuario** de la tesis (5 módulos) contra lo impl
 
 ### Notas técnicas de la última iteración
 
-- **Agregación de carrusel:** Telegram entrega un media group como mensajes separados (N ejecuciones concurrentes). Se usa un **buffer en archivo** (`fs.appendFileSync` a `/tmp/postly_carrusel_buffer.tsv` en el VPS Linux, serializado por el proceso Node) porque el estado en memoria y el `append` de Google Sheets se pisan bajo concurrencia.
+- **Agregación de carrusel:** Telegram entrega un media group como mensajes separados (N ejecuciones concurrentes). Se usa un **buffer en archivo** (`fs.appendFileSync` a `/tmp/postly_carrusel_buffer.tsv`, serializado por el proceso Node; en Windows, Node resuelve `/tmp` como `C:	mp`, que tiene que existir) porque el estado en memoria y el `append` de Google Sheets se pisan bajo concurrencia.
 - **Migración a VPS (2026-06-29) y sus regresiones:** pasar de Windows+ngrok a un VPS Linux (n8n 2.27.5) destapó bugs específicos de plataforma que se corrigieron: ruta del buffer de carrusel (`C:/Users/...` → `/tmp/`), URLs de OAuth que apuntaban al ngrok viejo, `mappingMode:defineBelow` que ahora exige `schema` no vacío, y `$('Nodo')` que pierde las comillas si el nombre es un identificador JS válido (se usan nombres con espacio + nodos `NoOp` para merge de ramas preservando el *pairing*).
 - **Programación a futuro (HU10):** la fecha se guarda en ISO con offset `-03:00` (evita ambigüedad de timezone del server); el Cron poolea cada 5 min (lag ≤5 min, por diseño). Las URLs de carrusel se guardan **una por línea** en `Carousel_URLs`.
 - **Rate limit de Gemini:** el free tier topea en 20 requests; mitigado con reintentos y fusionando llamadas. Para una demo fluida conviene habilitar billing en la API key.
