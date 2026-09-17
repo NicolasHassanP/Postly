@@ -1,41 +1,41 @@
 ID,Canal,Clase_real,Contenido_entrada,Que_prueba_patron,Resultado_esperado,Resultado_obtenido,Veredicto,Prediccion_a_confirmar
-P01,Texto,INFRACTOR,"Labial matte de larga duracion. Sale $2500. Consultame por privado.",Patron 1: simbolo $ + digito,Bloquear,,,Deberia bloquear (TP)
-P02,Texto,INFRACTOR,"Set de cuidado facial a solo 1.500 pesos.",Patron 2 + 3: numero+pesos y formato miles,Bloquear,,,Deberia bloquear (TP)
-P03,Texto,INFRACTOR,"Aprovecha la OFERTA del mes en toda la linea.",Patron 5: vocabulario comercial,Bloquear,,,Deberia bloquear (TP)
+P01,Texto,INFRACTOR,Labial matte de larga duracion. Sale $2500. Consultame por privado.,Patron 1: simbolo $ + digito,Bloquear,,,Deberia bloquear (TP)
+P02,Texto,INFRACTOR,Set de cuidado facial a solo 1.500 pesos.,Patron 2 + 3: numero+pesos y formato miles,Bloquear,,,Deberia bloquear (TP)
+P03,Texto,INFRACTOR,Aprovecha la OFERTA del mes en toda la linea.,Patron 5: vocabulario comercial,Bloquear,,,Deberia bloquear (TP)
 P04,Texto,INFRACTOR,"Serum antiedad, cuesta 3000, escribime.",Patron 6: palabra precio + numero,Bloquear,,,Deberia bloquear (TP)
-P05,Texto,INFRACTOR,"2x1 en mascaras de pestanas.",Patron 5: 2x1,Bloquear,,,Deberia bloquear (TP)
-P06,Texto,INFRACTOR,"Base liquida con 30% off esta semana.",Patron 4: descuento % off,Bloquear,,,Deberia bloquear (TP)
+P05,Texto,INFRACTOR,2x1 en mascaras de pestanas.,Patron 5: 2x1,Bloquear,,,Deberia bloquear (TP)
+P06,Texto,INFRACTOR,Base liquida con 30% off esta semana.,Patron 4: descuento % off,Bloquear,,,Deberia bloquear (TP)
 P07,Texto,INFRACTOR,"Crema humectante, US$ 40, envio a todo el pais.",Patron 1: US$ + digito,Bloquear,,,Deberia bloquear (TP)
-P08,Texto,INFRACTOR,"Kit completo en 3 cuotas sin interes.",Patron 5: cuotas / sin interes,Bloquear,,,Deberia bloquear (TP)
+P08,Texto,INFRACTOR,Kit completo en 3 cuotas sin interes.,Patron 5: cuotas / sin interes,Bloquear,,,Deberia bloquear (TP)
 P09,Texto,INFRACTOR,"Perfume importado, vale $4500.",Patron 1 + 6,Bloquear,,,Deberia bloquear (TP)
-P10,Texto,INFRACTOR,"PROMO especial! Rubor + labial. Escribime.",Patron 5: promo,Bloquear,,,Deberia bloquear (TP)
-P11,Texto,INFRACTOR,"Descuento del 20% en productos seleccionados.",Patron 5: descuento,Bloquear,,,Deberia bloquear (TP)
+P10,Texto,INFRACTOR,PROMO especial! Rubor + labial. Escribime.,Patron 5: promo,Bloquear,,,Deberia bloquear (TP)
+P11,Texto,INFRACTOR,Descuento del 20% en productos seleccionados.,Patron 5: descuento,Bloquear,,,Deberia bloquear (TP)
 P12,Texto,INFRACTOR,"Delineador waterproof, abonas 1800 y es tuyo.",Patron 6: abonas + numero,Bloquear,,,Deberia bloquear (TP)
 P13,Texto,INFRACTOR,"Este labial cuesta dos mil quinientos pesos, escribime.",CASO LIMITE: precio en palabras sin digito,Bloquear,,,Probable FN: sin digito los patrones no matchean
 P14,Texto,INFRACTOR,"Te lo dejo en 2500, escribime por privado.",CASO LIMITE: precio sin palabra-gatillo ni simbolo,Bloquear,,,Probable FN: numero suelto no dispara ningun patron
-P15,Texto,INFRACTOR,"Set facial a 30% menos solo por hoy.",CASO LIMITE: descuento sin 'off/desc/descuento',Bloquear,,,Probable FN: patron 4 exige off/desc/descuento
-P16,Texto,INFRACTOR,"Aprovecha: 3 pagos de 900 cada uno.",CASO LIMITE: cuotas dichas como 'pagos',Bloquear,,,Probable FN: 'pagos' no esta en el vocabulario
+P15,Texto,INFRACTOR,Set facial a 30% menos solo por hoy.,CASO LIMITE: descuento sin 'off/desc/descuento',Bloquear,,,Probable FN: patron 4 exige off/desc/descuento
+P16,Texto,INFRACTOR,Aprovecha: 3 pagos de 900 cada uno.,CASO LIMITE: cuotas dichas como 'pagos',Bloquear,,,Probable FN: 'pagos' no esta en el vocabulario
 P17,Texto,INFRACTOR,"Labial premium por 20 verdes, escribime.",CASO LIMITE: slang de moneda no listado,Bloquear,,,Probable FN: 'verdes' no esta en patron 2
-P18,Texto,INFRACTOR,"Precio 👉 3200. Escribime.",CASO LIMITE: emoji entre palabra-precio y numero,Bloquear,,,Probable FN: el emoji rompe el \s* del patron 6
-P19,Imagen,INFRACTOR,"[IMAGEN] Placa grafica con texto 'OFERTA $1990' sobre foto de producto.",Vision HU8: precio incrustado evidente,Bloquear,Bloqueo (visión HU8),,TP confirmado
-P20,Imagen,INFRACTOR,"[IMAGEN] Foto de producto con etiqueta de precio '$2500' clara.",Vision HU8: precio en etiqueta,Bloquear,Bloqueo (visión HU8),,"VP (se probó etiqueta clara; variante de precio diminuto/periférico queda como stress futuro)"
-N01,Texto,LIMPIO,"Rutina de 3 pasos para una piel radiante.",CASO LIMITE B.4: numero de pasos,Publicar,,,Deberia publicar (TN)
-N02,Texto,LIMPIO,"24 horas de hidratacion intensa con nuestra crema.",CASO LIMITE B.4: horas,Publicar,,,Deberia publicar (TN)
-N03,Texto,LIMPIO,"Nuevo labial matte en 6 tonos increibles.",Numero de tonos, no precio,Publicar,,,Deberia publicar (TN)
-N04,Texto,LIMPIO,"Protector solar SPF 30 para el cuidado diario.",Numero tecnico SPF,Publicar,,,Deberia publicar (TN)
-N05,Texto,LIMPIO,"Agenda tu sesion de automaquillaje por privado.",Copy informativo puro,Publicar,,,Deberia publicar (TN)
-N06,Texto,LIMPIO,"Descubri tu tono ideal de base.",Copy informativo puro,Publicar,,,Deberia publicar (TN)
+P18,Texto,INFRACTOR,Precio 👉 3200. Escribime.,CASO LIMITE: emoji entre palabra-precio y numero,Bloquear,,,Probable FN: el emoji rompe el \s* del patron 6
+P19,Imagen,INFRACTOR,[IMAGEN] Placa grafica con texto 'OFERTA $1990' sobre foto de producto.,Vision HU8: precio incrustado evidente,Bloquear,Bloqueo (visión HU8),,TP confirmado
+P20,Imagen,INFRACTOR,[IMAGEN] Foto de producto con etiqueta de precio '$2500' clara.,Vision HU8: precio en etiqueta,Bloquear,Bloqueo (visión HU8),,VP (se probó etiqueta clara; variante de precio diminuto/periférico queda como stress futuro)
+N01,Texto,LIMPIO,Rutina de 3 pasos para una piel radiante.,CASO LIMITE B.4: numero de pasos,Publicar,,,Deberia publicar (TN)
+N02,Texto,LIMPIO,24 horas de hidratacion intensa con nuestra crema.,CASO LIMITE B.4: horas,Publicar,,,Deberia publicar (TN)
+N03,Texto,LIMPIO,Nuevo labial matte en 6 tonos increibles.,"Numero de tonos, no precio",Publicar,,,Deberia publicar (TN)
+N04,Texto,LIMPIO,Protector solar SPF 30 para el cuidado diario.,Numero tecnico SPF,Publicar,,,Deberia publicar (TN)
+N05,Texto,LIMPIO,Agenda tu sesion de automaquillaje por privado.,Copy informativo puro,Publicar,,,Deberia publicar (TN)
+N06,Texto,LIMPIO,Descubri tu tono ideal de base.,Copy informativo puro,Publicar,,,Deberia publicar (TN)
 N07,Texto,LIMPIO,"Set de brochas profesionales, 5 piezas.",Numero de piezas,Publicar,,,Deberia publicar (TN)
-N08,Texto,LIMPIO,"Resultados visibles en 2 semanas de uso.",Numero de semanas,Publicar,,,Deberia publicar (TN)
-N09,Texto,LIMPIO,"Limpieza facial en 4 pasos simples.",Numero de pasos,Publicar,,,Deberia publicar (TN)
+N08,Texto,LIMPIO,Resultados visibles en 2 semanas de uso.,Numero de semanas,Publicar,,,Deberia publicar (TN)
+N09,Texto,LIMPIO,Limpieza facial en 4 pasos simples.,Numero de pasos,Publicar,,,Deberia publicar (TN)
 N10,Texto,LIMPIO,"Contenido exclusivo para vos, escribime.",Copy informativo puro,Publicar,,,Deberia publicar (TN)
-N11,Texto,LIMPIO,"Mas de 10.000 clientas ya confian en nosotras.",CASO LIMITE: numero grande con formato miles,Publicar,,,Probable FP: patron 3 matchea '10.000'
-N12,Texto,LIMPIO,"Este serum rebaja notablemente las lineas de expresion.",CASO LIMITE: 'rebaja' en sentido no comercial,Publicar,,,Probable FP: patron 5 matchea 'rebaja'
-N13,Texto,LIMPIO,"Una rutina economica en tiempo: lista en 5 minutos.",CASO LIMITE: 'economica' referido al tiempo,Publicar,,,Probable FP: patron 5 matchea 'economica'
-N14,Texto,LIMPIO,"Descubri gratis tu subtono de piel en una asesoria.",CASO LIMITE: 'gratis' en asesoria informativa,Publicar,,,Probable FP: patron 5 matchea 'gratis'
-N15,Texto,LIMPIO,"Nuestra promocion del bienestar: cuida tu piel cada dia.",CASO LIMITE: 'promocion' en sentido no comercial,Publicar,,,Probable FP: patron 5 matchea 'promocion'
-N16,Texto,LIMPIO,"Vale 3 veces mas por su formula concentrada.",CASO LIMITE: 'vale' idiomatico + numero,Publicar,,,Probable FP: patron 6 matchea 'vale 3'
-N17,Texto,LIMPIO,"El ano 2.024 llego con nuevos lanzamientos.",CASO LIMITE: ano con formato miles,Publicar,,,Probable FP: patron 3 matchea '2.024'
-N18,Texto,LIMPIO,"Ingredientes estrella: extracto de 2 mangos y vitamina C.",CASO LIMITE: 'mangos' fruta vs slang,Publicar,,,Probable FP: patron 2 matchea '2 mangos'
+N11,Texto,LIMPIO,Mas de 10.000 clientas ya confian en nosotras.,CASO LIMITE: numero grande con formato miles,Publicar,,,Probable FP: patron 3 matchea '10.000'
+N12,Texto,LIMPIO,Este serum rebaja notablemente las lineas de expresion.,CASO LIMITE: 'rebaja' en sentido no comercial,Publicar,,,Probable FP: patron 5 matchea 'rebaja'
+N13,Texto,LIMPIO,Una rutina economica en tiempo: lista en 5 minutos.,CASO LIMITE: 'economica' referido al tiempo,Publicar,,,Probable FP: patron 5 matchea 'economica'
+N14,Texto,LIMPIO,Descubri gratis tu subtono de piel en una asesoria.,CASO LIMITE: 'gratis' en asesoria informativa,Publicar,,,Probable FP: patron 5 matchea 'gratis'
+N15,Texto,LIMPIO,Nuestra promocion del bienestar: cuida tu piel cada dia.,CASO LIMITE: 'promocion' en sentido no comercial,Publicar,,,Probable FP: patron 5 matchea 'promocion'
+N16,Texto,LIMPIO,Vale 3 veces mas por su formula concentrada.,CASO LIMITE: 'vale' idiomatico + numero,Publicar,,,Probable FP: patron 6 matchea 'vale 3'
+N17,Texto,LIMPIO,El ano 2.024 llego con nuevos lanzamientos.,CASO LIMITE: ano con formato miles,Publicar,,,Probable FP: patron 3 matchea '2.024'
+N18,Texto,LIMPIO,Ingredientes estrella: extracto de 2 mangos y vitamina C.,CASO LIMITE: 'mangos' fruta vs slang,Publicar,,,Probable FP: patron 2 matchea '2 mangos'
 N19,Imagen,LIMPIO,"[IMAGEN] Foto limpia de producto con logo Mary Kay, sin texto de precio.",Vision HU8: imagen limpia,Publicar,Publicó (generó 3 copys),,TN confirmado
-N20,Imagen,LIMPIO,"[IMAGEN] Foto de producto con 'SPF 50' y '50 ml' visibles en el envase.",CASO LIMITE vision: numeros tecnicos en la imagen,Publicar,Publicó (generó 3 copys; NO confundió números técnicos con precio),,TN confirmado (especificidad visión sostenida)
+N20,Imagen,LIMPIO,[IMAGEN] Foto de producto con 'SPF 50' y '50 ml' visibles en el envase.,CASO LIMITE vision: numeros tecnicos en la imagen,Publicar,Publicó (generó 3 copys; NO confundió números técnicos con precio),,TN confirmado (especificidad visión sostenida)

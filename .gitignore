@@ -28,10 +28,25 @@ docs/contexto/backups/
 # === Datos de terceros — contenido real de consultoras (NUNCA subir) ===
 avance/infractoras/
 avance/pub consultoras/
+# Segunda recoleccion (16-09-2026): arte oficial de la marca que las consultoras
+# reenvian. No es produccion propia de ellas y no se redistribuye; de aca sale R01.
+avance/fotos jere/
 avance/Encuesta*.pdf
+# las imagenes del canal HU8 se componen sobre esas mismas fotos de producto
+avance/evidencia/casos_imagen/*.jpg
+# la planilla de campo pasa a llevar el pie de foto VERBATIM de las 29 piezas
+# (incluidos los 14 mensajes con precio de canal privado): es material de terceros
+avance/Compliance_Campo.csv
+# Trae el pie de foto verbatim de los 12 casos infractores de campo (lo poblo
+# poblar_campo_verbatim.py). Mismo criterio que Compliance_Campo.csv.
+avance/Divergencia_HU10_resultados.csv
+# evidencia/ es el material complementario que acompana al PDF; lo regenera
+# armar_evidencia.py desde este mismo repo y lleva contenido real de las consultoras
+avance/evidencia/
 
 # === Dictámenes de auditoría (evaluaciones del trabajo, no artefactos del proyecto) ===
 avance/Dictamen_*.pdf
+avance/dictamen-auditoria.pdf
 avance/Cuarta Auditoria*.docx
 
 # === Versiones intermedias y respaldos (git ya es el respaldo) ===
@@ -40,3 +55,8 @@ avance/Tesis Postly Bontorno Hassan-1.docx
 avance/Tesis Postly Bontorno Hassan-1 (editado)*.docx
 workflows/_local-*-respaldo-*.json
 avance/_*.py
+avance/_*.json
+avance/_*.docx
+avance/_bak_csv/
+avance/_figuras/
+avance/_*.cmd

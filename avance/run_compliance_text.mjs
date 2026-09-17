@@ -32,9 +32,25 @@ const PATRONES_V2 = [
   /\b(precios?|cuesta|vale|abon[aá]s?)\s*(?:es|son|de|desde|:)?\s*\$?\s*\d/i,
 ];
 
+// hu10 = set divergente que el nodo de programación a futuro ("Sched: Procesar")
+// mantenía por su cuenta: 4 patrones, sin palabra-moneda, sin palabra-precio y con el
+// vocabulario comercial sin acentos ni femeninos. Es el conjunto cuyo Recall de 0,500
+// reporta el §5.1; se conserva para que esa cifra sea reproducible.
+// Recuperado de workflows/…v2.json en el commit anterior a fix-compliance-patterns.
+const PATRONES_HU10 = [
+  /\$\s?\d+/g,
+  /\d+[.,]\d{3}/g,
+  /\d+%\s?(off|desc)/gi,
+  /\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\b/gi,
+];
+
 const usarV1 = process.argv.includes("--v1");
-const patronesPrecios = usarV1 ? PATRONES_V1 : PATRONES_V2;
-console.log(`\n[detector: ${usarV1 ? "v1 (original, el de las Tablas 3-5)" : "v2 (corregido)"}]`);
+const usarHU10 = process.argv.includes("--hu10");
+const patronesPrecios = usarHU10 ? PATRONES_HU10 : usarV1 ? PATRONES_V1 : PATRONES_V2;
+const etiqueta = usarHU10
+  ? "hu10 (set divergente del flujo programado, previo a la unificación)"
+  : usarV1 ? "v1 (original, el de las Tablas 3-5)" : "v2 (corregido)";
+console.log(`\n[detector: ${etiqueta}]`);
 
 // Réplica exacta de la decisión del nodo: bloquea con el primer patrón que matchea.
 function evaluar(caption) {
@@ -76,13 +92,16 @@ function toCSV(rows) {
 
 // ─── Cargar casos ─────────────────────────────────────────────────────────────
 const inputName = process.argv[2] || "Casos_Compliance.csv";
-const outputName = inputName.replace(/\.csv$/i, "") + "_resultados.csv";
+const sufijo = usarHU10 ? "_resultados_hu10" : usarV1 ? "_resultados_v1" : "_resultados";
+const outputName = inputName.replace(/\.csv$/i, "") + sufijo + ".csv";
 const raw = readFileSync(new URL("./" + inputName, import.meta.url), "utf-8");
 const rows = parseCSV(raw);
 const header = rows[0];
 const idx = Object.fromEntries(header.map((h, i) => [h, i]));
 
 let VP = 0, FP = 0, VN = 0, FN = 0, pendientes = 0;
+// contadores del canal de texto por separado: el §5.1 reporta ambos agregados
+let tVP = 0, tFP = 0, tVN = 0, tFN = 0;
 const fallos = [];
 
 for (let r = 1; r < rows.length; r++) {
@@ -119,10 +138,10 @@ for (let r = 1; r < rows.length; r++) {
   else                          veredicto = bloquea ? "FP" : "VN";
   row[idx.Veredicto] = veredicto;
 
-  if (veredicto === "VP") VP++;
-  else if (veredicto === "FP") FP++;
-  else if (veredicto === "VN") VN++;
-  else FN++;
+  if (veredicto === "VP") { VP++; tVP++; }
+  else if (veredicto === "FP") { FP++; tFP++; }
+  else if (veredicto === "VN") { VN++; tVN++; }
+  else { FN++; tFN++; }
 
   if (veredicto === "FN" || veredicto === "FP") {
     fallos.push({ id: row[idx.ID], veredicto, contenido, patron });
@@ -155,6 +174,13 @@ console.log("\n──────────────── Casos que el det
 for (const f of fallos) {
   const tag = f.veredicto === "FN" ? "FN (se escapó un precio)" : `FP (bloqueó copy limpio → "${f.patron}")`;
   console.log(`  ${f.id}  ${tag}\n       "${f.contenido}"`);
+}
+if (tVP + tFN + tFP + tVN < total) {
+  const rc = tVP / (tVP + tFN), pr = tVP / (tVP + tFP);
+  const f1t = (2 * pr * rc) / (pr + rc);
+  console.log("\n──────────── Sólo canal de TEXTO (HU7), sin las filas de imagen ────────────");
+  console.log(`  VP = ${tVP} · FN = ${tFN} · FP = ${tFP} · VN = ${tVN}`);
+  console.log(`  Recall = ${rc.toFixed(3)} · Precisión = ${pr.toFixed(3)} · F1 = ${f1t.toFixed(3)}`);
 }
 console.log(`\n✔ Resultados escritos en ${outputName}`);
 if (pendientes > 0) console.log(`  (${pendientes} casos de imagen quedan PENDIENTES para el bot real)\n`);

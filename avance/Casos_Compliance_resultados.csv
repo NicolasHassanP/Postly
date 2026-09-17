@@ -21,7 +21,7 @@ P19,Imagen,INFRACTOR,[IMAGEN] Placa grafica con texto 'OFERTA $1990' sobre foto 
 P20,Imagen,INFRACTOR,[IMAGEN] Foto de producto con etiqueta de precio '$2500' clara.,Vision HU8: precio en etiqueta,Bloquear,Bloqueo (visión HU8),VP,VP (se probó etiqueta clara; variante de precio diminuto/periférico queda como stress futuro)
 N01,Texto,LIMPIO,Rutina de 3 pasos para una piel radiante.,CASO LIMITE B.4: numero de pasos,Publicar,Publico,VN,Deberia publicar (TN)
 N02,Texto,LIMPIO,24 horas de hidratacion intensa con nuestra crema.,CASO LIMITE B.4: horas,Publicar,Publico,VN,Deberia publicar (TN)
-N03,Texto,LIMPIO,Nuevo labial matte en 6 tonos increibles.,Numero de tonos, no precio,Publico,VN,,Deberia publicar (TN)
+N03,Texto,LIMPIO,Nuevo labial matte en 6 tonos increibles.,"Numero de tonos, no precio",Publicar,Publico,VN,Deberia publicar (TN)
 N04,Texto,LIMPIO,Protector solar SPF 30 para el cuidado diario.,Numero tecnico SPF,Publicar,Publico,VN,Deberia publicar (TN)
 N05,Texto,LIMPIO,Agenda tu sesion de automaquillaje por privado.,Copy informativo puro,Publicar,Publico,VN,Deberia publicar (TN)
 N06,Texto,LIMPIO,Descubri tu tono ideal de base.,Copy informativo puro,Publicar,Publico,VN,Deberia publicar (TN)

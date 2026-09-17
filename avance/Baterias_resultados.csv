@@ -1,0 +1,10 @@
+Bateria,Metrica,n,Media,DE,Minimo,Maximo,p95,Umbral_declarado,Cumple,Fuente
+B1 · interfaz,Acuse de recepcion del webhook por n8n (s),10,"0,102","0,05","0,065","0,229","0,229",< 3 s (HU1),Si,POST al webhook del Telegram Trigger; el acuse precede a la respuesta
+B1 · interfaz,Tiempo hasta la respuesta del bot: duracion de la ejecucion (s),10,"1,852","0,419","1,534","2,689","2,689",< 3 s (HU1),Si,API de ejecuciones de n8n: del disparo al envio del mensaje de respuesta
+B2 · multimedia,Pico de memoria residente de FFmpeg — normalización (MB),1,"653,5",,"653,5","653,5",,2048 MB de RAM del VPS (Anexo B.1),Si,"clip de prueba 1920x1080, 45 s, 31.0 MB"
+B2 · multimedia,Extraccion del fotograma: duracion (s),1,"0,105",,"0,105","0,105",,—,—,por debajo del intervalo de muestreo; memoria no registrada
+B2 · multimedia,Tiempo de normalización (s),1,"8,37",,"8,37","8,37",,—,—,clip de 45 s a 1080x1920/H.264
+B3 · OAuth,Latencia de la validación preventiva del token (s),10,"0,307","0,21","0,207","0,889","0,889",HU3 no fija umbral,—,"GET graph.facebook.com/v19.0/me, el mismo del nodo HU3: Validar token"
+B3 · OAuth,Token vigente al momento de la medición,1,Si,,,,,id devuelto por la Graph API,Si,nodo HU3: ¿Token vigente?
+B3 · OAuth,Refresco a token de larga duración: latencia (s),1,"0,226",,"0,226","0,226",,< 5 s (HU2),Si,"GET oauth/access_token?grant_type=fb_exchange_token, nodo Token largo"
+B3 · OAuth,Refresco a token de larga duración: resultado,1,Token devuelto,,,,,Token de larga duracion (HU2),Si,vigencia devuelta: sin expires_in (no expira)

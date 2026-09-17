@@ -1,5 +1,5 @@
 // Análisis del cronometraje (hipótesis del 70%, §4.2 / variable a §3.5.4).
-// Lee Cronometraje_70pct.csv (o el archivo pasado como arg), calcula la reducción
+// Lee Cronometraje_datos.csv (o el archivo pasado como arg), calcula la reducción
 // de tiempo por publicación, agrega por participante y global, y contrasta el 70%.
 //
 // Uso:  node run_cronometraje.mjs [archivo.csv]
@@ -7,7 +7,7 @@
 
 import { readFileSync } from "node:fs";
 
-const inputName = process.argv[2] || "Cronometraje_70pct.csv";
+const inputName = process.argv[2] || "Cronometraje_datos.csv";
 const raw = readFileSync(new URL("./" + inputName, import.meta.url), "utf-8");
 
 // --- CSV parse mínimo ---
@@ -83,5 +83,23 @@ if (n >= 2 && dSd > 0) {
   console.log("\n  Prueba t de Student pareada (Manual − Postly):");
   console.log(`   t(${df}) = ${t.toFixed(2)}  ·  t crítico (α=0,05, dos colas) = ${tc}`);
   console.log(`   ${Math.abs(t) > tc ? "Diferencia estadísticamente significativa (p < 0,05)." : "Diferencia NO significativa a α=0,05 (n pequeño)."}`);
+}
+
+// --- Prueba t sobre las medias por participante (unidad independiente) ---
+// Los pares estan anidados en participantes: doce observaciones sobre tres sujetos no
+// son doce observaciones independientes. El §5.1 reporta este estadistico como principal.
+const porSujeto = [...new Set(pairs.map(p => p.part))].map(part => {
+  const g = pairs.filter(p => p.part === part);
+  return mean(g.map(x => x.M)) - mean(g.map(x => x.P));
+});
+if (porSujeto.length >= 2) {
+  const dm = mean(porSujeto), ds = sd(porSujeto), k = porSujeto.length;
+  const t2 = dm / (ds / Math.sqrt(k)), df2 = k - 1;
+  // p de dos colas, forma cerrada para df = 2:  P(|T| > t) = 1 - t/sqrt(2 + t^2)
+  const p2 = df2 === 2 ? 1 - Math.abs(t2) / Math.sqrt(2 + t2 * t2) : null;
+  console.log("\n  Prueba t pareada sobre las medias por participante (no independencia):");
+  console.log(`   n = ${k} sujetos  ·  t(${df2}) = ${t2.toFixed(2)}` +
+              (p2 !== null ? `  ·  p = ${p2.toFixed(3)}` : ""));
+  console.log(`   diferencias por sujeto (min): ${porSujeto.map(x => x.toFixed(2)).join(", ")}`);
 }
 console.log("");
