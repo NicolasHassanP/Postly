@@ -19,7 +19,8 @@ Node.js 18 o posterior. Sin dependencias externas: los scripts sólo usan `node:
 | §5.1 y E.1.4 — divergencia del flujo programado | `node run_compliance_hu10.mjs` |
 | Tabla 7 — cronometraje y prueba t | `node run_cronometraje.mjs` |
 | Tabla 8 — TAM y α de Cronbach | `node run_tam.mjs` |
-| Tabla 11 — baterías de validación técnica | `node run_baterias.mjs` (requiere n8n en marcha) |
+| Tabla 11 — baterías de validación técnica | `node run_baterias.mjs` (requiere n8n en marcha; la fila `B1b` consume cuota del modelo) |
+| Tabla 11, fila `B1b` — desglose por nodo | `node _desglose_b1b.mjs` (lee el historial; no consume cuota) |
 | Tablas 12 y 14 — canal de imagen (HU8) | `GEMINI_API_KEY=… node run_compliance_vision.mjs` |
 | Tabla 13 — umbrales de las Historias de Usuario | `node run_umbrales.mjs` (requiere n8n en marcha) |
 | E.8 — variabilidad entre corridas | `GEMINI_API_KEY=… node run_compliance_vision.mjs casos_imagen_corrida2` |
@@ -72,9 +73,30 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   y su propio archivo de resultados. Existe para medir la variabilidad del modelo entre
   corridas sin volver a pagar las inferencias de los veinte casos habituales. Llegó a ocho
   de los nueve: la cuota diaria se agotó en `R01`, y así se declara en el Anexo E.8.
-- `Baterias_resultados.csv` — las tres baterías de validación técnica del §3.4.2. La
-  columna `Umbral_declarado` nombra la Historia de Usuario que fija cada umbral; donde la
-  HU no fija ninguno, la columna lo dice y `Cumple` queda en `—`.
+- `Baterias_resultados.csv` — las baterías de validación técnica. Las tres que el §3.4.2
+  declara son las de integración multimodal, procesamiento multimedia y transacciones
+  OAuth 2.0; la de interfaz conversacional se agrega porque mide el umbral de respuesta
+  de HU1. La columna `Umbral_declarado` nombra la Historia de Usuario que fija cada
+  umbral; donde la HU no fija ninguno, la columna lo dice y `Cumple` queda en `—`. La
+  fila `B1b` es la batería de integración multimodal: se corre con
+  `node run_baterias.mjs --solo-b1b --repeticiones 10` y consume dos peticiones del
+  modelo por repetición, de modo que diez repeticiones son el cupo diario entero.
+
+  Dos celdas de `Umbral_declarado` de este archivo quedaron con una atribución que el
+  documento descartó después, y conviene leerlas con esa advertencia. La fila del acuse de
+  recepción del webhook lo contrasta contra «< 3 s (HU1)» y la del refresco del token
+  contra «< 5 s (HU2)»; la **Tabla 11 es deliberadamente más conservadora** y retira ambos,
+  porque el criterio de HU1 es el tiempo hasta la respuesta del bot y no el acuse, y el de
+  los 5 s de HU2 corresponde a la notificación de enlace y no al refresco. Los valores
+  medidos no cambian: lo que se corrigió es a qué umbral se los contrasta. El archivo se
+  deja tal como lo emitió la corrida, sin editarlo a mano, para que el dato crudo siga
+  siendo el que produjo el script; la discrepancia es de rótulo y va en la dirección
+  conservadora.
+
+- `B1b_desglose.csv` — una fila por repetición de la batería de integración multimodal,
+  con el total, lo que tardó cada una de las dos llamadas al modelo y lo que tardó el
+  resto de la cadena. Es lo que sostiene la afirmación del §5.1 sobre dónde está la
+  dispersión. Lo produce `_desglose_b1b.mjs`.
 
 - `Umbrales_HU_resultados.csv` — los nueve umbrales numéricos que fijan las Historias
   de Usuario, con el grado de verificación de cada uno (`medición`, `configuración` o
@@ -90,6 +112,20 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   estable para el mismo bot, de modo que ese patrón permite reproducir el envío de una
   imagen —y con él la batería de integración multimodal de `run_baterias.mjs`— sin un
   cliente humano. Ejecutar primero: `node _extraer_foto.mjs <id de ejecución>`.
+  **El remitente va anonimizado a propósito.** El update real trae el nombre, el apellido
+  y el identificador de Telegram de una persona, y nada de eso hace falta para reproducir
+  el envío: los dos identificadores los sobrescribe `run_baterias.mjs` con el chat de
+  prueba que lee del `.env`, y el camino de la foto no usa los nombres. El script los
+  reemplaza al extraer, de modo que el patrón pueda acompañar al trabajo sin llevar datos
+  personales. Si en `_foto_patron.json` se lee «Usuaria de prueba» y `id` en cero, es eso
+  y no un error de extracción.
+
+- `_desglose_b1b.mjs` — separa, para cada repetición de la batería de integración
+  multimodal, el tiempo de las dos llamadas al modelo del tiempo del resto de la cadena,
+  y lo escribe en `B1b_desglose.csv`. Como `run_umbrales.mjs`, no dispara ejecuciones ni
+  consume cuota: lee el historial que el propio motor conserva. Por eso sólo puede
+  reejecutarse mientras esas ejecuciones sigan en el historial; el CSV queda como
+  evidencia cuando ya no estén. Ejecutar después de la batería: `node _desglose_b1b.mjs`.
 
 - `fix-compliance-patterns.mjs` — aplica el conjunto corregido y unificado de expresiones
   regulares a los cuatro nodos que ejecutan el filtro en el workflow (HU7/HU9, el carrusel
@@ -107,10 +143,23 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   petición contra la cuota diaria. Por lo mismo, `armar_casos_imagen.py` **no debe
   reejecutarse tal cual**: reescribe el manifiesto desde cero y dejaría fuera estos nueve.
 
+- `verificar_patrones_desplegados.mjs` + `Nodos_compliance_desplegados.json` — la prueba
+  de que los dos scripts de compliance de esta carpeta corren los detectores del sistema y
+  no una copia divergente. El JSON es un extracto **redactado** del workflow: sólo el
+  código de los cuatro nodos que ejecutan compliance de precios, el prompt del nodo de
+  detección visual y el SHA-256 de cada uno; ningún webhookId, credencial ni URL de la
+  instancia. `node verificar_patrones_desplegados.mjs` compara ese extracto contra
+  `run_compliance_text.mjs` y `run_compliance_vision.mjs` carácter por carácter y sale con
+  código 1 si algo difiere; no necesita la instancia ni consume cuota. Para regenerar el
+  extracto desde el workflow: `node verificar_patrones_desplegados.mjs --extraer
+  "<workflow.json>"`. Se documenta en el Anexo E.4.
+
 Ninguno de los scripts lleva identificadores de la instancia desplegada: la URL base,
 la clave de la API de n8n, el `webhookId` del Telegram Trigger y el chat de prueba se leen de un
 `.env` que no acompaña a esta carpeta. `run_baterias.mjs` aborta indicando qué falta si no
-los encuentra.
+los encuentra. Es comprobable con un barrido sobre la carpeta: no hay ningún UUID de
+webhook ni ningún identificador de chat escrito en el código, de modo que la ruta de
+webhook de producción no viaja en la entrega.
 
 ## Nota sobre las cuatro filas de imagen de los conjuntos de texto
 Las filas con `Canal = Imagen` de `Casos_Compliance*.csv` no las evalúa ningún script:
@@ -148,9 +197,20 @@ recolección traía el precio incrustado en los píxeles (Anexo E.6).
 
 La excepción es **`R01`, que no está compuesto**. Es una pieza auténtica —«10% de
 descuento» y «PVP OFERTA SUGERIDO $52.470» impresos en los píxeles— de las que circulan
-por el canal de la marca hacia las consultoras, incorporada en la segunda recolección. Es
-el único caso del conjunto cuya clase positiva no la fabricó el equipo, y por eso se lo
-identifica aparte en la planilla y en el Anexo E.6.
+por el canal de la marca hacia las consultoras. Es el único caso del conjunto cuya clase
+positiva no la fabricó el equipo, y por eso se lo identifica aparte en la planilla y en el
+Anexo E.6. Que no la compuso el equipo es comprobable —llegó así—; **quién imprimió el
+precio no lo es**, y el documento ya no se lo atribuye a la marca.
+
+La **segunda recolección** —los nueve casos difíciles— la aportó una cuarta Consultora de
+Belleza Independiente, ajena al estudio de campo y madre de uno de los dos autores. Se
+recurrió a ella para no depender de los plazos de respuesta de las tres participantes. Esa
+misma informante describió de dónde sale el material: parte son originales de la marca que
+las propias consultoras editan —texto, color, descripciones— para volverlos publicitarios,
+y parte son fotografías que ellas mismas toman de los productos en físico. La primera
+práctica es la que el conjunto reproduce; la segunda queda fuera de la medición, porque
+ninguna de las 29 piezas tiene por base una fotografía casera. Es el relato de una sola
+informante y se declara como testimonio (Anexo E.6).
 
 Por lo mismo, ni esta carpeta ni las carpetas de origen se publican en el repositorio del
 proyecto. Acompañan al documento como material complementario y no se redistribuyen.
@@ -164,3 +224,9 @@ minuto espera y reintenta; ante el diario corta en seco— y guarda el resultado
 caso, de modo que una corrida interrumpida se reanuda sin repetir las inferencias hechas.
 Los 20 casos del conjunto no entran, por lo tanto, en una sola corrida si algo ya consumió
 cupo ese día.
+
+La batería de integración multimodal de `run_baterias.mjs` compite por ese mismo
+cupo: cada repetición gasta dos peticiones —la detección visual de HU8 y la generación
+de copys—, de modo que diez repeticiones son el día entero y no conviene planificar
+ninguna otra corrida contra el modelo para esa jornada. El cupo se renueva a medianoche
+del Pacífico, no a medianoche local.

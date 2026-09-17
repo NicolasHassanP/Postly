@@ -169,6 +169,27 @@ PROHIBIDAS = [
     # sólo a la afirmación sobre las fotografías.
     'fotografías reales de las consultoras',
     'fotografías de base son las que las tres consultoras aportaron',
+    # ── cuarta instancia ─────────────────────────────────────────────────────
+    'no admite la distinción por canal',   # H-01: la regla de video es del bloque YouTube
+    'transacciones de contenido sin excepción',  # H-02: la capa visual falla en abierto
+    'determinista que procesa estructuralmente el 100%',  # H-02
+    'Interrupción Fail-Safe',       # H-02: el rótulo cubría sólo la rama positiva
+    'interrupción fail-safe',       # H-02
+    'que el §4.1.1 menciona',       # R4-01: la cifra vive en el §2.3
+    'Resolvió, por lo tanto',       # R4-03: el FP V27 ES «el número que no es un precio»
+    'más los 20 del conjunto ampliado (Anexo E.6). Sobre esos 20',  # R4-02: faltan los 9
+    'con una serie de tiempos tomada sobre el sistema',  # H-05: dos de las cuatro no lo son
+    'precio manuscrito',            # H-10: es tipografía de estilo caligráfico
+    'monto manuscrito',             # H-10
+    'superioridad de la IA multimodal',  # H-11: el ordenamiento no se midió
+    'En escasos milisegundos',      # H-11: el tramo no tiene medición
+    'garantizar la privacidad (Multitenencia segura)',  # H-11: es un filtro de consulta
+    'garantizando el aislamiento de datos (Multitenencia)',  # H-11
+    'más honesta que el 1,00',      # R4-03: el agregado no es más honesto, es otro corte
+    # H-09: la segunda recolección iba en pasiva y sin agente
+    'Una segunda recolección, posterior',
+    # R01: el trabajo puede establecer que no la compuso, no quién imprimió el precio
+    'impreso en la pieza por la propia marca',
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)

@@ -28,6 +28,10 @@ DATOS = [
     # La fuente normativa del Anexo D. Desde que esta disponible, las dos reglas del
     # Modulo Centinela se contrastan contra su letra y no solo contra la elicitacion.
     'Pautas Mary Kay para el uso en las Redes Sociales.pdf',
+    # extracto REDACTADO del workflow desplegado: solo el codigo de los cuatro nodos
+    # de compliance, el prompt de vision y el SHA-256 de cada uno. Lo produce
+    # verificar_patrones_desplegados.mjs --extraer y no lleva ningun identificador.
+    'Nodos_compliance_desplegados.json',
 ]
 SCRIPTS = [
     'run_compliance_text.mjs',
@@ -38,6 +42,9 @@ SCRIPTS = [
     'run_tam.mjs',
     'armar_casos_imagen.py',
     'armar_casos_imagen_dificiles.py',
+    # la prueba de que los dos scripts de compliance corren los detectores del
+    # sistema desplegado y no una copia divergente (Anexo E.4)
+    'verificar_patrones_desplegados.mjs',
 ]
 # Artefactos que se MANTIENEN DIRECTAMENTE EN LA ENTREGA y no tienen original vigente
 # aca. Se conservan tal cual: copiarlos desde RAIZ los haria retroceder, porque las
@@ -49,8 +56,10 @@ EN_DESTINO = [
     'fix-compliance-patterns.mjs',
     '_extraer_foto.mjs',
     '_foto_patron.json',
+    '_desglose_b1b.mjs',
     'Baterias_resultados.csv',
     'Umbrales_HU_resultados.csv',
+    'B1b_desglose.csv',
 ]
 # subcarpetas que se conservan tal cual: las imagenes del canal HU8 y sus planillas, que
 # no se regeneran aqui (las producen armar_casos_imagen*.py y las puntua el modelo)

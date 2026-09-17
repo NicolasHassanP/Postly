@@ -28,6 +28,13 @@ material gráfico oficial de la marca —placas de campaña y bodegones de catá
 consultora recibe por el canal interno, no sobre fotografías tomadas por ella. Se declara
 así, en estos mismos términos, en el Anexo E.6 y en `evidencia/LEEME.md`.
 
+Esta segunda recolección la aportó una cuarta Consultora de Belleza Independiente, ajena al
+estudio de campo y madre de uno de los dos autores, para no depender de los plazos de
+respuesta de las tres participantes. La misma informante precisó que parte del material de
+marca son originales que las propias consultoras editan —texto, color, descripciones— para
+volverlos publicitarios, y parte son fotografías que ellas mismas toman de los productos en
+físico; el conjunto reproduce la primera práctica y no incluye la segunda.
+
 El script es aditivo a propósito: no regenera los casos V01–V20 ni toca sus veredictos,
 porque cada uno costó una petición contra la cuota diaria del nivel gratuito. Anexa las
 filas nuevas al manifiesto y al archivo de resultados parcial, de modo que

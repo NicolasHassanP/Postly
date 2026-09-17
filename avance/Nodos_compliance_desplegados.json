@@ -1,0 +1,64 @@
+{
+  "_lea_esto": "Extracto redactado del workflow desplegado, producido por verificar_patrones_desplegados.mjs --extraer. Contiene el código de los nodos de compliance y el prompt de detección visual, y nada más: ningún webhookId, credencial, URL de instancia ni identificador de chat. Sirve para comprobar que los scripts de esta carpeta corren los detectores del sistema y no una copia divergente.",
+  "workflow": "Postly - Entrega Final Sprint 1 v2",
+  "nodos": {
+    "Code in JavaScript1": {
+      "rotulo": "flujo inmediato (HU7/HU9)",
+      "variable": "patronesPrecios",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i",
+        "/\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s*%\\s*(off|desc|descuento)/i",
+        "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "f2e61345ab8c7c7ec57336391ff0ba63235370550884fe6ab4f71d7297a50a29"
+    },
+    "HU5: Pub preparar": {
+      "rotulo": "carrusel (HU5)",
+      "variable": "patrones",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i",
+        "/\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s*%\\s*(off|desc|descuento)/i",
+        "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "e709f2d04d914062a0b9a6f3b0e516e9bca16b5e7b1e1c7b0358ca65553a5a39"
+    },
+    "Sched: Procesar": {
+      "rotulo": "publicación programada (HU10)",
+      "variable": "patrones",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i",
+        "/\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s*%\\s*(off|desc|descuento)/i",
+        "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "6810951b9a38fbc4c1aab0ec3043dd88d414ef5795184bd6d73eb613e2693867"
+    },
+    "Video: pub publicar": {
+      "rotulo": "video (HU13)",
+      "variable": "pats",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i",
+        "/\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s*%\\s*(off|desc|descuento)/i",
+        "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "b692c113fd3299491161b674de90216ef90aacde48911a62bc53ea7a889ea99f"
+    }
+  },
+  "vision": {
+    "nodo": "HU8: Detección visual",
+    "modelo": "models/gemini-2.5-flash",
+    "prompt": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+    "sha256_del_prompt": "0cfb82b494b9c36c49d054b8269b681e40d626238a988620d2eab45421808fd3"
+  }
+}
