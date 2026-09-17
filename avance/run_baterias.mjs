@@ -147,8 +147,12 @@ async function b1() {
 // ante el primer agotamiento y reporta con las repeticiones que alcanzo.
 async function b1b() {
   const patron = JSON.parse(readFileSync(join(AQUI, "_foto_patron.json"), "utf-8"));
+  // El nodo «Bajar Foto» baja la variante de mayor file_size. Se informa esa y no la
+  // ultima del arreglo, que en el patron guardado es la miniatura de 90x90: el rotulo
+  // debe decir el tamano que el sistema efectivamente procesa.
+  const mayor = patron.photo.reduce((a, b) => (a.file_size > b.file_size ? a : b));
   console.log(`\n── B1b · integración multimodal: imagen → tres copys (n = ${REPS})`);
-  console.log(`   imagen patrón: ${patron.photo.at(-1).width}x${patron.photo.at(-1).height} ` +
+  console.log(`   imagen patrón: ${mayor.width}x${mayor.height} ` +
               `(de la ejecución ${patron.origen_exec}) · 2 peticiones de Gemini por repetición`);
 
   const cabApi = { "X-N8N-API-KEY": KEY };
@@ -159,6 +163,7 @@ async function b1b() {
   };
 
   const duraciones = [], fallos = [];
+  let seguidos = 0;
   for (let i = 0; i < REPS; i++) {
     const previa = await ultimaEjec();
     const sello = Date.now();
@@ -204,13 +209,25 @@ async function b1b() {
 
     if (ejec.status === "success" && copys === 3) {
       duraciones.push(seg);
+      seguidos = 0;
       console.log(`   ${String(i + 1).padStart(2)}  exec ${ejec.id}  ${seg.toFixed(1)} s  ` +
                   `(visión ${gemini[0]} s · copys ${gemini[1]} s) · 3 copys OK`);
     } else {
-      fallos.push({ id: ejec.id, estado: ejec.status, copys, cuota });
+      const nodo = det.data?.resultData?.error?.node?.name ?? "?";
+      fallos.push({ id: ejec.id, estado: ejec.status, copys, cuota, nodo });
       console.log(`   ${String(i + 1).padStart(2)}  exec ${ejec.id}  ${ejec.status}  ` +
-                  `copys=${copys}${cuota ? "  ← cuota de Gemini agotada" : ""}`);
+                  `copys=${copys}  nodo «${nodo}»` +
+                  `${cuota ? "  ← cuota de Gemini agotada" : ""}`);
       if (cuota) { console.log("   se detiene la batería: no queda cuota diaria"); break; }
+      // Un fallo posterior a los nodos de Gemini ya gasto las dos peticiones de la
+      // repeticion. Si se repite es sistematico, y seguir quema el cupo del dia entero
+      // sin producir una sola medicion: el 17-09 se perdieron asi dos peticiones contra
+      // el nodo «Consistencia», que fallaba por esquema de columnas vencido.
+      if (++seguidos >= 2) {
+        console.log(`   se detiene la batería: 2 fallos seguidos en «${nodo}» — ` +
+                    "es sistemático y cada repetición gasta cuota");
+        break;
+      }
     }
     await dormir(3000);
   }
