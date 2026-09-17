@@ -17,7 +17,7 @@ Node.js 18 o posterior. Sin dependencias externas: los scripts sólo usan `node:
 | Tabla 6 y Tabla 10 — valores límite, antes | `node run_compliance_text.mjs Casos_Compliance_Limite.csv --v1` |
 | Tabla 6 y Tabla 10 — valores límite, después | `node run_compliance_text.mjs Casos_Compliance_Limite.csv` |
 | §5.1 y E.1.4 — divergencia del flujo programado | `node run_compliance_hu10.mjs` |
-| Tabla 7 — cronometraje y prueba t | `node run_cronometraje.mjs` |
+| Tabla 7 — cronometraje, prueba t y contraste del umbral del 70 % | `node run_cronometraje.mjs` |
 | Tabla 8 — TAM y α de Cronbach | `node run_tam.mjs` |
 | Tabla 11 — baterías de validación técnica | `node run_baterias.mjs` (requiere n8n en marcha; la fila `B1b` consume cuota del modelo) |
 | Tabla 11, fila `B1b` — desglose por nodo | `node _desglose_b1b.mjs` (lee el historial; no consume cuota) |
@@ -50,6 +50,15 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   único normalizado es el espacio en blanco, porque hay una fila por caso. Ejecutar
   `run_compliance_text.mjs` sobre esa columna reproduce, caso por caso, el veredicto de la
   columna `Resultado_sistema`.
+- `run_cronometraje.mjs` reporta **cuatro** estadísticos y conviene no confundirlos. Los
+  dos primeros contrastan H₀ «reducción = 0», es decir que Postly no reduce el tiempo: son
+  los que el §5.1 reporta como `t(11) = 14,21` y `t(2) = 9,15`. Los dos últimos contrastan
+  H₀ «reducción = 70 %», que es lo que la hipótesis del §4.2 afirma, y dan `t(2) = 0,91`
+  (p unilateral 0,230) y `t(11) = 1,52` (p 0,078): **el margen por encima del umbral no es
+  estadísticamente distinguible** con tres unidades independientes. El §5.1 reporta las dos
+  cosas por separado. La p de la t se calcula con la beta incompleta regularizada, y el
+  script se autocomprueba contra la forma cerrada disponible para df = 2.
+
 - `Cronometraje_datos.csv` — los 12 pares de tiempos (mm:ss), tres participantes.
 - `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — la fuente normativa del
   Anexo D, diez páginas. Está para que las dos reglas que codifica el Módulo Centinela
@@ -97,6 +106,15 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   con el total, lo que tardó cada una de las dos llamadas al modelo y lo que tardó el
   resto de la cadena. Es lo que sostiene la afirmación del §5.1 sobre dónde está la
   dispersión. Lo produce `_desglose_b1b.mjs`.
+
+- `Umbrales_HU_resultados.csv` — una advertencia primero, del mismo tipo que la de
+  `Baterias_resultados.csv`: la fila de **HU6** trae `Cumple = Sí` y la **Tabla 13 del
+  documento dice «Parcial»**. La tabla es la correcta y es deliberadamente más
+  conservadora: el límite de 2200 caracteres se cumple en los copys enviados pero no está
+  impuesto por un truncado en el flujo, de modo que depende de que el modelo respete la
+  extensión que el prompt le pide. El archivo se deja tal como lo emitió la corrida, sin
+  editarlo a mano; la divergencia es de veredicto cualitativo y va en la dirección
+  conservadora. El valor observado —media 552, máx. 580 caracteres— es el mismo en los dos.
 
 - `Umbrales_HU_resultados.csv` — los nueve umbrales numéricos que fijan las Historias
   de Usuario, con el grado de verificación de cada uno (`medición`, `configuración` o
@@ -187,7 +205,7 @@ marca —arte de catálogo, bodegones de producto y placas de campaña— que la
 recibe por el canal interno y reenvía. Se lo describe aquí como lo que es: la base sobre
 la que se compusieron los casos, no una muestra de la producción fotográfica propia de una
 consultora. Esa distinción importa para leer la Tabla 12: el conjunto mide el detector
-sobre arte comercial de marca, que es en efecto lo que más circula por estas cuentas, y no
+sobre arte comercial de marca, que es lo que, según las tres consultoras, más circula por estas cuentas, y no
 sobre fotografía casera, que es un régimen visual distinto y queda fuera de la medición.
 
 Las placas y etiquetas de precio de los casos `V01`–`V28` tampoco son de las consultoras:

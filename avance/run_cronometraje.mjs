@@ -102,4 +102,77 @@ if (porSujeto.length >= 2) {
               (p2 !== null ? `  ·  p = ${p2.toFixed(3)}` : ""));
   console.log(`   diferencias por sujeto (min): ${porSujeto.map(x => x.toFixed(2)).join(", ")}`);
 }
+
+// ─── Contraste del UMBRAL, que es lo que la hipotesis del §4.2 afirma ────────
+// Las dos pruebas anteriores contrastan H0: "reduccion = 0", es decir que Postly no
+// reduce el tiempo. Eso NO es la hipotesis del trabajo, que postula una reduccion
+// > 70 %. El contraste que le corresponde es H0: "reduccion = 70 %", unilateral, y da
+// un resultado muy distinto: con tres unidades independientes el margen por encima del
+// umbral no se distingue de cero. El §5.1 reporta las dos cosas por separado.
+function gammln(x) {
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091,
+             -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+  let y = x, tmp = x + 5.5, ser = 1.000000000190015;
+  tmp -= (x + 0.5) * Math.log(tmp);
+  for (let j = 0; j < 6; j++) ser += c[j] / ++y;
+  return -tmp + Math.log(2.5066282746310005 * ser / x);
+}
+function betacf(a, b, x) {
+  const EPS = 3e-16, FPMIN = 1e-300;
+  const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap;
+  if (Math.abs(d) < FPMIN) d = FPMIN;
+  d = 1 / d;
+  let h = d;
+  for (let m = 1; m <= 300; m++) {
+    const m2 = 2 * m;
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d; h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d;
+    const del = d * c; h *= del;
+    if (Math.abs(del - 1) < EPS) break;
+  }
+  return h;
+}
+function betai(a, b, x) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const bt = Math.exp(gammln(a + b) - gammln(a) - gammln(b) +
+                      a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a
+                                   : 1 - bt * betacf(b, a, 1 - x) / b;
+}
+// p unilateral de la t de Student
+const pUni = (t, df) => betai(df / 2, 0.5, df / (df + t * t)) / 2;
+
+// autocomprobacion: para df = 2 hay forma cerrada, P(|T| > t) = 1 - t/sqrt(2+t^2)
+const cerrada = (t) => (1 - Math.abs(t) / Math.sqrt(2 + t * t)) / 2;
+if (Math.abs(pUni(9.15, 2) - cerrada(9.15)) > 1e-9) {
+  console.error("  *** betai no coincide con la forma cerrada para df = 2");
+  process.exit(1);
+}
+
+const UMBRAL = 70;
+console.log("");
+console.log("  Contraste del umbral del 70 % (H0: reducción = 70 %, unilateral):");
+for (const [etq, vals] of [
+  ["medias por consultora", [...new Set(pairs.map(p => p.part))].map(part => {
+    const g = pairs.filter(p => p.part === part);
+    return mean(g.map(x => 100 * (x.M - x.P) / x.M));
+  })],
+  ["los doce pares", pairs.map(x => 100 * (x.M - x.P) / x.M)],
+]) {
+  const m = mean(vals), s = sd(vals), k = vals.length, df = k - 1;
+  const t = (m - UMBRAL) / (s / Math.sqrt(k));
+  console.log(`   ${etq.padEnd(22)} n = ${String(k).padStart(2)}  ·  t(${df}) = ${t.toFixed(2)}` +
+              `  ·  p unilateral = ${pUni(t, df).toFixed(3)}` +
+              `  ·  ${pUni(t, df) < 0.05 ? "significativo" : "NO significativo a 0,05"}`);
+}
+console.log("   El punto estimado supera el umbral; el margen por encima de él no está");
+console.log("   respaldado por el contraste. Las dos proposiciones se reportan aparte (§5.1).");
 console.log("");

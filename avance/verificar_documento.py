@@ -190,6 +190,42 @@ PROHIBIDAS = [
     'Una segunda recolección, posterior',
     # R01: el trabajo puede establecer que no la compuso, no quién imprimió el precio
     'impreso en la pieza por la propia marca',
+    # ── quinta instancia ─────────────────────────────────────────────────────
+    # N-01: las Pautas NO exigen la firma al pie de cada publicación; el Anexo D lo
+    # declara y el cuerpo lo contradecía. Barrido del PDF: «al pie» y «cada
+    # publicación» aparecen 0 veces en sus diez páginas.
+    'exige que toda comunicación digital emitida',
+    'La exigencia alcanza por igual a un posteo en el feed',
+    'la normativa exige la firma innegociable',
+    'garantía sistémica inmutable',
+    'la página de negocio y las comunicaciones comerciales',
+    # N-02: el contraste reportado no contrasta el umbral del 70 %; las dos
+    # proposiciones no pueden ir coordinadas en una sola oración.
+    'diferencia estadísticamente significativa y superior al umbral',
+    'fue medida y confirmada en este estudio piloto',
+    # G-01: las tres afirmaciones de cobertura total que quedaron sin condicionar.
+    # Barrido por CONCEPTO y no por la lista de ubicaciones del dictamen.
+    'audita la totalidad de los activos',
+    'escanea la totalidad de los activos',
+    'cobertura de auditoría integral',
+    # G-02: el §6.2 no recoge esa recomendación y la medición está en la Tabla 11
+    'la medición de extremo a extremo del tramo multimodal',
+    # N-05: lo verificable es script contra extracto, no extracto contra instancia
+    'deja de ser una afirmación del trabajo para volverse verificable',
+    # N-03: el E.6 no puede usar como caracterización del canal lo que declara testimonio
+    'una práctica corriente del canal',
+    'un uso extendido que la contradice',
+    'es el estado en que ese material circula',
+    # N-08: sobre el corte difícil los dos canales dan F1 0,83
+    'queda muy por encima del textual',
+    # N-06: la base del canal visual es 4+20+9+2; faltaban los dos de campo
+    'los nueve casos difíciles del Anexo E.8. Los dos cortes',
+    # N-09: la frecuencia de circulación no se midió, se atribuye a su fuente
+    'que es en efecto lo que más circula',
+    # N-11: el referente eran los tres limpios del conjunto difícil
+    'de los tres casos con esa forma',
+    # N-12: la segunda corrida alcanzó ocho de los nueve
+    'Sobre esa extensión se repitió la inferencia, de modo que',
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)
