@@ -264,6 +264,22 @@ PROHIBIDAS = [
     'esto requerirá únicamente la adición de nuevos nodos',
     # B-7: la fase de Evaluación del DSRM ya no se agota en pruebas funcionales
     'Evaluación (Evaluation): Verificación del comportamiento determinista',
+    # ── pasada propia de coherencia (pasada 35) ──────────────────────────────
+    # la normalización de imagen no existe: no puede reaparecer atribuida en otro capítulo
+    'que garantice que cada imagen o video sea técnicamente apto',
+    'el sistema ejecuta las siguientes subrutinas sobre cada imagen recibida',
+    'que asegura que cada archivo cumpla con las restricciones geométricas',
+    'archivos pesados (imágenes y videos) utilizando los filtros de FFmpeg',
+    # extender a otra red no es «únicamente» agregar nodos, tampoco en el §4.3.4
+    'requiriendo únicamente el añadido de nuevos nodos',
+    # no se conserva ningún artefacto de Scrum: el Backlog no puede ser un «artefacto vivo»
+    'En este artefacto vivo se registraron',
+    # la representatividad se contrastó: no puede afirmarse de plano en el anexo
+    'El conjunto representativo reproduce la redacción habitual',
+    # «monolítica» en el Cap. 1 colisionaba con el §4.3.3
+    'una herramienta aislada y monolítica',
+    # subordinada sin oración principal
+    'un mal uso del bot. Se reconoce',
 ]
 # Frases que DEBEN estar: lo contrario de una frase retirada es una que no puede faltar,
 # porque un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
