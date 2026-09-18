@@ -170,7 +170,13 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   `run_compliance_text.mjs` y `run_compliance_vision.mjs` carácter por carácter y sale con
   código 1 si algo difiere; no necesita la instancia ni consume cuota. Para regenerar el
   extracto desde el workflow: `node verificar_patrones_desplegados.mjs --extraer
-  "<workflow.json>"`. Se documenta en el Anexo E.4.
+  "<workflow.json>"`. Se documenta en el Anexo E.4. Desde la auditoría total cubre además dos umbrales
+  que no se miden con una serie de tiempos sino leyendo el código desplegado: que la
+  concatenación de la **firma de HU9** sea incondicional en los cuatro nodos que publican
+  —ninguna rama publica sin ella, y cada una elimina antes el duplicado— y que el **corte de
+  60 s de HU13** esté impuesto por una guarda. Son las dos filas de «Configuración» que la
+  Tabla 13 agrega, y la razón de verificarlas así y no por muestreo es que una concatenación
+  sin rama alternativa cubre **todas** las ejecuciones y no una muestra.
 
 Ninguno de los scripts lleva identificadores de la instancia desplegada: la URL base,
 la clave de la API de n8n, el `webhookId` del Telegram Trigger y el chat de prueba se leen de un

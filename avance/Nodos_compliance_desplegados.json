@@ -60,5 +60,39 @@
     "modelo": "models/gemini-2.5-flash",
     "prompt": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
     "sha256_del_prompt": "0cfb82b494b9c36c49d054b8269b681e40d626238a988620d2eab45421808fd3"
+  },
+  "firma_hu9": {
+    "Code in JavaScript1": {
+      "concatenacion": [
+        "caption = caption + '\\n' + firmaLinea;"
+      ],
+      "condicionada": false,
+      "elimina_duplicado": true
+    },
+    "HU5: Pub preparar": {
+      "concatenacion": [
+        "caption = caption + '\\n' + firmaLinea;"
+      ],
+      "condicionada": false,
+      "elimina_duplicado": true
+    },
+    "Sched: Procesar": {
+      "concatenacion": [
+        "caption = caption + '\\n' + firmaLinea;"
+      ],
+      "condicionada": false,
+      "elimina_duplicado": true
+    },
+    "Video: pub publicar": {
+      "concatenacion": [
+        "caption=caption+String.fromCharCode(10)+firma; if(contacto) caption=caption+String.fromCharCode(10)+contacto;"
+      ],
+      "condicionada": false,
+      "elimina_duplicado": true
+    }
+  },
+  "corte_hu13": {
+    "nodo": "Video: procesar",
+    "guarda": "if(dur && dur>60){ return [{ json:{ chatId, tooLong:true, dur:Math.round(dur) } }]; }"
   }
 }

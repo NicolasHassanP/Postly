@@ -43,6 +43,11 @@ const NODOS = [
   { nodo: "Video: pub publicar", variable: "pats", rotulo: "video (HU13)" },
 ];
 const NODO_VISION = "HU8: Detección visual";
+// Umbrales que no se miden con una serie de tiempos sino leyendo el codigo desplegado,
+// igual que el tope de diez imagenes de HU5: la firma de HU9 y el corte de 60 s de HU13.
+const NODOS_FIRMA = ["Code in JavaScript1", "HU5: Pub preparar", "Sched: Procesar",
+                     "Video: pub publicar"];
+const NODO_VIDEO = "Video: procesar";
 
 const sha = (s) => createHash("sha256").update(s, "utf8").digest("hex");
 
@@ -131,6 +136,27 @@ function extraer(rutaWorkflow) {
     sha256_del_prompt: sha(prompt),
   };
 
+  // HU9: la concatenacion de la firma debe ser incondicional en los cuatro nodos que
+  // publican. Se extrae la linea y se comprueba que no cuelgue de ningun `if`.
+  salida.firma_hu9 = {};
+  for (const nodo of NODOS_FIRMA) {
+    const codigo = porNombre.get(nodo)?.parameters?.jsCode ?? "";
+    const lineas = codigo.split(String.fromCharCode(10)).map((l) => l.trim());
+    const concat = lineas.filter((l) => /caption\s*=\s*caption\s*\+/.test(l) && /firma/i.test(l));
+    salida.firma_hu9[nodo] = {
+      concatenacion: concat,
+      condicionada: concat.some((l) => /^if\s*\(/.test(l)),
+      elimina_duplicado: lineas.some((l) => /caption\s*=\s*caption\.split\(\s*firma/i.test(l)),
+    };
+  }
+  // HU13: la guarda del corte de 60 s
+  const cod13 = porNombre.get(NODO_VIDEO)?.parameters?.jsCode ?? "";
+  salida.corte_hu13 = {
+    nodo: NODO_VIDEO,
+    guarda: cod13.split(String.fromCharCode(10)).map((l) => l.trim())
+            .filter((l) => /dur\s*>\s*60/.test(l))[0] ?? null,
+  };
+
   writeFileSync(EXTRACTO, JSON.stringify(salida, null, 2) + "\n", "utf-8");
   console.log(`extracto escrito: ${EXTRACTO}`);
   for (const [nombre, d] of Object.entries(salida.nodos)) {
@@ -153,7 +179,8 @@ function verificar() {
   }
   const ext = JSON.parse(readFileSync(EXTRACTO, "utf-8"));
   const fallos = [];
-  const ok = (t) => console.log(`  OK   ${t}`);
+  const ok_ = (t) => console.log(`  OK   ${t}`);
+  const ok = ok_;
   const mal = (t) => { console.log(`  MAL  ${t}`); fallos.push(t); };
 
   // 2.a — los cuatro nodos llevan el mismo conjunto
@@ -196,6 +223,19 @@ function verificar() {
       ? ok(`modelo: el script usa «${modeloScript}» y el nodo «${ext.vision.modelo}»`)
       : mal(`el script usa «${modeloScript}» y el nodo «${ext.vision.modelo}»`);
   }
+
+  // 2.d — los dos umbrales estructurales
+  console.log("");
+  console.log("── umbrales verificables por lectura del codigo desplegado");
+  for (const [nodo, d] of Object.entries(ext.firma_hu9 ?? {})) {
+    const ok = d.concatenacion.length > 0 && !d.condicionada;
+    (ok ? ok_ : mal)(`HU9 · ${nodo}: ${d.concatenacion.length} concatenacion(es) de firma, ` +
+      `${d.condicionada ? "CONDICIONADA" : "incondicional"}` +
+      `${d.elimina_duplicado ? ", con limpieza previa del duplicado" : ""}`);
+  }
+  ext.corte_hu13?.guarda
+    ? ok_(`HU13 · ${ext.corte_hu13.nodo}: ${ext.corte_hu13.guarda}`)
+    : mal("HU13: no encuentro la guarda de 60 s en el extracto");
 
   console.log("");
   if (fallos.length) {
