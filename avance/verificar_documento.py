@@ -251,6 +251,19 @@ PROHIBIDAS = [
     'donde un evaluador externo al equipo etiquetó los 29 casos',
     # M-6: la afirmación de §6.1 ya remite al protocolo que la respalda
     'sin entrenamiento previo ni conocimiento',
+    # ── auditoría 6, bloque 4 (pasada 28) ────────────────────────────────────
+    # B-9: el Cap. 1 atribuía a la norma una obligatoriedad que el Anexo D niega
+    'la obligatoriedad de utilizar nomenclaturas legales específicas',
+    'firmas de identidad corporativa obligatorias',
+    # B-10: tres efectos sociales atribuidos a un detector de precios
+    'previene proactivamente la competencia desleal',
+    'prevención del fraude corporativo',
+    # B-8: el borrado del post antiguo no está implementado ni en el alcance
+    'puede disparar una orden de borrado',
+    # B-5: extender a TikTok no es «únicamente» agregar nodos
+    'esto requerirá únicamente la adición de nuevos nodos',
+    # B-7: la fase de Evaluación del DSRM ya no se agota en pruebas funcionales
+    'Evaluación (Evaluation): Verificación del comportamiento determinista',
 ]
 # Frases que DEBEN estar: lo contrario de una frase retirada es una que no puede faltar,
 # porque un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
@@ -262,6 +275,8 @@ EXIGIDAS = [
     ('Corresponde declarar tres condiciones del procedimiento', 1),
     # M-15: quién es el evaluador externo
     ('Corresponde caracterizar a ese evaluador', 1),
+    # B-4: el §5.2 remite al Anexo C, que declaraba ampliarlo
+    ('El Anexo C documenta los ocho que el desarrollo dejó anotados', 1),
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)
