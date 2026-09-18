@@ -280,6 +280,30 @@ PROHIBIDAS = [
     'una herramienta aislada y monolítica',
     # subordinada sin oración principal
     'un mal uso del bot. Se reconoce',
+    # ── dictamen de la séptima instancia (pasada 39) ─────────────────────────
+    # A-1: la fuente no dice «equidad de mercado» ni tipifica «falta grave»
+    'proteger la equidad de mercado y fomentar el asesoramiento',
+    'tipificado como una falta grave al contrato',
+    # A-2: el Anexo C no contiene pruebas sobre el copy ni sobre alucinaciones
+    'se validó de forma cualitativa sobre los casos ejecutados durante el desarrollo (Anexo C)',
+    'realizadas durante el desarrollo (Anexo C) no reportan casos',
+    # A-3: no hay NLP, y el sistema no suprime: interrumpe
+    'procesamiento de lenguaje natural y visión artificial',
+    'Procesamiento de Lenguaje Natural (NLP), rutinas deterministas',
+    'para la supresión automática de precios',
+    'detectar y eliminar preventivamente los precios',
+    'para omitir precios y concatena',
+    # M-1: el recuento de umbrales
+    'fijan once umbrales numéricos, y las baterías',
+    'y 2 leyendo del workflow el parámetro',
+    # M-2: un marcador de plantilla sin interpolar
+    'len(campo_filas)',
+    # M-4: la taxonomía no es excluyente y la conclusión no llega a «cota inferior»
+    'Sus métricas operan como cota inferior',
+    # M-7: la atomicidad no viene del hilo único
+    'El runtime de Node.js serializa esa operación',
+    # B-9: un criterio de aceptación que nunca se midió
+    'calidad editorial equivalente a la de un redactor',
 ]
 # Frases que DEBEN estar: lo contrario de una frase retirada es una que no puede faltar,
 # porque un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
