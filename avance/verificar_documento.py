@@ -246,10 +246,28 @@ PROHIBIDAS = [
     'Esos dos son los únicos en que el canal visual operó sobre',
     # M-16: la representatividad se declaraba sin contraste
     'La configuración representativa refleja la forma habitual',
+    # ── auditoría 6, bloque 3, cierre (pasada 27) ────────────────────────────
+    # M-15: el evaluador externo ya no aparece sin caracterizar en §3.5.5 ni en §5.1
+    'donde un evaluador externo al equipo etiquetó los 29 casos',
+    # M-6: la afirmación de §6.1 ya remite al protocolo que la respalda
+    'sin entrenamiento previo ni conocimiento',
+]
+# Frases que DEBEN estar: lo contrario de una frase retirada es una que no puede faltar,
+# porque un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
+EXIGIDAS = [
+    # M-13: la ausencia de artefactos de Scrum, declarada, y la cronología que la sustituye
+    ('no se conserva ninguno de sus artefactos', 1),
+    ('A.2 Cronología del desarrollo reconstruida del repositorio', 1),
+    # M-6: las tres condiciones del procedimiento de cronometraje
+    ('Corresponde declarar tres condiciones del procedimiento', 1),
+    # M-15: quién es el evaluador externo
+    ('Corresponde caracterizar a ese evaluador', 1),
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)
     check(f'«{f}»', n, 0)
+for f, esperado in EXIGIDAS:
+    check(f'(exigida) «{f}»', texto.count(f), esperado)
 
 # ═══════════════════════════════════════════════════ escritura
 bloque('métricas de escritura')

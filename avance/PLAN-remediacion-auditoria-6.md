@@ -81,8 +81,9 @@ fueron con el VPS.
 
 ## 3. Bloque 3 — los dieciséis medios
 
-**Once aplicados en la pasada 26** (commit `bloque 3 de la auditoria 6`). Quedan tres, y los
-tres esperan información que sólo tiene el equipo — ver §3.1.
+**Bloque 3 cerrado.** Once hallazgos en la pasada 26 y los tres restantes en la pasada 27,
+con los datos que aportó el autor. Queda sólo M-4, que es aparato editorial y va en el
+bloque 4.
 
 | # | Estado | Qué se hizo |
 |---|---|---|
@@ -98,30 +99,23 @@ tres esperan información que sólo tiene el equipo — ver §3.1.
 | **M-14** | ✅ | El canal visual de campo son **17** casos, no 2: los 15 mixtos también lo atravesaron y son verdaderos negativos. Y «fotografía propia» se retira: E.6 dice que en su mayoría es arte de marca. |
 | **M-16** | ✅ | Nuevo `run_representatividad.mjs`. Clasifica los infractores de texto por forma de expresión del precio, con taxonomía ajena al detector. Los 12 reales: 5 símbolo, 4 % de descuento, 3 vocabulario, **0 indirectas**; el representativo lleva 1 de 18. El conjunto diseñado es más adverso que la realidad: sus métricas son cota inferior. |
 | **M-7** | ✅ | Cerrado en la pasada 24. |
-| **M-6** | ⏳ | Falta el dato del equipo. |
-| **M-13** | ⏳ | Falta decidir. |
-| **M-15** | ⏳ | Falta el dato del equipo. |
+| **M-6** | ✅ | Anexo E.2, pasada 27: **no hubo instrucción ni demostración previa** —lo que respalda la afirmación del §6.1 y sitúa el aprendizaje del ítem PEOU1 en la sesión misma—, el cronómetro lo llevaron los autores y no las participantes, y el tipo de publicación y el orden **no se registraron y no son reconstruibles**: la asimetría del carrusel queda declarada y no ponderada. |
+| **M-13** | ✅ | §3.3.2 declara que **no se conserva ningún artefacto** de Scrum, y el nuevo **Anexo A.2** reconstruye la cronología desde el repositorio (25/06→02/07/2026, 37 commits en 8 días; 11 de 14 HU rastreables a un commit; HU4, HU6 y HU7 llegaron con la integración inicial). Declara además que la partición en cuatro Sprints es una ordenación por objetivo y no un calendario. No se fabricó backlog. |
+| **M-15** | ✅ | Anexo E.1.2: estudiante de la misma universidad, programador, con su propio trabajo final; ajeno a este trabajo y a la vez conocido de los autores, la misma proximidad que el §3.5.2 declara para las consultoras. §3.5.5 y §5.1 remiten ahí. |
 | **M-4** | → | Aparato editorial, bloque 4. |
 
-### 3.1 Lo que queda del bloque 3 y qué necesita
+### 3.1 Lo que el cierre dejó anotado
 
-- **M-6 · protocolo de cronometraje.** El Anexo E.2 no dice (a) si hubo instrucción o
-  demostración previa del bot —el §6.1 afirma «sin entrenamiento previo» y el ítem PEOU1
-  presupone un momento de aprendizaje—, (b) quién cronometró y dónde, ni (c) el orden de
-  condiciones y el tipo de publicación de cada par. Las columnas `Producto` y `Orden` de
-  `Cronometraje_datos.csv` están **vacías en las doce filas**. No exige volver a medir, pero
-  sí que el equipo recuerde los tres datos. Ojo: `Cronometraje_70pct.csv` es una **planilla
-  de diseño vacía** con el orden contrabalanceado que se planificó y no se ejecutó; no
-  confundirla con el dato.
-- **M-13 · Sprints y Product Backlog.** No hay artefactos. Dos caminos, y es decisión del
-  autor: declarar la ausencia, o declararla **y** agregar un anexo con la cronología real
-  reconstruida del repositorio versionado, que existe y es verificable. El costo del segundo
-  es que expone que el desarrollo corrió del 25/06 al 02/07/2026 y que los cuatro sprints
-  narrados no mapean uno a uno sobre los commits: HU11/HU12, atribuidas al último sprint,
-  se entregaron el primer día.
-- **M-15 · el evaluador externo.** Falta quién es: relación con los autores (no sólo con el
-  equipo de desarrollo), formación y cómo se lo reclutó. Sobre su externalidad descansa la
-  mitigación del sesgo de confirmación del §3.5.5 y el respaldo indirecto del Anexo D.
+- El **Anexo A.2** expone que el desarrollo registrado ocupa ocho días. Está declarado en el
+  mismo apartado que el trabajo anterior a la integración no quedó versionado, que es la
+  explicación real y verificable. Si un tribunal pregunta, la respuesta está escrita.
+- `Cronometraje_70pct.csv` es una **planilla de diseño vacía** —el contrabalanceo que se
+  planificó y no se ejecutó—, no un archivo de datos. Ya figura como frase prohibida en
+  `verificar_documento.py` desde N3-14; conviene no confundirla nunca con el dato.
+- `verificar_documento.py` tiene desde la pasada 27 una lista **EXIGIDAS**, además de las
+  prohibidas: un hallazgo se cierra tanto por lo que se saca como por lo que se pone, y las
+  cuatro frases que sostienen M-6, M-13 y M-15 no pueden desaparecer sin que el verificador
+  lo note.
 
 ## 4. Bloque 4 — aparato editorial y registro
 
