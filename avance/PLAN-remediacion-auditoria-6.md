@@ -196,6 +196,41 @@ Lo que viene funcionando, y conviene no cambiar:
    —que los casos controlados son 130 y no 134, y que la normalización de imagen del §4.7.2
    no estaba sólo indocumentada sino sin implementar—.
 
+## 7. Pasada propia de coherencia (pasadas 35-38) · hecha
+
+Antes de auditar de nuevo, la relectura completa buscando lo que las pasadas 23-34 pudieron
+dejar a medias. **Encontró catorce cosas.** La clase dominante era previsible en retrospectiva:
+*un hallazgo se corrige donde el dictamen lo señala, pero la misma afirmación vive en otros
+tres capítulos.*
+
+**Contradicciones con correcciones propias (10).** Cinco con M-10: el §4.7 pedía un filtro de
+QA «que garantice que cada imagen o video sea técnicamente apto», el §4.7.2 anunciaba
+«subrutinas sobre cada imagen» dos párrafos antes de declarar que ninguna se implementó, el
+§4.7.1 atribuía a FFmpeg un tratamiento genérico, el §4.4 decía que el módulo asegura el
+Aspect Ratio de «cada archivo» y el §3.4.2 declaraba pruebas de FFmpeg sobre imágenes. Una con
+B-5: el §4.3.4 sostenía la expansión a otras redes «requiriendo únicamente el añadido de
+nuevos nodos», palabra por palabra lo retirado del §6.2. Una con M-13: el §3.3.1 describía el
+Product Backlog como «artefacto vivo» cuatro párrafos antes de declarar que no se conserva.
+Una con M-16: el Anexo E.1.1 afirmaba de plano la representatividad que el §5.1 había acotado.
+Una tensión entre capítulos: «no opera como una herramienta aislada y monolítica» (§1.3.b)
+contra el monolito modular del §4.3.3. Y una remisión atributiva que prometía de más: el §3.3.2
+decía que el Anexo A documenta «el alcance comprometido», y la Tabla 9 documenta lo entregado.
+
+**Un hueco que el dictamen listó y el texto no declaraba (1).** El §7 del dictamen anotó que
+no hay ningún caso de prueba de video en ninguno de los conjuntos. No entró en la lista de
+hallazgos, pero el §5.4 comparaba dos canales sin mencionar el tercer flujo y las limitaciones
+del §5.1 enumeraban cuatro puntos y no éste. Se declara ahora en los tres lugares, distinguiendo
+la evidencia estructural —el nodo lleva las mismas seis expresiones, verificado carácter por
+carácter— de una medición del comportamiento.
+
+**Redacción (3).** Una subordinada sin oración principal en el §3.7.3 (preexistente) y dos
+enumeraciones que la pasada 31 había desarmado al sacar intensificadores.
+
+**Verificación de cierre.** Los diez hallazgos críticos y altos del dictamen (C-1, A-1 a A-9)
+se comprobaron uno por uno sobre el documento actual: los diez cerrados. Y el verificador
+quedó **sin ningún punto abierto** por primera vez: cuerpo y anexos con oración máxima de 50
+palabras, contra las cinco de más de 50 y la máxima de 62 de la línea base.
+
 ## 7. Herramientas que dejaron las pasadas
 
 - `medir_registro.py` — densidad de intensificadores por capítulo, con una lista cerrada y
