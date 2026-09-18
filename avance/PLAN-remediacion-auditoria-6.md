@@ -11,9 +11,8 @@
 1. **Refrescar los campos en Word** (Ctrl+E, F9). Las pasadas 23, 24 y 25 agregaron
    párrafos y filas de tabla, de modo que el índice general, el de tablas y el de figuras
    están desactualizados. La Tabla 6 pasó de 7 a 10 filas y la Tabla 13 de 10 a 12.
-2. **Commitear.** El árbol tiene sin commitear el `.docx`, `LEEME-evidencia.md`,
-   `verificar_patrones_desplegados.mjs` y `Nodos_compliance_desplegados.json`. Hay respaldos
-   en `*.bak-pre-pasada23/24/25.docx`.
+2. **Commitear.** Hecho: bloques 0-2 en `6e814f4`, bloque 3 en `7b32fa2`. Hay respaldos
+   en `*.bak-pre-pasadaNN.docx`, el último `bak-pre-pasada26`.
 3. **No hace falta n8n ni ngrok.** Todo lo que queda es texto y datos locales.
 
 ---
@@ -82,28 +81,47 @@ fueron con el VPS.
 
 ## 3. Bloque 3 — los dieciséis medios
 
-Todos son texto o cálculo sobre datos que ya están. Ordenados por lo que aportan.
+**Once aplicados en la pasada 26** (commit `bloque 3 de la auditoria 6`). Quedan tres, y los
+tres esperan información que sólo tiene el equipo — ver §3.1.
 
-| # | Qué | Dónde |
+| # | Estado | Qué se hizo |
 |---|---|---|
-| **M-11** | No hay un solo intervalo de confianza ni tamaño del efecto, y el §6.2 recomienda estrecharlos. Los datos están: `Cronometraje_datos.csv` y las matrices. Agregar IC del 95 % a la reducción media y *d* de Cohen. | transversal; §6.2 P942 |
-| **M-16** | La «configuración representativa» es la medida principal y su representatividad nunca se contrastó, ni siquiera con los 29 casos reales disponibles. | §5.1 P824 |
-| **M-1** | El verificador de correspondencia no cubre el detector que produjo las Tablas 3, 4 y 5 (el conjunto `--v1`, anterior a la corrección). Declararlo o extenderlo. | §5.1 P823; E.4 P1147-1148 |
-| **M-5** | El §3.5.5 dice 97 casos controlados etiquetados por los desarrolladores; son **134** (97 de texto + 8 filas de imagen + los 29 de campo se etiquetaron aparte — verificar la cuenta contra los CSV antes de escribir). | §3.5.5 P392 |
-| **M-6** | El protocolo de cronometraje omite tres condiciones que gobiernan la validez interna. Y las columnas `Producto` y `Orden` de la planilla están vacías. | Anexo E.2 P1142; §6.1 P927 |
-| **M-13** | Cuatro Sprints y un Product Backlog sin ningún artefacto. **Si no se conservaron, declararlo**; no fabricar un backlog retroactivo. | §3.3.1-§3.3.2 P294-319 |
-| **M-15** | El evaluador externo es la mitigación declarada del sesgo de confirmación y no está caracterizado (quién es, qué relación tiene con el equipo, qué se le dio). | §3.5.5 P392; §5.1 P864; E.1.2 P1134 |
-| **M-3** | El §3.7.1 dice que no se almacena ningún otro dato personal; la Figura 5 muestra `ChatID_Telegram`, `Token_Acceso`, etc. | §3.7.1 P423 |
-| **M-14** | La base del canal de imagen en el estudio de campo no cierra contra la planilla. | §5.4 P910 |
-| **M-2** | La Figura 3 atribuye el 73,6 % al ahorro entre los dos flujos que dibuja e incluye en el manual una etapa que la medición excluyó por diseño. Requiere editar la imagen o corregir la nota. | Figura 3; §4.2 P588 |
-| **M-9** | «Vigencia mayor que 60 días» se infiere de la ausencia de un campo en **una** respuesta. Acotar. | §6.1 OE5 P935; Tablas 11 y 13 |
-| **M-10** | La normalización de imágenes se describe y no se documenta ni valida. Declararlo. | §4.7.2 P782, P784 |
-| **M-12** | El §2.2 atribuye al sistema una recomendación de «imágenes ganadoras» que no existe. | §2.2.a P192 |
-| **M-8** | El riesgo que justifica descartar el scraping se declara Alta/Alto sin evidencia. | §2.4 P253; Tabla 2 fila 1 |
-| **M-4** | Aparato editorial — ver bloque 4. | transversal |
-| **M-7** | **Ya cerrado** en la pasada 24 (Tabla 1). | — |
+| **M-1** | ✅ | No se declaró: se **cerró**. El workflow anterior a la corrección está versionado, así que `--extraer-v1` produce `Nodos_compliance_desplegados_v1.json` y el verificador comprueba `PATRONES_V1` y `PATRONES_HU10` carácter por carácter. Encontró de paso una diferencia literal (`[.,]` contra `[\.,]`), inerte pero real, y se corrigió. |
+| **M-2** | ✅ | Nota de la Figura 3 reescrita sobre el bitmap (`_pasada26_figura3.py`): el 73,6 % queda acotado al tramo medido, que excluye la primera etapa del As-Is. El §4.2 describe las tres acciones reales de la usuaria. |
+| **M-3** | ✅ | §3.7.1 enumera contra la Figura 5 y declara el ChatID como dato personal. El principio pasa a ser «ningún dato ajeno a la ejecución del flujo». |
+| **M-5** | ✅ | **130**, no 134 ni 97: 97 de texto + 4 escenarios de imagen + 29 del canal visual. El 134 del dictamen contaba dos veces los cuatro escenarios de imagen (es el mismo error que A-4). |
+| **M-8** | ✅ | El bloqueo de cuenta pasa a riesgo conjeturado y no evaluado, y la decisión se apoya en las tres razones que sí se sostienen. |
+| **M-9** | ✅ | §6.1 OE5: lo medido es la ausencia de `expires_in`, no la longevidad. Las Tablas 11 y 13 ya lo decían bien. |
+| **M-10** | ✅ | **Era más grave de lo que el dictamen suponía.** El workflow no tiene ningún nodo de redimensionado ni conversión: la estandarización de formato la hace el canal de ingesta de Telegram (sólo acepta `message.photo`, ya JPEG) y la relación de aspecto **no está implementada**. El §4.7.2 lo declara y el §6.2 lo recoge como pendiente. |
+| **M-11** | ✅ | `run_cronometraje.mjs` calcula IC del 95 % y *d* de Cohen (d_z); los dos de compliance, IC de Wilson. IC de la reducción: [56,6; 90,6] sobre tres consultoras y [68,4; 78,8] sobre doce pares — **los dos contienen el 70 %**, que refuerza lo que el §5.1 ya decía del contraste unilateral. d_z = 5,28 y 4,10. Recall de campo 12/14: [0,601; 0,960]. |
+| **M-12** | ✅ | §2.2.a: el sistema propone un orden de carrusel (HU5); elegir «imágenes ganadoras» es la capa predictiva no implementada. |
+| **M-14** | ✅ | El canal visual de campo son **17** casos, no 2: los 15 mixtos también lo atravesaron y son verdaderos negativos. Y «fotografía propia» se retira: E.6 dice que en su mayoría es arte de marca. |
+| **M-16** | ✅ | Nuevo `run_representatividad.mjs`. Clasifica los infractores de texto por forma de expresión del precio, con taxonomía ajena al detector. Los 12 reales: 5 símbolo, 4 % de descuento, 3 vocabulario, **0 indirectas**; el representativo lleva 1 de 18. El conjunto diseñado es más adverso que la realidad: sus métricas son cota inferior. |
+| **M-7** | ✅ | Cerrado en la pasada 24. |
+| **M-6** | ⏳ | Falta el dato del equipo. |
+| **M-13** | ⏳ | Falta decidir. |
+| **M-15** | ⏳ | Falta el dato del equipo. |
+| **M-4** | → | Aparato editorial, bloque 4. |
 
----
+### 3.1 Lo que queda del bloque 3 y qué necesita
+
+- **M-6 · protocolo de cronometraje.** El Anexo E.2 no dice (a) si hubo instrucción o
+  demostración previa del bot —el §6.1 afirma «sin entrenamiento previo» y el ítem PEOU1
+  presupone un momento de aprendizaje—, (b) quién cronometró y dónde, ni (c) el orden de
+  condiciones y el tipo de publicación de cada par. Las columnas `Producto` y `Orden` de
+  `Cronometraje_datos.csv` están **vacías en las doce filas**. No exige volver a medir, pero
+  sí que el equipo recuerde los tres datos. Ojo: `Cronometraje_70pct.csv` es una **planilla
+  de diseño vacía** con el orden contrabalanceado que se planificó y no se ejecutó; no
+  confundirla con el dato.
+- **M-13 · Sprints y Product Backlog.** No hay artefactos. Dos caminos, y es decisión del
+  autor: declarar la ausencia, o declararla **y** agregar un anexo con la cronología real
+  reconstruida del repositorio versionado, que existe y es verificable. El costo del segundo
+  es que expone que el desarrollo corrió del 25/06 al 02/07/2026 y que los cuatro sprints
+  narrados no mapean uno a uno sobre los commits: HU11/HU12, atribuidas al último sprint,
+  se entregaron el primer día.
+- **M-15 · el evaluador externo.** Falta quién es: relación con los autores (no sólo con el
+  equipo de desarrollo), formación y cómo se lo reclutó. Sobre su externalidad descansa la
+  mitigación del sesgo de confirmación del §3.5.5 y el respaldo indirecto del Anexo D.
 
 ## 4. Bloque 4 — aparato editorial y registro
 
