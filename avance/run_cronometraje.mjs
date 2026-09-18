@@ -175,4 +175,51 @@ for (const [etq, vals] of [
 }
 console.log("   El punto estimado supera el umbral; el margen por encima de él no está");
 console.log("   respaldado por el contraste. Las dos proposiciones se reportan aparte (§5.1).");
+
+// ─── Precisión de la estimación y tamaño del efecto ──────────────────────────
+// APA 7 pide el tamaño del efecto junto al contraste, y un punto estimado sin intervalo
+// no dice cuánta incertidumbre arrastra. El d de Cohen que corresponde a un diseño
+// pareado es d_z = media de las diferencias / DE de las diferencias: se calcula sobre la
+// misma serie que la prueba t, y no sobre la DE agrupada de dos muestras independientes,
+// que este diseño no tiene.
+
+// cuantil t por bisección sobre pUni, que ya está verificada contra la forma cerrada
+function tQuantil(p, df) {           // p = cola superior (p.ej. 0,025 para IC del 95 %)
+  let lo = 0, hi = 1000;
+  for (let k = 0; k < 200; k++) {
+    const mid = (lo + hi) / 2;
+    if (pUni(mid, df) > p) lo = mid; else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+// autocomprobación: t(2) de dos colas al 5 % = 4,3027; t(11) = 2,2010
+for (const [df, esperado] of [[2, 4.30265], [11, 2.20099]]) {
+  if (Math.abs(tQuantil(0.025, df) - esperado) > 1e-3) {
+    console.error(`  *** tQuantil(0,025, ${df}) = ${tQuantil(0.025, df)} y debería ser ${esperado}`);
+    process.exit(1);
+  }
+}
+
+const redPorSujeto = [...new Set(pairs.map(p => p.part))].map(part => {
+  const g = pairs.filter(p => p.part === part);
+  return mean(g.map(x => 100 * (x.M - x.P) / x.M));
+});
+const difPorSujeto = porSujeto;
+
+console.log("");
+console.log("  Precisión de la estimación (IC del 95 %) y tamaño del efecto:");
+for (const [etq, red_, dif_] of [
+  ["medias por consultora", redPorSujeto, difPorSujeto],
+  ["los doce pares", R, diff],
+]) {
+  const k = red_.length, df = k - 1, tc = tQuantil(0.025, df);
+  const mR = mean(red_), hR = tc * sd(red_) / Math.sqrt(k);
+  const mD = mean(dif_), hD = tc * sd(dif_) / Math.sqrt(k);
+  const dz = mD / sd(dif_);
+  console.log(`   ${etq} (n = ${k}, gl = ${df}, t crítico = ${tc.toFixed(3)}):`);
+  console.log(`     reducción media  ${mR.toFixed(1)} %   IC 95 % [${(mR - hR).toFixed(1)}; ${(mR + hR).toFixed(1)}]` +
+              `  ${(mR - hR) > UMBRAL ? "— el intervalo excluye el umbral del 70 %" : "— el intervalo CONTIENE el umbral del 70 %"}`);
+  console.log(`     ahorro medio     ${mD.toFixed(1)} min IC 95 % [${(mD - hD).toFixed(1)}; ${(mD + hD).toFixed(1)}]`);
+  console.log(`     d de Cohen (d_z) ${dz.toFixed(2)}`);
+}
 console.log("");

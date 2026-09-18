@@ -39,7 +39,7 @@ const PATRONES_V2 = [
 // Recuperado de workflows/…v2.json en el commit anterior a fix-compliance-patterns.
 const PATRONES_HU10 = [
   /\$\s?\d+/g,
-  /\d+[.,]\d{3}/g,
+  /\d+[\.,]\d{3}/g,
   /\d+%\s?(off|desc)/gi,
   /\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\b/gi,
 ];
@@ -170,6 +170,20 @@ console.log(`  Precisión               = VP/(VP+FP) = ${VP}/${VP + FP} = ${prec
 console.log(`  Especificidad           = VN/(VN+FP) = ${VN}/${VN + FP} = ${especif.toFixed(3)}  (${pct(especif)})`);
 console.log(`  F1-score                = ${f1.toFixed(3)}`);
 console.log(`  Exactitud (accuracy)    = ${exactitud.toFixed(3)}  (${pct(exactitud)})`);
+// Intervalo de Wilson: con denominadores de una o dos decenas la aproximación normal
+// (Wald) produce límites fuera de [0,1] y colapsa a cero cuando la proporción es 1.
+function wilson(k, m, z = 1.959964) {
+  if (!m) return [NaN, NaN];
+  const p = k / m, d = 1 + z * z / m;
+  const c = (p + z * z / (2 * m)) / d;
+  const h = z * Math.sqrt(p * (1 - p) / m + z * z / (4 * m * m)) / d;
+  return [c - h, c + h];
+}
+const ic = (k, m) => { const [a, b] = wilson(k, m); return `[${a.toFixed(3)}; ${b.toFixed(3)}]`; };
+console.log("\n  IC del 95 % (Wilson):");
+console.log(`   Recall    ${VP}/${VP + FN}  ${ic(VP, VP + FN)}`);
+console.log(`   Precisión ${VP}/${VP + FP}  ${ic(VP, VP + FP)}`);
+console.log(`   Exactitud ${VP + VN}/${total}  ${ic(VP + VN, total)}`);
 console.log("\n──────────────── Casos que el detector FALLÓ ────────────────");
 for (const f of fallos) {
   const tag = f.veredicto === "FN" ? "FN (se escapó un precio)" : `FP (bloqueó copy limpio → "${f.patron}")`;

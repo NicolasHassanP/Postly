@@ -226,6 +226,26 @@ PROHIBIDAS = [
     'de los tres casos con esa forma',
     # N-12: la segunda corrida alcanzó ocho de los nueve
     'Sobre esa extensión se repitió la inferencia, de modo que',
+    # ── auditoría 6, bloque 3 (pasada 26) ────────────────────────────────────
+    # M-12: el sistema propone un orden de carrusel, no elige imágenes ganadoras
+    'sugiriendo algorítmicamente cuáles son las',
+    # M-8: el bloqueo de cuenta por WAF está conjeturado, no evaluado
+    'o bloqueo definitivo (suspensión total de credenciales',
+    # M-3: la Figura 5 publica datos personales que la frase negaba
+    'Ningún otro dato personal se recolecta',
+    # M-5: los casos controlados etiquetados por el equipo son 130, no 97
+    'el etiquetado de los 97 casos controlados',
+    # M-9: lo medido es la ausencia del campo de expiración, no la longevidad
+    'la vigencia obtenida es mayor que la de 60 días',
+    # M-10: la normalización de imagen que el §4.7.2 describía no está implementada
+    'Se realiza una conversión automática a formatos soportados universalmente',
+    'filtros matemáticos de redimensionamiento escalar',
+    # M-2: la usuaria interviene en tres acciones, no sólo en la elección de tono
+    'solo la elección de tono permanece en manos de la usuaria',
+    # M-14: los mixtos de campo también atravesaron el canal visual
+    'Esos dos son los únicos en que el canal visual operó sobre',
+    # M-16: la representatividad se declaraba sin contraste
+    'La configuración representativa refleja la forma habitual',
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)

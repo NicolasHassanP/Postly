@@ -32,6 +32,9 @@ DATOS = [
     # de compliance, el prompt de vision y el SHA-256 de cada uno. Lo produce
     # verificar_patrones_desplegados.mjs --extraer y no lleva ningun identificador.
     'Nodos_compliance_desplegados.json',
+    # el mismo extracto, pero del workflow ANTERIOR a la correccion: es el detector que
+    # produjo las Tablas 3, 4 y 5 y el conjunto divergente de HU10 (M-1 de la 6a auditoria)
+    'Nodos_compliance_desplegados_v1.json',
 ]
 SCRIPTS = [
     'run_compliance_text.mjs',
@@ -45,6 +48,8 @@ SCRIPTS = [
     # la prueba de que los dos scripts de compliance corren los detectores del
     # sistema desplegado y no una copia divergente (Anexo E.4)
     'verificar_patrones_desplegados.mjs',
+    # el contraste de representatividad del conjunto principal contra el corpus real
+    'run_representatividad.mjs',
 ]
 # Artefactos que se MANTIENEN DIRECTAMENTE EN LA ENTREGA y no tienen original vigente
 # aca. Se conservan tal cual: copiarlos desde RAIZ los haria retroceder, porque las
@@ -76,6 +81,7 @@ CORRIDAS = [
     ('run_compliance_field.mjs', []),
     ('run_cronometraje.mjs', []),
     ('run_tam.mjs', []),
+    ('run_representatividad.mjs', []),
 ]
 
 # El LEEME de la entrega NO se embebe aca. Estuvo embebido y eso lo volvio una trampa:

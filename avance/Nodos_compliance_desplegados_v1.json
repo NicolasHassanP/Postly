@@ -1,0 +1,56 @@
+{
+  "_lea_esto": "Extracto redactado del workflow ANTERIOR a fix-compliance-patterns.mjs, producido por verificar_patrones_desplegados.mjs --extraer-v1. Es el estado que produjo las Tablas 3, 4 y 5 y el Recall de 0,500 del flujo programado. Contiene sólo el código de los nodos de compliance: ningún webhookId, credencial, URL de instancia ni identificador de chat.",
+  "workflow": "Postly - Entrega Final Sprint 1 v2",
+  "nodos": {
+    "Code in JavaScript1": {
+      "rotulo": "flujo inmediato (HU7/HU9)",
+      "variable": "patronesPrecios",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s?\\d/i",
+        "/\\d\\s?[.,]?\\d*\\s?(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s?%\\s?(off|desc|descuento)/i",
+        "/\\b(oferta|promo|promoci[oó]n|descuento|rebaja|barat[oa]|econ[oó]mic[oa]|gratis|2x1|3x2|cuotas?|financiaci[oó]n|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precio|cuesta|vale|abon[aá]s?)\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "c9f0330748f31d8fb09ca2d05c800a89fbe25b9fd7e853cc26f317b9e8ab4288"
+    },
+    "HU5: Pub preparar": {
+      "rotulo": "carrusel (HU5)",
+      "variable": "patrones",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s?\\d/i",
+        "/\\d\\s?[.,]?\\d*\\s?(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s?%\\s?(off|desc|descuento)/i",
+        "/\\b(oferta|promo|promoci[oó]n|descuento|rebaja|barat[oa]|econ[oó]mic[oa]|gratis|2x1|3x2|cuotas?|financiaci[oó]n|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precio|cuesta|vale|abon[aá]s?)\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "336d0964de2bfe670520b15efe643559db0d762deaebf537829f0427cc7b5a11"
+    },
+    "Sched: Procesar": {
+      "rotulo": "publicación programada (HU10)",
+      "variable": "patrones",
+      "patrones": [
+        "/\\$\\s?\\d+/g",
+        "/\\d+[\\.,]\\d{3}/g",
+        "/\\d+%\\s?(off|desc)/gi",
+        "/\\b(oferta|promocion|promo|descuento|rebaja|barato|economico|gratis)\\b/gi"
+      ],
+      "sha256_del_codigo": "992cdeb1c53e63f98433ae871baa57420eb3a6e73681e67b46527c1a38fa4e1c"
+    },
+    "Video: pub publicar": {
+      "rotulo": "video (HU13)",
+      "variable": "pats",
+      "patrones": [
+        "/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s?\\d/i",
+        "/\\d\\s?[.,]?\\d*\\s?(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i",
+        "/\\d+[.,]\\d{3}/",
+        "/\\d+\\s?%\\s?(off|desc|descuento)/i",
+        "/\\b(oferta|promo|promoci[oó]n|descuento|rebaja|barat[oa]|econ[oó]mic[oa]|gratis|2x1|3x2|cuotas?|financiaci[oó]n|sin\\s+inter[eé]s)\\b/i",
+        "/\\b(precio|cuesta|vale|abon[aá]s?)\\s*\\$?\\s*\\d/i"
+      ],
+      "sha256_del_codigo": "b5d0ee4b56b1b15b27d3a11e20c4a445ba37c1dc09d727fcc4c04e2c7d85ff4d"
+    }
+  }
+}

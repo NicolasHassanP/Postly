@@ -23,6 +23,20 @@
 //   node verificar_patrones_desplegados.mjs --extraer "../workflows/Postly - Entrega Final Sprint 1 v2.json"
 //   node verificar_patrones_desplegados.mjs
 //
+// EL DETECTOR ANTERIOR A LA CORRECCIÓN
+// Las Tablas 3, 4 y 5 no las produjo el conjunto vigente sino el anterior al análisis de
+// valores límite (v1), y el Recall de 0,500 del flujo programado lo produjo el conjunto
+// divergente de HU10. Verificar sólo el conjunto vigente dejaría sin respaldo justamente a
+// las matrices principales. El workflow previo a la corrección está versionado —es el padre
+// del commit `fix(compliance): unifica y corrige los patrones del Centinela en los 4
+// flujos`—, de modo que ese estado se extrae igual que el vigente:
+//
+//   git show "<commit>^:workflows/Postly - Entrega Final Sprint 1 v2.json" > wf_v1.json
+//   node verificar_patrones_desplegados.mjs --extraer-v1 wf_v1.json
+//
+// y queda en `Nodos_compliance_desplegados_v1.json`. La verificación lo usa, si está, para
+// comprobar `PATRONES_V1` y `PATRONES_HU10` carácter por carácter.
+//
 // Los cuatro nodos son los que el §4.5 y el Anexo B.4 describen: el del flujo inmediato
 // (HU7/HU9), el del carrusel (HU5), el de la publicación programada (HU10) y el del video
 // (HU13). Que los cuatro lleven el mismo conjunto es lo que el §5.1 afirma tras la
@@ -35,6 +49,7 @@ import { fileURLToPath } from "node:url";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const EXTRACTO = join(AQUI, "Nodos_compliance_desplegados.json");
+const EXTRACTO_V1 = join(AQUI, "Nodos_compliance_desplegados_v1.json");
 
 const NODOS = [
   { nodo: "Code in JavaScript1", variable: "patronesPrecios", rotulo: "flujo inmediato (HU7/HU9)" },
@@ -165,6 +180,39 @@ function extraer(rutaWorkflow) {
   console.log(`  ${NODO_VISION.padEnd(22)} prompt de ${prompt.length} caracteres · sha ${salida.vision.sha256_del_prompt.slice(0, 12)}`);
 }
 
+// ─── paso 1 bis: extraer el estado anterior a la corrección ───────────────────
+// Sólo los cuatro nodos de compliance: el prompt de visión y los umbrales de HU9/HU13 no
+// cambiaron con la corrección, y este extracto existe para respaldar las Tablas 3, 4 y 5.
+function extraerV1(rutaWorkflow) {
+  const wf = JSON.parse(readFileSync(rutaWorkflow, "utf-8"));
+  const porNombre = new Map(wf.nodes.map((n) => [n.name, n]));
+  const salida = {
+    _lea_esto:
+      "Extracto redactado del workflow ANTERIOR a fix-compliance-patterns.mjs, producido por " +
+      "verificar_patrones_desplegados.mjs --extraer-v1. Es el estado que produjo las Tablas 3, 4 " +
+      "y 5 y el Recall de 0,500 del flujo programado. Contiene sólo el código de los nodos de " +
+      "compliance: ningún webhookId, credencial, URL de instancia ni identificador de chat.",
+    workflow: wf.name ?? "(sin nombre)",
+    nodos: {},
+  };
+  for (const { nodo, variable, rotulo } of NODOS) {
+    const n = porNombre.get(nodo);
+    if (!n) throw new Error(`el workflow no tiene el nodo «${nodo}»`);
+    const codigo = n.parameters?.jsCode ?? "";
+    salida.nodos[nodo] = {
+      rotulo,
+      variable,
+      patrones: literalesDeArreglo(codigo, variable),
+      sha256_del_codigo: sha(codigo),
+    };
+  }
+  writeFileSync(EXTRACTO_V1, JSON.stringify(salida, null, 2) + "\n", "utf-8");
+  console.log(`extracto v1 escrito: ${EXTRACTO_V1}`);
+  for (const [nombre, d] of Object.entries(salida.nodos)) {
+    console.log(`  ${nombre.padEnd(22)} ${d.patrones.length} patrones · sha ${d.sha256_del_codigo.slice(0, 12)}`);
+  }
+}
+
 // ─── paso 2: verificar los scripts contra el extracto ─────────────────────────
 function leerScript(nombre) {
   const ruta = join(AQUI, nombre);
@@ -207,6 +255,34 @@ function verificar() {
     });
   }
 
+  // 2.b bis — el detector que produjo las Tablas 3, 4 y 5, y el divergente de HU10
+  console.log("\n── el conjunto anterior a la corrección (Tablas 3, 4 y 5) y el divergente de HU10");
+  if (!existsSync(EXTRACTO_V1)) {
+    mal("falta Nodos_compliance_desplegados_v1.json: las Tablas 3, 4 y 5 quedan sin respaldo " +
+        "(generalo con --extraer-v1 sobre el workflow del commit anterior a la corrección)");
+  } else {
+    const v1 = JSON.parse(readFileSync(EXTRACTO_V1, "utf-8"));
+    for (const [constante, nodo, rotulo] of [
+      ["PATRONES_V1", "Code in JavaScript1", "conjunto original (Tablas 3, 4 y 5)"],
+      ["PATRONES_HU10", "Sched: Procesar", "conjunto divergente del flujo programado"],
+    ]) {
+      const delScript = literalesDeArreglo(texto, constante);
+      const delNodo = v1.nodos[nodo]?.patrones ?? [];
+      if (delScript.length !== delNodo.length) {
+        mal(`${constante}: el script declara ${delScript.length} patrones y el nodo «${nodo}» tenía ${delNodo.length}`);
+        continue;
+      }
+      const iguales = delScript.every((p, i) => p === delNodo[i]);
+      if (iguales) {
+        ok(`${constante} — ${delNodo.length} patrones idénticos a «${nodo}» (${rotulo})`);
+      } else {
+        delScript.forEach((p, i) => {
+          if (p !== delNodo[i]) mal(`${constante} patrón ${i + 1}\n       script: ${p}\n       nodo  : ${delNodo[i]}`);
+        });
+      }
+    }
+  }
+
   // 2.c — el prompt de visión
   console.log("\n── run_compliance_vision.mjs contra el nodo de detección visual");
   const vision = leerScript("run_compliance_vision.mjs");
@@ -246,4 +322,7 @@ function verificar() {
 }
 
 const i = process.argv.indexOf("--extraer");
-i >= 0 ? extraer(process.argv[i + 1]) : verificar();
+const i1 = process.argv.indexOf("--extraer-v1");
+if (i1 >= 0) extraerV1(process.argv[i1 + 1]);
+else if (i >= 0) extraer(process.argv[i + 1]);
+else verificar();

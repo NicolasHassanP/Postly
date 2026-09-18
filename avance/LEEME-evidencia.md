@@ -19,6 +19,7 @@ Node.js 18 o posterior. Sin dependencias externas: los scripts sólo usan `node:
 | §5.1 y E.1.4 — divergencia del flujo programado | `node run_compliance_hu10.mjs` |
 | Tabla 7 — cronometraje, prueba t y contraste del umbral del 70 % | `node run_cronometraje.mjs` |
 | Tabla 8 — TAM y α de Cronbach | `node run_tam.mjs` |
+| §5.1 — representatividad del conjunto principal contra el corpus real | `node run_representatividad.mjs` |
 | Tabla 11 — baterías de validación técnica | `node run_baterias.mjs` (requiere n8n en marcha; la fila `B1b` consume cuota del modelo) |
 | Tabla 11, fila `B1b` — desglose por nodo | `node _desglose_b1b.mjs` (lee el historial; no consume cuota) |
 | Tablas 12 y 14 — canal de imagen (HU8) | `GEMINI_API_KEY=… node run_compliance_vision.mjs` |
@@ -57,7 +58,26 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   (p unilateral 0,230) y `t(11) = 1,52` (p 0,078): **el margen por encima del umbral no es
   estadísticamente distinguible** con tres unidades independientes. El §5.1 reporta las dos
   cosas por separado. La p de la t se calcula con la beta incompleta regularizada, y el
-  script se autocomprueba contra la forma cerrada disponible para df = 2.
+  script se autocomprueba contra la forma cerrada disponible para df = 2. Desde la sexta
+  auditoría reporta además el **intervalo de confianza del 95 %** de la reducción media y el
+  **d de Cohen** para muestras pareadas (d_z), en las dos agregaciones. Los dos intervalos
+  contienen el umbral del 70 %, que es la misma conclusión que el contraste unilateral.
+  `run_compliance_text.mjs` y `run_compliance_field.mjs` acompañan cada proporción con su
+  intervalo de Wilson, que no colapsa cuando la proporción vale 1 (la Precisión de campo).
+
+- `run_representatividad.mjs` + `Representatividad_resultados.csv` — el contraste de la
+  afirmación de representatividad del §5.1. Clasifica cada caso infractor **de texto** por la
+  forma en que expresa el precio o la promoción, con una taxonomía léxica de seis categorías
+  ajena al detector: describe cómo está escrito el caso, no si el sistema lo bloquea. A cada
+  caso se le asigna la primera categoría que coincide, ordenadas de la más explícita a la
+  menos, de modo que «vale $2900» cuenta como símbolo y no como palabra de precio. El
+  resultado: los doce infractores del corpus real se reparten en tres formas —cinco con
+  símbolo de moneda, cuatro con descuento porcentual, tres con vocabulario comercial sin
+  cifra— y **ninguno** adopta una forma indirecta, mientras que el conjunto representativo
+  lleva uno de dieciocho. El conjunto diseñado es algo más adverso que la redacción
+  observada, no equivalente a ella, y sus métricas son una cota inferior. El contraste es
+  acotado: doce textos de tres consultoras, y de canal privado, donde el precio se enuncia
+  con menos rodeos que en una publicación de feed.
 
 - `Cronometraje_datos.csv` — los 12 pares de tiempos (mm:ss), tres participantes.
 - `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — la fuente normativa del
@@ -177,6 +197,22 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   60 s de HU13** esté impuesto por una guarda. Son las dos filas de «Configuración» que la
   Tabla 13 agrega, y la razón de verificarlas así y no por muestreo es que una concatenación
   sin rama alternativa cubre **todas** las ejecuciones y no una muestra.
+
+- `Nodos_compliance_desplegados_v1.json` — el mismo extracto, pero del workflow **anterior a
+  la corrección**. Hacía falta porque el extracto vigente respalda el detector actual y las
+  Tablas 3, 4 y 5 las produjo el anterior, de modo que las matrices principales quedaban sin
+  cadena de verificación. El estado previo está versionado —es el del commit inmediatamente
+  anterior a `fix-compliance-patterns.mjs`—, así que se extrae igual:
+
+  ```
+  git show "<commit>^:workflows/Postly - Entrega Final Sprint 1 v2.json" > wf_v1.json
+  node verificar_patrones_desplegados.mjs --extraer-v1 wf_v1.json
+  ```
+
+  Con ese archivo presente, `verificar_patrones_desplegados.mjs` comprueba además
+  `PATRONES_V1` y `PATRONES_HU10` carácter por carácter. La primera corrida encontró una
+  diferencia literal en el conjunto de HU10 —`[.,]` donde el nodo escribía `[\.,]`—, inerte en
+  su comportamiento y real en la transcripción, y se corrigió.
 
 Ninguno de los scripts lleva identificadores de la instancia desplegada: la URL base,
 la clave de la API de n8n, el `webhookId` del Telegram Trigger y el chat de prueba se leen de un

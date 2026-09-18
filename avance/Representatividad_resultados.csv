@@ -1,0 +1,66 @@
+Conjunto,ID,Forma,Contenido
+"representativo (§5.1, medida principal)",R01,símbolo de moneda + cifra,Nuevo labial líquido 💄 $3.200. Escribime por privado.
+"representativo (§5.1, medida principal)",R02,símbolo de moneda + cifra,Set de skincare completo a $8500 🌿
+"representativo (§5.1, medida principal)",R03,cifra + palabra de moneda,"Perfume floral, 4500 pesos, hacé tu pedido 💐"
+"representativo (§5.1, medida principal)",R04,vocabulario comercial sin cifra,OFERTA de la semana en toda la línea de rostro ✨
+"representativo (§5.1, medida principal)",R05,descuento porcentual,Base HD con 25% off por tiempo limitado
+"representativo (§5.1, medida principal)",R06,palabra de precio + cifra,"Rubor en polvo, cuesta 2800 💗"
+"representativo (§5.1, medida principal)",R07,vocabulario comercial sin cifra,2x1 en labiales seleccionados 💄
+"representativo (§5.1, medida principal)",R08,símbolo de moneda + cifra,Crema de noche antiedad — US$ 35 🌙
+"representativo (§5.1, medida principal)",R09,vocabulario comercial sin cifra,Kit de brochas en 3 cuotas sin interés 🖌️
+"representativo (§5.1, medida principal)",R10,vocabulario comercial sin cifra,"PROMO especial, consultá disponibilidad 🌷"
+"representativo (§5.1, medida principal)",R11,símbolo de moneda + cifra,"Máscara de pestañas, vale $2900 👁️"
+"representativo (§5.1, medida principal)",R12,descuento porcentual,Descuento del 15% en tu primera compra
+"representativo (§5.1, medida principal)",R13,cifra + palabra de moneda,Sérum vitamina C 💧 a 5200 pesos
+"representativo (§5.1, medida principal)",R14,símbolo de moneda + cifra,Labial mate edición limitada $4100 💋
+"representativo (§5.1, medida principal)",R15,cifra + palabra de moneda,"Gloss con brillo, 3600 pesos, envío incluido"
+"representativo (§5.1, medida principal)",R16,forma indirecta (ninguna marca léxica explícita),"Te lo dejo en tres mil quinientos, escribime 🌸"
+"representativo (§5.1, medida principal)",R17,vocabulario comercial sin cifra,Combo mamá e hija a mitad de precio 💕
+"representativo (§5.1, medida principal)",R18,vocabulario comercial sin cifra,Escribime y te paso la lista de precios 💌
+estrés,P01,símbolo de moneda + cifra,Labial matte de larga duracion. Sale $2500. Consultame por privado.
+estrés,P02,cifra + palabra de moneda,Set de cuidado facial a solo 1.500 pesos.
+estrés,P03,vocabulario comercial sin cifra,Aprovecha la OFERTA del mes en toda la linea.
+estrés,P04,palabra de precio + cifra,"Serum antiedad, cuesta 3000, escribime."
+estrés,P05,vocabulario comercial sin cifra,2x1 en mascaras de pestanas.
+estrés,P06,descuento porcentual,Base liquida con 30% off esta semana.
+estrés,P07,símbolo de moneda + cifra,"Crema humectante, US$ 40, envio a todo el pais."
+estrés,P08,vocabulario comercial sin cifra,Kit completo en 3 cuotas sin interes.
+estrés,P09,símbolo de moneda + cifra,"Perfume importado, vale $4500."
+estrés,P10,vocabulario comercial sin cifra,PROMO especial! Rubor + labial. Escribime.
+estrés,P11,descuento porcentual,Descuento del 20% en productos seleccionados.
+estrés,P12,palabra de precio + cifra,"Delineador waterproof, abonas 1800 y es tuyo."
+estrés,P13,forma indirecta (ninguna marca léxica explícita),"Este labial cuesta dos mil quinientos pesos, escribime."
+estrés,P14,forma indirecta (ninguna marca léxica explícita),"Te lo dejo en 2500, escribime por privado."
+estrés,P15,descuento porcentual,Set facial a 30% menos solo por hoy.
+estrés,P16,palabra de precio + cifra,Aprovecha: 3 pagos de 900 cada uno.
+estrés,P17,forma indirecta (ninguna marca léxica explícita),"Labial premium por 20 verdes, escribime."
+estrés,P18,palabra de precio + cifra,Precio 👉 3200. Escribime.
+valores límite,L01,símbolo de moneda + cifra,Base TimeWise ya disponible. $2500 con envio incluido. Escribime.
+valores límite,L02,símbolo de moneda + cifra,"Base TimeWise ya disponible. $ 2500, escribime por privado."
+valores límite,L03,forma indirecta (ninguna marca léxica explícita),"El set lo dejo en 2500$, consultame sin compromiso."
+valores límite,L04,forma indirecta (ninguna marca léxica explícita),"Precios? Te los paso por privado, sin compromiso."
+valores límite,L05,cifra + palabra de moneda,"Set completo de cuidado facial, 4500 pesos."
+valores límite,L06,forma indirecta (ninguna marca léxica explícita),"Set completo de cuidado facial, cuatro mil quinientos pesos."
+valores límite,L07,cifra + palabra de moneda,"Set completo de cuidado facial, 4500 pesos."
+valores límite,L09,forma indirecta (ninguna marca léxica explícita),"Set de 3 productos, 12.500 todo junto."
+valores límite,L13,descuento porcentual,Limpiador 4 en 1: 30% OFF esta semana.
+valores límite,L14,descuento porcentual,Limpiador 4 en 1: 30% menos esta semana.
+valores límite,L15,descuento porcentual,Limpiador 4 en 1: -30% solo por esta semana.
+valores límite,L17,vocabulario comercial sin cifra,Aprovecha la promo de primavera en cuidado facial.
+valores límite,L18,vocabulario comercial sin cifra,Aprovecha las promos de primavera en cuidado facial.
+valores límite,L19,vocabulario comercial sin cifra,Consultame por las ofertas de primavera en cuidado facial.
+valores límite,L22,palabra de precio + cifra,"Labial matte nuevo, precio 3200. Consultame."
+valores límite,L23,palabra de precio + cifra,"Labial matte nuevo, los precios: 3200 y 4100 segun el tamano."
+valores límite,L24,palabra de precio + cifra,"Labial matte nuevo, el precio es 3200. Consultame."
+campo real (verbatim de consultoras),c1inf1,descuento porcentual,¡Hola! Te escribo porque este producto es nuestro indiscutido favorito y hoy entró en una promo que no podés dejar pasar
+campo real (verbatim de consultoras),c1inf2,vocabulario comercial sin cifra,¡Hola! Te escribo con una promo hermosa pensada para mimarse: por el Día de las Madres tenemos la Loción Facial Humectan
+campo real (verbatim de consultoras),c1inf4,símbolo de moneda + cifra,"¡Hola! Si estabas buscando un regalo práctico para él o renovarle la rutina, mirá lo que tengo en stock: el Gel Limpiado"
+campo real (verbatim de consultoras),c1inf5,símbolo de moneda + cifra,¡Hola! Te paso este dato porque es el paso número uno para transformar la piel el Limpiador Facial 4 en 1 TimeWise a $14
+campo real (verbatim de consultoras),c2inf1,símbolo de moneda + cifra,¡Hola! Te paso por acá este básico que no puede faltar en tu rutina: la Crema Facial Hidratante Mary Kay a AR$ 19.800. T
+campo real (verbatim de consultoras),c2inf2,símbolo de moneda + cifra,¡Hola! Te paso este infaltable para que el maquillaje te quede impecable todo el día: el Primer Facial con FPS 15 de Mar
+campo real (verbatim de consultoras),c2inf4,símbolo de moneda + cifra,¡Hola! Te escribo rápido porque este favorito entró en una promo imperdible por tiempo limitado: el Primer Facial con FP
+campo real (verbatim de consultoras),c2inf5,descuento porcentual,¡Hola! Te escribo porque acaba de salir una promo imperdible: tenemos un 25% de descuento por lanzamiento en toda la Lín
+campo real (verbatim de consultoras),c3inf1,descuento porcentual,¡Hola! Entiendo perfectamente que lo estés pensando. Es un regalo tan bonito y completo que queremos estar seguras. Mira
+campo real (verbatim de consultoras),c3inf2,vocabulario comercial sin cifra,¡Hola! Se me ocurrió una promo especial para ustedes: hoy te llevás este set TimeWise (limpiadora 4 en 1 + hidratante an
+campo real (verbatim de consultoras),c3inf3,vocabulario comercial sin cifra,¡Hola! ✨ Te escribo porque justo me acordé de vos. Este es el Set Milagroso TimeWise completo: trae la limpiadora 4 en 1
+campo real (verbatim de consultoras),c3inf4,descuento porcentual,"Esta hidratante de Mary Kay es una maravilla: tiene una textura súper ligera, no deja sensación pesada y mantiene la pie"

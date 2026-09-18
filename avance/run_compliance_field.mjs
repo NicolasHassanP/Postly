@@ -58,5 +58,21 @@ console.log(`  Real INFRACTOR  │   VP = ${String(VP).padStart(2)}      │   F
 console.log(`  Real LIMPIO     │   FP = ${String(FP).padStart(2)}      │   VN = ${String(VN).padStart(2)}`);
 console.log(`\n  Recall = ${recall.toFixed(3)} (${pct(recall)}) · Precisión = ${prec.toFixed(3)} (${pct(prec)}) · F1 = ${f1.toFixed(3)}`);
 console.log(`  Exactitud = ${((VP+VN)/n).toFixed(3)} (${pct((VP+VN)/n)})`);
+// Intervalo de Wilson: con denominadores de una o dos decenas, la aproximación normal
+// (Wald) produce límites fuera de [0,1] y colapsa a cero cuando la proporción es 1.
+// Wilson no tiene ninguno de los dos defectos y es el que APA recomienda para proporciones.
+function wilson(k, m, z = 1.959964) {
+  if (!m) return [NaN, NaN];
+  const p = k / m, d = 1 + z * z / m;
+  const c = (p + z * z / (2 * m)) / d;
+  const h = z * Math.sqrt(p * (1 - p) / m + z * z / (4 * m * m)) / d;
+  return [c - h, c + h];
+}
+const ic = (k, m) => { const [a, b] = wilson(k, m); return `[${a.toFixed(3)}; ${b.toFixed(3)}]`; };
+console.log("\n  IC del 95 % (Wilson) sobre las proporciones:");
+console.log(`   Recall    ${VP}/${VP + FN}  ${ic(VP, VP + FN)}`);
+console.log(`   Precisión ${VP}/${VP + FP}  ${ic(VP, VP + FP)}`);
+console.log(`   Exactitud ${VP + VN}/${n}  ${ic(VP + VN, n)}`);
+console.log("   (El F1 no es una proporción sobre un denominador único y no lleva intervalo.)");
 if(sinDato) console.log(`\n  (${sinDato} filas sin datos completos, excluidas)`);
 console.log("");
