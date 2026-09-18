@@ -40,7 +40,19 @@ INTENSIFICADORES = [
     'sinérgicamente', 'algorítmicamente', 'estratégicamente',
     # sustantivos de énfasis
     'excelencia', 'maestría', 'hito', 'hitos', 'paradigma', 'paradigmas',
+    # ── ampliación tras el dictamen 7 (B-8) ──────────────────────────────────
+    # La lista original era demasiado cerrada: medía intensificadores y no veía los verbos
+    # de garantía ni los adjetivos de venta, que son la otra mitad del registro de folleto.
+    # Con ella el Cap. 1 daba 0,67 por mil y el dictamen, con un léxico más ancho, 4,4.
+    'anular', 'anula', 'holísticamente', 'holístico', 'holística', 'subyugar', 'subyugue',
+    'garantiza', 'garantizan', 'garantizando', 'asegura', 'aseguran', 'asegurando',
+    'elimina', 'eliminan', 'eliminando', 'imperdible', 'inigualable', 'revolucionario',
+    'revolucionaria', 'potente', 'poderoso', 'poderosa', 'óptimo', 'óptima', 'excepcional',
+    'insuperable', 'definitivo', 'definitiva', 'total', 'totales', 'pleno', 'plena',
 ]
+# Estas dos son legítimas en la voz del requisito («el sistema debe garantizar…») y en la
+# descripción de una operación real («elimina la condición de carrera»), de modo que la
+# densidad que la lista mide es una señal para revisar, no un veredicto por ocurrencia.
 # «significativamente» y «significativa» son términos estadísticos cuando acompañan a una
 # prueba: se excluyen si la oración menciona una t, una p o la palabra «estadísticamente».
 ESTADISTICO = re.compile(r'\bt\(|\bp\s*=|estadísticamente', re.I)

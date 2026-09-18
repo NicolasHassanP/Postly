@@ -304,7 +304,15 @@ PROHIBIDAS = [
     'El runtime de Node.js serializa esa operación',
     # B-9: un criterio de aceptación que nunca se midió
     'calidad editorial equivalente a la de un redactor',
+    # M-8: APA 7 pide «et al.» desde la primera cita para tres o más autores
+    'Arner, Barberis y Buckley', 'Bass, Clements y Kazman', 'McTear, Callejas y Griol',
+    # B-8: registro de folleto
+    'anular la curva de aprendizaje', 'trasciende holísticamente', 'subyugue su agencia',
+    'el cerebro logístico del sistema', 'comprensión holística',
 ]
+# La «Fuente» de cada figura va en nota al pie y no en el rótulo (B-10): el rótulo superior
+# no puede volver a llevarla.
+EXIGIDAS_FIGURAS = 15
 # Frases que DEBEN estar: lo contrario de una frase retirada es una que no puede faltar,
 # porque un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
 EXIGIDAS = [
@@ -323,6 +331,12 @@ for f in PROHIBIDAS:
     check(f'«{f}»', n, 0)
 for f, esperado in EXIGIDAS:
     check(f'(exigida) «{f}»', texto.count(f), esperado)
+rot_con_fuente = len([p for p in parrafos
+                      if re.match(r'^Figura \d+\.', p.text.strip()) and 'Fuente:' in p.text])
+check('rótulos de figura que aún llevan la fuente', rot_con_fuente, 0)
+check('figuras con su fuente en nota al pie',
+      len([p for p in parrafos if p.text.strip().startswith('Nota. Fuente:')]),
+      EXIGIDAS_FIGURAS)
 
 # ═══════════════════════════════════════════════════ escritura
 bloque('métricas de escritura')
