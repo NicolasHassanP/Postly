@@ -117,23 +117,30 @@ bloque 4.
   cuatro frases que sostienen M-6, M-13 y M-15 no pueden desaparecer sin que el verificador
   lo note.
 
-## 4. Bloque 4 — aparato editorial y registro
+## 4. Bloque 4 — aparato editorial y registro · **CERRADO**
 
-| # | Qué |
-|---|---|
-| **M-4** | No hay **índice general**; hay **ocho encabezados vacíos** con estilo de título; **cuatro tablas** llevan la nota encima del cuadro en vez de debajo. |
-| **B-1** | Seis entradas usan la elipsis de APA 6 y el §7 declara APA 7: Beck (2001), Brown (2020), Floridi (2018), Ji (2023), Vaswani (2017), Zhao (2023). APA 7 exige listar hasta 20 autores. |
-| **B-2** | «&» en citas parentéticas de un texto en español; la adaptación de APA 7 prescribe «y». Es uniforme, así que es opcional. |
-| **B-3** | Figura 4: el bot de Telegram y Google Sheets están dibujados **dentro** del recuadro del VPS, y ninguno corre ahí. La flecha «publica» sale del módulo equivocado. |
-| **B-4** | El §5.2 no remite al Anexo C, que declara ampliarlo. Enlace unidireccional. |
-| **B-5** | §6.2, TikTok: «únicamente la adición de nuevos nodos sin refactorizar», invocando un diseño orientado a servicios que el §4.3 dice expresamente que **no** es de microservicios. |
-| **B-6** | **Registro desparejo**: intensificadores por mil palabras — Cap. 1 **7,03**, Cap. 2 3,74, Cap. 3 3,09, Cap. 4 2,66, Cap. 5 **0,71**, Anexos **0,22**. El Cap. 1 está diez veces más promocional que los anexos. |
-| **B-7** | §3.2: la fase de Evaluación del DSRM sólo menciona pruebas funcionales; la evaluación de campo con usuarias se incorporó después y la fase quedó sin actualizar. |
-| **B-8** | §4.4.2: el borrado del post antiguo no está en ningún criterio de HU12 ni en el alcance, y tensiona con la integridad referencial que HU12 exige. |
-| **B-9** | §1.2.c y §1.4.2 atribuyen a la norma una «obligatoriedad» de la firma que el Anexo D niega. **El Cap. 1 quedó sin alinear** tras la corrección de N-01 de la ronda anterior. |
-| **B-10** | §3.7.4: «previene la competencia desleal, la publicidad engañosa y el fraude marcario» — tres efectos sociales atribuidos a un detector de precios, sin medición. |
+Aplicado en las pasadas 28 a 34. No hizo falta n8n ni ngrok.
 
----
+| # | Estado | Qué se hizo |
+|---|---|---|
+| **M-4a** | ✅ | Campo TOC de niveles 1 a 3 antes del índice de tablas, del mismo tipo que los dos que ya existían. Generará 113 entradas (9 capítulos, 35 secciones, 69 subsecciones) al actualizar los campos en Word. |
+| **M-4b** | ✅ | Los ocho párrafos vacíos con estilo de encabezado pasan a Normal. No se borran, por si alguno llevaba un salto de página; lo que se les quita es lo que los metía en el panel de navegación y los habría metido en el índice. |
+| **M-4c** | ✅ | Las notas de las Tablas 3, 4, 5 y 8 se mueven debajo del cuadro. Las 14 quedan uniformes. |
+| **M-4d** | ✅ | Las Figuras 7 a 10 llevaban el rótulo pintado dentro del bitmap, sin acentos, duplicando el del campo SEQ. Se recorta la franja y se ajusta la altura declarada del dibujo en la misma proporción: relación de aspecto verificada. |
+| **B-1** | ✅ | Las seis entradas con elipsis de APA 6. **La nómina de cada obra se verificó contra su fuente antes de escribirla**, y de ahí salen dos tratamientos distintos: Beck (17), Floridi (13), Ji (10) y Vaswani (8) se listan completas; Brown (31) y Zhao (22) van con 19 + elipsis + último **sin** ampersand, que es lo que APA 7 pide arriba de 20. |
+| **B-2** | ✅ | Las 46 citas parentéticas pasan de «&» a «y». La lista de referencias conserva «&», que es lo correcto, y la sustitución se limitó a los paréntesis que terminan en año para no tocar títulos como «International Law & Business». |
+| **B-3** | ✅ | Figura 4 redibujada entera (`redibujar_figura4.py`). El recuadro del VPS contiene ahora sólo lo que corre en el VPS; el bot queda afuera, rotulado como infraestructura de Telegram, y la persistencia pasa a servicios externos. La flecha «publica» sale del orquestador. |
+| **B-4** | ✅ | El §5.2 remite al Anexo C. |
+| **B-5** | ✅ | TikTok deja de ser «únicamente agregar nodos» y se deja de invocar un diseño orientado a servicios que el §4.3 niega. |
+| **B-6** | ✅ | **El hallazgo más laborioso.** Se agrega `medir_registro.py` y se nivela todo el documento en dos pasadas (141 sustituciones): Cap. 1 de 8,52 a 0,67 por mil, Cap. 2 de 5,17 a 1,19, Cap. 3 de 5,28 a 0,97, Cap. 4 de 4,79 a 0,32, Resumen de 6,40 a 0,00. Sale el adjetivo que sube el tono; se queda el que nombra algo. |
+| **B-7** | ✅ | La fase de Evaluación del DSRM incorpora la evaluación de campo con usuarias. |
+| **B-8** | ✅ | Se retira el borrado del post antiguo: no está en HU12, no está en el alcance, tensiona con la integridad referencial **y no está implementado** (el workflow no tiene ninguna llamada DELETE a la Graph API). |
+| **B-9** | ✅ | §1.2.c y §1.4.2 alineados con el Anexo D. El Cap. 1 había quedado sin alinear tras N-01. |
+| **B-10** | ✅ | §3.7.4 deja de atribuir a un detector léxico la prevención de la competencia desleal, la publicidad engañosa y el fraude marcario. El título del apartado también. |
+
+De yapa, la línea base de escritura mejoró: párrafos de más de 250 palabras **6 → 5**, oraciones
+de más de 50 palabras **5 → 2** (máxima 61), y se corrigió una subordinada sin verbo al inicio
+del §2.4.
 
 ## 5. Método
 
@@ -170,11 +177,35 @@ Lo que viene funcionando, y conviene no cambiar:
 
 ## 6. Al terminar
 
-1. Refrescar campos en Word.
-2. `python verificar_documento.py` y `python verificar_remisiones.py`, ambos limpios.
-3. Commitear.
-4. **Decidir si va una séptima auditoría.** El gate del profesor es demostrar >9. Con todo
-   lo pendiente hecho la proyección es ~9,0–9,1, que es un margen fino: conviene una pasada
-   propia por clases de defecto (sobreafirmación, remisiones atributivas, inventarios,
-   estadística) **antes** de volver a auditar, que es lo que en la ronda anterior encontró
-   tres hallazgos que las auditorías no habían visto.
+**Los cuatro bloques están aplicados.** Lo que queda es de Nico y de Word:
+
+1. **Refrescar los campos en Word** (Ctrl+E, F9). Es imprescindible ahora, más que antes: el
+   **índice general está vacío** hasta que se actualicen los campos —lleva un marcador que lo
+   dice—, y el índice de tablas, el de figuras y la numeración se movieron con las pasadas.
+2. **Revisar cómo quedaron las páginas.** El índice general suma unas tres páginas de
+   material preliminar, y el cuerpo bajó a 36.985 palabras. Si el límite de ~120 páginas
+   incluye el preliminar, hay que mirarlo de nuevo.
+3. `python verificar_documento.py` y `python verificar_remisiones.py`. El primero deja un
+   único punto abierto —dos oraciones de más de 50 palabras, contra las cinco de la línea
+   base— y ninguna frase prohibida ni exigida fuera de lugar.
+4. **Decidir si va una séptima auditoría.** El gate del profesor es demostrar >9. Con los
+   cuatro bloques hechos la proyección del dictamen era ~9,0–9,1, que sigue siendo un margen
+   fino. Antes de volver a auditar conviene la pasada propia por clases de defecto
+   (sobreafirmación, remisiones atributivas, inventarios, estadística): en la ronda anterior
+   encontró tres hallazgos que las auditorías no habían visto, y en ésta encontró dos más
+   —que los casos controlados son 130 y no 134, y que la normalización de imagen del §4.7.2
+   no estaba sólo indocumentada sino sin implementar—.
+
+## 7. Herramientas que dejaron las pasadas
+
+- `medir_registro.py` — densidad de intensificadores por capítulo, con una lista cerrada y
+  discutible entrada por entrada. Es la que sostiene B-6 y la que hay que volver a correr si
+  se reescribe un capítulo.
+- `run_representatividad.mjs` — el contraste del conjunto principal contra el corpus real
+  (M-16). Entra en la entrega y se corre desde `evidencia/`.
+- `verificar_patrones_desplegados.mjs --extraer-v1` — el extracto del workflow **anterior** a
+  la corrección, que es el que respalda las Tablas 3, 4 y 5 (M-1).
+- `verificar_documento.py` tiene ahora, además de las frases prohibidas, una lista
+  **EXIGIDAS**: un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
+- `redibujar_figura4.py` — la Figura 4 es ahora código y no un bitmap heredado, de modo que
+  la próxima corrección de arquitectura se aplica editando el script.
