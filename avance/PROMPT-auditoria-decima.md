@@ -36,8 +36,13 @@ con qué lo medís.
 ## Materiales
 
 - `Tesis Postly Bontorno Hassan.pdf` — el documento a auditar. **Es lo único que los autores
-  entregaron.** Extraé el texto completo preservando el diseño (`pdftotext -layout`, o
-  `pypdf` si no está disponible) y recorrelo entero, incluidos los anexos.
+  entregaron.** Son **175 páginas**, con **15 objetos de imagen embebidos**, **14 tablas** y
+  **15 figuras** numeradas, y unas **63.000 palabras** sin contar los tres índices. Extraé el
+  texto completo preservando el diseño (`pdftotext -layout`, o `pypdf` si no está disponible)
+  y recorrelo entero, incluidos los cinco anexos (A a E), donde está casi toda la evidencia
+  empírica. Si tu extracción devuelve mucho menos que eso, falló y hay que arreglarla antes
+  de opinar. Los tres índices repiten cada título y cada rótulo: excluilos de cualquier
+  métrica de escritura o vas a contar todo dos veces.
 - `Dictamen_Auditoria_Tesis_Postly_Bontorno_Hassan.pdf` — el dictamen que este mismo
   instrumento emitió sobre la versión anterior del trabajo, el 1 de agosto de 2026, con nota
   4,4/10. Oficia de rúbrica para la primera parte de tu tarea.
