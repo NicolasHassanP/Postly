@@ -24,7 +24,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 SALIDA = sys.argv[1] if len(sys.argv) > 1 else '_figuras/Figura_6_corregida.png'
 
-W, H = 1334, 793
+W, H = 1334, 828
 REGULAR = 'C:/Windows/Fonts/segoeui.ttf'
 NEGRITA = 'C:/Windows/Fonts/segoeuib.ttf'
 ITALICA = 'C:/Windows/Fonts/segoeuii.ttf'
@@ -76,18 +76,21 @@ def flecha(y, desde, hasta, texto, vuelta=False):
 
 # ── la secuencia, en el orden en que el sistema la ejecuta ──────────────────
 PASOS = [
-    (80, 'Usuaria', 'Bot (n8n)', '1. envía imagen(es) del producto', False),
-    (135, 'Bot (n8n)', 'Módulo Centinela', '2. audita la imagen (HU8, visión)', False),
-    (190, 'Módulo Centinela', 'Bot (n8n)', '3. veredicto visual: sin precio incrustado', True),
-    (245, 'Bot (n8n)', 'Gemini 2.5 Flash', '4. solicita 3 copys', False),
-    (300, 'Gemini 2.5 Flash', 'Bot (n8n)', '5. copys generados (JSON)', True),
-    (355, 'Bot (n8n)', 'Usuaria', '6. presenta 3 opciones de tono (HITL)', True),
-    (410, 'Usuaria', 'Bot (n8n)', '7. selecciona tono / edita texto', False),
-    (465, 'Bot (n8n)', 'Módulo Centinela', '8. audita el texto final (HU7, RegEx)', False),
-    (520, 'Módulo Centinela', 'Bot (n8n)', '9. veredicto textual: aprobado', True),
-    (575, 'Bot (n8n)', 'Meta Graph API', '10. publica con la firma concatenada', False),
-    (630, 'Meta Graph API', 'Bot (n8n)', '11. ID de publicación', True),
-    (670, 'Bot (n8n)', 'Usuaria', '12. confirma publicación (estado: Publicado)', True),
+    (76, 'Usuaria', 'Bot (n8n)', '1. envía imagen(es) del producto', False),
+    (124, 'Bot (n8n)', 'Módulo Centinela', '2. invoca la auditoría visual (HU8)', False),
+    (172, 'Módulo Centinela', 'Gemini 2.5 Flash', '3. analiza la imagen (llamada de visión)',
+     False),
+    (220, 'Gemini 2.5 Flash', 'Módulo Centinela', '4. sin precio incrustado', True),
+    (268, 'Módulo Centinela', 'Bot (n8n)', '5. veredicto visual', True),
+    (316, 'Bot (n8n)', 'Gemini 2.5 Flash', '6. solicita 3 copys (segunda llamada)', False),
+    (364, 'Gemini 2.5 Flash', 'Bot (n8n)', '7. copys generados (JSON)', True),
+    (412, 'Bot (n8n)', 'Usuaria', '8. presenta 3 opciones de tono (HITL)', True),
+    (460, 'Usuaria', 'Bot (n8n)', '9. selecciona tono / edita texto', False),
+    (508, 'Bot (n8n)', 'Módulo Centinela', '10. audita el texto final (HU7, RegEx)', False),
+    (556, 'Módulo Centinela', 'Bot (n8n)', '11. veredicto textual: aprobado', True),
+    (604, 'Bot (n8n)', 'Meta Graph API', '12. publica con la firma concatenada', False),
+    (645, 'Meta Graph API', 'Bot (n8n)', '13. ID de publicación', True),
+    (678, 'Bot (n8n)', 'Usuaria', '14. confirma publicación (estado: Publicado)', True),
 ]
 for y, desde, hasta, texto, vuelta in PASOS:
     flecha(y, desde, hasta, texto, vuelta)
@@ -103,9 +106,14 @@ LINEAS = [
     'a 9:16 elimina el precio del material publicado (§4.5.1, §5.1).',
     '- La firma legal se concatena por código antes de la publicación: no depende de que el '
     'modelo la incluya (Anexo B.4).',
+    '- El Módulo Centinela no es un proceso aparte ni un modelo propio: su canal visual es una '
+    'llamada al mismo Gemini 2.5 Flash (pasos 3 y 4) y su canal textual, un nodo de código '
+    'determinista',
+    '  (paso 10). Por eso el recorrido consume DOS inferencias y no una, que es lo que el '
+    'Anexo E.5 mide en su batería de integración multimodal.',
 ]
 for k, linea in enumerate(LINEAS):
-    d.text((20, 728 + k * 16), linea, font=f_nota, fill=(70, 70, 70))
+    d.text((20, 726 + k * 15), linea, font=f_nota, fill=(70, 70, 70))
 
 im.save(SALIDA)
 print(f'escrita: {SALIDA}  ({im.size[0]}×{im.size[1]})')

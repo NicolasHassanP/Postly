@@ -21,7 +21,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 SALIDA = sys.argv[1] if len(sys.argv) > 1 else '_figuras/Figura_4_corregida.png'
 
-W, H = 1421, 689
+W, H = 1421, 706
 REGULAR = 'C:/Windows/Fonts/segoeui.ttf'
 NEGRITA = 'C:/Windows/Fonts/segoeuib.ttf'
 ITALICA = 'C:/Windows/Fonts/segoeuii.ttf'
@@ -85,7 +85,7 @@ def flecha(p0, p1, etiqueta=None, t=0.5, dy=-10, en_x=None):
 # ── frontera del VPS: sólo lo que corre en el VPS ─────────────────────────────
 VX0, VY0, VX1, VY1 = 500, 20, 945, 470
 dr.rectangle([VX0, VY0, VX1, VY1], outline=(31, 78, 121), width=2)
-dr.text((VX0 + 14, VY0 + 12), 'Sistema Postly (VPS auto-hospedado)', font=f_borde,
+dr.text((VX0 + 14, VY0 + 12), 'Sistema Postly (instancia auto-hospedada)', font=f_borde,
         fill=(31, 78, 121))
 
 # ── lo que NO corre en el VPS ─────────────────────────────────────────────────
@@ -99,7 +99,7 @@ caja(990, 60, 1400, 122, VERDE_B, VERDE_F, 'Google Gemini 2.5 Flash', f_tit=f_ex
 caja(990, 150, 1400, 212, ROJO_B, ROJO_F, 'Meta Graph API (Instagram / Facebook)',
      f_tit=f_ext)
 caja(990, 240, 1400, 302, VIOLETA_B, VIOLETA_F,
-     'Cloudinary (almacenamiento intermedio de video)', f_tit=f_ext)
+     'Cloudinary (almacenamiento intermedio de imagen y video)', f_tit=f_ext)
 caja(990, 330, 1400, 392, GRIS_B, GRIS_F,
      'Persistencia (Google Sheets)' + chr(10) + 'almacenamiento tabular', f_tit=f_ext)
 
@@ -122,7 +122,7 @@ flecha((860, 328), (860, 137), None)
 etiqueta_en(886, 240, 'dispara')
 flecha((922, 82), (986, 91), 'analiza / genera', en_x=963, dy=-12)
 flecha((922, 98), (986, 181), 'publica', en_x=963, dy=0)
-flecha((922, 112), (986, 271), 'sube video', en_x=963, dy=0)
+flecha((922, 112), (986, 271), 'sube el activo', en_x=963, dy=0)
 flecha((922, 126), (986, 361), 'lee/escribe', en_x=963, dy=0)
 
 # ── nota ──────────────────────────────────────────────────────────────────────
@@ -134,11 +134,13 @@ LINEAS = [
     '- El Módulo Centinela se ejecuta como nodos de función dentro del mismo proceso n8n, '
     'no como un servicio separado.',
     '- El bot de Telegram y la persistencia corren en infraestructura de terceros: quedan '
-    'fuera de la frontera del VPS.',
+    'fuera de la frontera del sistema.',
     '- La publicación la emite el orquestador, que cumple el papel de capa de integración '
     '(§4.3.1); el Centinela audita y no publica.',
-    '- Cloudinary es un paso intermedio obligatorio para el flujo de video (Anexo B.9, C.6). '
-    'La persistencia no es una base relacional (Anexo B.5).',
+    '- Cloudinary es un paso intermedio obligatorio en todos los flujos que publican: cada '
+    'imagen y cada video se suben allí para que la Graph API',
+    '  pueda descargarlos (§4.7.2; Anexos B.9, C.6 y E.5). La persistencia no es una base '
+    'relacional (Anexo B.5).',
 ]
 for k, l in enumerate(LINEAS):
     dr.text((20, NY + 26 + k * 26), l, font=f_nota, fill=TINTA)

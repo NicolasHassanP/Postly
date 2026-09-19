@@ -13,8 +13,10 @@ Resumen. Nada de eso lo ve un verificador de frases.
 
 Uso: python verificar_coherencia.py "<documento.docx>"
 """
+import json
 import re
 import sys
+from pathlib import Path
 from collections import defaultdict
 
 import docx
@@ -163,6 +165,29 @@ for pat, etq in [(r'(\d{3})\s*nodos', 'nodos del workflow principal'),
     vals = sorted({m.group(1) for m in re.finditer(pat, texto, re.I)
                    if 'más de' not in texto[max(0, m.start() - 10):m.start()]})
     check(f'{etq}: un solo valor', len(vals) <= 1, f'valores distintos: {vals}' if len(vals) > 1 else str(vals))
+
+# ── 6. las seis expresiones del Anexo B.4 contra el detector desplegado ──────
+# El Anexo B.4 las transcribe desde la pasada 80. Una transcripción se desactualiza sin
+# avisar: si alguien toca el detector y no el anexo, el documento pasa a describir otro
+# sistema. Este guarda compara carácter por carácter contra el extracto que
+# `verificar_patrones_desplegados.mjs --extraer` produce del workflow.
+print()
+print('── las seis expresiones del B.4 contra el nodo desplegado')
+EXTRACTO = Path(__file__).parent / 'evidencia' / 'Nodos_compliance_desplegados.json'
+if not EXTRACTO.exists():
+    print(f'   (no está {EXTRACTO.name}: no se comprueba)')
+else:
+    extracto = json.loads(EXTRACTO.read_text(encoding='utf-8'))
+    codigo = ''
+    for nodo in extracto.get('nodos', {}).values():
+        codigo += nodo.get('codigo', '') if isinstance(nodo, dict) else str(nodo)
+    # las del documento: los párrafos «(n) /…/» del Anexo B.4
+    en_doc = re.findall(r'^\(\d\)\s+(/.+?/i?)\s+—', texto, re.M)
+    check('expresiones transcritas en el B.4', len(en_doc) == 6, f'{len(en_doc)} de 6')
+    for expr in en_doc:
+        esta = expr in codigo
+        check(f'   {expr[:46]}…', esta,
+              'idéntica al nodo' if esta else '*** NO está en el nodo desplegado')
 
 print()
 if fallos:
