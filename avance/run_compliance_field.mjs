@@ -16,6 +16,13 @@ const H = Object.fromEntries(rows[0].map((h,i)=>[h.trim(),i]));
 const norm = s => (s||"").trim().toUpperCase();
 
 let VP=0,FP=0,VN=0,FN=0, sinDato=0;
+// El panel A de la Tabla 5 mide el constructo que el módulo DECLARA auditar —la referencia
+// monetaria— y el panel B, la noción más amplia de «publicable» que aplicaron las
+// evaluadoras. Corren sobre las mismas 29 piezas y sólo cambia la etiqueta: las dos que
+// ellas descartaron por un defecto del producto no llevan cifra, de modo que bajo el
+// constructo del panel A son limpias. La columna Ground_truth_monetario lo declara por fila,
+// para que el recorte no dependa de leer las notas.
+let mVP=0,mFP=0,mVN=0,mFN=0;
 // para kappa (etiqueta consultora vs externa)
 let a_II=0,a_LL=0,a_IL=0,a_LI=0; // I=INFRACTOR, L=LIMPIO
 for(let i=1;i<rows.length;i++){
@@ -34,6 +41,9 @@ for(let i=1;i<rows.length;i++){
   if(!(gt==="INFRACTOR"||gt==="LIMPIO")||!(bloq||pub)){ sinDato++; continue; }
   if(gt==="INFRACTOR") (bloq?VP++:FN++);
   else (bloq?FP++:VN++);
+  const gtm=norm(row[H.Ground_truth_monetario]);
+  if(gtm==="INFRACTOR") (bloq?mVP++:mFN++);
+  else if(gtm==="LIMPIO") (bloq?mFP++:mVN++);
 }
 const n = VP+FP+VN+FN;
 if(n===0){ console.log("\n(Planilla sin datos completos todavía. Cargá Ground_truth y Resultado_sistema.)\n"); process.exit(0);}
@@ -53,6 +63,18 @@ const pct=x=>(x*100).toFixed(1)+"%";
 console.log(`\n════ COMPLIANCE — VALIDACIÓN CON CONTENIDO REAL (n=${n}) ════\n`);
 console.log("  Acuerdo entre evaluadoras (fiabilidad de la etiqueta):");
 console.log("   "+kappaStr+"\n");
+const mN=mVP+mFP+mVN+mFN;
+if(mN){
+  const mRec=mVP/(mVP+mFN||1), mPre=mVP/(mVP+mFP||1);
+  const mF1=2*mPre*mRec/((mPre+mRec)||1);
+  console.log(`  PANEL A — referencia monetaria, el constructo que el módulo audita (n=${mN})`);
+  console.log("                 │ Sistema BLOQUEÓ │ Sistema PUBLICÓ");
+  console.log(`  Real INFRACTOR  │   VP = ${String(mVP).padStart(2)}      │   FN = ${String(mFN).padStart(2)}`);
+  console.log(`  Real LIMPIO     │   FP = ${String(mFP).padStart(2)}      │   VN = ${String(mVN).padStart(2)}`);
+  console.log(`   Recall = ${mRec.toFixed(3)} · Precisión = ${mPre.toFixed(3)} · F1 = ${mF1.toFixed(3)} · Exactitud = ${((mVP+mVN)/mN).toFixed(3)}`);
+  console.log("");
+}
+console.log("  PANEL B — «publicable» según las evaluadoras");
 console.log("                 │ Sistema BLOQUEÓ │ Sistema PUBLICÓ");
 console.log(`  Real INFRACTOR  │   VP = ${String(VP).padStart(2)}      │   FN = ${String(FN).padStart(2)}`);
 console.log(`  Real LIMPIO     │   FP = ${String(FP).padStart(2)}      │   VN = ${String(VN).padStart(2)}`);
@@ -74,5 +96,12 @@ console.log(`   Recall    ${VP}/${VP + FN}  ${ic(VP, VP + FN)}`);
 console.log(`   Precisión ${VP}/${VP + FP}  ${ic(VP, VP + FP)}`);
 console.log(`   Exactitud ${VP + VN}/${n}  ${ic(VP + VN, n)}`);
 console.log("   (El F1 no es una proporción sobre un denominador único y no lleva intervalo.)");
+if(mN){
+  console.log("");
+  console.log("  IC del 95 % (Wilson) del panel A:");
+  console.log(`   Recall        ${mVP}/${mVP+mFN}  ${ic(mVP, mVP+mFN)}`);
+  console.log(`   Especificidad ${mVN}/${mVN+mFP}  ${ic(mVN, mVN+mFP)}`);
+  console.log(`   Exactitud     ${mVP+mVN}/${mN}  ${ic(mVP+mVN, mN)}`);
+}
 if(sinDato) console.log(`\n  (${sinDato} filas sin datos completos, excluidas)`);
 console.log("");
