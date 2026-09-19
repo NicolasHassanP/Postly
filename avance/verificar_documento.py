@@ -323,6 +323,16 @@ PROHIBIDAS = [
     'Queda por declarar el alcance de la medición sobre el cuarto flujo',
     # Pasada 44: ningún flujo del canal visual queda ya sin caso propio.
     'Sin caso propio permanece el cuarto flujo',
+    # Pasada 45 (residuo del PRIMER dictamen, §7.4): ninguna frase puede prometer una
+    #  sanción por el mensaje comercial en canal público, que es la conducta para la que
+    #  la fuente NO fija ninguna. El §2.4 lo declara y el resto del documento lo respeta.
+    'la rescisión unilateral del contrato de distribución',
+    'podrían derivar en la rescisión del contrato comercial',
+    'sanciones, suspensiones o rescisiones de contrato',
+    'a las consecuentes sanciones de la compañía matriz',
+    'reduce la exposición de la consultora a una sanción de la compañía',
+    'sanciones comerciales o rescisiones contractuales',
+    'sanciones comerciales o rescisiones de contrato',
     'sigue respaldado sólo por la identidad de su conjunto de reglas',
 ]
 # La «Fuente» de cada figura va en nota al pie y no en el rótulo (B-10): el rótulo superior
@@ -355,6 +365,7 @@ EXIGIDAS = [
     #  el ancla pasa a ser el apartado que la reemplaza.
     ('El cuarto caso es el de la re-publicación (HU12) y lo documenta el Anexo E.11', 1),
     ('Este es el flujo en que la divergencia del §5.1 resultaba más difícil de advertir', 1),
+    ('El §2.4 acota el alcance de esa exposición', 1),
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)
