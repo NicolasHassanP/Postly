@@ -18,13 +18,20 @@ Actuás como evaluador de un tribunal académico. Tu trabajo no es ayudarme: es 
 sobre un Trabajo Integrador con criterio adversarial. Doy por sentado que preferís señalar
 un problema real antes que quedar bien.
 
-**Esta auditoría tiene dos partes, y las dos cuentan.** A diferencia de la ronda anterior,
-esta vez **sí** se te entrega el dictamen previo (`dictamen-auditoria-7.md`, 7,2/10). No es
-un límite: es una rúbrica. Tenés que (a) verificar, hallazgo por hallazgo, si lo que ese
-dictamen señaló está efectivamente corregido —y si la corrección no rompió otra cosa—, y
-(b) auditar el documento entero por tu cuenta, como si no existiera. La segunda parte no es
-secundaria: cada ronda anterior encontró cosecha nueva en capítulos que las anteriores no
-habían mirado.
+**Esta auditoría tiene dos partes, y las dos cuentan.** Se te entrega el dictamen que este
+trabajo recibió en su instancia anterior (`Dictamen_Auditoria_Tesis_Postly_Bontorno_Hassan.pdf`,
+4,4/10, del 1 de agosto de 2026). No es un límite: es la rúbrica de la primera parte. Tenés
+que (a) verificar, hallazgo por hallazgo, si lo que ese dictamen señaló está efectivamente
+corregido —y si la corrección no rompió otra cosa—, y (b) auditar el documento entero por tu
+cuenta, como si ese informe no existiera.
+
+**Sobre la distancia entre los dos documentos.** Aquel dictamen se emitió sobre una versión
+de 101 páginas y ~27.600 palabras de cuerpo, con cero figuras, cero tablas numeradas y un
+Capítulo 5 de 931 palabras sin un solo dato. El que tenés delante es sustancialmente otro.
+Eso tiene dos consecuencias para tu trabajo: muchos de sus 96 hallazgos apuntan a texto que
+ya no existe —verificá contra el documento actual y no supongas—, y el crecimiento mismo es
+materia de auditoría: lo que se agrega apurado para cerrar un hallazgo suele traer sus
+propios defectos, y ésos no están en ninguna lista.
 
 Juzgá el documento por lo que es: el Trabajo Integrador final de una **Tecnicatura
 Universitaria en Programación**. No lo midas contra los estándares de una tesis doctoral
@@ -43,10 +50,14 @@ corresponde.
   **leelo completo**, incluidos los cinco anexos (A a E), donde está casi toda la evidencia
   empírica. Los párrafos de los tres índices llevan estilo `toc N` o `table of figures`:
   excluilos de cualquier métrica de escritura o vas a contar cada rótulo dos veces.
-- `dictamen-auditoria-7.md` — el dictamen anterior, que oficia de rúbrica para la primera
-  parte. Su §3 tiene los 22 hallazgos y su §7, la lista de lo que separaba al trabajo de un
-  10. **Ojo:** ese dictamen contiene al menos un error propio, que el trabajo documentó y
-  refutó. No lo tomes como verdad: tomalo como lista de puntos a verificar.
+- `Dictamen_Auditoria_Tesis_Postly_Bontorno_Hassan.pdf` — el dictamen de la instancia
+  anterior, 26 páginas, que oficia de rúbrica para la primera parte. Su §9 lista los 41
+  hallazgos críticos y altos en una tabla con identificador (`C-01` … `A-41`); los 55
+  restantes, medios y bajos, están descritos en sus apartados 3 a 8. Su §11.2 resume las
+  diez debilidades principales: empezá por ahí y después bajá al detalle. Leelo con
+  `pypdf` (ya instalado) o con la herramienta que prefieras. **No lo tomes como verdad**:
+  es un juicio sobre otra versión del documento, y tu trabajo incluye decir si alguno de sus
+  hallazgos no correspondía.
 - `evidencia/` — los datos crudos, los scripts de análisis y la fuente normativa que el
   documento cita en su Anexo E. Están para que **verifiques** las cifras, no para que
   confíes en ellas. Leé primero su `LEEME.md`.
@@ -61,24 +72,29 @@ canal público y firmar con la nomenclatura legal— antes de publicar. Está or
 n8n, usa Gemini para generar el texto y para leer precios incrustados en imágenes, y
 persiste en Google Sheets.
 
-## Qué cambió desde el dictamen anterior
+## Dónde se concentró el trabajo desde aquel dictamen
 
-Esto no es una lista de méritos: es dónde mirar con más atención, porque lo que se toca es
-lo que se rompe.
+Esto no es una lista de méritos ni una guía de lo que tenés que dar por bueno: es dónde
+mirar con más atención, porque lo que se toca es lo que se rompe. **Cada punto es una
+afirmación del trabajo, no un hecho establecido.**
 
-1. **Se corrigió el sistema, no sólo el documento.** La detección visual de precios corría
+1. **El Capítulo 5 pasó de no tener datos a tener catorce tablas.** Cronometraje con tres
+   consultoras, matrices de confusión del módulo de compliance en dos canales y varias
+   configuraciones, un cuestionario TAM y un análisis de valores límite. Los datos crudos y
+   los scripts están en `evidencia/`: reproducí las cifras en vez de aceptarlas.
+2. **Aparecieron quince figuras y cinco anexos.** Entre ellos el Anexo D, que transcribe la
+   fuente normativa cuya ausencia era el hallazgo `C-08`, y el Anexo E, que documenta toda
+   la evidencia empírica. El PDF de esa fuente está en `evidencia/`.
+3. **Se corrigió el sistema, no sólo el documento.** La detección visual de precios corría
    sólo en el flujo de imagen única; el carrusel usaba un criterio propio y los flujos de
-   video y de re-publicación no ejecutaban ninguna. Hoy los cuatro llevan el mismo criterio.
-   El §5.1 lo reporta y el Anexo E.4 lo verifica.
-2. **La normalización de video a 9:16 recorta el contenido**, y una placa de precio contra
-   un borde desaparece antes de publicarse. El sistema ahora analiza cuatro imágenes por
+   video y de re-publicación no ejecutaban ninguna. El §5.1 reporta que hoy los cuatro
+   llevan el mismo criterio y el Anexo E.4 aporta el mecanismo con que lo verifica.
+4. **La normalización de video a 9:16 recorta el contenido**, y una placa de precio contra
+   un borde desaparece antes de publicarse. El sistema analiza ahora cuatro imágenes por
    video —tres instantes del normalizado y el encuadre original— y distingue bloquear de
    avisar. El §4.7.3 y el §5.1 lo declaran.
-3. **Cuatro casos nuevos, ejecutados de extremo a extremo**: dos de video (Anexo E.9), uno
-   de carrusel (E.10) y uno de re-publicación (E.11). Con ellos los cuatro flujos del canal
-   visual tienen medición y no sólo verificación estructural.
-4. **Se armonizaron seis frases** que prometían sanciones contractuales por una conducta
-   para la que la fuente normativa no fija ninguna.
+5. **Cuatro casos ejecutados de extremo a extremo** en los otros tres flujos: dos de video
+   (Anexo E.9), uno de carrusel (E.10) y uno de re-publicación (E.11).
 
 Preguntate, para cada uno: si el documento declara el alcance exacto de lo que agregó, si
 las afirmaciones viejas de otros capítulos quedaron consistentes con lo nuevo, y si algún
@@ -120,9 +136,10 @@ Declará el estado: *aprobada* / *aprobada con observaciones* / *requiere revisi
 1. Leé el documento entero antes de juzgar nada.
 2. **Verificá todo lo que sea computable.** Ver «Verificaciones instrumentales». Si una
    cifra del texto no coincide con la que sale del dato crudo, es un hallazgo crítico.
-3. Recorré los 22 hallazgos del dictamen anterior y dictaminá el estado de cada uno:
-   **resuelto**, **parcial** o **no resuelto**, con la evidencia de por qué. Si alguno no
-   correspondía, decilo: un hallazgo mal fundado no se cierra, se refuta.
+3. Recorré los hallazgos del dictamen anterior y dictaminá el estado de cada uno:
+   **resuelto**, **parcial**, **no resuelto** o **no correspondía**, con la evidencia de por
+   qué. Los 41 con identificador, uno por uno; los medios y bajos de sus apartados 3 a 8,
+   agrupados por apartado si son de forma. Un hallazgo mal fundado no se cierra, se refuta.
 4. Recién después, evaluá lo que es materia de criterio: la calidad del planteo, la
    coherencia interna, la calibración de las afirmaciones y la solidez de las conclusiones.
 5. Ordená los hallazgos nuevos por severidad y ubicá cada uno con precisión (sección,
@@ -272,8 +289,9 @@ video y de uso de imágenes de la Compañía.
 - Si no podés verificar algo, decí que no podés y por qué. Es una respuesta legítima;
   inventar un veredicto no lo es.
 - **No heredes los juicios del dictamen anterior.** Que haya calificado bien un capítulo no
-  te obliga; que haya calificado mal otro, tampoco. Y si encontrás que alguno de sus
-  hallazgos no se sostenía, decilo con la evidencia.
+  te obliga; que haya calificado mal otro, tampoco. Su nota es sobre otra versión del
+  trabajo y no es el piso ni el techo de la tuya. Y si encontrás que alguno de sus hallazgos
+  no se sostenía, decilo con la evidencia.
 - **No asumas que la nota tiene que ser alta ni baja.** Calificá lo que leés.
 
 ## Entregable
@@ -283,10 +301,14 @@ Escribí el dictamen en `dictamen-auditoria-8.md`, con esta estructura:
 1. **Veredicto** — nota global sobre 10, estado, y los motivos en pocas líneas.
 2. **Calificación por capítulo** — tabla con la nota y el motivo en una línea, más la
    ponderación completa término por término.
-3. **Estado de los 22 hallazgos del dictamen anterior** — tabla con el identificador, el
-   estado (resuelto / parcial / no resuelto / no correspondía) y la evidencia en una o dos
-   líneas.
-4. **Regresiones** — lo que el dictamen anterior daba por bien y hoy está peor, si lo hay.
+3. **Estado de los hallazgos del dictamen anterior** — una tabla con los 41 que llevan
+   identificador (`C-01` … `A-41`): identificador, estado (resuelto / parcial / no resuelto
+   / no correspondía) y la evidencia en una o dos líneas. Después, un párrafo por apartado
+   para los medios y bajos de sus §3 a §8. Y al final, el veredicto sobre sus diez
+   debilidades principales (§11.2), que es lo que un lector de aquel informe va a querer
+   saber primero.
+4. **Regresiones** — lo que aquel dictamen daba por bien —su §11.1 lista ocho fortalezas— y
+   hoy está peor, si lo hay.
 5. **Hallazgos nuevos** — ordenados por severidad (críticos, altos, medios, bajos). Cada uno
    con su ubicación exacta, la cita literal del problema, por qué importa y qué lo corrige.
 6. **Verificaciones instrumentales** — tabla de lo que mediste, con el número que obtuviste
@@ -323,7 +345,7 @@ Copy-Item "$src\Tesis Postly Bontorno Hassan-1 v2.docx" $dst
 Copy-Item "$src\PROMPT-auditoria-octava.md"             $dst
 Copy-Item "$src\md_a_pdf.py"                            $dst
 Copy-Item "$src\evidencia"                              $dst -Recurse
-Copy-Item "C:\dev\auditoria-postly-7\dictamen-auditoria-7.md" $dst
+Copy-Item "$src\Dictamen_Auditoria_Tesis_Postly_Bontorno_Hassan.pdf" $dst
 ```
 
 La carpeta queda así:
@@ -332,7 +354,7 @@ La carpeta queda así:
 C:\dev\auditoria-postly-8\
 ├── Tesis Postly Bontorno Hassan-1 v2.docx   ← con los campos actualizados en Word
 ├── PROMPT-auditoria-octava.md               ← este archivo
-├── dictamen-auditoria-7.md                  ← la rúbrica de la primera parte
+├── Dictamen_Auditoria_Tesis_Postly_Bontorno_Hassan.pdf   ← la rúbrica de la primera parte
 ├── md_a_pdf.py                              ← conversor del dictamen a PDF
 └── evidencia\                               ← 42 entradas, con su LEEME.md
 ```
