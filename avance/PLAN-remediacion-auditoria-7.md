@@ -227,9 +227,9 @@ El de siempre, con estos aprendizajes:
 - **Partir una oración larga puede romper una interpolación.** Fue el origen de M-2. Si una
   pasada edita texto generado con f-strings, hay que barrer el documento buscando llaves
   después. `verificar_documento.py` lo comprueba ahora con una frase prohibida.
-- **Los heredoc de bash colapsan el `
-` dentro de un string de Python**, y rompen el JS o el
-  regex que generan. Pasó tres veces en esta sesión. El `CLAUDE.md` lo dice: usar la
+- **Los heredoc de bash colapsan el salto de línea escapado dentro de un string de Python**
+  —la secuencia de dos caracteres, contrabarra y ene— y rompen el JS o el regex que generan.
+  Esta misma línea lo sufrió: quedó partida en dos hasta la pasada 43. Pasó tres veces en esta sesión. El `CLAUDE.md` lo dice: usar la
   herramienta de edición de archivos, `String.fromCharCode(10)` o armar la cadena por partes.
 - **Al editar el workflow, auditar siempre los nodos aguas abajo.** Insertar un nodo cambia el
   `$json` que ve el siguiente. El grafo de conexiones se recorre en diez líneas y evita un
