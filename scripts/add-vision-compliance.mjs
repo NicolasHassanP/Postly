@@ -167,6 +167,21 @@ for (const [origen, salida, viejo, nuevo] of RECABLEADO) {
   m[i] = { node: nuevo, type: "main", index: 0 };
 }
 
+// Interponer un nodo cambia el `$json` que ve el siguiente, y el que sigue leía
+// `$json.frameUrl` del nodo de FFmpeg. Ahora recibe el resultado del parseo, que no tiene
+// ese campo, y falla con «Cannot read properties of undefined». Es el gotcha que el
+// CLAUDE.md del repo documenta: tras insertar un nodo hay que pasar las referencias de los
+// posteriores a `$('<nodo>').first().json...`. Se corrige acá y no a mano para que el
+// arreglo viaje con la inserción que lo hizo necesario.
+const analizar = porNombre.get("Video: analizar");
+if (!analizar) fallos.push("falta el nodo «Video: analizar»");
+else if (analizar.parameters.imageUrls === "={{ $json.frameUrl }}") {
+  analizar.parameters.imageUrls = "={{ $('Video: procesar').first().json.frameUrl }}";
+  console.log("  ~ Video: analizar — imageUrls pasa a referenciar «Video: procesar»");
+} else if (!String(analizar.parameters.imageUrls).includes("Video: procesar")) {
+  fallos.push(`«Video: analizar» lee ${analizar.parameters.imageUrls}, que no esperaba`);
+}
+
 conectar("Video: HU8 visual", 0, "Video: HU8 parsear");
 conectar("Video: HU8 parsear", 0, "Video: ¿frame limpio?");
 conectar("Video: ¿frame limpio?", 0, "Video: frame con precio");   // true  = tiene precio

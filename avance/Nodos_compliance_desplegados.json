@@ -83,7 +83,7 @@
       "presente": true,
       "lleva_el_criterio": true,
       "modelo": "models/gemini-2.5-flash",
-      "imagen": "={{ $('Video: procesar').first().json.frameUrl }}"
+      "imagen": "={{ $json.frameUrls }}"
     },
     "re-publicación (HU12)": {
       "nodo": "Repost: HU8 visual",
