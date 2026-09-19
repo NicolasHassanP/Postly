@@ -226,6 +226,41 @@ las imágenes ya procesadas.
 
 ---
 
+## 5 bis. Repaso del PRIMER dictamen (4,4/10) · 19-09
+
+**Por qué se hizo.** Nico vio, en la planilla donde los profesores dejan sus devoluciones,
+que en otros grupos **toman el dictamen anterior antes de emitir el nuevo**. La premisa con
+que se armó la sexta auditoría —que auditan desde cero— era equivocada, y eso vuelve
+relevante todo lo que haya quedado abierto en los dictámenes viejos.
+
+**Qué se revisó.** Los 41 hallazgos críticos y altos del primer dictamen, uno por uno,
+contra el documento actual. Las diez debilidades principales de su §11.2 están todas
+cerradas: el Cap. 5 tiene datos, la hipótesis del 70 % está medida, hay 15 figuras y 28
+tablas, la fase de Evaluación del DSR se ejecutó, las Pautas están en el Anexo D con su PDF,
+existe el §5.4 Discusión, la bibliografía pasó de 80 entradas con 0 DOI a 92 con 41 y 14
+posteriores a 2024, las ocho contradicciones de su tabla 7.3 están resueltas una por una, y
+el Cap. 3 tiene variables, instrumentos y amenazas a la validez.
+
+**Lo que quedaba vivo, y no por descuido de aquella remediación.** Su §7.4 objetaba que el
+trabajo afirmara consecuencias graves —«rescisión unilateral del contrato de distribución»—
+sobre una empresa nombrada y sin fuente. Con el PDF de las Pautas incorporado, el hallazgo
+A-1 de la **séptima** auditoría estableció qué dice realmente la fuente: reserva sus
+calificaciones más graves para las afirmaciones de ingresos y la venta en grupos de
+intercambio, y **para el mensaje comercial en canal público no fija sanción**. Esa corrección
+se aplicó en el §1.1 y el §2.4 y dejó seis frases prometiendo sanciones por esa misma
+conducta —una de ellas en el §1.2.c, a cuatro párrafos de la que la desmiente—. Corregidas en
+la **pasada 45**, con siete frases nuevas en el verificador.
+
+**Y un desfasaje propio** (pasada 46): el documento decía «~185 nodos» en el §4.3, el Anexo
+B.2 y dentro de la Figura 4. Son **195** desde que la corrección del canal visual agregó la
+detección a video y re-publicación, y el extracto del Anexo E.4 sale de ese mismo workflow.
+
+**Residuo menor, no corregido:** dos o tres entradas de Springer del Cap. 7 podrían llevar
+DOI y no lo llevan (Weske 2012, Vigna et al. 2003). El resto de las 40 sin enlace son libros,
+que no tienen.
+
+---
+
 ## 6. Dónde el dictamen no se sostiene
 
 La tabla §4.14 reporta **55 oraciones de más de 50 palabras y una máxima de 81**. No
