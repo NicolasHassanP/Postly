@@ -58,6 +58,16 @@ const NODOS = [
   { nodo: "Video: pub publicar", variable: "pats", rotulo: "video (HU13)" },
 ];
 const NODO_VISION = "HU8: Detección visual";
+// El mismo criterio visual tiene que correr en los cuatro flujos que publican, igual que
+// las seis expresiones del canal textual. El carrusel lo lleva dentro de un prompt que
+// además pide el orden narrativo, de modo que lo que se compara es el criterio y no el
+// prompt entero.
+const NODOS_VISION = [
+  { flujo: "imagen única (HU7/HU8)", nodo: "HU8: Detección visual" },
+  { flujo: "carrusel (HU5)", nodo: "HU5: Analizar carrusel" },
+  { flujo: "video (HU13)", nodo: "Video: HU8 visual" },
+  { flujo: "re-publicación (HU12)", nodo: "Repost: HU8 visual" },
+];
 // Umbrales que no se miden con una serie de tiempos sino leyendo el codigo desplegado,
 // igual que el tope de diez imagenes de HU5: la firma de HU9 y el corte de 60 s de HU13.
 const NODOS_FIRMA = ["Code in JavaScript1", "HU5: Pub preparar", "Sched: Procesar",
@@ -150,6 +160,28 @@ function extraer(rutaWorkflow) {
     prompt,
     sha256_del_prompt: sha(prompt),
   };
+
+  // El canal visual, flujo por flujo. El textual lleva el mismo conjunto de seis
+  // expresiones en los cuatro nodos que publican; el visual no lo llevaba: la detección
+  // sólo corría en imagen única, el carrusel usaba otro criterio y el video y la
+  // re-publicación no tenían ninguna. `add-vision-compliance.mjs` lo unificó, y esto es
+  // lo que vuelve comprobable esa unificación.
+  const criterio = prompt.slice(prompt.indexOf("Detectá si"),
+                                prompt.indexOf("# RESPUESTA")).trim();
+  salida.vision.criterio = criterio;
+  salida.vision.sha256_del_criterio = sha(criterio);
+  salida.vision_por_flujo = {};
+  for (const { flujo, nodo } of NODOS_VISION) {
+    const n = porNombre.get(nodo);
+    const texto = n?.parameters?.text ?? "";
+    salida.vision_por_flujo[flujo] = {
+      nodo,
+      presente: Boolean(n),
+      lleva_el_criterio: texto.includes(criterio),
+      modelo: n?.parameters?.modelId?.value ?? null,
+      imagen: typeof n?.parameters?.imageUrls === "string" ? n.parameters.imageUrls : null,
+    };
+  }
 
   // HU9: la concatenacion de la firma debe ser incondicional en los cuatro nodos que
   // publican. Se extrae la linea y se comprueba que no cuelgue de ningun `if`.
@@ -298,6 +330,22 @@ function verificar() {
     ext.vision.modelo.endsWith(modeloScript ?? " ")
       ? ok(`modelo: el script usa «${modeloScript}» y el nodo «${ext.vision.modelo}»`)
       : mal(`el script usa «${modeloScript}» y el nodo «${ext.vision.modelo}»`);
+  }
+
+  // 2.c bis — el criterio visual, en los cuatro flujos
+  console.log("");
+  console.log("── el canal visual lleva el mismo criterio en los cuatro flujos");
+  const porFlujo = ext.vision_por_flujo;
+  if (!porFlujo) {
+    mal("el extracto no trae vision_por_flujo: regeneralo con --extraer");
+  } else {
+    for (const [flujo, d] of Object.entries(porFlujo)) {
+      if (!d.presente) mal(`${flujo}: falta el nodo «${d.nodo}»`);
+      else if (!d.lleva_el_criterio) mal(`${flujo}: «${d.nodo}» no lleva el criterio de HU8`);
+      else ok(`${flujo} — «${d.nodo}» sobre ${d.imagen ?? "(sin url declarada)"}`);
+    }
+    const n = Object.keys(porFlujo).length;
+    (n === 4 ? ok_ : mal)(`${n} flujos de publicación cubiertos por el canal visual`);
   }
 
   // 2.d — los dos umbrales estructurales

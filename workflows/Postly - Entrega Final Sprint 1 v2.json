@@ -4102,7 +4102,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash"
         },
-        "text": "# ROL\nSos Postly: director de arte + Compliance Sentinel visual para la marca Mary Kay.\nTe paso las imágenes de un CARRUSEL de Instagram, numeradas del 1 al N en el orden en que aparecen.\n\n# TAREA\n1) COMPLIANCE: si CUALQUIER imagen contiene un precio o promoción incrustada en los píxeles (monto o cifra de precio,\n   símbolos de moneda $/US$/AR$/ARS/USD, lista de precios, o texto \"OFERTA\",\"PROMO\",\"DESCUENTO\",\"X% OFF\",\"2x1\",\"LIQUIDACIÓN\",\"SALE\",\"REBAJA\",\"GRATIS\"),\n   marcá tiene_precio=true e indicá en qué imagen (1..N) y qué viste. NO es infractor: nombres de producto, logos, texto\n   descriptivo sin precios, números que no son precios (SPF 30, 24h, 50 ml).\n2) ORDEN (solo si NO hay precio): proponé el ORDEN NARRATIVO ÓPTIMO para el carrusel: portada/hook de mayor impacto y\n   contraste, luego las de soporte (beneficios) en secuencia lógica, y un cierre/CTA. Devolvé los números 1..N en \"orden\".\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nSi en \"preview\" mencionás imágenes, referilas por su número del 1 al N (NUNCA 0).\n{\"tiene_precio\": false, \"detalle\": \"\", \"orden\": [1,3,2], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia\"}\nSi tiene_precio=true, \"orden\" puede ir vacío.",
+        "text": "# ROL\nSos Postly: director de arte + Compliance Sentinel visual para la marca Mary Kay.\nTe paso las imágenes de un CARRUSEL de Instagram, numeradas del 1 al N en el orden en que aparecen.\n\n# TAREA\n1) COMPLIANCE: sobre CUALQUIERA de las imágenes, con este criterio.\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\nSi alguna la incumple, marcá tiene_precio=true e indicá en qué imagen (1..N) y qué viste.\n2) ORDEN (solo si NO hay precio): proponé el ORDEN NARRATIVO ÓPTIMO para el carrusel: portada/hook de mayor impacto y\n   contraste, luego las de soporte (beneficios) en secuencia lógica, y un cierre/CTA. Devolvé los números 1..N en \"orden\".\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nSi en \"preview\" mencionás imágenes, referilas por su número del 1 al N (NUNCA 0).\n{\"tiene_precio\": false, \"detalle\": \"\", \"orden\": [1,3,2], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia\"}\nSi tiene_precio=true, \"orden\" puede ir vacío.",
         "imageUrls": "={{ $json.urlList }}",
         "options": {}
       },
@@ -6734,6 +6734,206 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+        "imageUrls": "={{ $('Video: procesar').first().json.frameUrl }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        3160,
+        700
+      ],
+      "id": "vc0001",
+      "name": "Video: HU8 visual",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "QElexXPnmOFhjG7S",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Video: HU8 parsear — parsea la detección visual de Gemini (fail-open ante JSON inválido)\nconst raw = ($('Video: HU8 visual').first().json.content.parts[0].text) || '';\nlet parsed = { tiene_precio: false, detalle: '' };\ntry {\n  parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim());\n} catch (e) { /* Gemini no devolvió JSON limpio -> no bloquear */ }\nreturn [{ json: {\n  tiene_precio: parsed.tiene_precio === true,\n  detalle: parsed.detalle || '',\n  secure_url: $('Video: procesar').first().json.frameUrl\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3400,
+        700
+      ],
+      "id": "vc0002",
+      "name": "Video: HU8 parsear"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "Video: ¿frame limpio?-cond",
+              "leftValue": "={{ $json.tiene_precio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3640,
+        700
+      ],
+      "id": "vc0003",
+      "name": "Video: ¿frame limpio?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "text": "=🚫 *Detecté un precio o promoción en el video.*\n\nPor las normas de Mary Kay no puedo publicar contenido con precios, ofertas o descuentos incrustados en la imagen.\n\n_Detalle:_ {{ $json.detalle }}\n\n🎬 Mandame otro video sin precios y seguimos.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3880,
+        620
+      ],
+      "id": "vc0004",
+      "name": "Video: frame con precio",
+      "credentials": {
+        "telegramApi": {
+          "id": "IIn3wwgzKv4iGZkP",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+        "imageUrls": "={{ $('Repost: Elegir fila').first().json.ImageURL }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        2360,
+        1180
+      ],
+      "id": "vc0005",
+      "name": "Repost: HU8 visual",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "QElexXPnmOFhjG7S",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Repost: HU8 parsear — parsea la detección visual de Gemini (fail-open ante JSON inválido)\nconst raw = ($('Repost: HU8 visual').first().json.content.parts[0].text) || '';\nlet parsed = { tiene_precio: false, detalle: '' };\ntry {\n  parsed = JSON.parse(raw.replace(/```json/gi, '').replace(/```/g, '').trim());\n} catch (e) { /* Gemini no devolvió JSON limpio -> no bloquear */ }\nreturn [{ json: {\n  tiene_precio: parsed.tiene_precio === true,\n  detalle: parsed.detalle || '',\n  secure_url: $('Repost: Elegir fila').first().json.ImageURL\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2600,
+        1180
+      ],
+      "id": "vc0006",
+      "name": "Repost: HU8 parsear"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "Repost: ¿imagen limpia?-cond",
+              "leftValue": "={{ $json.tiene_precio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2840,
+        1180
+      ],
+      "id": "vc0007",
+      "name": "Repost: ¿imagen limpia?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "text": "=🚫 *Detecté un precio o promoción en la imagen guardada.*\n\nPor las normas de Mary Kay no puedo volver a publicarla.\n\n_Detalle:_ {{ $json.detalle }}\n\n📸 Elegí otra publicación de tu agenda o mandame una foto nueva.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3080,
+        1100
+      ],
+      "id": "vc0008",
+      "name": "Repost: imagen con precio",
+      "credentials": {
+        "telegramApi": {
+          "id": "IIn3wwgzKv4iGZkP",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "connections": {
@@ -7370,7 +7570,7 @@
       "main": [
         [
           {
-            "node": "Repost: Analizar imagen",
+            "node": "Repost: HU8 visual",
             "type": "main",
             "index": 0
           }
@@ -8443,7 +8643,7 @@
         ],
         [
           {
-            "node": "Video: analizar",
+            "node": "Video: HU8 visual",
             "type": "main",
             "index": 0
           }
@@ -8703,6 +8903,86 @@
         [
           {
             "node": "FB guardar ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video: HU8 visual": {
+      "main": [
+        [
+          {
+            "node": "Video: HU8 parsear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video: HU8 parsear": {
+      "main": [
+        [
+          {
+            "node": "Video: ¿frame limpio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video: ¿frame limpio?": {
+      "main": [
+        [
+          {
+            "node": "Video: frame con precio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Video: analizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repost: HU8 visual": {
+      "main": [
+        [
+          {
+            "node": "Repost: HU8 parsear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repost: HU8 parsear": {
+      "main": [
+        [
+          {
+            "node": "Repost: ¿imagen limpia?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repost: ¿imagen limpia?": {
+      "main": [
+        [
+          {
+            "node": "Repost: imagen con precio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Repost: Analizar imagen",
             "type": "main",
             "index": 0
           }

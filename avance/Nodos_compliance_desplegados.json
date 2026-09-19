@@ -59,7 +59,39 @@
     "nodo": "HU8: Detección visual",
     "modelo": "models/gemini-2.5-flash",
     "prompt": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
-    "sha256_del_prompt": "0cfb82b494b9c36c49d054b8269b681e40d626238a988620d2eab45421808fd3"
+    "sha256_del_prompt": "0cfb82b494b9c36c49d054b8269b681e40d626238a988620d2eab45421808fd3",
+    "criterio": "Detectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").",
+    "sha256_del_criterio": "0903247feec340132948021bd9b1c940ff72569b233fb67205831516928435c2"
+  },
+  "vision_por_flujo": {
+    "imagen única (HU7/HU8)": {
+      "nodo": "HU8: Detección visual",
+      "presente": true,
+      "lleva_el_criterio": true,
+      "modelo": "models/gemini-2.5-flash",
+      "imagen": "={{ $('HTTP Request').first().json.secure_url }}"
+    },
+    "carrusel (HU5)": {
+      "nodo": "HU5: Analizar carrusel",
+      "presente": true,
+      "lleva_el_criterio": true,
+      "modelo": "models/gemini-2.5-flash",
+      "imagen": "={{ $json.urlList }}"
+    },
+    "video (HU13)": {
+      "nodo": "Video: HU8 visual",
+      "presente": true,
+      "lleva_el_criterio": true,
+      "modelo": "models/gemini-2.5-flash",
+      "imagen": "={{ $('Video: procesar').first().json.frameUrl }}"
+    },
+    "re-publicación (HU12)": {
+      "nodo": "Repost: HU8 visual",
+      "presente": true,
+      "lleva_el_criterio": true,
+      "modelo": "models/gemini-2.5-flash",
+      "imagen": "={{ $('Repost: Elegir fila').first().json.ImageURL }}"
+    }
   },
   "firma_hu9": {
     "Code in JavaScript1": {
