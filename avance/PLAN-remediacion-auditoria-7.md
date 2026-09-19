@@ -11,8 +11,9 @@
 |---|---|
 | Nota | **7,2** (la sexta dio 7,6, pero **no son comparables**: auditorías independientes, listas de hallazgos distintas) |
 | Hallazgos | 1 crítico · 3 altos · 8 medios · 10 bajos |
-| Aplicado | **22 de 22** (pasadas 39, 40 y 41, más la corrección del sistema) |
-| Pendiente | nada del dictamen; falta refrescar los campos en Word |
+| Aplicado | **22 de 22** (pasadas 39 a 42) más la corrección del sistema |
+| Sistema | detección visual en los cuatro flujos, multifotograma y aviso de recorte · 195 nodos |
+| Pendiente | nada del dictamen. Ver **§5, Cómo seguir** |
 
 Ninguno de los 39 hallazgos de la sexta reapareció. El dictamen 7 convierte en fortalezas
 varias cosas construidas para la sexta: el verificador de patrones y su extracto v1, el
@@ -116,7 +117,73 @@ capas cubren los cuatro flujos, el Anexo E.4 declara la comprobación nueva, y s
 salvedad propia del video —la detección opera sobre el fotograma extraído, no sobre todos los
 del clip—.
 
-## 4. Dónde el dictamen no se sostiene
+## 4. Después del dictamen: lo que salió de probar el sistema
+
+Con n8n arriba se corrigió **el sistema** además del documento, y probarlo destapó cosas que
+ninguna auditoría había visto. Orden cronológico, porque cada hallazgo salió del anterior.
+
+1. **La detección visual sólo corría en imagen única** (M-5). El carrusel usaba otro prompt
+   con otro criterio, y video y re-publicación **no tenían ninguna**: un precio incrustado se
+   bloqueaba como imagen y se publicaba como video o como repost.
+   → `scripts/add-vision-compliance.mjs`, 185 → 193 nodos.
+2. **`Video: procesar` nunca había corrido en local.** El `.env` tenía
+   `NODE_FUNCTION_ALLOW_BUILTIN=crypto,fs` y falta `child_process`, que el `CLAUDE.md`
+   documenta. Lo corrigió Nico y reinició.
+3. **Insertar nodos rompió el `$json` del siguiente.** `Video: analizar` leía
+   `$json.frameUrl` del nodo de FFmpeg y pasó a recibir el del parseo. Es el gotcha que el
+   `CLAUDE.md` documenta y aun así pasó. Auditar los nodos aguas abajo de toda inserción.
+4. **El recorte a 9:16 se comía el precio.** Sobre un 16:9 sobrevive el tercio central del
+   ancho: una placa contra el borde desaparece antes de que el detector la vea **y antes de
+   que el Reel se publique**. No es incumplimiento, pero sí una modificación silenciosa del
+   contenido de la usuaria.
+   → `scripts/video-multiframe.mjs`: cuatro imágenes en una sola llamada (tres instantes del
+   video normalizado + el encuadre original), dos respuestas —bloquea o avisa— y la cuota
+   cuesta lo mismo. De paso cerró otro agujero: **`Video: cortar`**, la rama del video de más
+   de 60 s, salía directo a la generación de copys sin pasar por ninguna detección.
+5. **El texto del modelo rompía el envío por Telegram.** El `detalle` se interpola en un
+   mensaje con Markdown y un `@DANYGIL_MK` abrió una cursiva sin cerrar: 400 de la API. Los
+   cinco avisos tenían la misma bomba, incluido uno que venía de antes.
+   → `scripts/fix-telegram-markdown.mjs`, saneo en los cuatro nodos que parsean.
+6. **Los dos casos de video, medidos** (ejecuciones 607 y 605). Cierran con medición la
+   quinta limitación del §5.1, que declaraba que ese flujo no tenía ningún caso.
+   → Anexo E.9 nuevo y `evidencia/casos_video/`.
+
+`verificar_patrones_desplegados.mjs` comprueba ahora el criterio visual **flujo por flujo**,
+como ya hacía con las seis expresiones del canal textual.
+
+---
+
+## 5. Cómo seguir
+
+**Primero, y es de Nico:**
+
+1. **Refrescar los campos en Word** (Ctrl+E, F9). El Anexo E.9 suma una entrada al índice
+   general y el cuerpo creció. Sin eso, los tres índices quedan desfasados.
+2. **Decidir sobre un fotograma.** El segundo del caso de bloqueo es el único donde aparece
+   el rostro de quien filmó; se omitió del material entregado y la omisión está declarada en
+   el Anexo E.9 y en el LEEME. Si se prefiere incluirlo, está en la instancia de Cloudinary y
+   se vuelve a bajar en un minuto.
+
+**Después, por orden de rendimiento:**
+
+3. **Un caso de carrusel.** Es el único de los cuatro flujos que sigue sin caso propio, aunque
+   su criterio ya está unificado y verificado. Dos imágenes —una con precio, una sin— y sale
+   en una sola prueba. Con eso el canal visual queda medido en los cuatro flujos.
+4. **Decidir si va una octava auditoría.** El gate del profesor es demostrar >9. La séptima
+   dio 7,2 con los 22 hallazgos ya aplicados, y encima se corrigió el sistema. Vale la pena
+   una pasada propia de coherencia antes —como la de las pasadas 35-38, que encontró catorce
+   cosas—, porque las últimas dos rondas mostraron que el documento acumula desfasajes cada
+   vez que se toca. En particular hay que barrer lo que el §4.7.3 y el §5.1 dicen ahora sobre
+   el video contra lo que dicen el Resumen, el Cap. 1 y el Anexo B.9.
+5. **Recuento de páginas.** Venía en ~158 y creció. Si el límite de ~120 incluye el material
+   preliminar, hay que mirarlo antes de entregar.
+
+**Estado de la instancia:** n8n local con 195 nodos, activo, con todo lo anterior desplegado.
+`node scripts/probe-local-n8n.mjs` compara el repo contra la instancia sin tocar nada.
+
+---
+
+## 6. Dónde el dictamen no se sostiene
 
 La tabla §4.14 reporta **55 oraciones de más de 50 palabras y una máxima de 81**. No
 reproduce: con dos segmentadores independientes —el de `medir_escritura.py`, con lookahead, y
@@ -129,9 +196,9 @@ razón.
 
 ---
 
-## 5. Método
+## 7. Método
 
-El de siempre, con dos aprendizajes nuevos de esta ronda:
+El de siempre, con estos aprendizajes:
 
 - **La guarda de longitud de una pasada tiene que usar `bloques()`**, la misma selección que
   `verificar_documento.py`. Con una selección más ancha marca como regresión la nota de la
@@ -139,3 +206,12 @@ El de siempre, con dos aprendizajes nuevos de esta ronda:
 - **Partir una oración larga puede romper una interpolación.** Fue el origen de M-2. Si una
   pasada edita texto generado con f-strings, hay que barrer el documento buscando llaves
   después. `verificar_documento.py` lo comprueba ahora con una frase prohibida.
+- **Los heredoc de bash colapsan el `
+` dentro de un string de Python**, y rompen el JS o el
+  regex que generan. Pasó tres veces en esta sesión. El `CLAUDE.md` lo dice: usar la
+  herramienta de edición de archivos, `String.fromCharCode(10)` o armar la cadena por partes.
+- **Al editar el workflow, auditar siempre los nodos aguas abajo.** Insertar un nodo cambia el
+  `$json` que ve el siguiente. El grafo de conexiones se recorre en diez líneas y evita un
+  «Cannot read properties of undefined» en producción.
+- **El texto que devuelve el modelo es dato no confiable para un mensaje con formato.** Se
+  sanea en el nodo que parsea y no en cada mensaje.
