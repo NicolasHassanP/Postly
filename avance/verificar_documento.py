@@ -309,6 +309,14 @@ PROHIBIDAS = [
     # B-8: registro de folleto
     'anular la curva de aprendizaje', 'trasciende holísticamente', 'subyugue su agencia',
     'el cerebro logístico del sistema', 'comprensión holística',
+    # ── C-1 y M-5 (pasada 41) ────────────────────────────────────────────────
+    # C-1: la Tabla 5 mide referencias monetarias, no el mensaje comercial de la norma
+    '15/15 informativos publicados',
+    'y 15 piezas informativas del tipo que publican en su feed',
+    'conforme a las Pautas Mary Kay (Anexo D), distinguiendo los mensajes comerciales',
+    'con un F1 de 0,923 y una precisión de 1,00 sobre el contenido real',
+    # M-5: el canal visual cubre los cuatro flujos
+    'El Módulo Centinela audita cuatro flujos de publicación, y los conjuntos',
 ]
 # La «Fuente» de cada figura va en nota al pie y no en el rótulo (B-10): el rótulo superior
 # no puede volver a llevarla.
@@ -325,6 +333,11 @@ EXIGIDAS = [
     ('Corresponde caracterizar a ese evaluador', 1),
     # B-4: el §5.2 remite al Anexo C, que declaraba ampliarlo
     ('El Anexo C documenta los ocho que el desarrollo dejó anotados', 1),
+    # C-1: la solicitud comercial sin precio, declarada fuera de alcance
+    ('hay que sumar, por lo tanto, la solicitud comercial sin precio', 1),
+    # M-5: la divergencia del canal visual, reportada y corregida
+    ('La revisión del canal visual, hecha después de la del textual', 1),
+    ('Ambas capas cubren los cuatro flujos que publican', 1),
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)
