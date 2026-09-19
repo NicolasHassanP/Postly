@@ -261,6 +261,31 @@ que no tienen.
 
 ---
 
+## 5 ter. Repaso de los dictámenes 2 a 5 · 19-09
+
+**Los 66 hallazgos nuevos** de la segunda (22), la tercera (20), la cuarta (12) y la quinta
+(12) instancia, contra el documento de hoy. La cadena estaba bien cerrada: cada dictamen
+verificó las acciones del anterior, y los que revisé uno por uno siguen cerrados —el
+anidamiento de la prueba t, las cuatro baterías, la máquina de estados, el fail-open de la
+Tabla 13, la procedencia de R01, las tres cifras de Recall, el Anexo D con su PDF—.
+
+**Quedó uno reabierto, y lo reabrieron mis propias pasadas 42 a 44.** El N-06 de la quinta
+instancia era «el inventario de bases del §5.4 vuelve a estar incompleto»: ese párrafo
+enumera sobre qué se midió cada canal, y los Anexos E.9 a E.11 agregaron cuatro casos que no
+estaban en la lista. El dictamen ya advertía que era la **segunda** vez que ese párrafo se
+quedaba corto; ésta es la tercera. Corregido en la **pasada 47**, con su frase en el
+verificador.
+
+**Verificación mecánica nueva: `verificar_coherencia.py`.** Lo que faltaba no era otra lista
+de frases sino comprobar que el documento no se rompa solo. Chequea que cada remisión a un
+§ y a un anexo tenga destino (38 y 29 distintos, todas resuelven), que tablas y figuras
+estén numeradas sin saltos y citadas desde el texto —incluidas las remisiones por rango,
+«las Figuras 12 a 15»—, y que los recuentos que dependen del sistema tengan **un solo
+valor** en todo el documento. Ese último chequeo es el que habría encontrado solo el
+desfasaje de los 185 nodos.
+
+---
+
 ## 6. Dónde el dictamen no se sostiene
 
 La tabla §4.14 reporta **55 oraciones de más de 50 palabras y una máxima de 81**. No
@@ -296,6 +321,9 @@ El de siempre, con estos aprendizajes:
 - **Una guarda que falla tiene que decir qué la hizo fallar.** La pasada 43 imprime las
   oraciones largas que ella misma introdujo, en vez de sólo el conteo: dos intentos a ciegas
   contra uno con el texto delante.
+- **Un párrafo que enumera algo se queda corto cada vez que se agrega evidencia.** El
+  inventario del §5.4 se quedó corto tres veces. Cuando una pasada agrega un anexo de
+  evidencia, hay que buscar qué párrafos enumeran las bases y sumarlo ahí.
 - **Un título no sirve de ancla en el verificador.** Aparece también en el índice, que es un
   campo de Word y cuenta 1 o 2 según si se refrescó. Se ancla en la primera oración del
   apartado.

@@ -366,6 +366,10 @@ EXIGIDAS = [
     ('El cuarto caso es el de la re-publicación (HU12) y lo documenta el Anexo E.11', 1),
     ('Este es el flujo en que la divergencia del §5.1 resultaba más difícil de advertir', 1),
     ('El §2.4 acota el alcance de esa exposición', 1),
+    # Pasada 47 (N-06 de la quinta instancia, reabierto por las pasadas 42-44): el
+    #  inventario de bases del §5.4 tiene que nombrar TODAS, incluidas las de los
+    #  Anexos E.9 a E.11. Es la segunda vez que ese párrafo se queda corto.
+    ('A esas bases se suman los cuatro casos de los otros tres flujos', 1),
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)
