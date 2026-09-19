@@ -17,6 +17,12 @@
 // Es la clase de defecto que la octava auditoría marcó en su hallazgo A3: la Tabla 13 daba
 // esa fila como «Cumple: Sí» por configuración, y la configuración no lo establecía.
 //
+// Y hay un segundo camino, que la novena auditoría encontró (N-M8) y que la primera versión
+// de este script no cubría: cuando ffmpeg imprime «Duration: N/A», `ffdur` no devuelve null
+// sino NaN, y tanto `NaN === null` como `NaN > 60` son falsos. La guarda seguía sin
+// dispararse. Por eso la comparación se hace contra `Number.isFinite`, que cubre el null, el
+// NaN y cualquier otro valor no numérico.
+//
 // QUÉ HACE
 // La guarda pasa a fail-closed. Si la duración no se puede leer, el flujo NO sigue: toma la
 // misma rama que un video demasiado largo y le pregunta a la usuaria si recorta a 60 s.
@@ -35,20 +41,33 @@ const porNombre = new Map(wf.nodes.map((n) => [n.name, n]));
 const fallos = [];
 
 // ── 1. la guarda ─────────────────────────────────────────────────────────────
-const VIEJA = "if(dur && dur>60){ return [{ json:{ chatId, tooLong:true, dur:Math.round(dur) } }]; }";
-const NUEVA = "if(dur===null || dur>60){ return [{ json:{ chatId, tooLong:true, " +
-              "durDesconocida:dur===null, dur:dur===null?null:Math.round(dur) } }]; }";
+// La primera version de este fix comparaba contra `null`, y no alcanzaba: `ffdur` devuelve
+// null solo si ffmpeg no imprime «Duration: ». Cuando imprime «Duration: N/A» el parseo da
+// NaN, y `NaN === null` y `NaN > 60` son los dos falsos, de modo que la guarda seguia sin
+// dispararse. Lo marco el hallazgo N-M8 de la novena auditoria. `Number.isFinite` cubre los
+// dos casos y cualquier otro valor no numerico.
+const PREVIAS = [
+  "if(dur && dur>60){ return [{ json:{ chatId, tooLong:true, dur:Math.round(dur) } }]; }",
+  "if(dur===null || dur>60){ return [{ json:{ chatId, tooLong:true, " +
+    "durDesconocida:dur===null, dur:dur===null?null:Math.round(dur) } }]; }",
+];
+const NUEVA = "if(!Number.isFinite(dur) || dur>60){ return [{ json:{ chatId, tooLong:true, " +
+              "durDesconocida:!Number.isFinite(dur), " +
+              "dur:Number.isFinite(dur)?Math.round(dur):null } }]; }";
 
 const procesar = porNombre.get("Video: procesar");
 if (!procesar) {
   fallos.push("falta el nodo «Video: procesar»");
 } else if (procesar.parameters.jsCode.includes(NUEVA)) {
   console.log("  = «Video: procesar» ya estaba corregido");
-} else if (!procesar.parameters.jsCode.includes(VIEJA)) {
-  fallos.push("«Video: procesar»: no encuentro la guarda esperada");
 } else {
-  procesar.parameters.jsCode = procesar.parameters.jsCode.replace(VIEJA, NUEVA);
-  console.log("  ~ «Video: procesar»: la guarda pasa a fail-closed");
+  const previa = PREVIAS.find((g) => procesar.parameters.jsCode.includes(g));
+  if (!previa) {
+    fallos.push("«Video: procesar»: no encuentro ninguna guarda conocida");
+  } else {
+    procesar.parameters.jsCode = procesar.parameters.jsCode.replace(previa, NUEVA);
+    console.log("  ~ «Video: procesar»: la guarda pasa a fail-closed sobre Number.isFinite");
+  }
 }
 
 // ── 2. el aviso, que ahora tiene dos casos ───────────────────────────────────
@@ -79,8 +98,12 @@ if (procesar) {
   console.log(`\n  returns en «Video: procesar» anteriores a la guarda: ${previos.length}`);
   for (const l of previos) console.log(`    ${l.trim()}`);
 
-  const sinGuarda = /if\(dur\s*&&\s*dur\s*>\s*60\)/.test(cod);
-  if (sinGuarda) fallos.push("todavía queda una guarda de la forma «dur && dur>60»");
+  // Cualquier guarda que compare `dur` sin pasar por Number.isFinite deja abierto el
+  // camino del NaN, que es el que expuso N-M8.
+  const floja = /if\(\s*dur\s*(&&|===\s*null)/.test(cod);
+  if (floja) fallos.push("queda una guarda que compara `dur` sin Number.isFinite");
+  if (!/Number\.isFinite\(dur\)/.test(cod))
+    fallos.push("la guarda no usa Number.isFinite");
 }
 
 // el camino de recorte no puede depender de una duración legible

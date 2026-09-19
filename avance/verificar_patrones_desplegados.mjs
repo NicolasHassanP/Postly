@@ -279,7 +279,11 @@ function extraer(rutaWorkflow) {
     guarda: lineas13.filter((l) => /dur\s*>\s*60/.test(l))[0] ?? null,
     lectura_de_la_duracion: lineas13.filter((l) => /function ffdur/.test(l))[0] ?? null,
     // La guarda tiene que cubrir el caso en que la duración no se puede leer.
-    cierra_ante_duracion_ilegible: /dur\s*===\s*null\s*\|\|\s*dur\s*>\s*60/.test(cod13),
+    // Comparar contra `null` no alcanza: si ffmpeg imprime «Duration: N/A» el parseo da NaN,
+    // y `NaN === null` y `NaN > 60` son los dos falsos. Lo marcó N-M8 de la novena auditoría.
+    // `Number.isFinite` es lo único que cubre el null, el NaN y cualquier otro no-número.
+    cierra_ante_duracion_ilegible: /!\s*Number\.isFinite\s*\(\s*dur\s*\)\s*\|\|\s*dur\s*>\s*60/
+      .test(cod13),
     codigo: cod13,
   };
 

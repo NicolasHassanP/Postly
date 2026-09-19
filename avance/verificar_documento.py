@@ -130,6 +130,17 @@ check('entradas con DOI', f'{con_doi} ({100 * con_doi // max(1, len(entradas))} 
 # ═══════════════════════════════════════ frases que el dictamen marcó
 bloque('frases retiradas por el dictamen')
 PROHIBIDAS = [
+    # ── retiradas por la novena auditoría (pasadas 63 a 66) ──────────────────
+    # N-A3: la fuente dice lo contrario sobre la página de negocios de Facebook
+    'figura en la fuente sin ambigüedad',
+    'una fuente que no es consistente consigo misma',
+    # N-A5: la calibración de la consecuencia, que quedó a medio aplicar
+    'incumplimiento contractual', 'sanciones contractuales', 'régimen sancionatorio',
+    'infracciones contractuales', 'exposición contractual del emprendimiento',
+    'que la normativa exige', 'contacto obligatorios', 'firma legal obligatoria',
+    'Ante la magnitud de este riesgo operativo',
+    # N-A4: HU2 tenía tres estados a la vez
+    '8 de los once', 'Los 3 restantes se declaran',
     # ── retiradas por el octavo dictamen (pasadas 48 a 62) ───────────────────
     # A1: el F1 de campo no mide contenido de canal público, y los positivos son 12 y no 14.
     # El patrón va acotado a la nota de la Tabla 5: el §5.1 usa la misma expresión para el

@@ -168,6 +168,17 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   editarlo a mano; la divergencia es de veredicto cualitativo y va en la dirección
   conservadora. El valor observado —media 552, máx. 580 caracteres— es el mismo en los dos.
 
+  Hay una segunda divergencia del mismo tipo, y en la misma dirección. La fila **HU2**
+  «Intercambio por un token de larga duración» trae `medición … Sí`, y la **Tabla 13 dice
+  «No verificado»** sobre el umbral «vigencia de hasta 60 días». La tabla es la correcta.
+  El criterio de aceptación de HU2 fija esa vigencia y se conserva tal como se redactó
+  antes de medir; lo que la corrida observó es que la Graph API devuelve el token de página
+  sin campo de expiración, que es una propiedad de la respuesta y no la longevidad que el
+  criterio pide. El rótulo de la fila, además, enuncia el umbral en los términos de lo
+  observado y no en los del criterio. Igual que con HU6, el archivo se deja como lo emitió
+  la corrida y la divergencia se declara acá: son 7 de 11 umbrales verificados y 4 sin
+  verificar, como dicen el §5.1, la Tabla 13, el Anexo A y el Resumen.
+
 - `Umbrales_HU_resultados.csv` — los nueve umbrales numéricos que fijan las Historias
   de Usuario, con el grado de verificación de cada uno (`medición`, `configuración` o
   `no verificado`), la n cuando hay una serie de tiempos, el valor observado y la
