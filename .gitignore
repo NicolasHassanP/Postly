@@ -36,6 +36,8 @@ avance/fotos jere/
 # que se entrega son los fotogramas y las imagenes ya procesadas, en evidencia/.
 avance/fuentes de prueba/
 avance/Encuesta*.pdf
+# el PDF de la tesis se exporta desde el .docx con Word; no se versiona el derivado
+avance/Tesis Postly Bontorno Hassan.pdf
 # las imagenes del canal HU8 se componen sobre esas mismas fotos de producto
 avance/evidencia/casos_imagen/*.jpg
 # la planilla de campo pasa a llevar el pie de foto VERBATIM de las 29 piezas
