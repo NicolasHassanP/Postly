@@ -11,9 +11,9 @@
 |---|---|
 | Nota | **7,2** (la sexta dio 7,6, pero **no son comparables**: auditorías independientes, listas de hallazgos distintas) |
 | Hallazgos | 1 crítico · 3 altos · 8 medios · 10 bajos |
-| Aplicado | **22 de 22** (pasadas 39 a 43) más la corrección del sistema |
+| Aplicado | **22 de 22** (pasadas 39 a 44) más la corrección del sistema |
 | Sistema | detección visual en los cuatro flujos, multifotograma y aviso de recorte · 195 nodos |
-| Medido | los cuatro flujos del canal visual salvo la re-publicación: imagen (Anexos E.6 y E.8), video (E.9) y carrusel (E.10) |
+| Medido | **los cuatro flujos** del canal visual: imagen (Anexos E.6 y E.8), video (E.9), carrusel (E.10) y re-publicación (E.11) |
 | Pendiente | nada del dictamen. Ver **§5, Cómo seguir** |
 
 Ninguno de los 39 hallazgos de la sexta reapareció. El dictamen 7 convierte en fortalezas
@@ -161,6 +161,26 @@ ninguna auditoría había visto. Orden cronológico, porque cada hallazgo salió
    patrón de siempre: corregir en un lugar deja viva la afirmación vieja en otro. Corregido
    en la pasada 43, con las dos frases viejas agregadas al verificador.
 
+9. **El caso de re-publicación, medido** (ejecución 614, pasada 44). Con él los **cuatro**
+   flujos del canal visual quedan medidos y no sólo verificados. Es el que más costó armar:
+   la re-publicación no recibe una imagen, toma la de la fila de la agenda, y por Postly no
+   puede entrar una con precio. La única vía es la real —publicarla a mano en Instagram y
+   dejar que la sincronización la traiga—, que es justo el camino por el que la divergencia
+   dejaba pasar contenido. → Anexo E.11 nuevo y `evidencia/casos_repost/`.
+10. **Dos fallos que el sistema se tragaba en silencio**, los dos destapados al preparar ese
+    caso y los dos corregidos y desplegados:
+    - **Los avisos no llegaban al chat.** `Repost: imagen con precio` y, por el camino del
+      video de más de 60 s, `Video: frame con precio` y `Video: aviso de recorte` leían el
+      destinatario como `message.chat.id`. Esas ramas nacen de un **botón**, y en un
+      `callback_query` el `message` no está en la raíz: el chatId resolvía a `undefined` y el
+      envío fallaba. El módulo bloqueaba bien; la usuaria no se enteraba.
+      → `scripts/fix-chatid-avisos.mjs`.
+    - **La sincronización desde Instagram no escribía nada.** `Sync: Upsert` tenía anotadas 8
+      columnas y la hoja tiene 16, así que abortaba con «Column names were updated after the
+      node's setup». Con `onError: continueRegularOutput`, Mi Agenda se dibujaba igual con
+      las filas viejas y lo publicado a mano no aparecía nunca, sin ningún error visible.
+      → `scripts/fix-sync-upsert-schema.mjs`.
+
 `verificar_patrones_desplegados.mjs` comprueba ahora el criterio visual **flujo por flujo**,
 como ya hacía con las seis expresiones del canal textual.
 
@@ -179,10 +199,12 @@ como ya hacía con las seis expresiones del canal textual.
 
 **Después, por orden de rendimiento:**
 
-3. **Un caso de re-publicación (HU12).** Es el único de los cuatro flujos que sigue sin caso
-   propio. Sale en una prueba: publicar una imagen limpia, entrar a Mi Agenda, reciclarla y
-   volver a mandarla con una pieza con precio. El §6.2 ya lo declara pendiente, así que
-   cerrarlo es cerrar la última recomendación abierta del canal visual.
+3. **Decidir si los dos fallos silenciosos van a la tesis.** El del `Sync: Upsert` y el de
+   los avisos que no llegaban son de la misma clase —un camino de error que no se manifiesta—
+   y el **Anexo C** es su lugar natural: hoy tiene ocho obstáculos con su diagnóstico y su
+   decisión, y éste sería el noveno. Está sin escribir a propósito: es alcance nuevo y la
+   decisión es de Nico. A favor, es la clase de hallazgo que una auditoría premia y los dos
+   están corregidos; en contra, suma páginas y hay que tocar el §5.3, que dice «los ocho».
 4. **Decidir si va una octava auditoría.** El gate del profesor es demostrar >9. La séptima
    dio 7,2 con los 22 hallazgos ya aplicados, y encima se corrigió el sistema. Vale la pena
    una pasada propia de coherencia antes —como la de las pasadas 35-38, que encontró catorce

@@ -321,6 +321,9 @@ PROHIBIDAS = [
     # declaraba sin medición un flujo —el de video— que pasó a tener dos casos.
     'construir un conjunto de casos de video que ejercite el cuarto flujo',
     'Queda por declarar el alcance de la medición sobre el cuarto flujo',
+    # Pasada 44: ningún flujo del canal visual queda ya sin caso propio.
+    'Sin caso propio permanece el cuarto flujo',
+    'sigue respaldado sólo por la identidad de su conjunto de reglas',
 ]
 # La «Fuente» de cada figura va en nota al pie y no en el rótulo (B-10): el rótulo superior
 # no puede volver a llevarla.
@@ -348,7 +351,10 @@ EXIGIDAS = [
     #  campo y vale 1 o 2 según si Word se refrescó. Se ancla en su primera oración.)
     ('El flujo de carrusel llevaba hasta el cierre de esta evaluación', 1),
     ('El tercero de esos casos es de carrusel (HU5)', 1),
-    ('Sin caso propio permanece el cuarto flujo, el de re-publicación (HU12)', 1),
+    # Pasada 44: el cuarto flujo tambien quedo medido, de modo que esa frase se retira y
+    #  el ancla pasa a ser el apartado que la reemplaza.
+    ('El cuarto caso es el de la re-publicación (HU12) y lo documenta el Anexo E.11', 1),
+    ('Este es el flujo en que la divergencia del §5.1 resultaba más difícil de advertir', 1),
 ]
 for f in PROHIBIDAS:
     n = texto.count(f)

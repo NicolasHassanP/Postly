@@ -97,6 +97,13 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   porque el bloqueo tiene que alcanzar a la publicación entera y no sólo a la imagen que
   lleva la cifra.
 
+- `casos_repost/` — el caso que ejercita el canal visual sobre la **re-publicación** (HU12),
+  el cuarto y último flujo. Es el que más cuesta armar, porque la re-publicación no recibe
+  una imagen: toma la que ya está guardada en la agenda, y por Postly nunca puede entrar una
+  con precio. La vía es la real: la pieza se publica a mano en Instagram, la sincronización
+  la trae a la hoja al abrir Mi Agenda y desde ahí se la recicla. Antes de la corrección que
+  el §5.1 documenta, ese camino no ejecutaba ninguna detección.
+
 - `Cronometraje_datos.csv` — los 12 pares de tiempos (mm:ss), tres participantes.
 - `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — la fuente normativa del
   Anexo D, diez páginas. Está para que las dos reglas que codifica el Módulo Centinela

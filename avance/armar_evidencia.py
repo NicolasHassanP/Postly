@@ -68,7 +68,8 @@ EN_DESTINO = [
 ]
 # subcarpetas que se conservan tal cual: las imagenes del canal HU8 y sus planillas, que
 # no se regeneran aqui (las producen armar_casos_imagen*.py y las puntua el modelo)
-CARPETAS = ['casos_imagen', 'casos_imagen_corrida2', 'casos_video', 'casos_carrusel']
+CARPETAS = ['casos_imagen', 'casos_imagen_corrida2', 'casos_video', 'casos_carrusel',
+            'casos_repost']
 # (script, argumentos) — cada corrida deja su propio archivo de resultados
 CORRIDAS = [
     ('run_compliance_text.mjs', ['Casos_Compliance_Representativo.csv', '--v1']),
