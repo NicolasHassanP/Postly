@@ -75,9 +75,16 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   símbolo de moneda, cuatro con descuento porcentual, tres con vocabulario comercial sin
   cifra— y **ninguno** adopta una forma indirecta, mientras que el conjunto representativo
   lleva uno de dieciocho. El conjunto diseñado es algo más adverso que la redacción
-  observada, no equivalente a ella, y sus métricas son una cota inferior. El contraste es
-  acotado: doce textos de tres consultoras, y de canal privado, donde el precio se enuncia
-  con menos rodeos que en una publicación de feed.
+  observada en esa forma, no equivalente a ella. Eso indica la dirección de la diferencia y
+  no convierte sus métricas en una cota inferior de las reales: la brecha de F1 contra el
+  campo sale sobre todo de los falsos positivos —tres contra cero—, que esta taxonomía no
+  clasifica porque sólo ordena los positivos. El contraste es además acotado: doce textos de
+  tres consultoras, y de canal privado, donde el precio se enuncia con menos rodeos que en
+  una publicación de feed.
+
+  La quinta forma se llamaba «vocabulario comercial sin cifra» y el nombre no describía su
+  contenido: dos de los tres casos de campo que caen en ella son un «2x1» y un «3x2», que sí
+  llevan cifra. Lo que la define es que el vocabulario, y no la cifra, dispara la regla.
 
 - `casos_video/` — los dos casos que ejercitan el canal visual sobre **video** (HU13),
   ejecutados de extremo a extremo contra el bot en producción. Hacen falta dos y no uno

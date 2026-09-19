@@ -119,8 +119,13 @@ console.log("");
 console.log(`  El conjunto representativo lleva ${indRep} de ${rep.n} casos infractores en forma indirecta`);
 console.log(`  (${(100 * indRep / rep.n).toFixed(0)} %) y el corpus real, ${indCampo} de ${campo.n} (${(100 * indCampo / campo.n).toFixed(0)} %).`);
 console.log(indRep / rep.n > indCampo / campo.n
-  ? "  El conjunto diseñado es MÁS adverso que la redacción real: la representatividad es\n" +
-    "  conservadora, no equivalente. Las métricas que produce son una cota inferior."
+  // No se imprime «cota inferior»: un caso indirecto sobre dieciocho indica la dirección de
+  // la diferencia y no autoriza a tratar estas métricas como un piso de las reales. La
+  // brecha de F1 contra el campo sale sobre todo de los falsos positivos (M15 del octavo
+  // dictamen), que esta taxonomía no clasifica porque sólo ordena los positivos.
+  ? "  El conjunto diseñado es MÁS adverso que la redacción real en esta forma: la\n" +
+    "  representatividad es conservadora y no equivalente. Indica la dirección de la\n" +
+    "  diferencia; no convierte estas métricas en una cota inferior de las reales."
   : "  El conjunto diseñado NO es más adverso que la redacción real.");
 
 writeFileSync(new URL("./Representatividad_resultados.csv", import.meta.url),

@@ -134,11 +134,27 @@ async function detectar(rutaImagen) {
 }
 
 // Réplica del nodo "HU8: Parsear detección": fail-open ante JSON inválido.
+//
+// El fail-open es el comportamiento desplegado y por eso se replica, pero tiene una
+// consecuencia sobre la auditabilidad que la octava auditoría marcó (M1): una respuesta
+// vacía, bloqueada por el filtro de seguridad del modelo o con prosa delante del JSON queda
+// registrada como "Publico", igual que un `tiene_precio: false` genuino. Sin la respuesta
+// cruda, un negativo no se puede distinguir de un fallo de formato.
+//
+// Por eso se devuelve `raw` y se persiste en el archivo de resultados. Las corridas
+// anteriores al 19 de septiembre de 2026 no lo guardaron y ese dato no se puede recuperar;
+// el Anexo E.6 lo declara.
 function parsearVeredicto(raw) {
   let p = { tiene_precio: false, detalle: "" };
+  let jsonValido = true;
   try { p = JSON.parse(String(raw).replace(/```json/gi, "").replace(/```/g, "").trim()); }
-  catch { /* el modelo no devolvió JSON limpio -> no bloquear */ }
-  return { bloquea: p.tiene_precio === true, detalle: p.detalle || "" };
+  catch { jsonValido = false; /* el modelo no devolvió JSON limpio -> no bloquear */ }
+  return {
+    bloquea: p.tiene_precio === true,
+    detalle: p.detalle || "",
+    respuesta_cruda: String(raw ?? ""),
+    json_valido: jsonValido,
+  };
 }
 
 // ─── Corrida ─────────────────────────────────────────────────────────────────
@@ -161,13 +177,15 @@ for (let i = 1; i < filas.length; i++) {
   const f = filas[i];
   if (!f[H.ID]) continue;
   const clase = f[H.Clase_real].trim().toUpperCase();
-  let bloquea, detalle;
+  let bloquea, detalle, respuesta_cruda = "", json_valido = true;
   if ((f[H.Veredicto] || "").trim()) {           // caso ya resuelto en una corrida previa
     bloquea = (f[H.Resultado_obtenido] || "").toLowerCase().includes("bloque");
     detalle = f[H.Detalle_modelo] || "";
+    respuesta_cruda = f[H.Respuesta_cruda] ?? "";
   } else {
     try {
-      ({ bloquea, detalle } = parsearVeredicto(await detectar(join(DIR, f[H.Archivo]))));
+      ({ bloquea, detalle, respuesta_cruda, json_valido } =
+        parsearVeredicto(await detectar(join(DIR, f[H.Archivo]))));
     } catch (e) {
       if (!(e instanceof CupoDiarioAgotado)) throw e;
       guardar();
@@ -184,6 +202,17 @@ for (let i = 1; i < filas.length; i++) {
   f[H.Resultado_obtenido] = bloquea ? "Bloqueo" : "Publico";
   f[H.Detalle_modelo] = detalle;
   f[H.Veredicto] = veredicto;
+  // La respuesta cruda, para que un negativo sea distinguible de un fallo de formato (M1).
+  if (H.Respuesta_cruda === undefined) {
+    H.Respuesta_cruda = filas[0].length;
+    filas[0].push("Respuesta_cruda");
+    filas[0].push("JSON_valido");
+    H.JSON_valido = filas[0].length - 1;
+  }
+  f[H.Respuesta_cruda] = respuesta_cruda;
+  f[H.JSON_valido] = json_valido ? "si" : "NO";
+  if (!json_valido)
+    console.log(`       ** ${f[H.ID]}: el modelo no devolvió JSON válido; fail-open -> Publico`);
   if (veredicto === "VP") VP++; else if (veredicto === "FP") FP++;
   else if (veredicto === "VN") VN++; else FN++;
   if (veredicto === "FN" || veredicto === "FP")

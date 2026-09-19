@@ -69,7 +69,12 @@ const redMean = mean(R);
 console.log("\n──────────────────────────────────────────────────────────────");
 console.log(`  HIPÓTESIS (§4.2): reducción del tiempo operativo > 70 %`);
 console.log(`  Reducción media observada: ${f1(redMean)} %`);
-console.log(`  Veredicto: ${redMean >= 70 ? "SE CONFIRMA (≥ 70 %)" : "NO se alcanza el 70 % (reducción sustancial, por debajo del umbral)"}`);
+// El valor puntual no confirma la hipótesis: el contraste unilateral del margen sobre las
+// medias por consultora da p = 0,230 y los dos intervalos del 95 % contienen el 70 %. El
+// veredicto que se imprime es el que el §5.1 y el §6.1 declaran.
+console.log(`  Veredicto: ${redMean >= 70
+  ? "COMPATIBLE, NO CONFIRMADA (el valor puntual supera el 70 %; ver el contraste del umbral más abajo)"
+  : "NO se alcanza el 70 % (reducción sustancial, por debajo del umbral)"}`);
 
 // --- Prueba t pareada (Manual vs Postly) ---
 const dMean = mean(diff), dSd = sd(diff), n = diff.length;

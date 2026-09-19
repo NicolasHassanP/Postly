@@ -13,7 +13,8 @@
         "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
         "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
       ],
-      "sha256_del_codigo": "f2e61345ab8c7c7ec57336391ff0ba63235370550884fe6ab4f71d7297a50a29"
+      "sha256_del_codigo": "f2e61345ab8c7c7ec57336391ff0ba63235370550884fe6ab4f71d7297a50a29",
+      "codigo": "// HU9 — Compliance Sentinel: bloqueo de precios (HU7) + firma legal desde Config (BD central)\nconst items = $('Resolucion - IG').all();\nconst result = [];\n\n// Firma/contacto desde la pestaña Config (BD central). Fallback a la línea legal histórica.\nconst FIRMA_FALLBACK = \"-- Consultora de Belleza Independiente Mary Kay --\";\n// Config = pestaña con columnas (firma | contacto) y una fila de datos. Headers case-insensitive.\nlet cfg = {};\ntry {\n  const row = (($('Leer Config').first() || {}).json) || {};\n  for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim();\n} catch (e) { /* Config ausente -> fallback */ }\n\nconst firmaLinea = cfg.firma || FIRMA_FALLBACK;\nconst contacto   = cfg.contacto || '';\n\n// Patrones prohibidos por Mary Kay (HU7 - detección de precios en texto)\nconst patronesPrecios = [\n  /(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i,\n  /\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i,\n  /\\d+[.,]\\d{3}/,\n  /\\d+\\s*%\\s*(off|desc|descuento)/i,\n  /\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i,\n  /\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i\n];\n\nfor (const item of items) {\n  let caption = item.json.Caption_IG || '';\n  let precioDetectado = false;\n  let patronEncontrado = '';\n\n  for (const patron of patronesPrecios) {\n    const match = caption.match(patron);\n    if (match) { precioDetectado = true; patronEncontrado = match[0]; break; }\n  }\n\n  if (precioDetectado) {\n    result.push({ json: { ...item.json, compliance_ok: false,\n      compliance_error: `⚠️ Postly detectó contenido prohibido: \"${patronEncontrado}\". Por las normas de Mary Kay no podés publicar precios ni promociones en el feed. Editá el texto e intentá de nuevo.` } });\n    continue;\n  }\n\n  // Normalizar: la IA a veces escribe la firma inline (pegada a los #).\n  // Quitamos firma/contacto donde estén y los reinsertamos limpios, cada uno en su renglón.\n  caption = caption.trim();\n  caption = caption.split(firmaLinea).join('').trim();\n  if (contacto) caption = caption.split(contacto).join('').trim();\n  caption = caption + '\\n' + firmaLinea;\n  if (contacto) caption = caption + '\\n' + contacto;\n\n  result.push({ json: { ...item.json, Caption_IG: caption, compliance_ok: true, compliance_error: null } });\n}\n\nreturn result;"
     },
     "HU5: Pub preparar": {
       "rotulo": "carrusel (HU5)",
@@ -26,7 +27,8 @@
         "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
         "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
       ],
-      "sha256_del_codigo": "e709f2d04d914062a0b9a6f3b0e516e9bca16b5e7b1e1c7b0358ca65553a5a39"
+      "sha256_del_codigo": "e709f2d04d914062a0b9a6f3b0e516e9bca16b5e7b1e1c7b0358ca65553a5a39",
+      "codigo": "// HU5 2b — arma el caption final (HU7 precios + HU9 firma) y recupera urls del set\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('pubCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = Number(rest.slice(lastU + 1));\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = set.urls || [];\nlet caption = (set.copys && set.copys[n - 1]) || '';\n// HU7 — precios en texto\nconst patrones = [\n  /(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i,\n  /\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i,\n  /\\d+[.,]\\d{3}/,\n  /\\d+\\s*%\\s*(off|desc|descuento)/i,\n  /\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i,\n  /\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i\n];\nlet precio = null;\nfor (const p of patrones) { const m = caption.match(p); if (m) { precio = m[0]; break; } }\nif (precio) return [{ json: { blocked: true, chatId, blockMsg: '⚠️ El texto tiene contenido prohibido: \"' + precio + '\". Editá la opción e intentá de nuevo.' } }];\n// HU9 — firma desde Config\nconst cfg = {};\ntry { const row = $('HU5: Pub leer Config').first().json || {}; for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || '-- Consultora de Belleza Independiente Mary Kay --';\nconst contacto = cfg.contacto || '';\ncaption = caption.trim();\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\nreturn [{ json: { blocked: false, chatId, gid, n, caption, copys: set.copys || [], urls, cover: urls[0] || '', total: urls.length } }];"
     },
     "Sched: Procesar": {
       "rotulo": "publicación programada (HU10)",
@@ -39,7 +41,8 @@
         "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
         "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
       ],
-      "sha256_del_codigo": "6810951b9a38fbc4c1aab0ec3043dd88d414ef5795184bd6d73eb613e2693867"
+      "sha256_del_codigo": "6810951b9a38fbc4c1aab0ec3043dd88d414ef5795184bd6d73eb613e2693867",
+      "codigo": "// HU10/carrusel — parsea fecha (DD/MM HH:MM, -03:00), valida, compliance+firma; soporta single y carrusel\nconst trig = $('Telegram Trigger').first().json;\nconst msg = trig.message;\nconst chatId = String(msg.chat.id);\nconst text = String((msg && msg.text) || '').trim();\nconst store = $getWorkflowStaticData('global');\nconst pend = store['schedulePending_' + chatId] || {};\nconst type = pend.type || 'single';\nconst choice = pend.choice || 'final';\n\n// última fila del usuario (la fila Pendiente/recién creada)\nconst rows = $('Sched: Leer última fila').all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\n\nlet copy;\nif (choice === '1') copy = last.Copy_Op1;\nelse if (choice === '2') copy = last.Copy_Op2;\nelse if (choice === '3') copy = last.Copy_Op3;\nelse copy = last.Copy_Final || last.Copy_Op1;\ncopy = String(copy || '').trim();\n\n// carrusel: lista de URLs desde el static data del set\nlet carouselUrls = '';\nif (type === 'carousel' && pend.gid) {\n  const set = store['carousel_' + pend.gid] || {};\n  carouselUrls = (set.urls || []).join('\\n');\n  // el static data refleja la edición (HU5: Aplicar edición actualiza copys[n-1]); priorizarlo\n  const sc = set.copys && set.copys[Number(choice) - 1];\n  if (sc) copy = String(sc).trim();\n}\n\n// parse DD/MM HH:MM -> ISO con offset -03:00\nfunction parseFecha(t) {\n  const m = t.match(/^(\\d{1,2})\\/(\\d{1,2})\\s+(\\d{1,2}):(\\d{2})$/);\n  if (!m) return null;\n  const dd = Number(m[1]), MM = Number(m[2]), hh = Number(m[3]), mm = Number(m[4]);\n  if (MM < 1 || MM > 12 || dd < 1 || dd > 31 || hh > 23 || mm > 59) return null;\n  const year = new Date().getFullYear();\n  const iso = year + '-' + String(MM).padStart(2, '0') + '-' + String(dd).padStart(2, '0') + 'T' + String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0') + ':00-03:00';\n  const d = new Date(iso);\n  if (isNaN(d.getTime())) return null;\n  return { iso, ms: d.getTime() };\n}\n\nconst parsed = parseFecha(text);\nif (!parsed) return [{ json: { valid: false, chatId, errorMsg: '❌ No entendí la fecha. Mandámela así: DD/MM HH:MM (ej: 05/07 18:30).' } }];\nif (parsed.ms <= Date.now()) return [{ json: { valid: false, chatId, errorMsg: '❌ Esa fecha y hora ya pasaron. Mandá una futura: DD/MM HH:MM.' } }];\n\n// compliance + firma\nconst FIRMA_FALLBACK = '-- Consultora de Belleza Independiente Mary Kay --';\nlet cfg = {};\ntry { const c = (($('Sched: Leer Config').first() || {}).json) || {}; for (const h of Object.keys(c)) cfg[h.trim().toLowerCase()] = String(c[h] == null ? '' : c[h]).trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || FIRMA_FALLBACK;\nconst contacto = cfg.contacto || '';\n\nconst patrones = [/(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i, /\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i, /\\d+[.,]\\d{3}/, /\\d+\\s*%\\s*(off|desc|descuento)/i, /\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i, /\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i];\nlet pat = '';\nfor (const p of patrones) { const mm = copy.match(p); if (mm) { pat = mm[0]; break; } }\nif (pat) {\n  delete store['schedulePending_' + chatId];\n  return [{ json: { valid: false, chatId, errorMsg: '⚠️ Postly detectó contenido prohibido: \"' + pat + '\". No podés programar precios ni promociones. Editá el texto y empezá de nuevo.' } }];\n}\n\nlet caption = copy;\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\n\ndelete store['schedulePending_' + chatId];\nreturn [{ json: { valid: true, chatId, caption, fecha_iso: parsed.iso, row_number: last.row_number, carouselUrls, human: text } }];\n"
     },
     "Video: pub publicar": {
       "rotulo": "video (HU13)",
@@ -52,7 +55,8 @@
         "/\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i",
         "/\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i"
       ],
-      "sha256_del_codigo": "b692c113fd3299491161b674de90216ef90aacde48911a62bc53ea7a889ea99f"
+      "sha256_del_codigo": "b692c113fd3299491161b674de90216ef90aacde48911a62bc53ea7a889ea99f",
+      "codigo": "const helpers=this.helpers;\nconst chatId=String($('Telegram Trigger').first().json.callback_query.message.chat.id);\nconst data=String($('Telegram Trigger').first().json.callback_query.data||'');\nconst n=Number(data.split('_')[1])||1;\nconst store=$getWorkflowStaticData('global');\nconst vp=store['videoPub_'+chatId]||{};\nconst videoUrl=vp.videoUrl; const frameUrl=vp.frameUrl;\nlet caption=(vp.copys&&vp.copys[n-1])||'';\nconst cred=$('Video: pub descifrar').first().json;\nconst token=cred.AccessToken; const ig=cred.IGAccountID; const pageId=cred.PageID||$env.META_PAGE_ID;\nconst pats = [\n  /(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i,\n  /\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i,\n  /\\d+[.,]\\d{3}/,\n  /\\d+\\s*%\\s*(off|desc|descuento)/i,\n  /\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i,\n  /\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i\n];\nfor(const p of pats){ const m=caption.match(p); if(m){ return [{ json:{ blocked:true, chatId, precio:m[0] } }]; } }\nlet firma='-- Consultora de Belleza Independiente Mary Kay --', contacto='';\ntry{ const cfg=$('Video: pub Config').first().json; for(const k of Object.keys(cfg)){ const kl=k.trim().toLowerCase(); if(kl==='firma'){ const v=String(cfg[k]||'').trim(); if(v)firma=v; } if(kl==='contacto') contacto=String(cfg[k]||'').trim(); } }catch(e){}\ncaption=caption.split(firma).join('').trim(); if(contacto) caption=caption.split(contacto).join('').trim();\ncaption=caption+String.fromCharCode(10)+firma; if(contacto) caption=caption+String.fromCharCode(10)+contacto;\nlet PostID_IG='', permalink='';\ntry{\n  const cont=await helpers.httpRequest({method:'POST',url:'https://graph.facebook.com/v19.0/'+ig+'/media',body:{media_type:'REELS',video_url:videoUrl,caption:caption,access_token:token},headers:{'content-type':'application/x-www-form-urlencoded'},json:true});\n  const cid=cont.id; let status='IN_PROGRESS',tries=0;\n  while(status!=='FINISHED'&&tries<24){ await new Promise(r=>setTimeout(r,5000)); const st=await helpers.httpRequest({method:'GET',url:'https://graph.facebook.com/v19.0/'+cid,qs:{fields:'status_code',access_token:token},json:true}); status=st.status_code; tries++; if(status==='ERROR')break; }\n  if(status!=='FINISHED'){ return [{ json:{ igError:true, chatId, status } }]; }\n  const pub=await helpers.httpRequest({method:'POST',url:'https://graph.facebook.com/v19.0/'+ig+'/media_publish',body:{creation_id:cid,access_token:token},headers:{'content-type':'application/x-www-form-urlencoded'},json:true});\n  PostID_IG=pub.id;\n  try{ const pl=await helpers.httpRequest({method:'GET',url:'https://graph.facebook.com/v19.0/'+PostID_IG,qs:{fields:'permalink',access_token:token},json:true}); permalink=pl.permalink||''; }catch(e){}\n}catch(e){ return [{ json:{ igError:true, chatId, msg:(e.message||'').slice(0,150) } }]; }\nlet PostID_FB='';\ntry{ const fb=await helpers.httpRequest({method:'POST',url:'https://graph.facebook.com/v19.0/'+pageId+'/videos',body:{file_url:videoUrl,description:caption,access_token:token},headers:{'content-type':'application/x-www-form-urlencoded'},json:true}); PostID_FB=fb.id||''; }catch(e){}\nconst copys=vp.copys||['','',''];\nreturn [{ json:{ blocked:false, igError:false, chatId, PostID_IG, PostID_FB, caption, videoUrl, frameUrl, permalink, op1:copys[0]||'', op2:copys[1]||'', op3:copys[2]||'' } }];"
     }
   },
   "vision": {
@@ -67,57 +71,88 @@
     "imagen única (HU7/HU8)": {
       "nodo": "HU8: Detección visual",
       "presente": true,
-      "lleva_el_criterio": true,
+      "prompt": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+      "sha256_del_prompt": "0cfb82b494b9c36c49d054b8269b681e40d626238a988620d2eab45421808fd3",
       "modelo": "models/gemini-2.5-flash",
       "imagen": "={{ $('HTTP Request').first().json.secure_url }}"
     },
     "carrusel (HU5)": {
       "nodo": "HU5: Analizar carrusel",
       "presente": true,
-      "lleva_el_criterio": true,
+      "prompt": "# ROL\nSos Postly: director de arte + Compliance Sentinel visual para la marca Mary Kay.\nTe paso las imágenes de un CARRUSEL de Instagram, numeradas del 1 al N en el orden en que aparecen.\n\n# TAREA\n1) COMPLIANCE: sobre CUALQUIERA de las imágenes, con este criterio.\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\nSi alguna la incumple, marcá tiene_precio=true e indicá en qué imagen (1..N) y qué viste.\n2) ORDEN (solo si NO hay precio): proponé el ORDEN NARRATIVO ÓPTIMO para el carrusel: portada/hook de mayor impacto y\n   contraste, luego las de soporte (beneficios) en secuencia lógica, y un cierre/CTA. Devolvé los números 1..N en \"orden\".\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto extra y sin bloques de código markdown.\nSi en \"preview\" mencionás imágenes, referilas por su número del 1 al N (NUNCA 0).\n{\"tiene_precio\": false, \"detalle\": \"\", \"orden\": [1,3,2], \"preview\": \"1-2 oraciones: por qué esa portada y la secuencia\"}\nSi tiene_precio=true, \"orden\" puede ir vacío.",
+      "sha256_del_prompt": "3f809fd8086c29bcc15754fc6c009584917a52b2da791af1d6fc6413f1e65c6d",
       "modelo": "models/gemini-2.5-flash",
       "imagen": "={{ $json.urlList }}"
     },
     "video (HU13)": {
       "nodo": "Video: HU8 visual",
       "presente": true,
-      "lleva_el_criterio": true,
+      "prompt": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay.\n\n# QUÉ TE PASO\nCuatro imágenes de un mismo video, en este orden:\n1, 2 y 3: tres instantes del video TAL COMO SE VA A PUBLICAR (formato vertical 9:16).\n4: el encuadre COMPLETO del video original, antes del recorte a vertical. Todo lo que se\nve en la 4 y no se ve en las otras tres es lo que el recorte elimina.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\nAplicá ese criterio dos veces y por separado:\n- sobre las imágenes 1, 2 y 3 (lo que se publica) -> campo \"tiene_precio\";\n- sobre la imagen 4 (el encuadre original) -> si ahí hay un precio o promoción que NO\n  aparece en ninguna de las tres primeras, marcá \"precio_recortado\": true.\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin\nbloques de código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": false, \"precio_recortado\": true, \"detalle\": \"qué detectaste y en qué imagen\"}",
+      "sha256_del_prompt": "885322d9ab7010f7b2778193a05ce24713f0b2e0daccf6f457ec666be93bfebe",
       "modelo": "models/gemini-2.5-flash",
       "imagen": "={{ $json.frameUrls }}"
     },
     "re-publicación (HU12)": {
       "nodo": "Repost: HU8 visual",
       "presente": true,
-      "lleva_el_criterio": true,
+      "prompt": "# ROL\nSos el Compliance Sentinel visual de Postly para la marca Mary Kay. Analizá la imagen adjunta.\n\n# TAREA\nDetectá si la imagen contiene CUALQUIER precio o promoción incrustada en los píxeles\n(placa gráfica, etiqueta, cartel, texto sobre la foto). Considerá infractor:\n- Montos o cifras de precio, símbolos de moneda ($, US$, AR$, ARS, USD).\n- Listas de precios o tarifas.\n- Texto promocional: \"OFERTA\", \"PROMO\", \"PROMOCIÓN\", \"DESCUENTO\", \"X% OFF\", \"2x1\",\n  \"LIQUIDACIÓN\", \"SALE\", \"REBAJA\", \"GRATIS\", \"ENVÍO GRATIS\".\n\nNO es infractor: nombres de productos, logos de Mary Kay, texto descriptivo sin precios,\nnúmeros que claramente no son precios (ej. \"SPF 30\", \"24h\", \"50 ml\").\n\n# RESPUESTA\nRespondé ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido, sin texto adicional y sin bloques\nde código markdown (no uses tres backticks). Estructura exacta:\n{\"tiene_precio\": true, \"detalle\": \"qué detectaste y dónde\"}\no, si está limpia:\n{\"tiene_precio\": false, \"detalle\": \"\"}",
+      "sha256_del_prompt": "0cfb82b494b9c36c49d054b8269b681e40d626238a988620d2eab45421808fd3",
       "modelo": "models/gemini-2.5-flash",
       "imagen": "={{ $('Repost: Elegir fila').first().json.ImageURL }}"
     }
   },
   "firma_hu9": {
+    "alcance": "Se localiza la concatenación de la firma y se clasifican los bloques que la contienen, saltando cadenas y comentarios. Un `for` que recorre los ítems no la condiciona; un `if`, un `else`, un `switch` o un `catch`, sí. Esto NO establece que ninguna rama del workflow publique sin pasar por el nodo: eso es una propiedad del grafo de conexiones y no del código de un nodo.",
     "Code in JavaScript1": {
       "concatenacion": [
-        "caption = caption + '\\n' + firmaLinea;"
+        {
+          "linea": 48,
+          "texto": "caption = caption + '\\n' + firmaLinea;",
+          "bloques_que_la_contienen": [
+            "for"
+          ],
+          "dentro_de_una_bifurcacion": false,
+          "condicional_en_la_linea": false
+        }
       ],
       "condicionada": false,
       "elimina_duplicado": true
     },
     "HU5: Pub preparar": {
       "concatenacion": [
-        "caption = caption + '\\n' + firmaLinea;"
+        {
+          "linea": 33,
+          "texto": "caption = caption + '\\n' + firmaLinea;",
+          "bloques_que_la_contienen": [],
+          "dentro_de_una_bifurcacion": false,
+          "condicional_en_la_linea": false
+        }
       ],
       "condicionada": false,
       "elimina_duplicado": true
     },
     "Sched: Procesar": {
       "concatenacion": [
-        "caption = caption + '\\n' + firmaLinea;"
+        {
+          "linea": 67,
+          "texto": "caption = caption + '\\n' + firmaLinea;",
+          "bloques_que_la_contienen": [],
+          "dentro_de_una_bifurcacion": false,
+          "condicional_en_la_linea": false
+        }
       ],
       "condicionada": false,
       "elimina_duplicado": true
     },
     "Video: pub publicar": {
       "concatenacion": [
-        "caption=caption+String.fromCharCode(10)+firma; if(contacto) caption=caption+String.fromCharCode(10)+contacto;"
+        {
+          "linea": 23,
+          "texto": "caption=caption+String.fromCharCode(10)+firma; if(contacto) caption=caption+String.fromCharCode(10)+contacto;",
+          "bloques_que_la_contienen": [],
+          "dentro_de_una_bifurcacion": false,
+          "condicional_en_la_linea": false
+        }
       ],
       "condicionada": false,
       "elimina_duplicado": true
@@ -125,6 +160,9 @@
   },
   "corte_hu13": {
     "nodo": "Video: procesar",
-    "guarda": "if(dur && dur>60){ return [{ json:{ chatId, tooLong:true, dur:Math.round(dur) } }]; }"
+    "guarda": "if(dur===null || dur>60){ return [{ json:{ chatId, tooLong:true, durDesconocida:dur===null, dur:dur===null?null:Math.round(dur) } }]; }",
+    "lectura_de_la_duracion": "function ffdur(f){ const r=cp.execSync('ffmpeg -i '+f+' -f null - 2>&1 || true',{stdio:'pipe',maxBuffer:1024*1024*50}).toString(); const i=r.indexOf('Duration: '); if(i===-1)return null; const t=r.substr(i+10,11); const p=t.split(':'); return (+p[0])*3600+(+p[1])*60+parseFloat(p[2]); }",
+    "cierra_ante_duracion_ilegible": true,
+    "codigo": "const helpers=this.helpers; const fs=require('fs'); const cp=require('child_process');\nfunction ffdur(f){ const r=cp.execSync('ffmpeg -i '+f+' -f null - 2>&1 || true',{stdio:'pipe',maxBuffer:1024*1024*50}).toString(); const i=r.indexOf('Duration: '); if(i===-1)return null; const t=r.substr(i+10,11); const p=t.split(':'); return (+p[0])*3600+(+p[1])*60+parseFloat(p[2]); }\nasync function cloud(kind,dataUri){ return helpers.httpRequest({method:'POST',url:'https://api.cloudinary.com/v1_1/dvqtepklc/'+kind+'/upload',body:{upload_preset:'postly_unsigned',file:dataUri},headers:{'content-type':'application/x-www-form-urlencoded'},json:true}); }\nasync function normalizar(inPath, chatId, cut, dur){\n  const outP='/tmp/out_'+chatId+'.mp4';\n  const tflag = cut ? ' -t 60' : '';\n  cp.execSync('ffmpeg -y -i '+inPath+' -vf \"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920\" -c:v libx264 -preset veryfast -c:a aac -movflags +faststart'+tflag+' '+outP,{stdio:'pipe',maxBuffer:1024*1024*50});\n  // Tres instantes del video que SE VA A PUBLICAR, mas el encuadre COMPLETO del original.\n  // Lo primero cubre la placa que aparece a mitad del clip; lo segundo, la que el recorte\n  // a 9:16 elimina de los bordes (sobre un 16:9 sobrevive un tercio del ancho).\n  const efect = cut ? Math.min(dur||60, 60) : (dur||10);\n  const marcas = [efect*0.1, efect*0.5, efect*0.9].map(function(s){ return Math.max(0, s).toFixed(2); });\n  const frames = [];\n  for (let i=0; i<marcas.length; i++){\n    const p='/tmp/fr_'+chatId+'_'+i+'.jpg';\n    cp.execSync('ffmpeg -y -ss '+marcas[i]+' -i '+outP+' -vframes 1 -q:v 2 '+p,{stdio:'pipe',maxBuffer:1024*1024*50});\n    frames.push(p);\n  }\n  const fullP='/tmp/fr_'+chatId+'_full.jpg';\n  cp.execSync('ffmpeg -y -ss '+marcas[0]+' -i '+inPath+' -vframes 1 -q:v 2 -vf \"scale=1080:-2\" '+fullP,{stdio:'pipe',maxBuffer:1024*1024*50});\n  const v=await cloud('video','data:video/mp4;base64,'+fs.readFileSync(outP).toString('base64'));\n  const urls=[];\n  for (const p of frames.concat([fullP])){\n    const f=await cloud('image','data:image/jpeg;base64,'+fs.readFileSync(p).toString('base64'));\n    urls.push(f.secure_url);\n  }\n  // frameUrl sigue siendo el primer fotograma publicable: es el que genera los copys.\n  return { videoUrl:v.secure_url, frameUrl:urls[0], frameUrls:urls.join(','), nFrames:urls.length };\n}\nconst chatId=String($('Telegram Trigger').first().json.message.chat.id);\nconst store=$getWorkflowStaticData('global');\nconst fileId=$('Telegram Trigger').first().json.message.video.file_id;\nconst buf=await helpers.getBinaryDataBuffer(0,'data');\nconst inP='/tmp/vid_'+chatId+'.mp4'; fs.writeFileSync(inP, buf);\nstore['videoInfo_'+chatId]={ fileId };\nconst dur=ffdur(inP);\nif(dur===null || dur>60){ return [{ json:{ chatId, tooLong:true, durDesconocida:dur===null, dur:dur===null?null:Math.round(dur) } }]; }\nconst r=await normalizar(inP, chatId, false, dur);\nreturn [{ json:{ chatId, tooLong:false, dur: dur?Math.round(dur):null, videoUrl:r.videoUrl, frameUrl:r.frameUrl, frameUrls:r.frameUrls, nFrames:r.nFrames } }];"
   }
 }
