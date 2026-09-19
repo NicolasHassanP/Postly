@@ -50,7 +50,7 @@ avance/evidencia/
 
 # === Dictámenes de auditoría (evaluaciones del trabajo, no artefactos del proyecto) ===
 avance/Dictamen_*.pdf
-avance/dictamen-auditoria.pdf
+avance/dictamen-auditoria*.pdf
 avance/Cuarta Auditoria*.docx
 
 # === Versiones intermedias y respaldos (git ya es el respaldo) ===
