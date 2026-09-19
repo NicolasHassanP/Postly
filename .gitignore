@@ -31,6 +31,10 @@ avance/pub consultoras/
 # Segunda recoleccion (16-09-2026): arte oficial de la marca que las consultoras
 # reenvian. No es produccion propia de ellas y no se redistribuye; de aca sale R01.
 avance/fotos jere/
+# Material de origen de las pruebas de video y de carrusel (19-09-2026): los dos videos
+# que aporto una consultora —en uno se le ve la cara— y las dos piezas del carrusel. Lo
+# que se entrega son los fotogramas y las imagenes ya procesadas, en evidencia/.
+avance/fuentes de prueba/
 avance/Encuesta*.pdf
 # las imagenes del canal HU8 se componen sobre esas mismas fotos de producto
 avance/evidencia/casos_imagen/*.jpg

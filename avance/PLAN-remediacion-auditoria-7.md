@@ -11,8 +11,9 @@
 |---|---|
 | Nota | **7,2** (la sexta dio 7,6, pero **no son comparables**: auditorías independientes, listas de hallazgos distintas) |
 | Hallazgos | 1 crítico · 3 altos · 8 medios · 10 bajos |
-| Aplicado | **22 de 22** (pasadas 39 a 42) más la corrección del sistema |
+| Aplicado | **22 de 22** (pasadas 39 a 43) más la corrección del sistema |
 | Sistema | detección visual en los cuatro flujos, multifotograma y aviso de recorte · 195 nodos |
+| Medido | los cuatro flujos del canal visual salvo la re-publicación: imagen (Anexos E.6 y E.8), video (E.9) y carrusel (E.10) |
 | Pendiente | nada del dictamen. Ver **§5, Cómo seguir** |
 
 Ninguno de los 39 hallazgos de la sexta reapareció. El dictamen 7 convierte en fortalezas
@@ -148,6 +149,18 @@ ninguna auditoría había visto. Orden cronológico, porque cada hallazgo salió
    quinta limitación del §5.1, que declaraba que ese flujo no tenía ningún caso.
    → Anexo E.9 nuevo y `evidencia/casos_video/`.
 
+7. **El caso de carrusel, medido** (ejecución 609, pasada 43). Nico mandó al bot un grupo de
+   dos imágenes del mismo producto, una con precio y otra sin, y el módulo bloqueó la
+   publicación entera. Tiene un valor que no depende de su tamaño: **la imagen con precio es
+   la misma pieza que el caso R01** del conjunto de imagen, de modo que el mismo material
+   entró por dos flujos distintos y recibió el mismo veredicto. La identidad de criterio
+   entre flujos deja de sostenerse sólo por verificación del texto de los nodos.
+   → Anexo E.10 nuevo y `evidencia/casos_carrusel/`.
+8. **La pasada 42 dejó una contradicción.** El §6.2 seguía recomendando «construir un
+   conjunto de casos de video», que es justo lo que el §5.1 acababa de reportar. Es el mismo
+   patrón de siempre: corregir en un lugar deja viva la afirmación vieja en otro. Corregido
+   en la pasada 43, con las dos frases viejas agregadas al verificador.
+
 `verificar_patrones_desplegados.mjs` comprueba ahora el criterio visual **flujo por flujo**,
 como ya hacía con las seis expresiones del canal textual.
 
@@ -157,8 +170,8 @@ como ya hacía con las seis expresiones del canal textual.
 
 **Primero, y es de Nico:**
 
-1. **Refrescar los campos en Word** (Ctrl+E, F9). El Anexo E.9 suma una entrada al índice
-   general y el cuerpo creció. Sin eso, los tres índices quedan desfasados.
+1. **Refrescar los campos en Word** (Ctrl+E, F9). Los Anexos E.9 y E.10 suman dos entradas al
+   índice general y el cuerpo creció. Sin eso, los tres índices quedan desfasados.
 2. **Decidir sobre un fotograma.** El segundo del caso de bloqueo es el único donde aparece
    el rostro de quien filmó; se omitió del material entregado y la omisión está declarada en
    el Anexo E.9 y en el LEEME. Si se prefiere incluirlo, está en la instancia de Cloudinary y
@@ -166,17 +179,25 @@ como ya hacía con las seis expresiones del canal textual.
 
 **Después, por orden de rendimiento:**
 
-3. **Un caso de carrusel.** Es el único de los cuatro flujos que sigue sin caso propio, aunque
-   su criterio ya está unificado y verificado. Dos imágenes —una con precio, una sin— y sale
-   en una sola prueba. Con eso el canal visual queda medido en los cuatro flujos.
+3. **Un caso de re-publicación (HU12).** Es el único de los cuatro flujos que sigue sin caso
+   propio. Sale en una prueba: publicar una imagen limpia, entrar a Mi Agenda, reciclarla y
+   volver a mandarla con una pieza con precio. El §6.2 ya lo declara pendiente, así que
+   cerrarlo es cerrar la última recomendación abierta del canal visual.
 4. **Decidir si va una octava auditoría.** El gate del profesor es demostrar >9. La séptima
    dio 7,2 con los 22 hallazgos ya aplicados, y encima se corrigió el sistema. Vale la pena
    una pasada propia de coherencia antes —como la de las pasadas 35-38, que encontró catorce
-   cosas—, porque las últimas dos rondas mostraron que el documento acumula desfasajes cada
-   vez que se toca. En particular hay que barrer lo que el §4.7.3 y el §5.1 dicen ahora sobre
-   el video contra lo que dicen el Resumen, el Cap. 1 y el Anexo B.9.
+   cosas—, porque las últimas rondas mostraron que el documento acumula desfasajes cada vez
+   que se toca; la pasada 43 encontró uno más, del día anterior. En particular hay que barrer
+   lo que el §4.7.3 y el §5.1 dicen ahora sobre el video y el carrusel contra lo que dicen el
+   Resumen, el Cap. 1 y los Anexos B.5 y B.9.
 5. **Recuento de páginas.** Venía en ~158 y creció. Si el límite de ~120 incluye el material
    preliminar, hay que mirarlo antes de entregar.
+
+**Dónde quedó el material de origen.** Los dos videos y las dos imágenes con que se hicieron
+las pruebas están en `avance/fuentes de prueba/`, fuera de `evidencia/` y **fuera de git**:
+en uno de los videos se ve la cara de la consultora, y `armar_evidencia.py` habría borrado
+esa carpeta en la próxima corrida por no conocerla. Lo que se entrega son los fotogramas y
+las imágenes ya procesadas.
 
 **Estado de la instancia:** n8n local con 195 nodos, activo, con todo lo anterior desplegado.
 `node scripts/probe-local-n8n.mjs` compara el repo contra la instancia sin tocar nada.
@@ -215,3 +236,9 @@ El de siempre, con estos aprendizajes:
   «Cannot read properties of undefined» en producción.
 - **El texto que devuelve el modelo es dato no confiable para un mensaje con formato.** Se
   sanea en el nodo que parsea y no en cada mensaje.
+- **Una guarda que falla tiene que decir qué la hizo fallar.** La pasada 43 imprime las
+  oraciones largas que ella misma introdujo, en vez de sólo el conteo: dos intentos a ciegas
+  contra uno con el texto delante.
+- **Un título no sirve de ancla en el verificador.** Aparece también en el índice, que es un
+  campo de Word y cuenta 1 o 2 según si se refrescó. Se ancla en la primera oración del
+  apartado.

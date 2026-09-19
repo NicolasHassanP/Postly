@@ -90,6 +90,13 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   video normalizado y el encuadre original— y la cuota cuesta lo mismo que con una. Su
   `LEEME.md` tiene el detalle y declara el único fotograma que se omitió, por privacidad.
 
+- `casos_carrusel/` — el caso que ejercita el canal visual sobre **carrusel** (HU5), también
+  de extremo a extremo contra el bot. La imagen con precio es la misma pieza auténtica que
+  el caso `R01` del Anexo E.8, que el flujo de imagen única bloquea: el mismo material, por
+  otro flujo, con el mismo veredicto. Va acompañada de una foto limpia del mismo producto,
+  porque el bloqueo tiene que alcanzar a la publicación entera y no sólo a la imagen que
+  lleva la cifra.
+
 - `Cronometraje_datos.csv` — los 12 pares de tiempos (mm:ss), tres participantes.
 - `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — la fuente normativa del
   Anexo D, diez páginas. Está para que las dos reglas que codifica el Módulo Centinela
