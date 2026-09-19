@@ -130,6 +130,59 @@ check('entradas con DOI', f'{con_doi} ({100 * con_doi // max(1, len(entradas))} 
 # ═══════════════════════════════════════ frases que el dictamen marcó
 bloque('frases retiradas por el dictamen')
 PROHIBIDAS = [
+    # ── retiradas por el octavo dictamen (pasadas 48 a 62) ───────────────────
+    # A1: el F1 de campo no mide contenido de canal público, y los positivos son 12 y no 14.
+    # El patrón va acotado a la nota de la Tabla 5: el §5.1 usa la misma expresión para el
+    # conjunto controlado, donde sí es exacta, porque esos casos se diseñaron como feed.
+    'detección de referencias monetarias en contenido destinado al canal público',
+    '14 mensajes con precio', 'referencia monetaria en canal público',
+    # A4: la hipótesis es compatible, no confirmada
+    'se considera confirmada', 'resuelve la ineficiencia operativa',
+    # A2, A8: la cronología de la corrección visual
+    'estuvieron respaldados durante toda la evaluación', 'queda medida sobre un caso',
+    # acotado: el E.6 dice con razón que «el flujo de imagen única bloquea cualquier otra»
+    'con el precio ya impreso, que el flujo de imagen única bloquea',
+    # A5, M2, M7: lo que la fuente no dice
+    'infracción punible', 'infringe el Acuerdo de Consultora', 'responde a un mandato legal',
+    'legalmente imperativo', 'normas de compliance más supervisadas',
+    'contrato de distribución', 'protegiendo así la equidad de mercado',
+    'Para prevenir activamente el fraude', 'La fuente es inequívoca respecto del feed',
+    'la síntesis codificada no se aparta de la fuente',
+    # A6, B4: conclusiones y registro sin criterio previo
+    'más adecuado que los generadores de texto genéricos', 'desempeño satisfactorio',
+    'estándares de nivel corporativo', 'nula fricción', 'grado corporativo',
+    'muro de contención', 'simbiosis tecnológica', 'sistema nervioso central',
+    # A7, M3, M8: capacidades que el código desmiente
+    'La enumeración completa de lo que se persiste', 'sin latencia perceptible',
+    'sellado criptográficamente', 'criptográficamente validado',
+    'persistidos de manera transaccional', 'coherencia referencial',
+    'integridad referencial de las métricas', 'actualiza transaccionalmente',
+    'limitando las frecuencias', 'se inscribe teóricamente',
+    'alimentar el motor de sugerencias', 'la proximidad de términos semánticos gatillo',
+    # M4, C-13: el sistema de antes de la corrección
+    'cubre exclusivamente dos aspectos', 'Se extrae un fotograma representativo',
+    'imagen, carrusel y video comparten la misma lógica', 'los montos escritos en palabras',
+    # M5, M13, M16: remisiones e inventarios
+    'criterios de aceptación (§4.4)', 'quedan atendidas en el Anexo E.8',
+    'la salvedad que el §5.1 declaraba pendiente', 'modo "single"',
+    'Los tres umbrales que la Tabla 13', 'tres umbrales sin verificar',
+    'tres umbrales no verificados', 'de modo que son otros tantos verdaderos negativos',
+    'se cuantificó mediante logs la tasa de reducción bruta',
+    # M1, M11, M15: lecturas que el dato no sostiene
+    'sí acota la variabilidad del modelo entre corridas',
+    'con la justificación que el modelo devolvió para cada caso',
+    'ninguna de estas composiciones se publicó',
+    'vocabulario comercial sin cifra y forma indirecta',
+    # M9: la figura que no coincidía con el sistema
+    '185 nodos',
+    # M12, B1, B2, B3: escritura y criterios
+    'Se reformuló después de medir', 'para eludir los filtros de contenido duplicado',
+    '(validez interna)', 'Son cuatro.', 'Destacan dos.', 'decenas de horas',
+    'Middleware de seguridad', 'Agente de Auditoría Algorítmica',
+    # B6: APA 7
+    '6ta ed.', '14va ed.', 'Versión preprint', '[Preprint]',
+    'Media Type for JavaScript',
+    # ── retiradas por dictámenes anteriores ──────────────────────────────────
     'pendiente de medición', 'pendientes de medición', 'mitigar a cero',
     '100% de los casos', 'escasos segundos', 'no es un bloque monolítico',
     'base relacional', 'persistencia relacional', 'microservicios externos',
@@ -354,7 +407,10 @@ EXIGIDAS = [
     ('hay que sumar, por lo tanto, la solicitud comercial sin precio', 1),
     # M-5: la divergencia del canal visual, reportada y corregida
     ('La revisión del canal visual, hecha después de la del textual', 1),
-    ('Ambas capas cubren los cuatro flujos que publican', 1),
+    # Redactada de nuevo en la pasada 51: los dos conjuntos de cuatro flujos no son el
+    # mismo cuatro, y el §2.4 lo dice ahora nodo por nodo (A3 del octavo dictamen).
+    ('Las dos capas cubren los cuatro flujos que publican', 1),
+    ('Los dos conjuntos son de cuatro y no son el mismo cuatro', 1),
     # Pasada 43: el carrusel deja de estar respaldado sólo por la identidad de su regla,
     # y el único flujo sin caso propio queda nombrado.
     # (el título del apartado no sirve de ancla: aparece también en el índice, que es un

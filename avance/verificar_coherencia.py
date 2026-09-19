@@ -18,6 +18,7 @@ import sys
 from collections import defaultdict
 
 import docx
+from docx.oxml.ns import qn
 
 RUTA = sys.argv[1] if len(sys.argv) > 1 else 'Tesis Postly Bontorno Hassan-1 v2.docx'
 doc = docx.Document(RUTA)
@@ -120,6 +121,17 @@ for clase in ('Tabla', 'Figura'):
     fantasma = sorted(n for n in citas if n not in rotulos)
     check(f'citas de {clase.lower()}s que existen', not fantasma,
           f'citadas y ausentes: {fantasma}' if fantasma else '')
+
+    # El número de un rótulo no está escrito: lo calcula un campo `SEQ`. Una sustitución de
+    # texto que abarque ese número lo destruye y deja el número escrito a mano, con lo que
+    # todos los rótulos siguientes se corren uno. Pasó con la Tabla 5 en la pasada 48 y no
+    # se vio hasta abrir Word, así que se comprueba acá.
+    sin_campo = [i for i, p in enumerate(cuerpo)
+                 if re.match(rf'^{clase} \d+\.', p.text.strip())
+                 and not any('SEQ' in (e.text or '')
+                             for e in p._p.iter(qn('w:instrText')))]
+    check(f'{clase.lower()}s con su campo SEQ intacto', not sin_campo,
+          f'rótulos escritos a mano: {sin_campo}' if sin_campo else '')
 
 # ── 4. cifras que viven en más de un lugar ───────────────────────────────────
 print('\n── cifras repetidas (deben coincidir en todas sus apariciones)')
