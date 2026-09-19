@@ -1,0 +1,12 @@
+Adaptacion_supuesta_s,Reduccion_media_pct,Cruza_el_umbral_70,t_contra_reduccion_nula,Sigue_siendo_significativa
+0,73,60,No,9,15,Si
+15,72,85,No,8,83,Si
+30,72,06,No,8,50,Si
+45,71,21,No,8,17,Si
+60,70,32,No,7,84,Si
+75,69,36,Si,7,52,Si
+90,68,34,Si,7,19,Si
+120,66,07,Si,6,54,Si
+150,63,44,Si,5,88,Si
+180,60,34,Si,5,23,Si
+cruce_70pct,65,—,—,—

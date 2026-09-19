@@ -20,6 +20,8 @@ Node.js 18 o posterior. Sin dependencias externas: los scripts sólo usan `node:
 | Tabla 7 — cronometraje, prueba t y contraste del umbral del 70 % | `node run_cronometraje.mjs` |
 | Tabla 8 — TAM y α de Cronbach | `node run_tam.mjs` |
 | §5.1 — representatividad del conjunto principal contra el corpus real | `node run_representatividad.mjs` |
+| E.12 — el llamado a la acción antes y después de la corrección | `node run_cta_generacion.mjs --rescorar` (re-puntúa los textos guardados; no consume cuota) |
+| E.2 — sensibilidad del cronometraje a la asimetría de la tarea | `node run_sensibilidad_cronometraje.mjs` |
 | Tabla 11 — baterías de validación técnica | `node run_baterias.mjs` (requiere n8n en marcha; la fila `B1b` consume cuota del modelo) |
 | Tabla 11, fila `B1b` — desglose por nodo | `node _desglose_b1b.mjs` (lee el historial; no consume cuota) |
 | Tablas 12 y 14 — canal de imagen (HU8) | `GEMINI_API_KEY=… node run_compliance_vision.mjs` |
@@ -64,6 +66,29 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   contienen el umbral del 70 %, que es la misma conclusión que el contraste unilateral.
   `run_compliance_text.mjs` y `run_compliance_field.mjs` acompañan cada proporción con su
   intervalo de Wilson, que no colapsa cuando la proporción vale 1 (la Precisión de campo).
+
+- `run_cta_generacion.mjs` + `CTA_generacion_resultados.csv` + `Prompts_generacion.json` —
+  la medición del Anexo E.12. Hasta el 19 de septiembre de 2026 los cuatro prompts de
+  generación exigían que las tres opciones de copy terminaran en una invitación a contactar a
+  la consultora, que es lo que la fuente normativa define como mensaje comercial. El script
+  llama al modelo dos veces por imagen —con el prompt anterior y con el vigente, en la misma
+  corrida— y aplica sobre cada opción un detector léxico declarado en su propio código.
+  Resultado: **15 de 15 opciones antes, 0 de 15 después**. `Prompts_generacion.json` trae los
+  cuatro prompts en sus dos estados con el SHA-256 de cada uno, de modo que se comprueba que
+  lo ejecutado es lo desplegado sin acceso a la instancia, igual que hace
+  `verificar_patrones_desplegados.mjs` con los detectores. Ojo con el conmutador: sin
+  argumentos vuelve a llamar al modelo y consume cuota; con `--rescorar` sólo vuelve a puntuar
+  los textos ya guardados, que es lo que la entrega necesita.
+
+- `run_sensibilidad_cronometraje.mjs` + `Sensibilidad_cronometraje_resultados.csv` — la cota
+  del Anexo E.2. La condición manual del cronometraje incluye adaptar la imagen al formato de
+  feed y Postly no hace esa tarea, de modo que las dos condiciones no cubren exactamente el
+  mismo trabajo. Esa subtarea no se cronometró por separado y el script no la inventa:
+  descuenta del tiempo manual cada duración hipotética y recalcula la reducción media por
+  consultora. La reducción cruza el umbral del 70 % en los **65 segundos por publicación**, y
+  la t pareada contra la hipótesis de reducción nula se mantiene por encima del valor crítico
+  en todo el rango explorado. Lo que el resultado establece no es cuánto duró la adaptación,
+  sino cuánto tendría que haber durado para invertir la conclusión sobre el umbral.
 
 - `run_representatividad.mjs` + `Representatividad_resultados.csv` — el contraste de la
   afirmación de representatividad del §5.1. Clasifica cada caso infractor **de texto** por la

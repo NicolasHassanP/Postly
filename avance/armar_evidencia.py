@@ -35,6 +35,10 @@ DATOS = [
     # el mismo extracto, pero del workflow ANTERIOR a la correccion: es el detector que
     # produjo las Tablas 3, 4 y 5 y el conjunto divergente de HU10 (M-1 de la 6a auditoria)
     'Nodos_compliance_desplegados_v1.json',
+    # los cuatro prompts de generacion en sus dos estados, antes y despues de retirar el
+    # llamado a la accion obligatorio, con el SHA-256 de cada uno (Anexo E.12). Como el
+    # extracto de compliance, no lleva credenciales ni identificadores de la instancia.
+    'Prompts_generacion.json',
 ]
 SCRIPTS = [
     'run_compliance_text.mjs',
@@ -50,6 +54,12 @@ SCRIPTS = [
     'verificar_patrones_desplegados.mjs',
     # el contraste de representatividad del conjunto principal contra el corpus real
     'run_representatividad.mjs',
+    # mide el llamado a la accion que produce el generador, antes y despues de la
+    # correccion de N-02 (Anexo E.12)
+    'run_cta_generacion.mjs',
+    # acota el efecto de la asimetria de la tarea manual sobre la hipotesis del 70 %
+    # (N-03, Anexo E.2): no mide la subtarea, recorre sus valores posibles
+    'run_sensibilidad_cronometraje.mjs',
 ]
 # Artefactos que se MANTIENEN DIRECTAMENTE EN LA ENTREGA y no tienen original vigente
 # aca. Se conservan tal cual: copiarlos desde RAIZ los haria retroceder, porque las
@@ -65,6 +75,11 @@ EN_DESTINO = [
     'Baterias_resultados.csv',
     'Umbrales_HU_resultados.csv',
     'B1b_desglose.csv',
+    # Los textos que el modelo devolvio en las dos corridas del Anexo E.12. NO se regenera:
+    # volver a pedirlos daria otros textos y consumiria cupo. `run_cta_generacion.mjs
+    # --rescorar` solo vuelve a puntuar los que estan guardados, de modo que la corrida es
+    # reproducible y el dato, estable.
+    'CTA_generacion_resultados.csv',
 ]
 # subcarpetas que se conservan tal cual: las imagenes del canal HU8 y sus planillas, que
 # no se regeneran aqui (las producen armar_casos_imagen*.py y las puntua el modelo)
@@ -83,6 +98,11 @@ CORRIDAS = [
     ('run_cronometraje.mjs', []),
     ('run_tam.mjs', []),
     ('run_representatividad.mjs', []),
+    # No lleva --extraer: regenerar Prompts_generacion.json exige el workflow exportado,
+    # que no forma parte de la entrega. Y no vuelve a llamar al modelo: --rescorar
+    # re-puntua los textos ya guardados, de modo que la corrida es reproducible sin cupo.
+    ('run_cta_generacion.mjs', ['--rescorar']),
+    ('run_sensibilidad_cronometraje.mjs', []),
 ]
 
 # El LEEME de la entrega NO se embebe aca. Estuvo embebido y eso lo volvio una trampa:

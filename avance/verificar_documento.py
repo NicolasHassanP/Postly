@@ -140,7 +140,11 @@ PROHIBIDAS = [
     'que la normativa exige', 'contacto obligatorios', 'firma legal obligatoria',
     'Ante la magnitud de este riesgo operativo',
     # N-A4: HU2 tenía tres estados a la vez
-    '8 de los once', 'Los 3 restantes se declaran',
+    # OJO: estos dos patrones cambiaron de signo en la pasada 75. Cuando se escribieron, la
+    # Tabla 13 daba 7 umbrales verificados y 4 sin verificar, y 8/3 era el error. La pasada 75
+    # estableció que el umbral de HU12 SÍ está medido (B1b_desglose.csv) y no se cumple, de
+    # modo que ahora lo verdadero es 8/3 y lo prohibido es 7/4.
+    '7 de los once', 'Los 4 restantes se declaran',
     # ── retiradas por el octavo dictamen (pasadas 48 a 62) ───────────────────
     # A1: el F1 de campo no mide contenido de canal público, y los positivos son 12 y no 14.
     # El patrón va acotado a la nota de la Tabla 5: el §5.1 usa la misma expresión para el
@@ -176,8 +180,9 @@ PROHIBIDAS = [
     # M5, M13, M16: remisiones e inventarios
     'criterios de aceptación (§4.4)', 'quedan atendidas en el Anexo E.8',
     'la salvedad que el §5.1 declaraba pendiente', 'modo "single"',
-    'Los tres umbrales que la Tabla 13', 'tres umbrales sin verificar',
-    'tres umbrales no verificados', 'de modo que son otros tantos verdaderos negativos',
+    # Mismo cambio de signo que arriba, por la misma razón (pasada 75).
+    'cuatro umbrales sin verificar', 'Los cuatro umbrales no verificados',
+    'de modo que son otros tantos verdaderos negativos',
     'se cuantificó mediante logs la tasa de reducción bruta',
     # M1, M11, M15: lecturas que el dato no sostiene
     'sí acota la variabilidad del modelo entre corridas',
@@ -398,6 +403,38 @@ PROHIBIDAS = [
     'sanciones comerciales o rescisiones contractuales',
     'sanciones comerciales o rescisiones de contrato',
     'sigue respaldado sólo por la identidad de su conjunto de reglas',
+    # ── retiradas por el décimo dictamen (pasadas 72 a 78) ───────────────────
+    # N-01: el rótulo del entorno. «Producción» en sentido metodológico sigue siendo
+    # legítimo (§3.1, §3.5.1, Hevner); lo que no puede volver es aplicado a una máquina.
+    'validación en producción', 'desplegado en producción', 'desplegada en producción',
+    'sistema en producción', 'entorno de producción real', 'operando en producción',
+    'validada en producción', 'infraestructura de producción', 'instancia desplegada',
+    'diferencia con producción', 'se realizó en producción', 'integrada y en producción',
+    'end-to-end en producción', 'completo en producción', 'campo en producción',
+    '2048 MB de RAM', 'El tiempo verbal es deliberado',
+    # N-02: el llamado a la acción que el generador producía, y las afirmaciones que
+    # el propio §5.4 desmentía
+    'protegiendo el estatus legal', 'hacer cumplir la normativa en el sector',
+    'el sistema no reduce la exposición de la consultora, la introduce',
+    'el propio generador del sistema infringe en cada copy',
+    'agrega en cada copy la invitación a contactar',
+    'Se recomienda separar el destino', 'es el propio sistema el que la produce',
+    # N-04: la HU12 con tres estados
+    'Validado e2e', 'validado e2e', 'no se ejercitó: cada regeneración',
+    'el de HU4 y el de HU12',
+    # N-05: la referencia que no existe
+    'Vigna',
+    # N-06: el depósito. El marcador NO puede sobrevivir a la entrega: mientras esté, el
+    # documento afirma tener un identificador persistente que todavía no existe.
+    '[DOI-PENDIENTE]',
+    'Acompaña a este trabajo como material complementario',
+    # N-07 y las misatribuciones menores
+    'penalizan el contenido que no respeta sus especificaciones técnicas',
+    'literatura de compliance automatizado (Hashmi',
+    'reportado por Baltrušaitis',
+    'los tres copys (Chandy y Schulte, 2010)',
+    'Esto es consistente con el trade-off',
+    'Las revisiones sistemáticas más recientes sobre agentes',
 ]
 # La «Fuente» de cada figura va en nota al pie y no en el rótulo (B-10): el rótulo superior
 # no puede volver a llevarla.
