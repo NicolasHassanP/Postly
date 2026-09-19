@@ -79,6 +79,17 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   acotado: doce textos de tres consultoras, y de canal privado, donde el precio se enuncia
   con menos rodeos que en una publicación de feed.
 
+- `casos_video/` — los dos casos que ejercitan el canal visual sobre **video** (HU13),
+  ejecutados de extremo a extremo contra el bot en producción. Hacen falta dos y no uno
+  porque la normalización a 9:16 recorta el video al centro, de modo que una placa de precio
+  pegada a un borde desaparece **antes** de que el detector la vea y antes de que el Reel se
+  publique. `V-BLOQ` tiene el precio dentro del encuadre publicable y el módulo **bloquea**;
+  `V-RECORTE` lo tiene en el borde que el recorte elimina y el módulo **avisa sin bloquear**,
+  porque lo que sale al aire no lleva el precio pero la usuaria tiene que saber que su placa
+  no va a verse. El detector recibe cuatro imágenes en una sola petición —tres instantes del
+  video normalizado y el encuadre original— y la cuota cuesta lo mismo que con una. Su
+  `LEEME.md` tiene el detalle y declara el único fotograma que se omitió, por privacidad.
+
 - `Cronometraje_datos.csv` — los 12 pares de tiempos (mm:ss), tres participantes.
 - `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — la fuente normativa del
   Anexo D, diez páginas. Está para que las dos reglas que codifica el Módulo Centinela
