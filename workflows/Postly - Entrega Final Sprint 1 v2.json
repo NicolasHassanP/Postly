@@ -6814,7 +6814,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query ? $('Telegram Trigger').first().json.callback_query.message.chat.id : $('Telegram Trigger').first().json.message.chat.id }}",
         "text": "=🚫 *Detecté un precio o promoción en el video.*\n\nPor las normas de Mary Kay no puedo publicar contenido con precios, ofertas o descuentos incrustados en la imagen.\n\n_Detalle:_ {{ $json.detalle }}\n\n🎬 Mandame otro video sin precios y seguimos.",
         "additionalFields": {
           "appendAttribution": false
@@ -6914,7 +6914,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
         "text": "=🚫 *Detecté un precio o promoción en la imagen guardada.*\n\nPor las normas de Mary Kay no puedo volver a publicarla.\n\n_Detalle:_ {{ $json.detalle }}\n\n📸 Elegí otra publicación de tu agenda o mandame una foto nueva.",
         "additionalFields": {
           "appendAttribution": false
@@ -6971,7 +6971,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query ? $('Telegram Trigger').first().json.callback_query.message.chat.id : $('Telegram Trigger').first().json.message.chat.id }}",
         "text": "=✂️ *Ojo con el encuadre.*\n\nTu video tiene un precio o promoción en un borde que el recorte a formato vertical (9:16) va a eliminar, así que no va a aparecer en el Reel.\n\n_Detalle:_ {{ $json.detalle }}\n\nSigo con la publicación. Si querías que esa placa se viera, mandame el video ya en vertical.",
         "additionalFields": {
           "appendAttribution": false
