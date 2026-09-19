@@ -11,8 +11,8 @@
 |---|---|
 | Nota | **7,2** (la sexta dio 7,6, pero **no son comparables**: auditorías independientes, listas de hallazgos distintas) |
 | Hallazgos | 1 crítico · 3 altos · 8 medios · 10 bajos |
-| Aplicado | **20 de 22** (pasadas 39 y 40) |
-| Pendiente | **C-1** y **M-5**, los dos con decisión del autor de por medio |
+| Aplicado | **22 de 22** (pasadas 39, 40 y 41, más la corrección del sistema) |
+| Pendiente | nada del dictamen; falta refrescar los campos en Word |
 
 Ninguno de los 39 hallazgos de la sexta reapareció. El dictamen 7 convierte en fortalezas
 varias cosas construidas para la sexta: el verificador de patrones y su extracto v1, el
@@ -56,53 +56,65 @@ la fuente de las figuras, todas verificadas contra el documento anterior.
 
 ---
 
-## 3. Lo que falta, y por qué espera
+## 3. C-1 y M-5 · **aplicados** (pasada 41 + corrección del sistema)
 
-### C-1 — la verdad de base del estudio de campo · **decisión del autor**
+### C-1 — qué mide la Tabla 5
 
-**Verificado y se sostiene.** Las quince piezas etiquetadas LIMPIO terminan, las quince, en
-una solicitud de compra («Escribime por mensaje directo para reservar el tuyo»). La fuente
-resuelve ese caso exacto (p. 3): «Acabo de probar el rímel … ¡Wow!» → INFORMATIVO;
-«… ¡Pregúntame cómo puedes conseguirlo!» → **COMERCIAL**, «porque ella está anunciando a su
-audiencia que se lo compren a ella». Así que la Precisión de 1,00 y el «15/15 informativos
-publicados» no significan lo que el §6.1 les hace significar.
+Se tomó el camino **2 + 3** del dictamen y no el 1. El alcance declarado del Módulo Centinela
+siempre fue el precio y la promoción, de modo que el defecto es de rotulación y de alcance y
+no de medición: reetiquetar el corpus haría caer una medición correcta del objeto que el
+módulo sí audita. Las cifras no se movieron (VP 12 · FN 2 · FP 0 · VN 15); lo que cambió es
+qué dice el documento que significan.
 
-Tres caminos:
+- El §5.1 declara que el etiquetado usó **el criterio del módulo** —la referencia monetaria en
+  canal público— y que es más estrecho que la definición de mensaje comercial de las Pautas.
+- Cae el «15/15 informativos publicados». Las quince piezas pasan a llamarse **«piezas sin
+  referencia monetaria»**, con la explicación de por qué no son «informativas» en el sentido
+  de la norma: las quince cierran en una invitación a escribir para reservar o encargar.
+- La nota de la Tabla 5 dice que la Precisión de 1,00 **no significa ausencia de
+  sobre-bloqueo**, porque el corpus no contiene casos en los que sobre-bloquear.
+- El §6.1 baja de «salvaguarda legal» a **«salvaguarda parcial»**, con el motivo.
+- El §5.4 «Transferibilidad» suma **la solicitud comercial sin precio** a las cuatro materias
+  que el módulo no audita.
 
-1. **Reetiquetar el corpus.** Lo más honesto y lo más caro: Recall 0,857 → 0,444 y F1 0,923 →
-   0,615. El Resumen y el §6.1 pierden su cifra más fuerte.
-2. **Cambiar lo que la Tabla 5 dice medir**: no «cumplimiento de la regla (a)» sino
-   «detección de referencias monetarias». Los números se conservan; cae «15/15 informativos
-   publicados» y la Precisión deja de leerse como ausencia de sobre-bloqueo.
-3. **Declarar la solicitud comercial sin precio fuera de alcance**, en §5.4
-   «Transferibilidad» y en el Anexo D, junto a las cuatro materias que ya enumera.
+### M-5 — el canal visual por flujo · **se corrigió el sistema**
 
-Recomendación: **2 + 3**. El alcance declarado del módulo siempre fue precio y promoción, de
-modo que el defecto es de rotulación y de alcance, no de medición. La opción 1 tiraría abajo
-una medición correcta para el objeto que el módulo sí audita.
+El dictamen no pudo establecer qué flujos invocan la detección visual. El grafo de conexiones
+sí, y era peor de lo que sospechaba: corría **sólo en imagen única**. El carrusel evaluaba con
+un criterio propio —su lista de tokens no incluía «ENVÍO GRATIS»— y el video y la
+re-publicación **no tenían ninguna**. Una foto con el precio impreso en los píxeles quedaba
+bloqueada si se enviaba sola y se publicaba si se mandaba como video o se reciclaba desde Mi
+Agenda.
 
-### M-5 — la cobertura del canal visual por flujo · **peor de lo que el dictamen pudo probar**
+`scripts/add-vision-compliance.mjs` (185 → 193 nodos, desplegado y activo):
 
-El dictamen no pudo establecer si el carrusel y el video atraviesan la detección visual. Se
-recorrió el grafo de conexiones del workflow y sí se puede:
+| flujo | antes | ahora |
+|---|---|---|
+| imagen única (HU7/HU8) | `HU8: Detección visual` | igual |
+| carrusel (HU5) | criterio propio en el prompt combinado | **el criterio de HU8, palabra por palabra** |
+| video (HU13) | sin detección | `Video: HU8 visual` sobre el fotograma extraído |
+| re-publicación (HU12) | sin detección | `Repost: HU8 visual` sobre la imagen de la fila |
 
-| flujo | detección visual de precios |
-|---|---|
-| imagen única (HU8) | **sí** — nodo `HU8: Detección visual`, prompt de 967 caracteres. Es el único medido (Tablas 12 y 14) y el único que verifica el script |
-| carrusel (HU5) | **sí, pero con otro prompt** — `HU5: Analizar carrusel`, 1.276 caracteres, que hace compliance y orden narrativo en la misma llamada y con otro criterio (lista tokens «OFERTA/PROMO/2x1/LIQUIDACIÓN/SALE» que el de HU8 no tiene). Nunca medido ni verificado |
-| video (HU13) | **no** |
-| repost (HU12) | **no** |
+Dos decisiones de diseño, y su porqué:
 
-Es **la misma clase de defecto que la divergencia de HU10** que el trabajo descubrió, corrigió
-y reportó en el canal textual, pero en el canal visual y sin descubrir. Contradice el §1.5.1
-(«sin excepción condicional, en el 100 % de las transacciones») y el párrafo del §5.4 que la
-pasada 36 agregó, que declaraba respaldo estructural para el video mirando sólo el canal
-textual.
+- **El carrusel no se separó en dos llamadas.** Su nodo evalúa N imágenes en una sola petición;
+  separarlo multiplicaría por N el consumo de una cuota de 20 diarias. Lo que se unificó es el
+  criterio, que es lo que el §5.1 mide — el mismo movimiento que la corrección de HU10.
+- **El criterio se inserta sin sangrar.** Una sangría de tres espacios no cambiaría el
+  comportamiento pero rompería la identidad literal, que es justo lo que hace la corrección
+  demostrable.
 
-Hay dos decisiones: si se corrige el sistema antes de entregar, y qué se declara en el
-documento en cualquiera de los dos casos.
+El parseo replica el de HU8, **incluido su modo fail-open** ante una respuesta que no sea JSON
+válido, que el §4.5.1 declara: así el comportamiento sigue siendo el medido.
 
----
+`verificar_patrones_desplegados.mjs` comprueba ahora el criterio visual flujo por flujo, como
+ya hacía con las seis expresiones del canal textual. Corrida limpia: los cuatro flujos llevan
+el mismo criterio de 569 caracteres.
+
+En el documento: el §5.1 reporta la divergencia junto a la de HU10, el §4.5 dice que las dos
+capas cubren los cuatro flujos, el Anexo E.4 declara la comprobación nueva, y se declara la
+salvedad propia del video —la detección opera sobre el fotograma extraído, no sobre todos los
+del clip—.
 
 ## 4. Dónde el dictamen no se sostiene
 
