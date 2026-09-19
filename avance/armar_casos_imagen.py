@@ -202,7 +202,7 @@ CASOS = [
      lambda im: texto_libre(im, '+10.000 consultoras confían', 950, 48, NEGRO, BLANCO)),
     ('V19', 'c3pub1/1.jpg', 'LIMPIO', 'Porcentaje que no es un descuento',
      lambda im: texto_libre(im, 'Vitamina C 10%', 120, 64, NEGRO, BLANCO)),
-    ('V20', 'c3pub2/2.jpg', 'LIMPIO', 'Nombre de línea con cifra romana',
+    ('V20', 'c3pub2/2.jpg', 'LIMPIO', 'Nombre de línea de producto, sin ninguna cifra',
      lambda im: texto_libre(im, 'TimeWise Repair Volu-Firm', 950, 46, NEGRO, BLANCO)),
 ]
 
