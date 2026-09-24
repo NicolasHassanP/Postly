@@ -1,45 +1,52 @@
-// Genera el material pareado del Estudio 1 de OE2 (PROTOCOLO-OE2.md): para cada imagen de
-// producto, el copy del prompt DESPLEGADO de Postly (nodo "Analyze an image" del workflow
-// "Postly - Entrega Final Sprint 1 v2", gemini-2.5-flash, transcrito verbatim más abajo) y
-// el de un prompt genérico, con el mismo modelo, la misma temperatura por defecto.
+// Genera el material pareado del Estudio 1 de OE2 (PROTOCOLO-OE2.md): para cada uno de 8
+// productos —4 de imagen única, 4 de carrusel de 2 imágenes—, el copy del prompt DESPLEGADO
+// de Postly y el de un prompt genérico, con el mismo modelo, la misma temperatura por
+// defecto. Cada tipo usa el prompt real de ese tipo: "Analyze an image" para imagen única,
+// "HU5: Generar copys" para carrusel —son dos nodos distintos en el workflow, y los dos se
+// transcriben verbatim más abajo—.
 //
-// El prompt desplegado devuelve TRES opciones (tonos) en una sola llamada. Para el pareo se
-// usa UNA por imagen —es la que compite contra el genérico—, asignada por ROTACIÓN FIJA
-// (Informativo, Vendedor, Divertido, …) antes de generar nada: así el tono que se compara no
-// depende de cuál salió mejor. Con 12 imágenes son 4 de cada tono.
+// El prompt de imagen única devuelve TRES opciones (tonos) en una sola llamada; el de
+// carrusel también. Para el pareo se usa UNA por producto —es la que compite contra el
+// genérico—, asignada por ROTACIÓN FIJA (Informativo, Vendedor, Divertido, …) antes de
+// generar nada, sobre los 8 productos en el orden en que aparecen en el manifiesto: así el
+// tono que se compara no depende de cuál salió mejor.
 //
-// La letra A/B de cada fila también se fija de antemano, por paridad del índice de la
-// imagen (par → Postly = A; impar → Postly = B), no por sorteo en el momento: cualquiera
-// puede reconstruir la asignación leyendo este archivo, y no se decide nada después de ver
-// un resultado.
+// La letra A/B de cada fila también se fija de antemano, por paridad del índice del
+// producto (par → Postly = A; impar → Postly = B), no por sorteo en el momento.
 //
 // ── Procedencia de las imágenes (léase antes de correr) ──────────────────────────────────
-// El protocolo pide "12 imágenes de producto, de las que las consultoras aportaron". La
-// tercera auditoría de la tesis encontró una vez fotos atribuidas al equipo que en realidad
-// eran arte oficial de catálogo de la marca, no material propio (N3-02/N3-10, corregido con
-// caso real R01). Para que eso no se repita acá, este script NO elige una carpeta de
-// imágenes por su cuenta: exige, dentro de la carpeta que se le pase, un manifiesto
-// `Imagenes_manifiesto.csv` con columnas `Imagen,Producto,Aportada_por` que declare de quién
-// es cada foto (código de consultora, o "catálogo oficial de la marca" si lo es). Sin ese
-// manifiesto, el script se niega a correr.
+// El protocolo pide imágenes "de las que las consultoras aportaron". La tercera auditoría de
+// la tesis encontró una vez fotos atribuidas al equipo que en realidad eran arte oficial de
+// catálogo de la marca, no material propio (N3-02/N3-10, corregido con caso real R01). Para
+// que eso no se repita acá, este script NO elige una carpeta de imágenes por su cuenta: exige,
+// dentro de la carpeta que se le pase, un manifiesto `Imagenes_manifiesto.csv` con columnas
+// `Carpeta,Producto,Aportada_por` —una fila por cada una de las 8 subcarpetas— que declare de
+// quién es cada producto. Sin ese manifiesto, el script se niega a correr.
+//
+// Las subcarpetas se reconocen por su nombre, tolerando espacios ("Pub3 Carrusel" o
+// "Pub3Carrusel" son lo mismo): `Pub<N>` para imagen única (debe tener 1 archivo) y
+// `Pub<N>Carrusel` para carrusel (debe tener exactamente 2, y se ordenan alfabéticamente por
+// nombre de archivo dentro de la carpeta —regla fija, declarada acá, no elegida al correr—).
 //
 // Uso:  GEMINI_API_KEY=<clave> node run_copy_pareado.mjs [carpeta_imagenes]
 //       (la clave también se lee de .env o de ../.env si está definida allí)
-// Lee:  <carpeta>/Imagenes_manifiesto.csv + las imágenes que nombra (12, .jpg/.jpeg/.png)
+//       Por defecto usa avance/ImagenesEstudio1 (al lado de avance/instrumentos).
+// Lee:  <carpeta>/Imagenes_manifiesto.csv + las 8 subcarpetas Pub1..Pub4 y PubXCarrusel
 // Escribe: OE2_copys_material.csv (en esta carpeta, junto al resto de OE2)
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { join, dirname, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
-const DIR = join(AQUI, process.argv[2] || "oe2_material_fuente");
+const DIR = process.argv[2] ? join(AQUI, process.argv[2]) : join(AQUI, "..", "ImagenesEstudio1");
 const MODELO = "gemini-2.5-flash";
 const SALIDA = join(AQUI, "OE2_copys_material.csv");
 const TONOS = ["Informativo", "Vendedor", "Divertido"];
+const EXT_VALIDAS = [".jpg", ".jpeg", ".png"];
 
-// ─── Prompt VERBATIM del nodo "Analyze an image" (genera los tres tonos) ─────────────────
-const PROMPT_POSTLY = `# ROL
+// ─── Prompt VERBATIM del nodo "Analyze an image" (imagen única, tres tonos) ──────────────
+const PROMPT_POSTLY_IMAGEN = `# ROL
 Actúa como Postly, un experto en Marketing Digital y Copywriting, especializado en el sector de belleza y cuidado de la piel de alta gama, con foco específico en la marca Mary Kay. Tu objetivo es ayudar a una Consultora de Belleza Independiente a brillar en Instagram.
 
 # TAREA
@@ -83,8 +90,32 @@ Tu respuesta debe ser ÚNICA Y EXCLUSIVAMENTE un objeto JSON válido, sin ningú
 "opcion3": "Aquí el texto divertido con emojis y hashtags"
 }`;
 
-// El texto exacto que Estudio 1 del protocolo fija como prompt de control.
-const PROMPT_GENERICO = "Escribí un pie de foto para esta imagen de producto para Instagram.";
+// ─── Prompt VERBATIM del nodo "HU5: Generar copys" (carrusel, tres tonos) ────────────────
+const PROMPT_POSTLY_CARRUSEL = `# ROL
+Actúa como Postly, experto en Marketing Digital y Copywriting para la marca Mary Kay, ayudando a una Consultora de Belleza Independiente a brillar en Instagram.
+
+# TAREA
+Te paso las imágenes de un CARRUSEL de Instagram (varias fotos de productos Mary Kay) en el orden definido. Analizalas EN CONJUNTO como una sola publicación y generá tres (3) opciones de copy para el carrusel.
+
+# REGLAS CRÍTICAS (INCUMPLIMIENTO = ERROR)
+1. PROHIBIDO INVENTAR PRECIOS: no menciones montos, signo $ ni divisas.
+2. PROHIBIDO INVENTAR DESCUENTOS: no uses "Oferta", "Promoción", "% OFF", "barato" ni "económico".
+3. NO agregues firma: el sistema la inyecta después.
+4. **PROHIBIDO INVITAR A COMPRAR O A CONTACTAR:** Ninguna de las tres opciones puede cerrar —ni incluir en ningún lugar— una invitación a contactar o a comprar: nada de "Escribime un MD", "Mandame un mensaje", "Preguntame cómo conseguirlo", "Consultame", "Pedilo ya", "Escribime y coordinamos" ni equivalentes, en ningún tono. Las Pautas de la marca consideran comercial todo mensaje que invite a comprar o a contactar, y estos copys se publican en el feed. Cerrá con información, con una recomendación de uso o con una pregunta abierta que no pida contacto ni compra.
+
+# ESTILOS
+- OPCIÓN 1 — INFORMATIVA: educativa, beneficios e ingredientes, profesional.
+- OPCIÓN 2 — VENDEDORA: persuasiva, aspiracional, centrada en el resultado.
+- OPCIÓN 3 — DIVERTIDA: fresca, cercana, con onda y hashtags de tendencia.
+Cada opción con emojis y hashtags relevantes (ej. #MaryKay #CuidadoDeLaPiel).
+
+# FORMATO
+Respondé ÚNICA y EXCLUSIVAMENTE con un JSON válido, sin markdown ni bloques de código:
+{"opcion1":"...","opcion2":"...","opcion3":"..."}`;
+
+// El texto exacto que Estudio 1 del protocolo fija como prompt de control, uno por tipo.
+const PROMPT_GENERICO_IMAGEN = "Escribí un pie de foto para esta imagen de producto para Instagram.";
+const PROMPT_GENERICO_CARRUSEL = "Escribí un pie de foto para este carrusel de imágenes de producto para Instagram.";
 
 // ─── Clave ────────────────────────────────────────────────────────────────────────────────
 function clave() {
@@ -127,37 +158,68 @@ const toCSV = rows => rows.map(r => r.map(v => {
   return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
 }).join(",")).join("\n");
 
+// ─── Descubrir los 8 productos por el nombre de la subcarpeta ─────────────────────────────
+if (!existsSync(DIR)) {
+  console.error(`\nNo existe la carpeta ${DIR}.`);
+  process.exit(1);
+}
+const subcarpetas = readdirSync(DIR).filter(n => statSync(join(DIR, n)).isDirectory());
+const productos = [];
+for (const nombre of subcarpetas) {
+  const compacto = nombre.replace(/\s+/g, "");
+  const mCarrusel = compacto.match(/^Pub(\d+)Carrusel$/i);
+  const mSimple = compacto.match(/^Pub(\d+)$/i);
+  if (mCarrusel) productos.push({ carpeta: nombre, n: Number(mCarrusel[1]), tipo: "carrusel" });
+  else if (mSimple) productos.push({ carpeta: nombre, n: Number(mSimple[1]), tipo: "imagen" });
+}
+productos.sort((a, b) => a.tipo === b.tipo ? a.n - b.n : (a.tipo === "imagen" ? -1 : 1));
+
+const simples = productos.filter(p => p.tipo === "imagen");
+const carruseles = productos.filter(p => p.tipo === "carrusel");
+if (simples.length !== 4 || carruseles.length !== 4) {
+  console.error(`\nSe esperan 4 subcarpetas "Pub<N>" y 4 "Pub<N>Carrusel"; hay ${simples.length} y ${carruseles.length}.`);
+  console.error(`Encontradas: ${subcarpetas.join(", ") || "(ninguna)"}`);
+  process.exit(1);
+}
+
 // ─── Manifiesto de procedencia: obligatorio, sin default silencioso ───────────────────────
 const RUTA_MANIFIESTO = join(DIR, "Imagenes_manifiesto.csv");
-if (!existsSync(DIR) || !existsSync(RUTA_MANIFIESTO)) {
+if (!existsSync(RUTA_MANIFIESTO)) {
   console.error(`\nFalta el manifiesto de procedencia: ${RUTA_MANIFIESTO}`);
-  console.error(`Este script no elige imágenes por su cuenta. Creá la carpeta con 12`);
-  console.error(`imágenes de producto y un "Imagenes_manifiesto.csv" con columnas`);
-  console.error(`Imagen,Producto,Aportada_por (código de consultora, o "catálogo oficial`);
-  console.error(`de la marca" si así es). Ver la nota de procedencia al inicio de este`);
-  console.error(`archivo: la tercera auditoría ya encontró una vez fotos mal atribuidas.`);
+  console.error(`Este script no elige imágenes por su cuenta. Creá un "Imagenes_manifiesto.csv"`);
+  console.error(`con columnas Carpeta,Producto,Aportada_por —una fila por cada una de estas 8:`);
+  for (const p of productos) console.error(`    ${p.carpeta}`);
+  console.error(`Aportada_por: código de consultora, o "catálogo oficial de la marca" si así es.`);
+  console.error(`La tercera auditoría ya encontró una vez fotos mal atribuidas (N3-02/N3-10).`);
   process.exit(1);
 }
 const manifiesto = parseCSV(readFileSync(RUTA_MANIFIESTO, "utf-8"));
 const MH = Object.fromEntries(manifiesto[0].map((h, i) => [h.trim(), i]));
-for (const col of ["Imagen", "Producto", "Aportada_por"]) {
-  if (MH[col] === undefined) {
-    console.error(`El manifiesto no tiene la columna "${col}".`);
+for (const col of ["Carpeta", "Producto", "Aportada_por"]) {
+  if (MH[col] === undefined) { console.error(`El manifiesto no tiene la columna "${col}".`); process.exit(1); }
+}
+const filasManifiesto = manifiesto.slice(1).filter(f => (f[MH.Carpeta] || "").trim());
+const mapaManifiesto = Object.fromEntries(filasManifiesto.map(f => [f[MH.Carpeta].trim(), f]));
+for (const p of productos) {
+  if (!mapaManifiesto[p.carpeta]) {
+    console.error(`El manifiesto no declara la carpeta "${p.carpeta}". Faltan filas.`);
     process.exit(1);
   }
 }
-const imagenes = manifiesto.slice(1).filter(f => (f[MH.Imagen] || "").trim());
-if (imagenes.length !== 12) {
-  console.error(`El protocolo pide 12 imágenes; el manifiesto declara ${imagenes.length}.`);
-  console.error(`Corregí el manifiesto antes de correr —no se generan de más ni de menos.`);
-  process.exit(1);
-}
-for (const f of imagenes) {
-  const ruta = join(DIR, f[MH.Imagen]);
-  if (!existsSync(ruta)) {
-    console.error(`El manifiesto nombra "${f[MH.Imagen]}" y ese archivo no está en ${DIR}.`);
+
+// ─── Archivos de imagen dentro de cada subcarpeta, orden alfabético fijo ──────────────────
+for (const p of productos) {
+  const archivos = readdirSync(join(DIR, p.carpeta))
+    .filter(f => EXT_VALIDAS.includes(extname(f).toLowerCase()))
+    .sort();
+  const esperados = p.tipo === "imagen" ? 1 : 2;
+  if (archivos.length !== esperados) {
+    console.error(`"${p.carpeta}" tiene ${archivos.length} imagen(es); se esperaban ${esperados}.`);
     process.exit(1);
   }
+  p.archivos = archivos.map(f => join(DIR, p.carpeta, f));
+  p.producto = mapaManifiesto[p.carpeta][MH.Producto];
+  p.aportante = mapaManifiesto[p.carpeta][MH.Aportada_por];
 }
 
 // ─── Llamada al modelo, con el mismo reintento ante 429/5xx del resto del harness ─────────
@@ -166,12 +228,13 @@ class CupoDiarioAgotado extends Error {
   constructor() { super("cupo diario del nivel gratuito agotado"); }
 }
 
-async function generar(rutaImagen, prompt) {
-  const b64 = readFileSync(rutaImagen).toString("base64");
-  const mime = /\.png$/i.test(rutaImagen) ? "image/png" : "image/jpeg";
-  const cuerpo = {
-    contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: mime, data: b64 } }] }],
-  };
+async function generar(rutasImagen, prompt) {
+  const partesImagen = rutasImagen.map(ruta => {
+    const b64 = readFileSync(ruta).toString("base64");
+    const mime = /\.png$/i.test(ruta) ? "image/png" : "image/jpeg";
+    return { inline_data: { mime_type: mime, data: b64 } };
+  });
+  const cuerpo = { contents: [{ parts: [{ text: prompt }, ...partesImagen] }] };
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
   for (let intento = 1; intento <= 8; intento++) {
     const r = await fetch(url, {
@@ -206,47 +269,47 @@ function parsearOpciones(raw) {
   }
 }
 
-// ─── Corrida, con reanudación (cada imagen cuesta 2 llamadas al modelo) ───────────────────
+// ─── Corrida, con reanudación (cada producto cuesta 2 llamadas al modelo) ─────────────────
 let filas = existsSync(SALIDA)
   ? parseCSV(readFileSync(SALIDA, "utf-8"))
-  : [["Imagen", "Producto", "Aportada_por", "Sistema", "Tono", "Texto", "Etiqueta_AB", "JSON_valido"]];
+  : [["Producto", "Carpeta", "Tipo", "Aportada_por", "Sistema", "Tono", "Texto", "Etiqueta_AB", "JSON_valido"]];
 if (existsSync(SALIDA)) console.log("[reanudando desde OE2_copys_material.csv]");
-const yaHechas = new Set(filas.slice(1).map(f => f[0]));
+const yaHechas = new Set(filas.slice(1).map(f => f[1])); // por Carpeta
 const guardar = () => writeFileSync(SALIDA, toCSV(filas), "utf-8");
 
-console.log(`\n[Estudio 1 de OE2 · material pareado · ${MODELO} · rotación fija de tono]\n`);
+console.log(`\n[Estudio 1 de OE2 · material pareado · ${MODELO} · 4 imagen + 4 carrusel · rotación fija de tono]\n`);
 let cortado = false;
-for (let i = 0; i < imagenes.length; i++) {
-  const f = imagenes[i];
-  const img = f[MH.Imagen], producto = f[MH.Producto], aportante = f[MH.Aportada_por];
-  if (yaHechas.has(img)) { console.log(`  ${img}: ya generada, se conserva.`); continue; }
+for (let i = 0; i < productos.length; i++) {
+  const p = productos[i];
+  if (yaHechas.has(p.carpeta)) { console.log(`  ${p.carpeta}: ya generada, se conserva.`); continue; }
 
   const tono = TONOS[i % 3];
   const letraPostly = i % 2 === 0 ? "A" : "B";
   const letraGenerico = letraPostly === "A" ? "B" : "A";
-  const ruta = join(DIR, img);
+  const promptPostly = p.tipo === "imagen" ? PROMPT_POSTLY_IMAGEN : PROMPT_POSTLY_CARRUSEL;
+  const promptGenerico = p.tipo === "imagen" ? PROMPT_GENERICO_IMAGEN : PROMPT_GENERICO_CARRUSEL;
 
   try {
-    console.log(`  ${img}  (${producto}, aportada por ${aportante})  → tono ${tono}, Postly=${letraPostly}`);
-    const rawPostly = await generar(ruta, PROMPT_POSTLY);
+    console.log(`  ${p.carpeta}  (${p.tipo}, "${p.producto}", aportada por ${p.aportante})  → tono ${tono}, Postly=${letraPostly}`);
+    const rawPostly = await generar(p.archivos, promptPostly);
     const op = parsearOpciones(rawPostly);
     if (!op.json_valido) {
-      console.log(`     ** el modelo no devolvió JSON válido para ${img}; se guarda la respuesta cruda y se sigue`);
-      filas.push([img, producto, aportante, "postly", tono, op.raw, letraPostly, "NO"]);
+      console.log(`     ** el modelo no devolvió JSON válido para ${p.carpeta}; se guarda la respuesta cruda y se sigue`);
+      filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "postly", tono, op.raw, letraPostly, "NO"]);
     } else {
       const texto = tono === "Informativo" ? op.opcion1 : tono === "Vendedor" ? op.opcion2 : op.opcion3;
-      filas.push([img, producto, aportante, "postly", tono, texto, letraPostly, "si"]);
+      filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "postly", tono, texto, letraPostly, "si"]);
     }
     guardar();
     await dormir(15000); // 20 peticiones/minuto del nivel gratuito
 
-    const textoGenerico = (await generar(ruta, PROMPT_GENERICO)).trim();
-    filas.push([img, producto, aportante, "generico", "", textoGenerico, letraGenerico, "si"]);
+    const textoGenerico = (await generar(p.archivos, promptGenerico)).trim();
+    filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "generico", "", textoGenerico, letraGenerico, "si"]);
     guardar();
     await dormir(15000);
   } catch (e) {
     if (!(e instanceof CupoDiarioAgotado)) throw e;
-    console.log(`\n  Cupo diario del nivel gratuito agotado en ${img}.`);
+    console.log(`\n  Cupo diario del nivel gratuito agotado en ${p.carpeta}.`);
     console.log(`  Generadas ${filas.length - 1} filas; lo hecho queda guardado en OE2_copys_material.csv.`);
     console.log("  Volvé a correr el script cuando el cupo se renueve y retoma desde ahí.");
     process.exitCode = 2;
@@ -256,9 +319,9 @@ for (let i = 0; i < imagenes.length; i++) {
 }
 guardar();
 if (!cortado) {
-  console.log(`\n✔ Material completo: ${imagenes.length} imágenes, ${filas.length - 1} filas, en OE2_copys_material.csv`);
-  console.log(`  Rotación de tono: ${TONOS.map((t, j) => `${t} en las imágenes con índice %3=${j}`).join(" · ")}`);
-  console.log(`  Con esto armado, la sesión de evaluadoras usa las columnas Texto + Etiqueta_AB`);
+  console.log(`\n✔ Material completo: ${productos.length} productos (4 imagen + 4 carrusel), ${filas.length - 1} filas, en OE2_copys_material.csv`);
+  console.log(`  Rotación de tono por índice %3: ${TONOS.join(" · ")}, repitiendo.`);
+  console.log(`  Con esto armado, la sesión del evaluador usa las columnas Texto + Etiqueta_AB`);
   console.log(`  para imprimir el material a ciegas; las respuestas van en OE2_estudio1_respuestas.csv.`);
 }
 console.log();

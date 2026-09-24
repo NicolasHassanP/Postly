@@ -18,10 +18,21 @@ agregado el Estudio 4. **Estado:** sin ejecutar.
 
 ## Lo que los cuatro tienen en común
 
-**Evaluadoras.** Para los Estudios 1 a 3: las mismas Consultoras de Belleza Independientes de
-la evaluación ampliada, más —donde se indique— un evaluador externo. Para el Estudio 4: sólo
-evaluadores ajenos a las 8 participantes (§ ahí abajo, la salvaguarda es específica de ese
-estudio). Un mínimo de 5 evaluadores por estudio; con menos, los intervalos no dicen nada.
+**Evaluadoras.** El diseño original pedía un mínimo de 5 por estudio, para que la unidad de
+análisis (el evaluador) tuviera con qué calcular un intervalo. **Decisión del 24-09-2026:**
+los Estudios 1 y 4 los hace **un único evaluador externo**, el mismo que etiquetó
+INFRACTOR/LIMPIO en el corpus de campo (`Protocolo_TrackA2_Muestras.md`) —externo a las 8
+participantes y al equipo, con trayectoria ya establecida en juicios ciegos de este proyecto—.
+
+Con n = 1 no hay entre-evaluadores que promediar: **no se puede calcular un intervalo de
+confianza ni un acuerdo inter-evaluador** (α de Krippendorff, κ de Fleiss). Lo que se obtiene
+es la puntuación y la preferencia de esa persona por cada par, reportadas **como lo que son:
+un juicio experto individual, descriptivo**, no una estimación con su margen de error. Los
+scripts (`run_oe2.mjs`) no fallan con n = 1 —igual calculan medias y proporciones—, pero
+las líneas de intervalo y acuerdo salen vacías o "n insuficiente", y así hay que leerlas.
+
+Para los Estudios 2 y 3 todavía no hay evaluador asignado: si también van con el mismo único
+evaluador, aplica la misma salvedad.
 
 **A ciegas, y qué significa acá.** La evaluadora no sabe qué copy produjo qué sistema, ni
 qué orden propuso la IA. El material se presenta con etiquetas neutras (A/B) y el orden de
@@ -45,21 +56,29 @@ cuál de los dos resulta más adecuado». Comparar Postly contra nada no respond
 modelo ya sabe escribir. Lo que hay que establecer es si el trabajo de ingeniería de prompts
 aporta algo por encima del modelo crudo.
 
-**Material.** 12 imágenes de producto, de las que las consultoras aportaron. Para cada una,
-dos copys: el del prompt desplegado de Postly y el de un prompt genérico
-(«Escribí un pie de foto para esta imagen de producto para Instagram»), con el mismo modelo
-y la misma temperatura. Los produce `run_copy_pareado.mjs`, que exige un manifiesto
-`Imagenes_manifiesto.csv` (`Imagen,Producto,Aportada_por`) para que la procedencia de cada
-foto quede declarada antes de generar nada —no vuelve a pasar lo que corrigieron N3-02/N3-10.
+**Material.** 8 productos de Mary Kay, de los que las consultoras aportaron: **4 de imagen
+única y 4 de carrusel de 2 imágenes** —el mismo reparto que la tarea del cronometraje
+(`PROTOCOLO-ampliacion.md`, §4)—. Para cada producto, dos copys: el del prompt desplegado de
+Postly y el de un prompt genérico («Escribí un pie de foto para esta imagen/este carrusel de
+producto para Instagram»), con el mismo modelo y la misma temperatura. Cada tipo usa el
+prompt real de ESE tipo —imagen única llama al nodo "Analyze an image", carrusel al nodo "HU5:
+Generar copys"; son dos prompts distintos en el sistema desplegado, y los dos se transcriben
+verbatim en `run_copy_pareado.mjs`—.
+
+Lo produce `run_copy_pareado.mjs`, que exige un manifiesto `Imagenes_manifiesto.csv`
+(`Carpeta,Producto,Aportada_por`, una fila por cada una de las 8 subcarpetas `Pub<N>` /
+`Pub<N>Carrusel`) para que la procedencia de cada producto quede declarada antes de generar
+nada —no vuelve a pasar lo que corrigieron N3-02/N3-10—.
 
 El prompt desplegado devuelve tres tonos en una sola llamada; para el pareo se usa **uno por
-imagen, por rotación fija** (Informativo, Vendedor, Divertido, …), no el que mejor salió. La
-letra A/B también se fija de antemano, por paridad del índice de la imagen, y no se sortea al
+producto, por rotación fija** (Informativo, Vendedor, Divertido, …), no el que mejor salió. La
+letra A/B también se fija de antemano, por paridad del índice del producto, y no se sortea al
 imprimir el material: las dos reglas están en el script, así que cualquiera puede
 reconstruirlas sin tener que confiar en que no se eligió nada después de ver un resultado.
 
-**Tarea.** La evaluadora ve la imagen y los dos copys rotulados A y B —el orden de qué letra
-es cada sistema varía de imagen a imagen, según la regla fija de arriba, no al azar en el
+**Tarea.** El evaluador ve el producto —la imagen, o las 2 imágenes del carrusel en el orden
+en que están en la carpeta— y los dos copys rotulados A y B —el orden de qué letra es cada
+sistema varía de producto a producto, según la regla fija de arriba, no al azar en el
 momento— y puntúa cada uno del 1 al 5 en cuatro dimensiones:
 
 | Dimensión | Pregunta que se le hace |
@@ -71,10 +90,14 @@ momento— y puntúa cada uno del 1 al 5 en cuatro dimensiones:
 
 Y elige cuál de los dos prefiere, sin empate.
 
-**Análisis.** Diferencia pareada por imagen en cada dimensión (t pareada sobre las medias por
-evaluadora, con su intervalo), proporción de preferencia por Postly con intervalo de Wilson,
-y acuerdo entre evaluadoras (α de Krippendorff sobre las puntuaciones). La unidad es la
-evaluadora, no la imagen.
+**Análisis.** Diferencia pareada por producto en cada dimensión (t pareada sobre las medias
+por evaluador, con su intervalo), proporción de preferencia por Postly con intervalo de
+Wilson, y acuerdo entre evaluadores (α de Krippendorff sobre las puntuaciones). La unidad es
+el evaluador, no el producto. Con un solo evaluador (§ evaluadores, más abajo) el acuerdo
+entre evaluadores no se puede calcular; se informa por qué falta, no se omite en silencio.
+Además de la cifra combinada, se informa por separado **imagen contra carrusel**: no hay
+razón para asumir que la ventaja de Postly —si la hay— es la misma en los dos formatos, y
+mezclarlos escondería la asimetría que el resto del proyecto viene ponderando.
 
 **La fidelidad mide también las alucinaciones.** Un copy que atribuye al producto algo que
 no está en la imagen es una alucinación, y la dimensión la captura. Además, quien evalúa
@@ -181,8 +204,8 @@ para que quede trazado de dónde sale el material.
 
 | Archivo | Qué lleva |
 |---|---|
-| `OE2_copys_material.csv` | Lo produce `run_copy_pareado.mjs`: imagen, sistema (postly/generico), tono, texto, y la clave de la asignación A/B |
-| `OE2_estudio1_respuestas.csv` | Evaluadora, imagen, etiqueta, cuatro puntajes, preferencia, afirmaciones no verificables |
+| `OE2_copys_material.csv` | Lo produce `run_copy_pareado.mjs`: producto, carpeta, tipo (imagen/carrusel), sistema (postly/generico), tono, texto, y la clave de la asignación A/B |
+| `OE2_estudio1_respuestas.csv` | Evaluador, producto, tipo, etiqueta, cuatro puntajes, preferencia, afirmaciones no verificables |
 | `OE2_estudio2_respuestas.csv` | Evaluadora, conjunto, copy, tono asignado |
 | `OE2_estudio3_respuestas.csv` | Evaluadora, conjunto, secuencia preferida |
 | `OE2_estudio4_material.csv` | Con identidad: participante, publicación, tipo, copy manual, copy Postly, orden manual, orden Postly. Se completa en las sesiones de cronometraje |

@@ -1,12 +1,15 @@
-// Análisis de los tres estudios del Objetivo Específico 2
+// Análisis de los cuatro estudios del Objetivo Específico 2
 //
-// Corre los tres del PROTOCOLO-OE2.md: calidad del copy frente a un generador genérico,
-// correspondencia con el tono pedido y ordenamiento del carrusel. Cada uno se activa si su
-// planilla tiene datos; con las plantillas vacías dice qué falta cargar.
+// Corre los cuatro de PROTOCOLO-OE2.md: calidad del copy frente a un generador genérico,
+// correspondencia con el tono pedido, ordenamiento del carrusel, y manual contra Postly a
+// ciegas. Cada uno se activa si su planilla tiene datos; con las plantillas vacías dice qué
+// falta cargar.
 //
-// La unidad de análisis es la EVALUADORA en los tres, nunca la imagen ni el copy: doce
-// juicios de una misma persona no son doce observaciones independientes. Es el mismo
-// criterio que el §6.1 de la tesis aplica al cronometraje.
+// La unidad de análisis es el EVALUADOR en los cuatro, nunca el producto ni el copy: varios
+// juicios de una misma persona no son observaciones independientes. Es el mismo criterio que
+// el §6.1 de la tesis aplica al cronometraje. Con un único evaluador (decisión del
+// 24-09-2026 para los Estudios 1 y 4, PROTOCOLO-OE2.md) no hay intervalo ni acuerdo
+// inter-evaluador que calcular: el script lo señala en vez de fallar en silencio.
 //
 // Uso:  node run_oe2.mjs [carpeta]
 
@@ -136,28 +139,49 @@ const vacio = (d, cols) => {
   console.log(`    columnas: ${cols}\n`);
 };
 
-console.log(`\n════ OBJETIVO ESPECÍFICO 2 — los tres estudios ════`);
+console.log(`\n════ OBJETIVO ESPECÍFICO 2 — los cuatro estudios ════`);
 
 // ─── Estudio 1 · calidad del copy ────────────────────────────────────────────
 console.log(`\n── Estudio 1 · calidad frente a un generador genérico (HU4)`);
 const e1 = leer("OE2_estudio1_respuestas.csv");
 const DIMS = ["Fidelidad", "Utilidad", "Voz_marca", "Cumplimiento"];
 if (!e1.filas.length) {
-  vacio(e1, `Evaluadora, Imagen, Sistema (postly|generico), ${DIMS.join(", ")}, Preferido (si|no), No_verificables`);
+  vacio(e1, `Evaluador, Producto, Tipo (imagen|carrusel), Sistema (postly|generico), ${DIMS.join(", ")}, Preferido (si|no), No_verificables`);
 } else {
   const evaluadoras = [...new Set(e1.filas.map(f => f.Evaluadora))];
-  console.log(`  ${evaluadoras.length} evaluadoras · ${e1.filas.length} juicios`);
-  for (const dim of DIMS) {
-    const dif = evaluadoras.map(ev => {
-      const suyas = e1.filas.filter(f => f.Evaluadora === ev);
+  console.log(`  ${evaluadoras.length} evaluador(es) · ${e1.filas.length} juicios`);
+  if (evaluadoras.length < 2) {
+    console.log(`  Con un único evaluador esto es un juicio experto DESCRIPTIVO: hay media y`);
+    console.log(`  proporción, pero ningún intervalo ni acuerdo inter-evaluador (PROTOCOLO-OE2.md).`);
+  }
+  const diffPorDim = (filas) => DIMS.map(dim => {
+    const evs = [...new Set(filas.map(f => f.Evaluadora))];
+    const dif = evs.map(ev => {
+      const suyas = filas.filter(f => f.Evaluadora === ev);
       const p = suyas.filter(f => f.Sistema === "postly").map(f => Number(f[dim])).filter(Number.isFinite);
       const g = suyas.filter(f => f.Sistema === "generico").map(f => Number(f[dim])).filter(Number.isFinite);
       return p.length && g.length ? media(p) - media(g) : null;
     }).filter(v => v !== null);
+    return { dim, dif };
+  });
+  for (const { dim, dif } of diffPorDim(e1.filas)) {
     const t = tPareada(dif);
     console.log(`  ${dim.padEnd(14)} diferencia media Postly − genérico: ${f2(media(dif))} puntos` +
       (t ? ` · t(${t.df}) = ${f2(t.t)} · p ${fmtP(t.p)} · d = ${f2(t.d)}` : " (n insuficiente)"));
   }
+  // Imagen contra carrusel por separado: no hay razón para asumir la misma ventaja en los
+  // dos formatos, y mezclarlos escondería la asimetría (PROTOCOLO-OE2.md, Estudio 1).
+  for (const tipo of ["imagen", "carrusel"]) {
+    const filasTipo = e1.filas.filter(f => (f.Tipo || "").toLowerCase() === tipo);
+    if (!filasTipo.length) continue;
+    console.log(`\n  · sólo ${tipo}:`);
+    for (const { dim, dif } of diffPorDim(filasTipo)) {
+      const t = tPareada(dif);
+      console.log(`    ${dim.padEnd(14)} diferencia media Postly − genérico: ${f2(media(dif))} puntos` +
+        (t ? ` · t(${t.df}) = ${f2(t.t)} · p ${fmtP(t.p)}` : " (n insuficiente)"));
+    }
+  }
+  console.log();
   const porEv = evaluadoras.map(ev => {
     const s = e1.filas.filter(f => f.Evaluadora === ev && f.Sistema === "postly");
     return s.length ? s.filter(f => (f.Preferido || "").toLowerCase() === "si").length / s.length : null;
@@ -185,19 +209,21 @@ if (!e1.filas.length) {
     console.log(`    (primera evidencia sobre alucinaciones; el Capítulo 7 hoy declara que no hay ninguna)`);
   }
   if (evaluadoras.length >= 3) {
-    const imgs = [...new Set(e1.filas.map(f => f.Imagen + "|" + f.Sistema))];
+    const prods = [...new Set(e1.filas.map(f => f.Producto + "|" + f.Sistema))];
     const rs = [];
     for (let i = 0; i < evaluadoras.length; i++) for (let j = i + 1; j < evaluadoras.length; j++) {
       const x = [], y = [];
-      for (const im of imgs) {
-        const a = e1.filas.find(f => f.Evaluadora === evaluadoras[i] && f.Imagen + "|" + f.Sistema === im);
-        const b = e1.filas.find(f => f.Evaluadora === evaluadoras[j] && f.Imagen + "|" + f.Sistema === im);
+      for (const pr of prods) {
+        const a = e1.filas.find(f => f.Evaluadora === evaluadoras[i] && f.Producto + "|" + f.Sistema === pr);
+        const b = e1.filas.find(f => f.Evaluadora === evaluadoras[j] && f.Producto + "|" + f.Sistema === pr);
         if (a && b) { x.push(media(DIMS.map(d => Number(a[d])))); y.push(media(DIMS.map(d => Number(b[d])))); }
       }
       const r = pearson(x, y); if (r !== null) rs.push(r);
     }
-    if (rs.length) console.log(`  Acuerdo entre evaluadoras: r de Pearson media entre pares = ${f2(media(rs))}` +
+    if (rs.length) console.log(`  Acuerdo entre evaluadores: r de Pearson media entre pares = ${f2(media(rs))}` +
       ` (${rs.length} pares). No es un α de Krippendorff: es una correlación media, y así se informa.`);
+  } else if (evaluadoras.length > 0) {
+    console.log(`  Acuerdo entre evaluadores: no se calcula con ${evaluadoras.length} evaluador(es) (hacen falta ≥3).`);
   }
 }
 
