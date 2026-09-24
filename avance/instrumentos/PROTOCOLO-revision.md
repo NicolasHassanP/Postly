@@ -143,11 +143,21 @@ cita antes de leerlo completo:
 | Zogaj et al. (2023), *It's a Match! Chatbot anthropomorphization* | Journal of Business Research | §7.1 |
 | Oppenlaender (2023), *A taxonomy of prompt modifiers* | Behaviour and IT | §4.1.2: la ingeniería de prompts, hoy sin respaldo |
 
-Los DOI de los nueve están en `Candidatos_bibliografia.csv` y se verifican contra Crossref
-antes de incorporarlos, como se hizo con las 105 entradas actuales. Dato menor para la fase 2:
-"Russo" aparece dos veces en el corpus, con DOI distinto y título casi idéntico —puede ser el
-artículo y su reporte RCR (Registered/Replicated Computational Result) por separado, o una
-duplicación de la búsqueda; se resuelve al leerlos, no antes.
+**Verificado contra Crossref el 25-09-2026** (`api.crossref.org`): los 10 DOI de los nueve
+candidatos —Russo aparece con dos DOI distintos— resuelven, y en los 10 el título, la
+revista y el año coinciden exacto con lo que ya tenía la planilla. Cero DOI rotos, cero
+discrepancias.
+
+`10.1145/3680471` y `10.1145/3652154` (los dos de Russo) resuelven **los dos** a
+`journal-article`, mismo título, misma revista (ACM TOSEM) y mismo año (2024) — Crossref no
+los trata como duplicado del mismo registro, así que son dos entradas distintas de verdad.
+Sigue sin resolverse **cuál es cuál** —el artículo completo y su reporte RCR
+(Registered/Replicated Computational Result) por separado, o una duplicación de la
+búsqueda—, porque eso exige leer el contenido, no solo el metadato, y es trabajo de fase 2.
+
+Esto es verificación de metadato (título/revista/año contra Crossref), **no** lectura de
+texto completo: sigue sin decidirse `incluir` para ninguno de los nueve, tal como exige el
+§3 —eso todavía es fase 2, pendiente.
 
 **Lo que falta, y es lo que realmente decide si el §1.6.0 mejora.** Fase 2: leer los 134
 `dudoso` a texto completo y decidir `incluir` o `descartar` con motivo de fase 2. Es trabajo
