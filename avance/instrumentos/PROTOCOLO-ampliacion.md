@@ -100,7 +100,7 @@ conservan su relación «Conocida»; de las 5 nuevas, **las 5 deben tener relaci
 Con eso el estrato «Ninguna» pasa de 0 sobre 3 a 5 sobre 8 (62,5 %), y el análisis informa la
 reducción media por estrato. Si los dos estratos difieren, se informa; no se descarta a nadie.
 
-## 4 · La tarea, idéntica en las dos condiciones
+## 4 · La tarea, idéntica en las dos condiciones salvo el destino de publicación
 
 Crear y publicar **una publicación de feed en Instagram y Facebook** para un producto dado,
 cumpliendo las normas de la marca: sin precio en el copy ni en la imagen, y con la firma de
@@ -113,10 +113,19 @@ ponderar la asimetría del carrusel.
 El material gráfico se entrega ya elegido. La búsqueda o creación de contenido no entra en
 ninguna condición, igual que en el piloto, para que el tramo medido sea el mismo.
 
+**Salvedad declarada de antemano: el destino de publicación difiere entre condiciones.** La
+condición manual publica en la cuenta real de la participante, como en el piloto. La
+condición Postly publica en la **cuenta de prueba del equipo**, porque el sistema hoy sólo
+tiene vinculada esa cuenta por OAuth (HU2) y no la de cada una de las 8 participantes. La
+tarea que se cronometra —los pasos hasta que el sistema confirma la publicación— es idéntica
+en ambos casos; lo que cambia es a dónde llega el resultado, y eso se declara como amenaza en
+el §10, no se oculta ni se corrige con esta ronda.
+
 ## 5 · Qué se cronometra, y el cronómetro partido
 
-El tramo es «material en mano → publicación confirmada en ambas redes». **Lo lleva quien
-observa, no la participante.**
+El tramo es «material en mano → publicación confirmada» —en la cuenta real para la condición
+manual, en la cuenta de prueba para Postly (§4)—. **Lo lleva quien observa, no la
+participante.**
 
 La novedad respecto del piloto es que el tiempo manual se toma **en dos tramos separados**:
 
@@ -206,6 +215,27 @@ siendo autoadministrada en su ritmo, de modo que la participante puede imprimirl
 velocidad que quiera; el cronómetro en manos del observador acota esa amenaza sin
 eliminarla. Y la evaluación sigue siendo de una sola marca y un solo ecosistema de
 publicación: ampliar la muestra no amplía el alcance normativo del artefacto.
+
+**Amenaza nueva, declarada el 24-09-2026: el destino de publicación no es el mismo en las dos
+condiciones** (§4). La manual llega a la cuenta real de la participante; la de Postly llega a
+la cuenta de prueba del equipo, porque el sistema aún no tiene vinculada por OAuth (HU2) la
+cuenta de cada una de las 8. Tres consecuencias, declaradas y no corregidas por este diseño:
+
+- **El cronómetro no se ve afectado.** Los pasos que se miden —del material en mano a la
+  confirmación del sistema— son los mismos sin importar el destino; no hay razón para que el
+  tiempo de la condición Postly cambie por esto.
+- **El TAM sí puede verse afectado**, en particular `BI1` (intención de seguir usando) y `PU3`
+  (cumplimiento de las normas de marca, que la participante no puede verificar sobre su propia
+  cuenta): está evaluando un sistema cuyo resultado no le llega a su audiencia real. Se informa
+  el puntaje igual, sin ajustarlo, y esta amenaza se cita al lado.
+- **La comparación ciega manual-contra-Postly (Estudio 4 de `PROTOCOLO-OE2.md`) no se ve
+  afectada**, porque lo que se muestra a quien evalúa es el texto del copy o el orden de las
+  imágenes, nunca una captura de la cuenta de destino: no hay información de a dónde se
+  publicó que pueda filtrarse y romper el cegamiento.
+
+Corregirla de raíz exige que las 8 participantes completen la vinculación por OAuth de HU2
+con sus propias cuentas antes de la sesión, lo que no está entre los recursos de esta ronda
+(§0). Queda para una ronda posterior, si el acceso lo permite.
 
 Y lo que se declara en el §0 no deja de ser una limitación por estar declarada: **el estudio
 queda descriptivo, no confirmatorio**, frente al umbral del 70 %. Eso no lo resuelve una

@@ -86,3 +86,9 @@ avance/instrumentos/Cronometraje_datos_v2.csv
 avance/instrumentos/Reclutamiento_v2.csv
 avance/instrumentos/TAM_respuestas_v2.csv
 avance/instrumentos/OE2_*_respuestas.csv
+# OE2_estudio4_material.csv lleva la identidad de la participante (el trabajo manual y con
+# Postly de cada una); OE2_estudio4_clave.csv mapea la letra A/B de vuelta a esa identidad
+# para quien puntúa. Los dos las identifican; OE2_estudio4_ciego.csv, que produce
+# armar_material_estudio4.mjs a partir de éstos, no lleva identidad y SÍ se versiona.
+avance/instrumentos/OE2_estudio4_material.csv
+avance/instrumentos/OE2_estudio4_clave.csv

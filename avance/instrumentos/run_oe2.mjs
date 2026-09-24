@@ -260,4 +260,88 @@ if (!e3.filas.length) {
     ` · binomial contra 0,5: p ${fmtP(binomial(k, utiles.length, 0.5))})`);
   console.log(`  Alcance: preferencia declarada, no rendimiento en la plataforma.`);
 }
+
+// ─── Estudio 4 · manual contra Postly, a ciegas (agregado el 24-09-2026) ─────
+console.log(`\n── Estudio 4 · manual contra Postly, a ciegas`);
+const e4 = leer("OE2_estudio4_respuestas.csv");
+const clave4 = leer("OE2_estudio4_clave.csv");
+if (!e4.filas.length) {
+  vacio(e4, "Evaluador, Par, Tipo (copy|orden), Letra, Fidelidad, Utilidad, Voz_marca, Cumplimiento, Preferida (si|no)");
+} else if (!clave4.filas.length) {
+  console.log(`  OE2_estudio4_clave.csv no está: sin ella no se puede saber qué letra es`);
+  console.log(`  manual y cuál Postly. La produce armar_material_estudio4.mjs y NO se`);
+  console.log(`  versiona (lleva identidad); tiene que estar en esta carpeta para analizar.`);
+} else {
+  const claveMapa = Object.fromEntries(clave4.filas.map(c => [c.Par, c]));
+
+  // -- Copy: mismo análisis que el Estudio 1, Postly contra manual en vez de contra el genérico --
+  const copyResp = e4.filas.filter(f => (f.Tipo || "").toLowerCase() === "copy");
+  if (copyResp.length) {
+    const evaluadores = [...new Set(copyResp.map(f => f.Evaluador))];
+    console.log(`\n  · copy (${evaluadores.length} evaluadores · ${new Set(copyResp.map(f => f.Par)).size} pares)`);
+    for (const dim of DIMS) {
+      const dif = evaluadores.map(ev => {
+        const suyas = copyResp.filter(f => f.Evaluador === ev);
+        const postly = [], manual = [];
+        for (const f of suyas) {
+          const c = claveMapa[f.Par]; if (!c) continue;
+          const v = Number(f[dim]); if (!Number.isFinite(v)) continue;
+          if (f.Letra === c.Letra_postly) postly.push(v);
+          else if (f.Letra === c.Letra_manual) manual.push(v);
+        }
+        return postly.length && manual.length ? media(postly) - media(manual) : null;
+      }).filter(v => v !== null);
+      const t = tPareada(dif);
+      console.log(`    ${dim.padEnd(14)} diferencia media Postly − manual: ${f2(media(dif))} puntos` +
+        (t ? ` · t(${t.df}) = ${f2(t.t)} · p ${fmtP(t.p)} · d = ${f2(t.d)}` : " (n insuficiente)"));
+    }
+    const prefPorEv = evaluadores.map(ev => {
+      const porPar = {};
+      for (const f of copyResp.filter(f => f.Evaluador === ev)) (porPar[f.Par] ??= []).push(f);
+      let postlyPref = 0, decididos = 0;
+      for (const [par, filasPar] of Object.entries(porPar)) {
+        const c = claveMapa[par]; if (!c) continue;
+        const elegida = filasPar.find(f => (f.Preferida || "").toLowerCase() === "si");
+        if (!elegida) continue;
+        decididos++;
+        if (elegida.Letra === c.Letra_postly) postlyPref++;
+      }
+      return decididos ? postlyPref / decididos : null;
+    }).filter(v => v !== null);
+    if (prefPorEv.length) {
+      const ic = icMedia(prefPorEv);
+      console.log(`    Preferencia por Postly: ${pct(media(prefPorEv))} de los pares` +
+        (ic ? ` · IC 95 % [${pct(ic[1])} ; ${pct(ic[2])}] sobre ${prefPorEv.length} evaluadores` : ""));
+    }
+  }
+
+  // -- Orden: mismo análisis que el Estudio 3, Postly contra manual en vez de contra el envío --
+  const ordenResp = e4.filas.filter(f => (f.Tipo || "").toLowerCase() === "orden");
+  if (ordenResp.length) {
+    const evaluadores = [...new Set(ordenResp.map(f => f.Evaluador))];
+    const porEv = evaluadores.map(ev => {
+      let postlyPref = 0, decididos = 0;
+      for (const f of ordenResp.filter(f => f.Evaluador === ev)) {
+        const c = claveMapa[f.Par]; if (!c) continue;
+        decididos++;
+        if (f.Letra === c.Letra_postly) postlyPref++;
+      }
+      return decididos ? postlyPref / decididos : null;
+    }).filter(v => v !== null);
+    const decididas = ordenResp.filter(f => claveMapa[f.Par]);
+    const totalPostly = decididas.filter(f => f.Letra === claveMapa[f.Par].Letra_postly).length;
+    console.log(`\n  · orden de carrusel (${evaluadores.length} evaluadores · ${new Set(ordenResp.map(f => f.Par)).size} pares)`);
+    if (porEv.length && decididas.length) {
+      const ic = icMedia(porEv);
+      const [lo, hi] = wilson(totalPostly, decididas.length);
+      console.log(`    Prefieren el orden de Postly: media por evaluador ${pct(media(porEv))}` +
+        (ic ? ` · IC 95 % [${pct(ic[1])} ; ${pct(ic[2])}] sobre ${porEv.length} evaluadores` : ""));
+      console.log(`      (agrupando las ${decididas.length} decisiones: ${totalPostly}/${decididas.length} = ${pct(totalPostly / decididas.length)}` +
+        ` · Wilson [${pct(lo)} ; ${pct(hi)}] · binomial contra 0,5: p ${fmtP(binomial(totalPostly, decididas.length, 0.5))})`);
+    }
+  }
+  console.log(`\n  Recordatorio: el material manual llegó a la cuenta real de cada participante y`);
+  console.log(`  el de Postly a la cuenta de prueba (PROTOCOLO-ampliacion.md, §10); no afecta esta`);
+  console.log(`  comparación porque acá sólo se juzga texto u orden, nunca la cuenta de destino.`);
+}
 console.log();

@@ -6,19 +6,22 @@ correspondencia entre el copy y el tono que se le pidió (HU6) y el ordenamiento
 (HU5). A eso se suma que sobre las alucinaciones el Capítulo 7 declara que no hay «ni
 siquiera evidencia cualitativa».
 
-Este protocolo define tres estudios que cierran esas cuatro cosas. Los tres son pequeños,
-comparten las mismas evaluadoras y se pueden ejecutar en una sola sesión de unos 40 minutos
-por participante.
+Este protocolo define **cuatro** estudios. Los tres primeros son pequeños, comparten las
+mismas evaluadoras y se pueden ejecutar en una sola sesión de unos 40 minutos por
+participante. El cuarto se agregó el 24-09-2026, sobre material que ya produce la evaluación
+ampliada (`PROTOCOLO-ampliacion.md`) sin costo de generación aparte.
 
-**Fecha de redacción:** 23 de septiembre de 2026. **Estado:** sin ejecutar.
+**Fecha de redacción:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026,
+agregado el Estudio 4. **Estado:** sin ejecutar.
 
 ---
 
-## Lo que los tres tienen en común
+## Lo que los cuatro tienen en común
 
-**Evaluadoras.** Las mismas Consultoras de Belleza Independientes de la evaluación ampliada,
-más —donde se indique— un evaluador externo. Un mínimo de 5 evaluadoras por estudio; con
-menos, los intervalos no dicen nada.
+**Evaluadoras.** Para los Estudios 1 a 3: las mismas Consultoras de Belleza Independientes de
+la evaluación ampliada, más —donde se indique— un evaluador externo. Para el Estudio 4: sólo
+evaluadores ajenos a las 8 participantes (§ ahí abajo, la salvaguarda es específica de ese
+estudio). Un mínimo de 5 evaluadores por estudio; con menos, los intervalos no dicen nada.
 
 **A ciegas, y qué significa acá.** La evaluadora no sabe qué copy produjo qué sistema, ni
 qué orden propuso la IA. El material se presenta con etiquetas neutras (A/B) y el orden de
@@ -128,6 +131,52 @@ declarada, y así hay que reportarlo.
 
 ---
 
+## Estudio 4 — Manual contra Postly, a ciegas (agregado el 24-09-2026)
+
+**Pregunta.** ¿Lo que produce Postly compite con lo que produce la propia consultora a mano?
+
+Es la comparación que le falta a los Estudios 1 y 3: ésos miden a Postly contra un prompt
+genérico y contra el orden de envío, nunca contra el trabajo real de una CBI. Es también la
+que responde más directo al argumento central de la tesis, y no cuesta generación aparte: el
+material sale solo de la evaluación ampliada, donde cada una de las 4 publicaciones por
+participante ya se hace **dos veces**, una a mano y otra con Postly (`PROTOCOLO-
+ampliacion.md`, §4).
+
+**Material, por publicación de cada una de las 8 participantes:**
+
+- **Copy** (las 4 publicaciones): el texto que escribió a mano contra el que usó de Postly.
+- **Orden de carrusel** (las 2 publicaciones de carrusel): el orden en que ella armó el
+  carrusel a mano contra el que propuso Postly.
+
+Son hasta 32 pares de copy y 16 pares de orden. `armar_material_estudio4.mjs` los toma de
+`OE2_estudio4_material.csv` —que se completa durante o después de cada sesión de
+cronometraje, con la identidad de la participante— y produce la versión ciega para las
+evaluadoras: quita la identidad, asigna la letra A/B **por paridad del índice del par**, la
+misma regla fija que usa `run_copy_pareado.mjs`, y guarda aparte la clave real para quien
+puntúa después.
+
+**Quién evalúa, y la salvaguarda que hace falta acá y no en los otros tres.** Un evaluador
+ajeno a las 8 participantes y al equipo de desarrollo —nunca una de las mismas 8, porque acá
+sería juzgar en parte su propio trabajo, ni el equipo, porque conoce la asignación—. Mínimo 5
+evaluadores, igual que los otros estudios.
+
+**Tarea.** Para cada par de copy: puntuación 1–5 en las mismas cuatro dimensiones del Estudio
+1 (fidelidad, utilidad comercial, voz de marca, cumplimiento) y preferencia sin empate. Para
+cada par de orden: cuál de los dos publicaría, la misma pregunta del Estudio 3.
+
+**Análisis.** El mismo que el Estudio 1 para el copy (diferencia pareada por dimensión,
+proporción de preferencia con IC de Wilson, unidad = evaluador) y el mismo que el Estudio 3
+para el orden. Se informan por separado: no hay razón para que el copy y el orden empujen en
+la misma dirección.
+
+**Lo que esto NO evalúa.** El destino de publicación difiere entre las dos condiciones que
+generaron este material —la manual llegó a la cuenta real, la de Postly a la de prueba, por
+la limitación declarada en `PROTOCOLO-ampliacion.md` §10—. Eso no afecta esta comparación,
+porque lo que se muestra acá es el texto o el orden, nunca la cuenta de destino; se aclara
+para que quede trazado de dónde sale el material.
+
+---
+
 ## Archivos
 
 | Archivo | Qué lleva |
@@ -136,12 +185,19 @@ declarada, y así hay que reportarlo.
 | `OE2_estudio1_respuestas.csv` | Evaluadora, imagen, etiqueta, cuatro puntajes, preferencia, afirmaciones no verificables |
 | `OE2_estudio2_respuestas.csv` | Evaluadora, conjunto, copy, tono asignado |
 | `OE2_estudio3_respuestas.csv` | Evaluadora, conjunto, secuencia preferida |
+| `OE2_estudio4_material.csv` | Con identidad: participante, publicación, tipo, copy manual, copy Postly, orden manual, orden Postly. Se completa en las sesiones de cronometraje |
+| `OE2_estudio4_ciego.csv` | Sin identidad. Lo produce `armar_material_estudio4.mjs` a partir del anterior: par, tipo, etiqueta A/B, contenido |
+| `OE2_estudio4_respuestas.csv` | Evaluador, par, cuatro puntajes (si es copy), preferencia |
 
-Los tres se analizan con `run_oe2.mjs`, que corre sobre las plantillas vacías y dice qué
-falta cargar.
+Los estudios 1 a 3 se analizan con `run_oe2.mjs`, que corre sobre las plantillas vacías y
+dice qué falta cargar. El Estudio 4 usa el mismo script, más `armar_material_estudio4.mjs`
+para pasar de `OE2_estudio4_material.csv` (con identidad) a la versión ciega.
 
 ## Cuánto mueve esto la nota
 
-Cierra el único Objetivo Específico que hoy se declara no evaluado y da la primera evidencia
-sobre alucinaciones. No toca la muestra de la hipótesis principal, de modo que por sí solo no
-levanta el carácter piloto de la evaluación: es condición necesaria y no suficiente.
+Los Estudios 1 a 3 cierran el único Objetivo Específico que hoy se declara no evaluado y dan
+la primera evidencia sobre alucinaciones. El Estudio 4 responde algo distinto y más cercano
+al argumento central: si lo que produce el sistema compite con el trabajo real de una CBI,
+según un tercero que no sabe cuál es cuál. Ninguno de los cuatro toca la muestra de la
+hipótesis principal, de modo que por sí solos no levantan el carácter piloto de la
+evaluación: son condición necesaria y no suficiente.

@@ -42,9 +42,14 @@ Este formulario firmado **no se publica ni se deposita**: queda en poder de los 
 
 ## Las publicaciones que hagas
 
-Las que hagas durante la sesión se publican de verdad en tus cuentas, porque medir sobre un
-entorno de prueba no mediría lo mismo. Podés borrarlas apenas termine la sesión, o pedirnos
-que no se publique alguna. Vos elegís el producto y el material de cada una.
+**Esto es distinto según cómo la hagas.** Las 4 publicaciones que hagas a mano, como lo hacés
+siempre, se publican de verdad en tus cuentas. Las 4 que hagas con Postly **no**: el sistema
+todavía sólo está vinculado a una cuenta de prueba del equipo, no a la tuya, así que esas
+publicaciones salen ahí y no le llegan a tu audiencia. Te lo decimos porque cambia lo que
+estás evaluando: al usar Postly vas a ver el resultado final —el copy, la imagen— pero no en
+tu propio perfil ni con tu firma. Podés borrar las publicaciones a mano apenas termine la
+sesión, o pedirnos que no se publique alguna. Vos elegís el producto y el material de cada
+una.
 
 ## Tu participación es voluntaria
 
