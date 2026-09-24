@@ -11,7 +11,10 @@ revisión sistemática completa —no hay dos revisores independientes y el equi
 personas con un plazo—, y por eso se la llama **revisión estructurada con registro de
 descartes**, que es lo que efectivamente va a ser.
 
-**Fecha:** 23 de septiembre de 2026. **Estado:** fuentes identificadas, tamizado sin ejecutar.
+**Fecha:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026, fase 1 completa.
+**Estado:** los 596 candidatos tienen `Decision` de fase 1 en `Candidatos_bibliografia.csv`
+—**134 dudoso, 462 descartar**—; la fase 2 (lectura de texto completo de los 134) sigue sin
+ejecutar. Ver el detalle por eje y las salvedades en el §5.
 
 ---
 
@@ -89,11 +92,44 @@ autor revise **una muestra aleatoria del 20 % de los descartes de fase 1** y se 
 acuerdo. Un desacuerdo alto sobre los descartes es un dato sobre el criterio, y vale más que
 declarar un doble tamizado que no ocurrió.
 
-## 5 · Lo que ya se puede afirmar del corpus recuperado
+## 5 · Fase 1, completa el 24-09-2026: 134 dudoso, 462 descartar
 
-Nueve candidatos aparecen repetidamente y están en revistas del dominio con citación real.
-Van como punto de partida de la fase 2, **no como referencias a citar**: ninguno se cita
-antes de leerlo.
+Los 596 candidatos tienen `Decision` en `Candidatos_bibliografia.csv`. Siguiendo la regla del
+§3 —el título alcanza para descartar, nunca para incluir—, esta fase sólo produjo dos
+resultados: `dudoso` (pasa a fase 2) o `descartar` (con su `Motivo`). Ningún candidato quedó
+marcado `incluir`: eso exige haber leído el texto completo, que es la fase 2, todavía sin
+ejecutar sobre los 134.
+
+| Eje | Candidatos | Dudoso | Descartar |
+|---|---|---|---|
+| interfaz-conversacional | 78 | 35 | 43 |
+| ia-generativa-marketing | 73 | 20 | 53 |
+| compliance | 75 | 17 | 58 |
+| moderacion-llm | 80 | 16 | 64 |
+| aceptacion-tecnologica | 73 | 15 | 58 |
+| bajo-codigo | 73 | 12 | 61 |
+| multimodal | 64 | 10 | 54 |
+| microemprendimiento | 80 | 9 | 71 |
+| **Total** | **596** | **134** | **462** |
+
+De los descartes, 287 son `fuera-de-dominio` y 175 `sin-relacion-con-hueco`.
+
+**Un hallazgo del propio tamizado, no sólo su resultado.** El eje `microemprendimiento` es el
+que peor rindió (9 de 80), y la razón es diagnosticable: la búsqueda trajo mayormente
+«enterprise social media» —herramientas internas de comunicación corporativa— porque
+comparte vocabulario con «micro-emprendimiento» sin ser el mismo objeto. Si el §1.1/§1.2
+sigue necesitando refuerzo bibliográfico después de leer los 9 dudoso, la búsqueda de este
+eje debería rehacerse con otros términos («direct selling», «social commerce», «gig
+economy»), no reintentarse con el mismo.
+
+**Nueve candidatos ya identificados en una pasada anterior** (23-09) siguen siendo el punto
+de partida de la fase 2, y siete de los nueve coincidieron con `dudoso` en este tamizado
+—confirmación cruzada, no beneficio circular, porque el criterio de esta fase no los conocía
+caso por caso—. Los otros dos, Russo y Fakhoury et al., el buscador los etiquetó bajo un eje
+distinto al que responden (§2.1 y §3.7.3 respectivamente, no el eje bajo el que aparecieron
+en el CSV); se corrigieron a `dudoso` a mano, con motivo `preidentificado-otro-apartado`, en
+vez de dejarlos figurar como descartados cuando ya estaban validados. Ninguno de los nueve se
+cita antes de leerlo completo:
 
 | Trabajo | Revista | Para qué apartado |
 |---|---|---|
@@ -108,11 +144,25 @@ antes de leerlo.
 | Oppenlaender (2023), *A taxonomy of prompt modifiers* | Behaviour and IT | §4.1.2: la ingeniería de prompts, hoy sin respaldo |
 
 Los DOI de los nueve están en `Candidatos_bibliografia.csv` y se verifican contra Crossref
-antes de incorporarlos, como se hizo con las 105 entradas actuales.
+antes de incorporarlos, como se hizo con las 105 entradas actuales. Dato menor para la fase 2:
+"Russo" aparece dos veces en el corpus, con DOI distinto y título casi idéntico —puede ser el
+artículo y su reporte RCR (Registered/Replicated Computational Result) por separado, o una
+duplicación de la búsqueda; se resuelve al leerlos, no antes.
+
+**Lo que falta, y es lo que realmente decide si el §1.6.0 mejora.** Fase 2: leer los 134
+`dudoso` a texto completo y decidir `incluir` o `descartar` con motivo de fase 2. Es trabajo
+de lectura real, no de tamizado por título, y no se hizo en esta pasada — sería precisamente
+el «uso decorativo» que el primer dictamen marcó si se saltara.
 
 ## 6 · Qué mueve esto, y qué no
 
-Mueve dos cosas. El §1.6.0 pasa a tener procedimiento y registro, y la mediana bibliográfica
-baja si entran quince o veinte trabajos de 2023 en adelante. No mueve una tercera: una
-revisión estructurada dentro de veinte revistas sigue sin ser una revisión sistemática con
-dos revisores y protocolo registrado, y el capítulo tiene que seguir declarando su alcance.
+Con la fase 1 completa, el §1.6.0 ya puede informar cuatro números reales, no una declaración
+de intención: **596 candidatos recuperados, 462 descartados en fase 1 con su motivo
+registrado, 134 pendientes de fase 2**. Eso es procedimiento y registro, que es lo que el
+apartado no tenía. La mediana bibliográfica baja si entran quince o veinte de los 134 después
+de leerlos —son casi todos de 2023 en adelante—, pero **todavía no bajó**: hasta que la fase 2
+no decida `incluir`, ninguno de los 134 se cita.
+
+No mueve una tercera cosa. Una revisión estructurada dentro de veinte revistas sigue sin ser
+una revisión sistemática con dos revisores y protocolo registrado —el §4 de este documento ya
+lo declara—, y el capítulo tiene que seguir diciendo eso mismo aunque la fase 1 esté hecha.
