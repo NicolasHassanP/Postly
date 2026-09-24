@@ -115,8 +115,11 @@ pidieron?
 El criterio de aceptación de HU6 pedía «el tono semántico esperado para su categoría de
 prompt», y la Tabla 13 declara que esa parte no fija umbral y no se evaluó.
 
-**Material.** Los mismos 12 conjuntos de tres copys (Informativo, Vendedor, Divertido) que
-produce el sistema, con el rótulo quitado y el orden mezclado dentro de cada conjunto.
+**Material.** Los mismos 8 conjuntos de tres copys (Informativo, Vendedor, Divertido) que
+`run_copy_pareado.mjs` ya genera para el Estudio 1 —cada llamada al prompt de Postly devuelve
+los tres tonos, y guardarlos los tres no cuesta una llamada más—, con el rótulo quitado y el
+orden mezclado dentro de cada conjunto. No hace falta generar nada aparte: están en
+`OE2_copys_material.csv`, filas con `Sistema=postly`, una por tono y producto.
 
 **Tarea.** La evaluadora asigna cada copy a uno de los tres tonos. Asignación forzada: los
 tres tonos se usan una vez por conjunto.
@@ -204,7 +207,7 @@ para que quede trazado de dónde sale el material.
 
 | Archivo | Qué lleva |
 |---|---|
-| `OE2_copys_material.csv` | Lo produce `run_copy_pareado.mjs`: producto, carpeta, tipo (imagen/carrusel), sistema (postly/generico), tono, texto, y la clave de la asignación A/B |
+| `OE2_copys_material.csv` | Lo produce `run_copy_pareado.mjs`: producto, carpeta, tipo (imagen/carrusel), sistema (postly/generico), tono, texto, la clave de la asignación A/B y si esa fila es la que compite en el Estudio 1 (`Usado_Estudio1`). Material de los Estudios 1 y 2 a la vez, de la misma corrida |
 | `OE2_estudio1_respuestas.csv` | Evaluador, producto, tipo, etiqueta, cuatro puntajes, preferencia, afirmaciones no verificables |
 | `OE2_estudio2_respuestas.csv` | Evaluadora, conjunto, copy, tono asignado |
 | `OE2_estudio3_respuestas.csv` | Evaluadora, conjunto, secuencia preferida |

@@ -270,41 +270,51 @@ function parsearOpciones(raw) {
 }
 
 // ─── Corrida, con reanudación (cada producto cuesta 2 llamadas al modelo) ─────────────────
+// Cada llamada al prompt de Postly devuelve los TRES tonos en una sola respuesta —no cuesta
+// una llamada extra guardar los tres—. Uno de los tres, elegido por la rotación fija, es el
+// que compite contra el genérico en el Estudio 1 (lleva letra A/B); los otros dos quedan sin
+// letra y son, sin gasto de cuota aparte, el material del Estudio 2 (correspondencia de
+// tono, PROTOCOLO-OE2.md): 8 conjuntos de tres copys, no 12 como preveía el diseño anterior.
 let filas = existsSync(SALIDA)
   ? parseCSV(readFileSync(SALIDA, "utf-8"))
-  : [["Producto", "Carpeta", "Tipo", "Aportada_por", "Sistema", "Tono", "Texto", "Etiqueta_AB", "JSON_valido"]];
+  : [["Producto", "Carpeta", "Tipo", "Aportada_por", "Sistema", "Tono", "Texto", "Etiqueta_AB", "Usado_Estudio1", "JSON_valido"]];
 if (existsSync(SALIDA)) console.log("[reanudando desde OE2_copys_material.csv]");
 const yaHechas = new Set(filas.slice(1).map(f => f[1])); // por Carpeta
 const guardar = () => writeFileSync(SALIDA, toCSV(filas), "utf-8");
 
-console.log(`\n[Estudio 1 de OE2 · material pareado · ${MODELO} · 4 imagen + 4 carrusel · rotación fija de tono]\n`);
+console.log(`\n[Estudio 1 y 2 de OE2 · material · ${MODELO} · 4 imagen + 4 carrusel · rotación fija de tono]\n`);
 let cortado = false;
 for (let i = 0; i < productos.length; i++) {
   const p = productos[i];
   if (yaHechas.has(p.carpeta)) { console.log(`  ${p.carpeta}: ya generada, se conserva.`); continue; }
 
-  const tono = TONOS[i % 3];
+  const tonoParEstudio1 = TONOS[i % 3];
   const letraPostly = i % 2 === 0 ? "A" : "B";
   const letraGenerico = letraPostly === "A" ? "B" : "A";
   const promptPostly = p.tipo === "imagen" ? PROMPT_POSTLY_IMAGEN : PROMPT_POSTLY_CARRUSEL;
   const promptGenerico = p.tipo === "imagen" ? PROMPT_GENERICO_IMAGEN : PROMPT_GENERICO_CARRUSEL;
 
   try {
-    console.log(`  ${p.carpeta}  (${p.tipo}, "${p.producto}", aportada por ${p.aportante})  → tono ${tono}, Postly=${letraPostly}`);
+    console.log(`  ${p.carpeta}  (${p.tipo}, "${p.producto}", aportada por ${p.aportante})  → par de Estudio 1: ${tonoParEstudio1}, Postly=${letraPostly}`);
     const rawPostly = await generar(p.archivos, promptPostly);
     const op = parsearOpciones(rawPostly);
     if (!op.json_valido) {
       console.log(`     ** el modelo no devolvió JSON válido para ${p.carpeta}; se guarda la respuesta cruda y se sigue`);
-      filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "postly", tono, op.raw, letraPostly, "NO"]);
+      filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "postly", "", op.raw, letraPostly, "si", "NO"]);
     } else {
-      const texto = tono === "Informativo" ? op.opcion1 : tono === "Vendedor" ? op.opcion2 : op.opcion3;
-      filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "postly", tono, texto, letraPostly, "si"]);
+      // Los tres tonos, en el orden fijo Informativo/Vendedor/Divertido (opcion1/2/3).
+      const tonosTexto = [["Informativo", op.opcion1], ["Vendedor", op.opcion2], ["Divertido", op.opcion3]];
+      for (const [tono, texto] of tonosTexto) {
+        const esElDeEstudio1 = tono === tonoParEstudio1;
+        filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "postly", tono, texto,
+          esElDeEstudio1 ? letraPostly : "", esElDeEstudio1 ? "si" : "no", "si"]);
+      }
     }
     guardar();
     await dormir(15000); // 20 peticiones/minuto del nivel gratuito
 
     const textoGenerico = (await generar(p.archivos, promptGenerico)).trim();
-    filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "generico", "", textoGenerico, letraGenerico, "si"]);
+    filas.push([p.producto, p.carpeta, p.tipo, p.aportante, "generico", "", textoGenerico, letraGenerico, "si", "si"]);
     guardar();
     await dormir(15000);
   } catch (e) {
@@ -320,8 +330,10 @@ for (let i = 0; i < productos.length; i++) {
 guardar();
 if (!cortado) {
   console.log(`\n✔ Material completo: ${productos.length} productos (4 imagen + 4 carrusel), ${filas.length - 1} filas, en OE2_copys_material.csv`);
-  console.log(`  Rotación de tono por índice %3: ${TONOS.join(" · ")}, repitiendo.`);
-  console.log(`  Con esto armado, la sesión del evaluador usa las columnas Texto + Etiqueta_AB`);
-  console.log(`  para imprimir el material a ciegas; las respuestas van en OE2_estudio1_respuestas.csv.`);
+  console.log(`  Rotación del par de Estudio 1 por índice %3: ${TONOS.join(" · ")}, repitiendo.`);
+  console.log(`  Estudio 1: filas con Usado_Estudio1=si y Etiqueta_AB cargada -> Texto + Etiqueta_AB`);
+  console.log(`  para imprimir a ciegas; respuestas en OE2_estudio1_respuestas.csv.`);
+  console.log(`  Estudio 2: las filas Sistema=postly con los tres tonos por producto (8 conjuntos,`);
+  console.log(`  no 12) son el material, sin costo de generación aparte; respuestas en OE2_estudio2_respuestas.csv.`);
 }
 console.log();
