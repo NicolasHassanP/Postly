@@ -45,10 +45,19 @@ aporta algo por encima del modelo crudo.
 **Material.** 12 imágenes de producto, de las que las consultoras aportaron. Para cada una,
 dos copys: el del prompt desplegado de Postly y el de un prompt genérico
 («Escribí un pie de foto para esta imagen de producto para Instagram»), con el mismo modelo
-y la misma temperatura. Los produce `run_copy_pareado.mjs`.
+y la misma temperatura. Los produce `run_copy_pareado.mjs`, que exige un manifiesto
+`Imagenes_manifiesto.csv` (`Imagen,Producto,Aportada_por`) para que la procedencia de cada
+foto quede declarada antes de generar nada —no vuelve a pasar lo que corrigieron N3-02/N3-10.
 
-**Tarea.** La evaluadora ve la imagen y los dos copys rotulados A y B, en orden aleatorio, y
-puntúa cada uno del 1 al 5 en cuatro dimensiones:
+El prompt desplegado devuelve tres tonos en una sola llamada; para el pareo se usa **uno por
+imagen, por rotación fija** (Informativo, Vendedor, Divertido, …), no el que mejor salió. La
+letra A/B también se fija de antemano, por paridad del índice de la imagen, y no se sortea al
+imprimir el material: las dos reglas están en el script, así que cualquiera puede
+reconstruirlas sin tener que confiar en que no se eligió nada después de ver un resultado.
+
+**Tarea.** La evaluadora ve la imagen y los dos copys rotulados A y B —el orden de qué letra
+es cada sistema varía de imagen a imagen, según la regla fija de arriba, no al azar en el
+momento— y puntúa cada uno del 1 al 5 en cuatro dimensiones:
 
 | Dimensión | Pregunta que se le hace |
 |---|---|

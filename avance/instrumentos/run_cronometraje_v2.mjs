@@ -1,4 +1,7 @@
-// Análisis del cronometraje ampliado — el que corre cuando lleguen las 24 participantes
+// Análisis del cronometraje ampliado — el que corre cuando lleguen las participantes.
+// El diseño original preveía 24; el acceso real acotó la ampliación a 8 (PROTOCOLO-
+// ampliacion.md, §0 y §2). El cálculo de acá no depende de ese número: sirve para cualquier
+// n, y con n = 8 informa la potencia efectiva en vez de asumirla.
 //
 // Reemplaza a run_cronometraje.mjs, que estaba escrito para tres consultoras y doce pares
 // con forma cerrada del valor p para dos grados de libertad. Éste sirve para cualquier n y
