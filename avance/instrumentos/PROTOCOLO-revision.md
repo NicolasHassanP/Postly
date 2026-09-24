@@ -11,10 +11,11 @@ revisión sistemática completa —no hay dos revisores independientes y el equi
 personas con un plazo—, y por eso se la llama **revisión estructurada con registro de
 descartes**, que es lo que efectivamente va a ser.
 
-**Fecha:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026, fase 1 completa.
-**Estado:** los 596 candidatos tienen `Decision` de fase 1 en `Candidatos_bibliografia.csv`
-—**134 dudoso, 462 descartar**—; la fase 2 (lectura de texto completo de los 134) sigue sin
-ejecutar. Ver el detalle por eje y las salvedades en el §5.
+**Fecha:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026, fase 1 completa;
+25 de septiembre, fase 2 en curso (32 de 134 decididos). **Estado:** los 596 candidatos
+tienen `Decision` de fase 1 en `Candidatos_bibliografia.csv` —134 dudoso originales, 462
+descartar—; la fase 2 lleva **21 incluir, 11 descartar y 102 dudoso** sobre esos 134. Ver el
+detalle por eje y las salvedades en el §5.
 
 ---
 
@@ -161,17 +162,75 @@ texto completo: sigue sin decidirse `incluir` para ninguno de los nueve, tal com
 
 **Lo que falta, y es lo que realmente decide si el §1.6.0 mejora.** Fase 2: leer los 134
 `dudoso` a texto completo y decidir `incluir` o `descartar` con motivo de fase 2. Es trabajo
-de lectura real, no de tamizado por título, y no se hizo en esta pasada — sería precisamente
-el «uso decorativo» que el primer dictamen marcó si se saltara.
+de lectura real, no de tamizado por título.
+
+## 5b · Fase 2 en curso — 25-09-2026, 32 de 134 decididos
+
+Se empezó por los dos ejes que sostienen el aporte central de la tesis: `compliance` (§2.4)
+y `moderacion-llm` (§1.6.0, §8.2). **Resultado: 21 `incluir`, 11 `descartar`, 1 sigue
+`dudoso`** (Yang et al., *Computers in Human Behavior* 2026 — no se consiguió un resumen
+confiable en Crossref, OpenAlex ni por búsqueda; queda pendiente hasta poder verificarlo).
+
+**Salvedad metodológica, para que quede escrita y no se dé por sentado algo que no pasó.**
+El §3 pide leer el **texto completo** en fase 2. Lo que se hizo acá fue leer el **resumen**
+de cada candidato —vía Crossref, OpenAlex o, cuando ninguna de las dos lo tenía, búsqueda
+directa del título—, no el artículo entero: la mayoría está detrás de paywall (ACM, IEEE,
+Elsevier, Taylor & Francis) y no hay acceso institucional desde acá. Es un estándar más alto
+que el título solo de la fase 1 —el resumen dice el problema, el método y a veces el
+hallazgo—, pero no es la fase 2 completa que el protocolo describe. Los 21 `incluir` de acá
+son candidatos con fundamento real y verificable para pasar a lectura completa antes de
+citarlos en el cuerpo del texto —no se cita ninguno todavía—; no reemplazan esa lectura.
+
+| Trabajo | Revista | Motivo (resumido) |
+|---|---|---|
+| Das et al. (2026) | ACM TOSEM | multiagente LLM+RAG para verificar cumplimiento normativo de requisitos |
+| Barrientos et al. (2026) | Inf. and Software Technology | enfoque híbrido LLM+reglas ante cambios normativos |
+| Robol et al. (2026) | Inf. and Software Technology | verificación de cumplimiento de consentimiento GDPR |
+| Colombo Tosatto et al. (2026) | Inf. and Software Technology | verificación simbólica (no-LLM) en tiempo de diseño, contraste |
+| Cristina Ratiu et al. (2026) | J. of Systems and Software | verificación de cumplimiento en tiempo de EJECUCIÓN |
+| Sovrano et al. (2025) | Empirical Software Eng. | IA generativa para simplificar cumplimiento del AI Act |
+| Ayala-Rivera et al. (2024) | J. of Systems and Software | SoCo: compliance-by-design semi-automatizado para GDPR |
+| Chen et al. (2024) | Empirical Software Eng. | verificación automatizada app-vs-política declarada |
+| van Beest et al. (2023) | IEEE TSE | verificación de cumplimiento cruzando instancias de proceso |
+| Liu (2026) | Computers in Human Behavior | LLM como clasificador bajo rúbrica fija, con incertidumbre |
+| Gutierrez et al. (2026) | IJHCS | moderación de contenido generado por IA específicamente |
+| Wang et al., TORA (2026) | Decision Support Systems | reglas comunitarias explícitas incorporadas a moderación automática |
+| Domingo et al. (2026) | ACM TOCHI | diseño sensible a valores con moderadores reales sobre soporte LLM |
+| Franco et al. (2025) | ACM TWEB | de políticas hardcodeadas a moderación vía LLM —coincidencia directa— |
+| Warner et al. (2025) | IJHCS | crítica a la detección PROACTIVA de toxicidad, mismo paradigma del Centinela |
+| Lee et al. (2025) | JMIS | detección de discurso de odio vía prompting LLM multiagente |
+| Pasch (2025) | Behaviour and IT | moderación vía rechazos del LLM, 50.000 comparaciones reales |
+| Jhaver (2025) | ACM TOCHI | intervenciones graduadas (ban vs. aviso) vs. bloqueo binario |
+| Nguyen et al. (2024) | JMIS | efectos NO buscados de moderación humano-máquina híbrida |
+| Jiang et al. (2023) | ACM TOCHI | *(ya preidentificado, §5)* — framework de tradeoff, 86 estudios |
+| Wang (2023) | Computers in Human Behavior | percepción de usuarios sobre moderación basada en IA |
+
+Los 11 `descartar` de fase 2, con motivo registrado en el CSV: Vilela et al., Wang/RuleAgent,
+Zaggl et al., Angelogianni et al., Barzolevskaia et al., Westphal et al., Vollenwyder et al.,
+Wang/GDPR-Ad (los ocho de `compliance`); Wang/HumanFeedback, Möhlmann et al., Olson et al.
+(los tres de `moderacion-llm`). El patrón que se repite: la palabra clave de la búsqueda
+("compliance", "moderation") aparece en el título con un significado distinto al que el
+hueco necesita —cumplimiento de un estándar técnico, gobernanza algorítmica, impacto
+económico, sesgo de género— y no un mecanismo técnico de verificación o moderación.
+
+**Quedan 102 dudoso** en los otros seis ejes (interfaz-conversacional 35, ia-generativa-
+marketing 20, aceptación-tecnológica 15, bajo-código 12, multimodal 10, microemprendimiento
+9), sin tocar todavía.
 
 ## 6 · Qué mueve esto, y qué no
 
 Con la fase 1 completa, el §1.6.0 ya puede informar cuatro números reales, no una declaración
 de intención: **596 candidatos recuperados, 462 descartados en fase 1 con su motivo
 registrado, 134 pendientes de fase 2**. Eso es procedimiento y registro, que es lo que el
-apartado no tenía. La mediana bibliográfica baja si entran quince o veinte de los 134 después
-de leerlos —son casi todos de 2023 en adelante—, pero **todavía no bajó**: hasta que la fase 2
-no decida `incluir`, ninguno de los 134 se cita.
+apartado no tenía.
+
+Con los 21 `incluir` de fase 2 (§5b), la mediana bibliográfica **todavía no bajó de verdad**
+—no se citó ninguno todavía, y la salvedad metodológica del §5b importa acá: son candidatos
+verificados por resumen, pendientes de la lectura completa antes de citarse—, pero ya hay un
+número concreto en vez de una promesa: los 21 son de 2023 en adelante (la mitad, de
+2025-2026), así que si la lectura completa los confirma, moverían la mediana de una fuente
+más que la duplican. Con 102 `dudoso` todavía sin tocar en los otros seis ejes, es razonable
+esperar que ese número crezca.
 
 No mueve una tercera cosa. Una revisión estructurada dentro de veinte revistas sigue sin ser
 una revisión sistemática con dos revisores y protocolo registrado —el §4 de este documento ya
