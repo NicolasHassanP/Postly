@@ -60,6 +60,10 @@ SCRIPTS = [
     # acota el efecto de la asimetria de la tarea manual sobre la hipotesis del 70 %
     # (N-03, Anexo E.2): no mide la subtarea, recorre sus valores posibles
     'run_sensibilidad_cronometraje.mjs',
+    # carga cada CSV con un parser estandar y recomputa TODAS las tablas del
+    # Capitulo 5 contra su valor publicado. Viaja con el deposito para que un
+    # revisor confirme las cifras con un solo comando.
+    'verificar_csv.py',
 ]
 # Artefactos que se MANTIENEN DIRECTAMENTE EN LA ENTREGA y no tienen original vigente
 # aca. Se conservan tal cual: copiarlos desde RAIZ los haria retroceder, porque las

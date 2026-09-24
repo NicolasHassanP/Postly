@@ -11,9 +11,16 @@ Comprueba, sin opinar:
 
 Uso: python verificar_documento.py "<archivo.docx>"
 """
+import json
 import re
 import sys
 from collections import Counter
+from pathlib import Path
+
+# NOTA: varias cadenas comprobadas de este archivo llevan referencias «§x.y». La
+# pasada 90 renumeró los capítulos (Arquitectura pasó a ser el 5 y Resultados el 6),
+# y esas cadenas se actualizaron con el mismo mapa. Si vuelve a moverse un capítulo,
+# hay que revisarlas: una guarda con el número viejo no falla, deja de proteger.
 
 import docx
 
@@ -127,6 +134,31 @@ for s in sin_cita:
 con_doi = sum(1 for e in entradas if 'doi.org' in e)
 check('entradas con DOI', f'{con_doi} ({100 * con_doi // max(1, len(entradas))} %)')
 
+# El año de la cita tiene que ser el de su entrada. La pasada 92 movió cuatro entradas
+# de documentación viva a «(s.f.)» y dejó seis citas diciendo «2024»: la comprobación
+# de correspondencia no lo vio, porque casaba por apellido y no por año.
+_anio_entrada = {}
+for e in entradas:
+    _m = re.match(r'^([^,(]+?)(?:,|\s*\()', e)
+    _a = re.search(r'\((\d{4}[a-z]?|s\.f\.)\)', e)
+    if _m and _a:
+        _anio_entrada.setdefault(_m.group(1).strip(), set()).add(_a.group(1))
+_desfasadas = []
+for _ap, _anios in _anio_entrada.items():
+    if len(_ap) < 4:
+        continue
+    # el apellido no puede venir precedido de «y», «&» o «and»: ahi es el segundo autor
+    # de otra entrada —«Jurafsky y Martin, 2023» no es una cita de Martin (2003)—
+    for _m in re.finditer(r'(?<![\wáéíóúñ])(?<!y )(?<!& )(?<!and )'
+                          + re.escape(_ap) + r'(?:\s+et\s+al\.)?,\s*(\d{4}[a-z]?|s\.f\.)',
+                          cuerpo):
+        if _m.group(1) not in _anios:
+            _desfasadas.append(f'{_ap}, {_m.group(1)} (la entrada dice {sorted(_anios)})')
+check('citas cuyo año no coincide con su entrada', len(set(_desfasadas)), 0)
+for _s in sorted(set(_desfasadas)):
+    print(f'      {_s}')
+    fallos.append(f'cita desfasada: {_s}')
+
 # ═══════════════════════════════════════ frases que el dictamen marcó
 bloque('frases retiradas por el dictamen')
 PROHIBIDAS = [
@@ -178,8 +210,8 @@ PROHIBIDAS = [
     'cubre exclusivamente dos aspectos', 'Se extrae un fotograma representativo',
     'imagen, carrusel y video comparten la misma lógica', 'los montos escritos en palabras',
     # M5, M13, M16: remisiones e inventarios
-    'criterios de aceptación (§4.4)', 'quedan atendidas en el Anexo E.8',
-    'la salvedad que el §5.1 declaraba pendiente', 'modo "single"',
+    'criterios de aceptación (§5.2)', 'quedan atendidas en el Anexo E.8',
+    'la salvedad que el §6.1 declaraba pendiente', 'modo "single"',
     # Mismo cambio de signo que arriba, por la misma razón (pasada 75).
     'cuatro umbrales sin verificar', 'Los cuatro umbrales no verificados',
     'de modo que son otros tantos verdaderos negativos',
@@ -424,9 +456,12 @@ PROHIBIDAS = [
     'el de HU4 y el de HU12',
     # N-05: la referencia que no existe
     'Vigna',
-    # N-06: el depósito. El marcador NO puede sobrevivir a la entrega: mientras esté, el
-    # documento afirma tener un identificador persistente que todavía no existe.
-    '[DOI-PENDIENTE]',
+    # N-06: el depósito. Los marcadores NO pueden sobrevivir a la entrega: mientras estén,
+    # el documento afirma tener identificadores persistentes que todavía no existen. Son
+    # dos porque el depósito son dos registros, uno abierto y uno restringido: la razón la
+    # da el Anexo E.4 y la implementa armar_deposito.py. Los reemplaza poner_doi.py.
+    '[DOI-ABIERTO-PENDIENTE]',
+    '[DOI-RESTRINGIDO-PENDIENTE]',
     'Acompaña a este trabajo como material complementario',
     # N-07 y las misatribuciones menores
     'penalizan el contenido que no respeta sus especificaciones técnicas',
@@ -445,10 +480,13 @@ EXIGIDAS = [
     # M-13: la ausencia de artefactos de Scrum, declarada, y la cronología que la sustituye
     ('no se conserva ninguno de sus artefactos', 1),
     ('A.2 Cronología del desarrollo reconstruida del repositorio', 1),
-    # M-6: las tres condiciones del procedimiento de cronometraje
-    ('Corresponde declarar tres condiciones del procedimiento', 1),
+    # M-6: las tres condiciones del procedimiento de cronometraje.
+    # El ancla evita la fórmula de salvedad: la pasada 89 reescribió esas aperturas y
+    # rompió esta guarda sin que la declaración se hubiera perdido. Se ancla ahora en lo
+    # que la guarda protege —que las tres condiciones estén— y no en cómo se introducen.
+    ('condiciones del procedimiento gobiernan la validez interna', 1),
     # M-15: quién es el evaluador externo
-    ('Corresponde caracterizar a ese evaluador', 1),
+    ('externalidad de ese evaluador descansa la mitigación del sesgo', 1),
     # B-4: el §5.2 remite al Anexo C, que declaraba ampliarlo
     ('El Anexo C documenta los ocho que el desarrollo dejó anotados', 1),
     # C-1: la solicitud comercial sin precio, declarada fuera de alcance
@@ -468,7 +506,7 @@ EXIGIDAS = [
     # Pasada 44: el cuarto flujo tambien quedo medido, de modo que esa frase se retira y
     #  el ancla pasa a ser el apartado que la reemplaza.
     ('El cuarto caso es el de la re-publicación (HU12) y lo documenta el Anexo E.11', 1),
-    ('Este es el flujo en que la divergencia del §5.1 resultaba más difícil de advertir', 1),
+    ('Este es el flujo en que la divergencia del §6.1 resultaba más difícil de advertir', 1),
     ('El §2.4 acota el alcance de esa exposición', 1),
     # Pasada 47 (N-06 de la quinta instancia, reabierto por las pasadas 42-44): el
     #  inventario de bases del §5.4 tiene que nombrar TODAS, incluidas las de los
@@ -501,6 +539,210 @@ for nombre, ps, objetivo in (('cuerpo', cuerpo_p, 28), ('anexos', anexos_p, None
         fallos.append(f'media de {nombre}: {media:.1f} > {objetivo}')
     if n50:
         fallos.append(f'{nombre}: {n50} oraciones de más de 50 palabras')
+
+# ═════════════════════════════ remisiones a seccion escritas sin el signo §
+# La pasada 90 renumero los capitulos reescribiendo «§x.y» y «Capitulo N». Tres
+# remisiones escritas sin el signo —«las secciones 4.3 … del Capitulo 4»— quedaron fuera
+# de ese barrido y apuntaban a otro capitulo. Esto las detecta: una remision a seccion
+# tiene que llevar §, o el proximo renumerado la vuelve a dejar atras.
+# ══════════════════════ higiene estructural: encabezados y texto duplicado
+# La pasada 96 escribió prosa DENTRO de siete encabezados —un índice calculado antes de
+# una inserción que lo invalidó— y dejó el mismo contenido repetido dos veces, unas 800
+# palabras. Ninguno de los cuatro verificadores lo vio, porque ninguno comprobaba que un
+# encabezado pareciera un encabezado ni que un párrafo no estuviera repetido.
+bloque('higiene estructural')
+_encabezados_largos = [p.text.strip()[:60] for p in parrafos
+                       if p.style.name.startswith('Heading') and len(p.text.split()) > 25]
+check('encabezados de más de 25 palabras', len(_encabezados_largos), 0)
+for _h in _encabezados_largos:
+    print(f'      {_h}…')
+    fallos.append(f'encabezado con prosa: {_h}')
+
+_vistos, _repes = set(), []
+for p in parrafos:
+    _t = p.text.strip()
+    if len(_t.split()) < 20:
+        continue
+    if _t in _vistos:
+        _repes.append(_t[:60])
+    _vistos.add(_t)
+check('párrafos largos duplicados', len(_repes), 0)
+for _r in _repes:
+    print(f'      {_r}…')
+    fallos.append(f'párrafo duplicado: {_r}')
+
+# Repetición DENTRO de un párrafo: la pasada 101 reescribió el primer run con el texto
+# completo y dejó los siguientes con la cola original, de modo que la cola quedó dos
+# veces. No lo veía la comprobación anterior, que compara párrafos entre sí.
+_internos = []
+for p in parrafos:
+    _t = p.text
+    if len(_t) < 160:
+        continue
+    _frag = _t[40:110]
+    if _frag.strip() and _t.count(_frag) > 1:
+        _internos.append(_t[:60])
+check('párrafos con texto repetido adentro', len(_internos), 0)
+for _r in _internos:
+    print(f'      {_r}…')
+    fallos.append(f'repetición interna: {_r}')
+
+# La comprobación anterior mira el fragmento [40:110] del párrafo y por eso se le escapó la
+# cola duplicada del §7.2 —144 letras repetidas al final—, que la cuarta auditoría encontró
+# leyendo. Ésta busca el sufijo más largo que ya aparezca antes en el mismo párrafo.
+_colas = []
+for p in parrafos:
+    _t = p.text.strip()
+    if len(_t) < 120:
+        continue
+    for _n in range(len(_t) // 2, 39, -1):
+        if _t.count(_t[-_n:]) > 1:
+            _colas.append(_t[-_n:][:60])
+            break
+check('párrafos que repiten su propia cola', len(_colas), 0)
+for _c in _colas:
+    print(f'      …{_c}')
+    fallos.append(f'cola repetida: {_c}')
+
+# «El el Capítulo 7»: la pasada 101 sustituyó «§6.4» con un patrón que no contemplaba la
+# mayúscula del artículo, y donde la oración empezaba «El §6.4…» quedaron los dos artículos.
+_dobles = []
+for _t in [p.text for p in parrafos] + [c.text for tb in doc.tables
+                                        for f in tb.rows for c in f.cells]:
+    for _m in re.finditer(r'\b(\w{2,})\s+\1\b', _t, re.I):
+        if _m.group(1).lower() not in ('que', 'muy', 'cada', 'más'):
+            _dobles.append(_m.group(0))
+check('palabras duplicadas seguidas', len(_dobles), 0)
+for _w in _dobles:
+    print(f'      «{_w}»')
+    fallos.append(f'palabra duplicada: {_w}')
+
+# Restos de una cita amputada por el renumerado: «…en el visual.4).», «(Anexo E.4).1.4.»
+_restos = []
+for _t in [p.text for p in parrafos]:
+    for _m in re.finditer(r'(?<=[a-záéíóúñ)])\.\d+(?:\.\d+)*\)?\.(?=\s|$)', _t):
+        _restos.append(_t[max(0, _m.start() - 40):_m.end()])
+check('fragmentos de cita amputados', len(_restos), 0)
+for _r in _restos:
+    print(f'      …{_r}')
+    fallos.append(f'fragmento amputado: {_r}')
+
+# Un encabezado no lleva remisiones adentro: además de leerse mal, viaja al índice.
+_enc_remision = [p.text.strip() for p in parrafos
+                 if p.style.name.startswith('Heading')
+                 and re.search(r'§|\bCapítulo \d|\(Anexo ', p.text)]
+check('encabezados con una remisión adentro', len(_enc_remision), 0)
+for _h in _enc_remision:
+    print(f'      {_h}')
+    fallos.append(f'encabezado con remisión: {_h}')
+
+# Lo que vive dentro de un control de contenido (w:sdt) es INVISIBLE para todo lo
+# demás de este archivo: `doc.paragraphs` no entra ahí. El documento arrastraba por eso
+# un índice general duplicado —el bloque que Word inserta desde Referencias— de 137
+# párrafos, detrás del «Índice de contenidos», y ningún verificador lo vio en veinte
+# pasadas. Esta comprobación mira el XML crudo, que es donde sí está.
+import zipfile  # noqa: E402  (local a esta comprobación)
+
+_xml = zipfile.ZipFile(RUTA).read('word/document.xml').decode('utf8')
+_toc_generales = len(re.findall(r'TOC \\o', _xml))
+check('índices generales (campos TOC \\o)', _toc_generales, 1)
+if _toc_generales != 1:
+    fallos.append(f'hay {_toc_generales} índices generales; debería haber uno')
+_sdt_indices = len(re.findall(r'w:val="Table of Contents"', _xml))
+check('índices dentro de un control de contenido', _sdt_indices, 0)
+if _sdt_indices:
+    fallos.append('un índice vive dentro de un w:sdt: los verificadores no lo ven')
+def _parrafos_de(tabla):
+    """Los párrafos de una tabla, incluidas las anidadas."""
+    n = 0
+    for _fila in tabla.rows:
+        for _celda in _fila.cells:
+            n += len(_celda.paragraphs)
+            for _sub in _celda.tables:
+                n += _parrafos_de(_sub)
+    return n
+
+
+_alcanzables = len(doc.paragraphs) + sum(_parrafos_de(t) for t in doc.tables)
+_en_xml = len(re.findall(r'<w:p[ >]', _xml))
+check('párrafos que los verificadores no alcanzan a ver', _en_xml - _alcanzables, 0)
+if _en_xml != _alcanzables:
+    fallos.append(f'{_en_xml - _alcanzables} párrafos fuera del alcance de docx '
+                  f'(control de contenido o cuadro de texto)')
+
+bloque('remisiones a sección sin el signo §')
+_celdas_todas = '\n'.join(c.text for tb in doc.tables for row in tb.rows for c in row.cells)
+_todo_txt = texto + '\n' + _celdas_todas
+# Dos formas: «las secciones 4.3 …» y «lo declarado en 3.4.3». La segunda se escapó del
+# renumerado de la pasada 90 en seis lugares, y en dos apuntaba ya a otro capítulo.
+_sin_signo = re.findall(r'(?:secciones?|apartados?)\s+\d\.\d', _todo_txt, re.I)
+_sin_signo += [m.group(0) for m in re.finditer(
+    r'\b(?:en|del|desde|hasta)\s+[1-9]\.\d(?:\.\d)?\b(?!\s*\()(?!\d)', _todo_txt)
+    if 'Tabla' not in m.group(0) and 'Figura' not in m.group(0)]
+check('remisiones a sección sin §', len(_sin_signo), 0)
+for s in _sin_signo:
+    print(f'      {s}')
+
+# ═══════════════════════════════════ transcripciones del workflow desplegado
+# El documento cita textualmente las seis expresiones del Anexo B.4 y la guarda del
+# corte de HU13. Se habían escrito a mano y las cuatro menciones del inventario de
+# símbolos y la guarda divergían del nodo. Acá se exige que cada cadena que el
+# documento transcribe sea, carácter por carácter, la que emite
+# `emitir_transcripciones.py` desde el extracto del workflow. Si alguien vuelve a
+# tocar el detector sin regenerar el extracto, o regenera el extracto sin corregir el
+# documento, esto falla.
+bloque('transcripciones del código desplegado')
+_trans = Path(__file__).parent / 'Transcripciones.json'
+if not _trans.exists():
+    fallos.append('falta Transcripciones.json (python emitir_transcripciones.py --json)')
+    print('   *** falta Transcripciones.json')
+else:
+    _t = json.loads(_trans.read_text(encoding='utf-8'))
+    # las tablas no entran en `texto`, y la guarda de HU13 vive en una celda
+    _celdas = '\n'.join(c.text for tb in doc.tables for row in tb.rows for c in row.cells)
+    _todo = texto + '\n' + _celdas
+    _esperadas = [(f'expresión R{i}', p) for i, p in enumerate(_t['patrones'], 1)]
+    _esperadas.append(('guarda de HU13', _t['guarda_hu13']))
+    for _etiqueta, _cadena in _esperadas:
+        check(f'{_etiqueta} transcrita verbatim', 1 if _cadena in _todo else 0, 1)
+
+# ═════════════════════════════════════ la Tabla 13 contra lo que dice la prosa
+# El §5.1 y el Anexo E.7 resumen el inventario de umbrales en dos recuentos —el grado
+# de verificación y el resultado—, y los dos tienen que cerrar en el número de filas de
+# la tabla. Antes de la pasada 86 sumaban 12 sobre 11, porque la fila de la vigencia del
+# token de HU2 se contaba a la vez como medida y como no verificada. Esto lo detecta.
+bloque('Tabla 13: los dos recuentos cierran')
+_t13 = next((t for t in doc.tables
+             if t.rows and 'Umbral declarado' in ' '.join(c.text for c in t.rows[0].cells)), None)
+if _t13 is None:
+    fallos.append('no se encontró la Tabla 13 (umbrales)')
+    print('   *** no se encontró la Tabla 13')
+else:
+    _filas = [[c.text.replace('\n', ' ').strip() for c in r.cells] for r in _t13.rows[1:]]
+    _n = len(_filas)
+
+    def _clasificar(valor, mapa):
+        v = valor.lower()
+        for clave, etiqueta in mapa:
+            if clave in v:
+                return etiqueta
+        return 'otro'
+
+    _grado = Counter(_clasificar(f[2], [('indirecta', 'indirecta'), ('medición', 'medición'),
+                                        ('configuración', 'configuración'),
+                                        ('no verificado', 'sin evidencia')]) for f in _filas)
+    _res = Counter(_clasificar(f[5], [('no verificado', 'sin verificar'), ('parcial', 'parcial'),
+                                      ('sí', 'cumple'), ('no', 'no cumple'), ('—', 'sin verificar')])
+                   for f in _filas)
+    check('filas de la Tabla 13', _n, 11)
+    check('grado: medición / indirecta / configuración / sin evidencia',
+          f"{_grado['medición']}/{_grado['indirecta']}/{_grado['configuración']}/{_grado['sin evidencia']}",
+          '4/1/4/2')
+    check('resultado: cumple / parcial / no cumple / sin verificar',
+          f"{_res['cumple']}/{_res['parcial']}/{_res['no cumple']}/{_res['sin verificar']}",
+          '5/2/1/3')
+    check('el grado suma el total de filas', sum(_grado.values()), _n)
+    check('el resultado suma el total de filas', sum(_res.values()), _n)
 
 # ════════════════════════════════════════════════════════════ cierre
 print()
