@@ -12,9 +12,9 @@ personas con un plazo—, y por eso se la llama **revisión estructurada con reg
 descartes**, que es lo que efectivamente va a ser.
 
 **Fecha:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026, fase 1 completa;
-25 de septiembre, fase 2 en curso (67 de 134 decididos). **Estado:** los 596 candidatos
+25 de septiembre, fase 2 en curso (86 de 134 decididos). **Estado:** los 596 candidatos
 tienen `Decision` de fase 1 en `Candidatos_bibliografia.csv` —134 dudoso originales, 462
-descartar—; la fase 2 lleva **41 incluir, 26 descartar y 67 dudoso** sobre esos 134. Ver el
+descartar—; la fase 2 lleva **53 incluir, 33 descartar y 48 dudoso** sobre esos 134. Ver el
 detalle por eje y las salvedades en el §5.
 
 ---
@@ -164,14 +164,16 @@ texto completo: sigue sin decidirse `incluir` para ninguno de los nueve, tal com
 `dudoso` a texto completo y decidir `incluir` o `descartar` con motivo de fase 2. Es trabajo
 de lectura real, no de tamizado por título.
 
-## 5b · Fase 2 en curso — 25-09-2026, 67 de 134 decididos
+## 5b · Fase 2 en curso — 25-09-2026, 86 de 134 decididos
 
-Se empezó por los ejes que más sostienen la tesis: `compliance` (§2.4), `moderacion-llm`
-(§1.6.0, §8.2) e `interfaz-conversacional` (§7.1, el contraste con McTear et al. 2016).
-**Resultado acumulado: 41 `incluir`, 26 `descartar` de fase 2, 2 siguen `dudoso`** —Yang et
-al. (*Computers in Human Behavior* 2026, eje moderación) y Gyeong Kim et al. (*Journal of
-Business Research* 2025, eje interfaz), los dos sin un resumen confiable en ninguna fuente
-consultada; quedan pendientes hasta poder verificarlos, no se fuerza la decisión sin base.
+Se avanzó sobre `compliance` (§2.4), `moderacion-llm` (§1.6.0, §8.2), `interfaz-
+conversacional` (§7.1) e `ia-generativa-marketing` (§1.3, §2.2). **Resultado acumulado: 53
+`incluir`, 33 `descartar` de fase 2, 2 siguen `dudoso`** —Yang et al. (*Computers in Human
+Behavior* 2026, eje moderación) y Gyeong Kim et al. (*Journal of Business Research* 2025, eje
+interfaz), los dos sin un resumen confiable en ninguna fuente consultada; quedan pendientes
+hasta poder verificarlos, no se fuerza la decisión sin base. En `ia-generativa-marketing` se
+resolvieron de paso Cillo, Russo y Wessel —los tres ya preidentificados desde el §5, que
+venían marcados `dudoso` sin decisión final—.
 
 De `interfaz-conversacional` (35 candidatos) resultaron **20 `incluir`, 14 `descartar`, 1
 `dudoso`** — el eje con mejor rendimiento hasta ahora, consistente con que la búsqueda ahí
