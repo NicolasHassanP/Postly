@@ -92,3 +92,11 @@ avance/instrumentos/OE2_*_respuestas.csv
 # armar_material_estudio4.mjs a partir de éstos, no lleva identidad y SÍ se versiona.
 avance/instrumentos/OE2_estudio4_material.csv
 avance/instrumentos/OE2_estudio4_clave.csv
+
+# Las 8 fotos del Estudio 1 son arte de catálogo oficial de la marca (confirmado por Nico el
+# 24-09-2026), no material propio del equipo ni de las consultoras: es el mismo problema de
+# licencia que C-08 (avance/PLAN-remediacion-auditoria-10.md) ya declara sin resolver para
+# "Pautas Mary Kay para el uso en las Redes Sociales.pdf" -salvo que acá SÍ se puede evitar
+# redistribuirlo, tratándolo como avance/evidencia/ (abajo): nunca al repo público. El texto
+# generado (OE2_copys_material.csv) no tiene este problema y sí se versiona.
+avance/ImagenesEstudio1/
