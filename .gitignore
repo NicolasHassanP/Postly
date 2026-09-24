@@ -66,3 +66,23 @@ avance/_*.docx
 avance/_bak_csv/
 avance/_figuras/
 avance/_*.cmd
+
+# === El paquete del deposito: NO va al repo publico ===
+# deposito/ lo arma armar_deposito.py desde evidencia/ (ya ignorada mas arriba) y su
+# nivel restringido lleva arte de catalogo de la marca y contenido redactado por las
+# participantes. Ese nivel existe justamente para entregarse bajo solicitud y no en
+# abierto: versionarlo aca lo publicaria igual, porque el repo es publico.
+avance/deposito/
+# Transcripciones.json SI se versiona, a proposito: no lleva material de terceros —son
+# las seis expresiones y la guarda de HU13, codigo propio— y es lo que deja correr
+# verificar_documento.py desde un clon, sin la carpeta de evidencia.
+
+# Datos de participantes de la evaluación ampliada. Los protocolos, los cuestionarios y los
+# scripts SÍ se versionan —son el instrumento, y su valor es que se pueda auditar—, pero las
+# planillas con las respuestas no: aunque estén seudonimizadas como C1…C24, son datos de
+# personas identificables y este repositorio es público. Su lugar es el registro restringido
+# del depósito, como el corpus de campo del piloto.
+avance/instrumentos/Cronometraje_datos_v2.csv
+avance/instrumentos/Reclutamiento_v2.csv
+avance/instrumentos/TAM_respuestas_v2.csv
+avance/instrumentos/OE2_*_respuestas.csv

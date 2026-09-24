@@ -20,7 +20,14 @@ en **Google Sheets**.
 ✅ **HU13** (normalización de video / FFmpeg) — *validada e2e el 2026-07-02*: video → FFmpeg (`child_process` en Code node) fuerza 1080×1920/H.264/≤60s (pregunta si recortar cuando dura +60s) → frame → Gemini 3 copys (editables) → **Reel en IG** (con polling del contenedor) **+ video en FB**.
 ✅ **HU14** (métricas) — *validada e2e el 2026-06-30: Cron 24h trae likes/comentarios de Graph API, persiste en Sheets y se ven en Mi Agenda*.
 
-**Extras (más allá de las 14 HU):** publicación en **Facebook** (imagen/carrusel/video), **sincronización desde Instagram** al abrir Mi Agenda, **métricas de ambas redes** en las tarjetas (`📷 IG` · `📘 FB`), **anti-duplicación** (dedup por callback_id + candado atómico `editMessageText` para carruseles), y **compliance de precios reforzado** (detecta `$`, "100 pesos", "cuesta X", "oferta", "2x1", %off… en los **4** flujos que publican, al publicar) + CTA de contacto obligatorio en los 3 copys.
+**Extras (más allá de las 14 HU):** publicación en **Facebook** (imagen/carrusel/video), **sincronización desde Instagram** al abrir Mi Agenda, **métricas de ambas redes** en las tarjetas (`📷 IG` · `📘 FB`), **anti-duplicación** (dedup por callback_id + candado atómico `editMessageText` para carruseles), y **compliance de precios reforzado** (detecta `$`, "100 pesos", "cuesta X", "oferta", "2x1", %off… en los **4** flujos que publican, al publicar).
+
+> **2026-09-19: el CTA obligatorio se RETIRÓ de los 4 prompts.** Antes, la regla 4 exigía que
+> los 3 copys cerraran con una invitación a contactar. Las Pautas de la marca consideran
+> comercial todo mensaje que invite a comprar o a contactar, de modo que el generador producía,
+> en cada publicación de feed, justo la infracción que el Centinela existe para evitar (§5.4 de
+> la tesis). `scripts/fix-cta-mensaje-comercial.mjs` invierte la regla. Medido en el Anexo E.12:
+> **15/15 opciones con solicitud de contacto antes, 0/15 después.**
 
 ✅ **Análisis de valores límite del Centinela** (2026-09-14): 25 casos diseñados regla por regla sobre el detector
 determinista expusieron 4 defectos corregidos (plurales, `precio es N`, espaciado, y la **divergencia de HU10**) y
@@ -54,7 +61,7 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 - Tras editar por API el versionId cambia → **refrescar (F5)** la pestaña de n8n antes de tocarla.
 
 ### Workflows (IDs en la instancia LOCAL, que es la que se usa)
-- `VOgbHGLELJfRgVO5` — **"Postly - Entrega Final Sprint 1 v2"** (principal, 185 nodos, ACTIVO). NO se llama "main".
+- `VOgbHGLELJfRgVO5` — **"Postly - Entrega Final Sprint 1 v2"** (principal, **195 nodos**, ACTIVO). NO se llama "main".
 - `vy60xNtAvcVKRdAx` — "Postly - HU2 OAuth Callback" (endpoint `/oauth-callback`, ACTIVO).
 - `6tnvgjAZT6MajxcU` — "Postly - Programador" (Cron cada 5 min, HU10). **Inactivo a propósito:** publica de
   verdad, y activarlo con filas pendientes de fecha pasada publica de inmediato. Revisar la hoja antes.
