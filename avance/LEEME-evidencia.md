@@ -1,7 +1,7 @@
-# evidencia/ — datos crudos y scripts de los análisis del Capítulo 5
+# evidencia/ — datos crudos y scripts de los análisis del Capítulo 6
 
 Esta carpeta es el material complementario que el Anexo E del documento nombra. Está
-para que las cifras del Capítulo 5 puedan verificarse contra el dato crudo, no para que
+para que las cifras del Capítulo 6 puedan verificarse contra el dato crudo, no para que
 se confíe en ellas.
 
 ## Requisitos
@@ -16,10 +16,10 @@ Node.js 18 o posterior. Sin dependencias externas: los scripts sólo usan `node:
 | Tabla 5 — contenido real y κ de Cohen (n = 29) | `node run_compliance_field.mjs` |
 | Tabla 6 y Tabla 10 — valores límite, antes | `node run_compliance_text.mjs Casos_Compliance_Limite.csv --v1` |
 | Tabla 6 y Tabla 10 — valores límite, después | `node run_compliance_text.mjs Casos_Compliance_Limite.csv` |
-| §5.1 y E.1.4 — divergencia del flujo programado | `node run_compliance_hu10.mjs` |
+| §6.1 y E.1.4 — divergencia del flujo programado | `node run_compliance_hu10.mjs` |
 | Tabla 7 — cronometraje, prueba t y contraste del umbral del 70 % | `node run_cronometraje.mjs` |
 | Tabla 8 — TAM y α de Cronbach | `node run_tam.mjs` |
-| §5.1 — representatividad del conjunto principal contra el corpus real | `node run_representatividad.mjs` |
+| §6.1 — representatividad del conjunto principal contra el corpus real | `node run_representatividad.mjs` |
 | E.12 — el llamado a la acción antes y después de la corrección | `node run_cta_generacion.mjs --rescorar` (re-puntúa los textos guardados; no consume cuota) |
 | E.2 — sensibilidad del cronometraje a la asimetría de la tarea | `node run_sensibilidad_cronometraje.mjs` |
 | Tabla 11 — baterías de validación técnica | `node run_baterias.mjs` (requiere n8n en marcha; la fila `B1b` consume cuota del modelo) |
@@ -27,6 +27,7 @@ Node.js 18 o posterior. Sin dependencias externas: los scripts sólo usan `node:
 | Tablas 12 y 14 — canal de imagen (HU8) | `GEMINI_API_KEY=… node run_compliance_vision.mjs` |
 | Tabla 13 — umbrales de las Historias de Usuario | `node run_umbrales.mjs` (requiere n8n en marcha) |
 | E.8 — variabilidad entre corridas | `GEMINI_API_KEY=… node run_compliance_vision.mjs casos_imagen_corrida2` |
+| **todas las tablas — recomputo desde el dato crudo** | `python verificar_csv.py` (no consume cuota ni necesita n8n; exige además que cada CSV se pueda leer con un parser estándar) |
 
 `run_compliance_vision.mjs` escribe un resultado por caso y, al terminar, imprime la
 matriz de los 29. Las dos tablas del documento son dos cortes de ese mismo archivo, y
@@ -35,7 +36,7 @@ habituales; la **Tabla 14** son `V21`–`V28` más `R01`, los casos de legibilid
 Sobre un conjunto ya puntuado el script no gasta cuota: saltea los casos con veredicto.
 
 El conmutador `--v1` corre el conjunto de expresiones regulares anterior a la corrección
-descrita en el §5.1 —el que produjo las Tablas 3, 4 y 5—; sin el conmutador corre el
+descrita en el §6.1 —el que produjo las Tablas 3, 4 y 5—; sin el conmutador corre el
 conjunto corregido y unificado. Ambos están transcritos verbatim del nodo desplegado.
 
 ## Qué contiene cada archivo
@@ -55,10 +56,10 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   columna `Resultado_sistema`.
 - `run_cronometraje.mjs` reporta **cuatro** estadísticos y conviene no confundirlos. Los
   dos primeros contrastan H₀ «reducción = 0», es decir que Postly no reduce el tiempo: son
-  los que el §5.1 reporta como `t(11) = 14,21` y `t(2) = 9,15`. Los dos últimos contrastan
+  los que el §6.1 reporta como `t(11) = 14,21` y `t(2) = 9,15`. Los dos últimos contrastan
   H₀ «reducción = 70 %», que es lo que la hipótesis del §4.2 afirma, y dan `t(2) = 0,91`
   (p unilateral 0,230) y `t(11) = 1,52` (p 0,078): **el margen por encima del umbral no es
-  estadísticamente distinguible** con tres unidades independientes. El §5.1 reporta las dos
+  estadísticamente distinguible** con tres unidades independientes. El §6.1 reporta las dos
   cosas por separado. La p de la t se calcula con la beta incompleta regularizada, y el
   script se autocomprueba contra la forma cerrada disponible para df = 2. Desde la sexta
   auditoría reporta además el **intervalo de confianza del 95 %** de la reducción media y el
@@ -91,7 +92,7 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   sino cuánto tendría que haber durado para invertir la conclusión sobre el umbral.
 
 - `run_representatividad.mjs` + `Representatividad_resultados.csv` — el contraste de la
-  afirmación de representatividad del §5.1. Clasifica cada caso infractor **de texto** por la
+  afirmación de representatividad del §6.1. Clasifica cada caso infractor **de texto** por la
   forma en que expresa el precio o la promoción, con una taxonomía léxica de seis categorías
   ajena al detector: describe cómo está escrito el caso, no si el sistema lo bloquea. A cada
   caso se le asigna la primera categoría que coincide, ordenadas de la más explícita a la
@@ -134,7 +135,7 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   una imagen: toma la que ya está guardada en la agenda, y por Postly nunca puede entrar una
   con precio. La vía es la real: la pieza se publica a mano en Instagram, la sincronización
   la trae a la hoja al abrir Mi Agenda y desde ahí se la recicla. Antes de la corrección que
-  el §5.1 documenta, ese camino no ejecutaba ninguna detección.
+  el §6.1 documenta, ese camino no ejecutaba ninguna detección.
 
 - `Cronometraje_datos.csv` — los 12 pares de tiempos (mm:ss), tres participantes.
 - `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — la fuente normativa del
@@ -181,7 +182,7 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
 
 - `B1b_desglose.csv` — una fila por repetición de la batería de integración multimodal,
   con el total, lo que tardó cada una de las dos llamadas al modelo y lo que tardó el
-  resto de la cadena. Es lo que sostiene la afirmación del §5.1 sobre dónde está la
+  resto de la cadena. Es lo que sostiene la afirmación del §6.1 sobre dónde está la
   dispersión. Lo produce `_desglose_b1b.mjs`.
 
 - `Umbrales_HU_resultados.csv` — una advertencia primero, del mismo tipo que la de
@@ -202,7 +203,7 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   criterio pide. El rótulo de la fila, además, enuncia el umbral en los términos de lo
   observado y no en los del criterio. Igual que con HU6, el archivo se deja como lo emitió
   la corrida y la divergencia se declara acá: son 7 de 11 umbrales verificados y 4 sin
-  verificar, como dicen el §5.1, la Tabla 13, el Anexo A y el Resumen.
+  verificar, como dicen el §6.1, la Tabla 13, el Anexo A y el Resumen.
 
 - `Umbrales_HU_resultados.csv` — los nueve umbrales numéricos que fijan las Historias
   de Usuario, con el grado de verificación de cada uno (`medición`, `configuración` o
@@ -212,6 +213,16 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   de modo que no consume cuota de ningún modelo y puede reejecutarse sin costo.
 
 ### Scripts auxiliares (no producen ninguna tabla)
+
+- `verificar_csv.py` — el contrachequeo del lector. Carga cada archivo de resultados con
+  `csv.DictReader`, exige que toda fila tenga los campos de su cabecera y recomputa contra su
+  valor publicado cada cifra del Capítulo 6: las cuatro matrices del canal textual, los dos
+  paneles de la Tabla 5, las Tablas 12 y 14, el cronometraje con sus tres estadísticos, el TAM
+  y el desglose de HU12. Sale con código 1 ante cualquier divergencia. Existe porque dos
+  archivos habían quedado mal formados —la fila `V20` del conjunto de imagen y los decimales
+  de la tabla de sensibilidad, los dos por una coma sin comillar— y la matriz que un tercero
+  obtenía de ellos no era la publicada. **Los decimales van con coma: todo campo que la
+  contenga tiene que ir entrecomillado.**
 
 - `_extraer_foto.mjs` — toma de una ejecución real el arreglo `photo` que Telegram
   entregó al disparador y lo guarda en `_foto_patron.json`. Un `file_id` de Telegram es
@@ -237,7 +248,7 @@ conjunto corregido y unificado. Ambos están transcritos verbatim del nodo despl
   regulares a los cuatro nodos que ejecutan el filtro en el workflow (HU7/HU9, el carrusel
   de HU5, el programador de HU10 y el video de HU13). Es idempotente y, sin `--deploy`,
   sólo reescribe el JSON versionado del workflow sin tocar la instancia. Es el script que
-  cierra la divergencia entre flujos descrita en el §5.1 y el Anexo E.1.4.
+  cierra la divergencia entre flujos descrita en el §6.1 y el Anexo E.1.4.
 - `armar_casos_imagen.py` — compone las placas, etiquetas, marcas de agua y textos
   promocionales de los diez casos infractores `V01`–`V10` sobre el material gráfico de
   base, y escribe el manifiesto `Casos_Compliance_Imagen.csv`. Permite auditar cómo se
