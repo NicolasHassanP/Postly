@@ -106,9 +106,11 @@ Crear y publicar **una publicación de feed en Instagram y Facebook** para un pr
 cumpliendo las normas de la marca: sin precio en el copy ni en la imagen, y con la firma de
 identidad al pie.
 
-Cada participante hace **4 publicaciones: 2 de imagen única y 2 de carrusel**, en ambas
-condiciones. El tipo se registra en la planilla, dato que el piloto no tuvo y que le impidió
-ponderar la asimetría del carrusel.
+Cada participante hace **4 publicaciones: 2 de imagen única y 2 de carrusel de 2 imágenes**,
+en ambas condiciones. El tamaño del carrusel se fija en 2 —declarado el 24-09-2026, antes de
+la primera sesión— para que las 8 participantes hagan la misma tarea; el piloto no lo tuvo
+fijado y eso le impidió ponderar la asimetría del carrusel. El tipo se registra en la
+planilla.
 
 El material gráfico se entrega ya elegido. La búsqueda o creación de contenido no entra en
 ninguna condición, igual que en el piloto, para que el tramo medido sea el mismo.
