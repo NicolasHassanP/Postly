@@ -12,9 +12,9 @@ personas con un plazo—, y por eso se la llama **revisión estructurada con reg
 descartes**, que es lo que efectivamente va a ser.
 
 **Fecha:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026, fase 1 completa;
-25 de septiembre, fase 2 en curso (32 de 134 decididos). **Estado:** los 596 candidatos
+25 de septiembre, fase 2 en curso (67 de 134 decididos). **Estado:** los 596 candidatos
 tienen `Decision` de fase 1 en `Candidatos_bibliografia.csv` —134 dudoso originales, 462
-descartar—; la fase 2 lleva **21 incluir, 11 descartar y 102 dudoso** sobre esos 134. Ver el
+descartar—; la fase 2 lleva **41 incluir, 26 descartar y 67 dudoso** sobre esos 134. Ver el
 detalle por eje y las salvedades en el §5.
 
 ---
@@ -164,12 +164,21 @@ texto completo: sigue sin decidirse `incluir` para ninguno de los nueve, tal com
 `dudoso` a texto completo y decidir `incluir` o `descartar` con motivo de fase 2. Es trabajo
 de lectura real, no de tamizado por título.
 
-## 5b · Fase 2 en curso — 25-09-2026, 32 de 134 decididos
+## 5b · Fase 2 en curso — 25-09-2026, 67 de 134 decididos
 
-Se empezó por los dos ejes que sostienen el aporte central de la tesis: `compliance` (§2.4)
-y `moderacion-llm` (§1.6.0, §8.2). **Resultado: 21 `incluir`, 11 `descartar`, 1 sigue
-`dudoso`** (Yang et al., *Computers in Human Behavior* 2026 — no se consiguió un resumen
-confiable en Crossref, OpenAlex ni por búsqueda; queda pendiente hasta poder verificarlo).
+Se empezó por los ejes que más sostienen la tesis: `compliance` (§2.4), `moderacion-llm`
+(§1.6.0, §8.2) e `interfaz-conversacional` (§7.1, el contraste con McTear et al. 2016).
+**Resultado acumulado: 41 `incluir`, 26 `descartar` de fase 2, 2 siguen `dudoso`** —Yang et
+al. (*Computers in Human Behavior* 2026, eje moderación) y Gyeong Kim et al. (*Journal of
+Business Research* 2025, eje interfaz), los dos sin un resumen confiable en ninguna fuente
+consultada; quedan pendientes hasta poder verificarlos, no se fuerza la decisión sin base.
+
+De `interfaz-conversacional` (35 candidatos) resultaron **20 `incluir`, 14 `descartar`, 1
+`dudoso`** — el eje con mejor rendimiento hasta ahora, consistente con que la búsqueda ahí
+trajo mucho menos ruido léxico que "compliance" o "moderación" (no colisiona con un
+significado estadístico o técnico distinto). El detalle fila por fila, con el motivo de
+cada decisión, está en `Candidatos_bibliografia.csv` —es el registro real, tal como pide el
+§3; esta sección resume, no reemplaza esa planilla.
 
 **Salvedad metodológica, para que quede escrita y no se dé por sentado algo que no pasó.**
 El §3 pide leer el **texto completo** en fase 2. Lo que se hizo acá fue leer el **resumen**
@@ -213,9 +222,9 @@ Wang/GDPR-Ad (los ocho de `compliance`); Wang/HumanFeedback, Möhlmann et al., O
 hueco necesita —cumplimiento de un estándar técnico, gobernanza algorítmica, impacto
 económico, sesgo de género— y no un mecanismo técnico de verificación o moderación.
 
-**Quedan 102 dudoso** en los otros seis ejes (interfaz-conversacional 35, ia-generativa-
-marketing 20, aceptación-tecnológica 15, bajo-código 12, multimodal 10, microemprendimiento
-9), sin tocar todavía.
+**Quedan 68 dudoso** en los cinco ejes restantes (ia-generativa-marketing 20,
+aceptación-tecnológica 15, bajo-código 12, multimodal 10, microemprendimiento 9, más los 2
+que quedaron sin resumen confiable en los ejes ya trabajados), sin tocar todavía.
 
 ## 6 · Qué mueve esto, y qué no
 
@@ -224,13 +233,12 @@ de intención: **596 candidatos recuperados, 462 descartados en fase 1 con su mo
 registrado, 134 pendientes de fase 2**. Eso es procedimiento y registro, que es lo que el
 apartado no tenía.
 
-Con los 21 `incluir` de fase 2 (§5b), la mediana bibliográfica **todavía no bajó de verdad**
+Con los 41 `incluir` de fase 2 (§5b), la mediana bibliográfica **todavía no bajó de verdad**
 —no se citó ninguno todavía, y la salvedad metodológica del §5b importa acá: son candidatos
 verificados por resumen, pendientes de la lectura completa antes de citarse—, pero ya hay un
-número concreto en vez de una promesa: los 21 son de 2023 en adelante (la mitad, de
-2025-2026), así que si la lectura completa los confirma, moverían la mediana de una fuente
-más que la duplican. Con 102 `dudoso` todavía sin tocar en los otros seis ejes, es razonable
-esperar que ese número crezca.
+número concreto en vez de una promesa: los 41 son de 2023 en adelante (más de la mitad, de
+2025-2026), así que si la lectura completa los confirma, moverían la mediana muy por encima
+de 2013. Con 68 `dudoso` todavía sin tocar, es razonable esperar que ese número siga creciendo.
 
 No mueve una tercera cosa. Una revisión estructurada dentro de veinte revistas sigue sin ser
 una revisión sistemática con dos revisores y protocolo registrado —el §4 de este documento ya
