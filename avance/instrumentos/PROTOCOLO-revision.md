@@ -12,10 +12,11 @@ personas con un plazo—, y por eso se la llama **revisión estructurada con reg
 descartes**, que es lo que efectivamente va a ser.
 
 **Fecha:** 23 de septiembre de 2026. **Revisado:** 24 de septiembre de 2026, fase 1 completa;
-25 de septiembre, fase 2 en curso (86 de 134 decididos). **Estado:** los 596 candidatos
-tienen `Decision` de fase 1 en `Candidatos_bibliografia.csv` —134 dudoso originales, 462
-descartar—; la fase 2 lleva **53 incluir, 33 descartar y 48 dudoso** sobre esos 134. Ver el
-detalle por eje y las salvedades en el §5.
+25 de septiembre, fase 2 completa sobre los 134 originales (menos 2 sin resumen verificable).
+**Estado:** los 596 candidatos tienen `Decision` en `Candidatos_bibliografia.csv` —**85
+incluir, 509 descartar (462 de fase 1 + 47 de fase 2), 2 dudoso**—. Ninguno de los 85 se cita
+todavía: fase 2 fue por resumen, no texto completo —ver la salvedad del §5b—, y esa lectura
+completa sigue pendiente antes de citar. Ver el detalle por eje en el §5 y el §5b.
 
 ---
 
@@ -164,23 +165,24 @@ texto completo: sigue sin decidirse `incluir` para ninguno de los nueve, tal com
 `dudoso` a texto completo y decidir `incluir` o `descartar` con motivo de fase 2. Es trabajo
 de lectura real, no de tamizado por título.
 
-## 5b · Fase 2 en curso — 25-09-2026, 86 de 134 decididos
+## 5b · Fase 2 — completa el 25-09-2026 sobre los 134 originales (menos 2 irresolubles)
 
-Se avanzó sobre `compliance` (§2.4), `moderacion-llm` (§1.6.0, §8.2), `interfaz-
-conversacional` (§7.1) e `ia-generativa-marketing` (§1.3, §2.2). **Resultado acumulado: 53
-`incluir`, 33 `descartar` de fase 2, 2 siguen `dudoso`** —Yang et al. (*Computers in Human
-Behavior* 2026, eje moderación) y Gyeong Kim et al. (*Journal of Business Research* 2025, eje
-interfaz), los dos sin un resumen confiable en ninguna fuente consultada; quedan pendientes
-hasta poder verificarlos, no se fuerza la decisión sin base. En `ia-generativa-marketing` se
-resolvieron de paso Cillo, Russo y Wessel —los tres ya preidentificados desde el §5, que
-venían marcados `dudoso` sin decisión final—.
+**Resultado final: 85 `incluir`, 47 `descartar` de fase 2, 2 siguen `dudoso`.** Se procesaron
+los ocho ejes. El detalle fila por fila, con el motivo de cada decisión, está en
+`Candidatos_bibliografia.csv` —es el registro real, tal como pide el §3; esta sección resume,
+no reemplaza esa planilla.
 
-De `interfaz-conversacional` (35 candidatos) resultaron **20 `incluir`, 14 `descartar`, 1
-`dudoso`** — el eje con mejor rendimiento hasta ahora, consistente con que la búsqueda ahí
-trajo mucho menos ruido léxico que "compliance" o "moderación" (no colisiona con un
-significado estadístico o técnico distinto). El detalle fila por fila, con el motivo de
-cada decisión, está en `Candidatos_bibliografia.csv` —es el registro real, tal como pide el
-§3; esta sección resume, no reemplaza esa planilla.
+| Eje | Dudoso originales | Incluir | Descartar (fase 2) |
+|---|---|---|---|
+| interfaz-conversacional | 35 | 20 | 14 |
+| ia-generativa-marketing | 20 | 12 | 8 |
+| moderacion-llm | 16 | 12 | 3 |
+| compliance | 17 | 9 | 8 |
+| aceptacion-tecnologica | 15 | 9 | 6 |
+| bajo-codigo | 12 | 9 | 3 |
+| multimodal | 10 | 9 | 1 |
+| microemprendimiento | 9 | 5 | 4 |
+| **Total** | **134** | **85** | **47** *(+2 dudoso)* |
 
 **Salvedad metodológica, para que quede escrita y no se dé por sentado algo que no pasó.**
 El §3 pide leer el **texto completo** en fase 2. Lo que se hizo acá fue leer el **resumen**
@@ -188,45 +190,39 @@ de cada candidato —vía Crossref, OpenAlex o, cuando ninguna de las dos lo ten
 directa del título—, no el artículo entero: la mayoría está detrás de paywall (ACM, IEEE,
 Elsevier, Taylor & Francis) y no hay acceso institucional desde acá. Es un estándar más alto
 que el título solo de la fase 1 —el resumen dice el problema, el método y a veces el
-hallazgo—, pero no es la fase 2 completa que el protocolo describe. Los 21 `incluir` de acá
+hallazgo—, pero no es la fase 2 completa que el protocolo describe. Los 85 `incluir` de acá
 son candidatos con fundamento real y verificable para pasar a lectura completa antes de
-citarlos en el cuerpo del texto —no se cita ninguno todavía—; no reemplazan esa lectura.
+citarlos en el cuerpo del texto —**no se cita ninguno todavía**—; no reemplazan esa lectura.
 
-| Trabajo | Revista | Motivo (resumido) |
-|---|---|---|
-| Das et al. (2026) | ACM TOSEM | multiagente LLM+RAG para verificar cumplimiento normativo de requisitos |
-| Barrientos et al. (2026) | Inf. and Software Technology | enfoque híbrido LLM+reglas ante cambios normativos |
-| Robol et al. (2026) | Inf. and Software Technology | verificación de cumplimiento de consentimiento GDPR |
-| Colombo Tosatto et al. (2026) | Inf. and Software Technology | verificación simbólica (no-LLM) en tiempo de diseño, contraste |
-| Cristina Ratiu et al. (2026) | J. of Systems and Software | verificación de cumplimiento en tiempo de EJECUCIÓN |
-| Sovrano et al. (2025) | Empirical Software Eng. | IA generativa para simplificar cumplimiento del AI Act |
-| Ayala-Rivera et al. (2024) | J. of Systems and Software | SoCo: compliance-by-design semi-automatizado para GDPR |
-| Chen et al. (2024) | Empirical Software Eng. | verificación automatizada app-vs-política declarada |
-| van Beest et al. (2023) | IEEE TSE | verificación de cumplimiento cruzando instancias de proceso |
-| Liu (2026) | Computers in Human Behavior | LLM como clasificador bajo rúbrica fija, con incertidumbre |
-| Gutierrez et al. (2026) | IJHCS | moderación de contenido generado por IA específicamente |
-| Wang et al., TORA (2026) | Decision Support Systems | reglas comunitarias explícitas incorporadas a moderación automática |
-| Domingo et al. (2026) | ACM TOCHI | diseño sensible a valores con moderadores reales sobre soporte LLM |
-| Franco et al. (2025) | ACM TWEB | de políticas hardcodeadas a moderación vía LLM —coincidencia directa— |
-| Warner et al. (2025) | IJHCS | crítica a la detección PROACTIVA de toxicidad, mismo paradigma del Centinela |
-| Lee et al. (2025) | JMIS | detección de discurso de odio vía prompting LLM multiagente |
-| Pasch (2025) | Behaviour and IT | moderación vía rechazos del LLM, 50.000 comparaciones reales |
-| Jhaver (2025) | ACM TOCHI | intervenciones graduadas (ban vs. aviso) vs. bloqueo binario |
-| Nguyen et al. (2024) | JMIS | efectos NO buscados de moderación humano-máquina híbrida |
-| Jiang et al. (2023) | ACM TOCHI | *(ya preidentificado, §5)* — framework de tradeoff, 86 estudios |
-| Wang (2023) | Computers in Human Behavior | percepción de usuarios sobre moderación basada en IA |
+**Los dos que siguen `dudoso`**, sin resumen confiable en Crossref, OpenAlex ni búsqueda
+directa: Yang (*Computers in Human Behavior* 2026, eje moderación) y Gyeong Kim et al.
+(*Journal of Business Research* 2025, eje interfaz). No se fuerza la decisión sin base.
 
-Los 11 `descartar` de fase 2, con motivo registrado en el CSV: Vilela et al., Wang/RuleAgent,
-Zaggl et al., Angelogianni et al., Barzolevskaia et al., Westphal et al., Vollenwyder et al.,
-Wang/GDPR-Ad (los ocho de `compliance`); Wang/HumanFeedback, Möhlmann et al., Olson et al.
-(los tres de `moderacion-llm`). El patrón que se repite: la palabra clave de la búsqueda
-("compliance", "moderation") aparece en el título con un significado distinto al que el
-hueco necesita —cumplimiento de un estándar técnico, gobernanza algorítmica, impacto
-económico, sesgo de género— y no un mecanismo técnico de verificación o moderación.
+**El duplicado de Russo se resolvió.** Los dos DOI (`10.1145/3680471` y `10.1145/3652154`)
+no son el mismo trabajo indexado dos veces ni un artículo con su reporte RCR: son dos
+estudios empíricos distintos sobre adopción de IA generativa en ingeniería de software —el
+segundo, con una encuesta propia a 100 ingenieros y metodología mixta—. Los dos quedan
+`incluir`, para el mismo apartado (§2.1, §3.3).
 
-**Quedan 68 dudoso** en los cinco ejes restantes (ia-generativa-marketing 20,
-aceptación-tecnológica 15, bajo-código 12, multimodal 10, microemprendimiento 9, más los 2
-que quedaron sin resumen confiable en los ejes ya trabajados), sin tocar todavía.
+**El patrón que más se repitió en los descartes de fase 2:** la palabra clave de la búsqueda
+aparece en el título con un significado distinto al que el hueco necesita —"compliance" como
+conformidad técnica de un protocolo o impacto económico del GDPR, "moderation" como variable
+moderadora estadística o gobernanza algorítmica, "acceptance" como aceptación de una práctica
+de ingeniería en vez de un producto— y no como el mecanismo técnico que cada eje busca. Es la
+misma advertencia del §1 sobre el ruido léxico, confirmada ahora con lectura real y no sólo
+con la sospecha del título.
+
+**El eje `interfaz-conversacional` fue el de mejor rendimiento** (20 de 35, 57%), consistente
+con que su búsqueda no colisiona con un significado estadístico o técnico ajeno como sí les
+pasa a "compliance" o "moderación". El de peor rendimiento en fase 2 fue
+`microemprendimiento` (5 de 9) —que además fue el eje con menos `dudoso` desde la fase 1 por
+la razón ya diagnosticada en el §5—.
+
+**Dos hallazgos de sector para citar sin dudar:** Liu et al. (2026, JAMS), sobre posturas de
+streamer y ventas de *revendedores de micro y pequeña empresa* en livestreaming —el modelo de
+venta directa en formato digital, análogo directo al de las Consultoras de Belleza
+Independiente—; y Sufyan et al. (2023, JBR), sobre emprendimiento digital transnacional desde
+una perspectiva micro-fundacional.
 
 ## 6 · Qué mueve esto, y qué no
 
@@ -235,13 +231,24 @@ de intención: **596 candidatos recuperados, 462 descartados en fase 1 con su mo
 registrado, 134 pendientes de fase 2**. Eso es procedimiento y registro, que es lo que el
 apartado no tenía.
 
-Con los 41 `incluir` de fase 2 (§5b), la mediana bibliográfica **todavía no bajó de verdad**
-—no se citó ninguno todavía, y la salvedad metodológica del §5b importa acá: son candidatos
-verificados por resumen, pendientes de la lectura completa antes de citarse—, pero ya hay un
-número concreto en vez de una promesa: los 41 son de 2023 en adelante (más de la mitad, de
-2025-2026), así que si la lectura completa los confirma, moverían la mediana muy por encima
-de 2013. Con 68 `dudoso` todavía sin tocar, es razonable esperar que ese número siga creciendo.
+Con la fase 2 completa (§5b), hay **85 `incluir`** —la mediana bibliográfica **todavía no
+bajó de verdad**, porque no se citó ninguno todavía y la salvedad metodológica del §5b importa
+acá: son candidatos verificados por resumen, pendientes de la lectura completa antes de
+citarse—, pero ya hay un número concreto en vez de una promesa: los 85 son de 2023 en
+adelante, más de la mitad de 2025-2026, así que si la lectura completa los confirma,
+moverían la mediana muy por encima de 2013. Sólo quedan 2 `dudoso` sin resolver por falta de
+acceso a un resumen confiable —no por falta de tiempo—, así que este número no va a crecer
+mucho más sin volver a intentar esos dos casos puntuales.
 
 No mueve una tercera cosa. Una revisión estructurada dentro de veinte revistas sigue sin ser
 una revisión sistemática con dos revisores y protocolo registrado —el §4 de este documento ya
 lo declara—, y el capítulo tiene que seguir diciendo eso mismo aunque la fase 1 esté hecha.
+
+## 7 · Lo único que falta para que esto entre a la tesis
+
+Leer los 85 `incluir` a texto completo y decidir, uno por uno, si de verdad sostienen la
+afirmación para la que se los marcó —la mayoría está detrás de paywall, así que ese acceso es
+el primer obstáculo real, no la lectura en sí—. Recién ahí cada uno pasa a `incluir` de fase 2
+en sentido estricto y se cita, con su cifra o su hallazgo concreto, en el apartado que le
+corresponde. Hasta entonces, esta planilla es un mapa verificado de por dónde entrar a leer,
+no una bibliografía.
