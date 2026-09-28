@@ -39,6 +39,17 @@ INS = RAIZ / 'instrumentos'
 DEST = RAIZ / 'deposito' / 'v2.0.0'
 VERSION = '2.0.0'
 
+# los tres protocolos que el Anexo E.4 cita como "declaracion previa al dato": hasta la
+# 2.0.0 no formaban parte de ningun registro (dictamen 13, M-14). No tienen datos de
+# participantes (sin nombres, telefonos ni email; "Nico" y "Jeremias" son los autores,
+# ya publicos como tales). PROTOCOLO-ampliacion.md y PROTOCOLO-OE2.md viven en instrumentos/;
+# Protocolo_TrackA2_Muestras.md, en avance/ (RAIZ), un nivel arriba.
+PROTOCOLOS = {
+    INS / 'PROTOCOLO-ampliacion.md': 'PROTOCOLO-ampliacion.md',
+    INS / 'PROTOCOLO-OE2.md': 'PROTOCOLO-OE2.md',
+    RAIZ / 'Protocolo_TrackA2_Muestras.md': 'Protocolo_TrackA2_Muestras.md',
+}
+
 INS_ABIERTO = [
     'run_cronometraje_v2.mjs', 'run_tam_v2.mjs', 'tiempos_motor_v2.mjs',
     'run_oe2.mjs', 'run_cta_estudios_oe2.mjs', 'run_copy_pareado.mjs', 'armar_material_estudio4.mjs',
@@ -94,6 +105,13 @@ node run_cta_estudios_oe2.mjs
 
 **Verificación.** `verificar_csv.py` es la versión vigente. Corrido sobre el registro abierto,
 declara omitidos los archivos del restringido y recomputa el resto.
+
+**Protocolos previos.** `PROTOCOLO-ampliacion.md`, `PROTOCOLO-OE2.md` y
+`Protocolo_TrackA2_Muestras.md` son los documentos que la tesis cita como declaración previa
+al dato (Anexo E.4): fijan de antemano el umbral, el contraste, la unidad de análisis, el
+tramo comparable del cronometraje y los cuatro estudios del OE2. Hasta la versión 1.0.0 sólo
+vivían en el repositorio de GitHub del proyecto; esta versión los incorpora tal cual estaban
+en los commits que la tesis cita (927ef0d y 1ba76eb), sin editarlos.
 """
 
 DESC_V2 = ("<p><strong>Versión 2.0.0.</strong> Agrega la evaluación ampliada a ocho participantes "
@@ -118,6 +136,8 @@ def main():
         copiar(v1.ORIGEN / r, DEST / 'restringido' / r)
     for n in INS_ABIERTO:
         copiar(INS / n, DEST / 'abierto' / n)
+    for src, nombre in PROTOCOLOS.items():
+        copiar(src, DEST / 'abierto' / nombre)
     for n in INS_RESTRINGIDO:
         copiar(INS / n, DEST / 'restringido' / n)
     for c in INS_CARPETAS_RESTRINGIDAS:
