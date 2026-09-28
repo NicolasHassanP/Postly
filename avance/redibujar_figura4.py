@@ -108,7 +108,7 @@ caja(990, 330, 1400, 392, GRIS_B, GRIS_F,
      'Persistencia (Google Sheets)' + chr(10) + 'almacenamiento tabular', f_tit=f_ext)
 
 # ── dentro del VPS ────────────────────────────────────────────────────────────
-caja(525, 65, 920, 135, AZUL_B, AZUL_F, 'Orquestador n8n', '~195 nodos en un único proceso')
+caja(525, 65, 920, 135, AZUL_B, AZUL_F, 'Orquestador n8n', '~207 nodos en un único proceso')
 caja(525, 195, 790, 265, ROJO_B, ROJO_F, 'Módulo Centinela', 'canal textual: RegEx')
 caja(525, 330, 920, 398, GRIS_B, GRIS_F,
      'Cron: Programador (5 min) · Feedback Loop (24 h)', f_tit=f_ext)
