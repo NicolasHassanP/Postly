@@ -203,12 +203,18 @@ if cr2:
     def amin(s):
         m, sec = s.split(':')
         return int(m) + float(sec) / 60
-    P2 = [dict(part=f['Participante'], man=amin(f['Manual_mmss']),
-               ad=amin(f['Adaptacion_mmss']), po=amin(f['Postly_mmss'])) for f in cr2]
-    for x in P2:
-        x['comp'] = x['man'] - x['ad']
-        x['red'] = (x['comp'] - x['po']) / x['comp'] * 100
-        x['redT'] = (x['man'] - x['po']) / x['man'] * 100
+    # 28-09-2026 (dictamen 13, A-01): el tiempo con Postly es el corregido —el mayor entre el
+    # cronómetro y el tiempo del sistema leído del historial de n8n—. El cronómetro crudo se
+    # verifica aparte, porque el texto lo sigue reportando rotulado.
+    def pares(col):
+        P = [dict(part=f['Participante'], man=amin(f['Manual_mmss']),
+                  ad=amin(f['Adaptacion_mmss']), po=amin(f[col])) for f in cr2]
+        for x in P:
+            x['comp'] = x['man'] - x['ad']
+            x['red'] = (x['comp'] - x['po']) / x['comp'] * 100
+            x['redT'] = (x['man'] - x['po']) / x['man'] * 100
+        return P
+    P2 = pares('Postly_corregido_mmss')
     suj2 = sorted({x['part'] for x in P2})
     por = {s: [x for x in P2 if x['part'] == s] for s in suj2}
     med = lambda s, k: st.mean([x[k] for x in por[s]])
@@ -217,11 +223,11 @@ if cr2:
     check('manual TOTAL, adaptacion incluida (min)', round(st.mean([x['man'] for x in P2]), 1), 9.3)
     check('adaptacion (min)', round(st.mean([x['ad'] for x in P2]), 1), 1.8)
     check('manual, tramo comparable (min) — fila global', round(st.mean([x['comp'] for x in P2]), 1), 7.6)
-    check('Postly (min)', round(st.mean([x['po'] for x in P2]), 1), 1.4)
-    check('ahorro medio (min)', round(st.mean([x['comp'] - x['po'] for x in P2]), 1), 6.2)
-    tabla7 = {'C1': (7.8, 1.6, 79.1), 'C2': (7.2, 1.6, 76.6), 'C3': (7.1, 1.1, 84.6),
-              'C4': (10.0, 2.2, 77.1), 'C5': (8.0, 1.0, 87.3), 'C6': (6.0, 1.0, 82.8),
-              'C7': (7.0, 1.3, 82.0), 'C8': (7.5, 1.1, 85.3)}
+    check('Postly corregido (min)', round(st.mean([x['po'] for x in P2]), 1), 1.7)
+    check('ahorro medio (min)', round(st.mean([x['comp'] - x['po'] for x in P2]), 1), 5.9)
+    tabla7 = {'C1': (7.8, 1.9, 75.5), 'C2': (7.2, 1.7, 75.4), 'C3': (7.1, 1.5, 78.7),
+              'C4': (10.0, 2.2, 77.1), 'C5': (8.0, 1.3, 83.0), 'C6': (6.0, 1.7, 71.8),
+              'C7': (7.0, 1.9, 71.9), 'C8': (7.5, 1.5, 80.0)}
     for s, esp in tabla7.items():
         check(f'Tabla 7 fila {s} (comparable, Postly, reduccion)',
               (round(med(s, 'comp'), 1), round(med(s, 'po'), 1), round(med(s, 'red'), 1)), esp)
@@ -229,14 +235,22 @@ if cr2:
     RT = [med(s, 'redT') for s in suj2]
     D = [med(s, 'comp') - med(s, 'po') for s in suj2]
     se = st.stdev(R) / math.sqrt(8)
-    check('reduccion media (%)', round(st.mean(R), 1), 81.8)
+    check('reduccion media (%)', round(st.mean(R), 1), 76.7)
     check('DE de la reduccion', round(st.stdev(R), 1), 3.9)
-    check('IC 95 % (t de 7 gl)', (round(st.mean(R) - 2.3646 * se, 1), round(st.mean(R) + 2.3646 * se, 1)), (78.6, 85.1))
-    check('t(7) contra el 70 %', round((st.mean(R) - 70) / se, 2), 8.51)
-    check('d frente al umbral', round((st.mean(R) - 70) / st.stdev(R), 2), 3.01)
-    check('t(7) pareada sobre los tiempos', round(st.mean(D) / (st.stdev(D) / math.sqrt(8)), 2), 19.98)
-    check('d de Cohen pareada', round(st.mean(D) / st.stdev(D), 2), 7.06)
-    check('reduccion sobre el tiempo total (%)', round(st.mean(RT), 1), 85.5)
+    check('IC 95 % (t de 7 gl)', (round(st.mean(R) - 2.3646 * se, 1), round(st.mean(R) + 2.3646 * se, 1)), (73.5, 79.9))
+    check('t(7) contra el 70 %', round((st.mean(R) - 70) / se, 2), 4.90)
+    check('d frente al umbral', round((st.mean(R) - 70) / st.stdev(R), 2), 1.73)
+    check('t(7) pareada sobre los tiempos', round(st.mean(D) / (st.stdev(D) / math.sqrt(8)), 2), 15.73)
+    check('d de Cohen pareada', round(st.mean(D) / st.stdev(D), 2), 5.56)
+    check('reduccion sobre el tiempo total (%)', round(st.mean(RT), 1), 81.2)
+    # el cronómetro crudo, que el texto informa rotulado
+    Pc = pares('Postly_mmss')
+    Rc = [st.mean([x['red'] for x in Pc if x['part'] == s]) for s in suj2]
+    sec_ = st.stdev(Rc) / math.sqrt(8)
+    check('cronometro sin corregir: reduccion (%)', round(st.mean(Rc), 1), 81.8)
+    check('cronometro sin corregir: t(7)', round((st.mean(Rc) - 70) / sec_, 2), 8.51)
+    check('cronometro por debajo del tiempo del sistema (pares)',
+          sum(amin(f['Postly_mmss']) < amin(f['Sistema_mmss']) for f in cr2), 23)
 
 # ═══════════════════════════════════ TAM de la AMPLIACION: Tabla 8 y §6.1.7
 bloque('aceptacion tecnologica de la ampliacion — Tabla 8 y §6.1.7 (n = 8)')

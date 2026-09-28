@@ -21,6 +21,15 @@
 // La unidad de análisis es la participante, nunca la publicación: cuatro publicaciones de
 // una misma persona no son cuatro observaciones independientes.
 //
+// Tiempo con Postly (28-09-2026, dictamen 13, A-01). El cronómetro de la condición Postly
+// no incluyó de forma uniforme la espera por el modelo: en 23 de las 32 publicaciones marca
+// menos que lo que el propio motor tardó entre recibir la foto y terminar de publicar. La
+// planilla conserva el cronómetro (Postly_mmss) y agrega el tiempo del sistema leído del
+// historial de ejecuciones de n8n (Sistema_mmss, con sus números de ejecución) y el tiempo
+// corregido, el mayor de los dos (Postly_corregido_mmss). El análisis principal usa el
+// corregido; el del cronómetro se informa al final, rotulado. El corregido es una cota
+// inferior del tiempo real: no incluye lo que tarda la usuaria en elegir y enviar la foto.
+//
 // Uso:  node run_cronometraje_v2.mjs [Cronometraje_datos_v2.csv] [Reclutamiento_v2.csv]
 
 import { existsSync, readFileSync } from "node:fs";
@@ -122,12 +131,14 @@ const filas = leerCSV(F_DATOS);
 if (!filas) { console.error(`No se encontró ${F_DATOS}`); process.exit(1); }
 const pares = [];
 for (const f of filas) {
-  const manual = aMin(f.Manual_mmss), postly = aMin(f.Postly_mmss);
+  const manual = aMin(f.Manual_mmss);
+  const crono = aMin(f.Postly_mmss), postly = aMin(f.Postly_corregido_mmss) ?? crono;
   const adapt = aMin(f.Adaptacion_mmss) ?? 0;
   if (manual == null || postly == null) continue;
   pares.push({
     part: f.Participante, sec: (f.Secuencia || "").toUpperCase(), tipo: f.Tipo || "",
-    orden: Number(f.Orden_en_sesion) || 0, adapt, manual, postly,
+    orden: Number(f.Orden_en_sesion) || 0, adapt, manual, postly, crono,
+    sistema: aMin(f.Sistema_mmss),
     // tramo comparable: la adaptación sale del lado manual porque Postly no la ejecuta
     manualComp: manual - adapt,
     redTotal: (manual - postly) / manual * 100,
@@ -246,6 +257,21 @@ if (recl && recl.length) {
     console.log(`  ${g.padEnd(12)} n = ${String(v.length).padEnd(4)} reducción media ${f1(media(v))} %`);
   }
   console.log(`  Si los estratos difieren, va informado: es la amenaza que el §3.5.5 declara.`);
+}
+
+// ─── El cronómetro sin corregir, rotulado ────────────────────────────────────
+if (pares.some(p => p.sistema != null)) {
+  const bajo = pares.filter(p => p.sistema != null && p.crono < p.sistema).length;
+  const redCrono = participantes.map(p => media(pares.filter(x => x.part === p)
+    .map(x => (x.manual - x.adapt - x.crono) / (x.manual - x.adapt) * 100)));
+  const k = tUnaMuestra(redCrono, UMBRAL);
+  console.log(`
+── cronómetro SIN corregir (dato crudo; no es el resultado principal)`);
+  console.log(`  ${bajo} de ${pares.length} publicaciones cronometradas por debajo del tiempo del sistema`);
+  console.log(`  Postly medio: cronómetro ${f2(media(pares.map(p => p.crono)))} min · ` +
+    `sistema ${f2(media(pares.map(p => p.sistema)))} min · corregido ${f2(media(pares.map(p => p.postly)))} min`);
+  console.log(`  reducción sobre el tramo comparable con el cronómetro: ${f1(k.media)} % · ` +
+    `t(${k.df}) = ${f2(k.t)} frente al ${UMBRAL} %`);
 }
 
 // ─── Potencia alcanzada ──────────────────────────────────────────────────────
