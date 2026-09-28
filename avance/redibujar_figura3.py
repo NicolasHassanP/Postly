@@ -19,6 +19,9 @@ La nota se reescribe además con el entorno real (E1, Anexo B.1) en lugar de «p
 **Pasada 128.** La etiqueta del carril As-Is decía «≈ 15–30 min estimados»: la estimación
 no instrumentada se retiró del documento (C-03) y la etiqueta pasa al valor medido.
 
+**Pasada 157 (dictamen 13, M-06).** La adaptación de la imagen sí tiene equivalente en el To-Be:
+el sistema rellena la imagen única a 1:1 (§4.4.2). La nota sale del bitmap.
+
 Uso: python redibujar_figura3.py <salida.png>
 """
 import sys
@@ -27,7 +30,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 SALIDA = sys.argv[1] if len(sys.argv) > 1 else '_figuras/Figura_3_v3.png'
 
-W, H = 1441, 660
+W, H = 1441, 510
 REGULAR = 'C:/Windows/Fonts/segoeui.ttf'
 NEGRITA = 'C:/Windows/Fonts/segoeuib.ttf'
 ITALICA = 'C:/Windows/Fonts/segoeuii.ttf'
@@ -95,7 +98,7 @@ def cadena(pasos, y_centro, x0, x1, borde, fondo, alto=86):
 # ── As-Is ───────────────────────────────────────────────────────────────────
 carril(20, 250, 'As-Is (manual)', AMBAR_CARRIL, (140, 100, 0))
 cadena([('Tomar la foto del producto', 'no computa en el cronometraje'),
-        ('Adaptar la imagen al formato de feed', 'sin equivalente en el To-Be'),
+        ('Adaptar la imagen al formato de feed', 'en el To-Be la hace el sistema'),
         ('Redactar el copy a mano', ''),
         ('Revisar precios y firma manualmente', ''),
         ('Publicar en cada red por separado', '')],
@@ -113,22 +116,7 @@ cadena([('Enviar la(s) foto(s) al bot de Telegram', ''),
         ('Publicación automática en las dos redes', '')],
        y_centro=388, x0=70, x1=W - 60, borde=AZUL_BORDE, fondo=AZUL_FONDO)
 
-# ── nota ────────────────────────────────────────────────────────────────────
-LINEAS = [
-    '- El flujo As-Is se reconstruye a partir de §1.2.a y §3.4.1 (observación no participante, '
-    'sin instrumento cronometrado publicado).',
-    '- El flujo To-Be es el del sistema desplegado, recorrido de extremo a extremo sobre el '
-    'entorno E1 (Anexo A, Anexo B.1). El orden de las dos auditorías',
-    '  es el que la Figura 6 y el Anexo B.4 describen: la visual antes de generar los copys, '
-    'la textual sobre el texto que la usuaria confirma.',
-    '- El 81,8 % de reducción (n = 8; §6.1.6) se midió sobre el tramo «material en mano hasta '
-    'publicación confirmada». La toma de la foto no computa en',
-    '  ninguna de las dos condiciones; la adaptación de la imagen sí computa en la manual y '
-    'Postly no la ejecuta, asimetría que el §6.1.6 acota (Anexo E.2).',
-]
-d.text((28, 522), 'Nota.', font=ImageFont.truetype(NEGRITA, 12), fill=(40, 40, 40))
-for k, linea in enumerate(LINEAS):
-    d.text((28, 546 + k * 18), linea, font=f_nota, fill=TINTA)
+# ── nota ──: desde la pasada 157 va como texto bajo la figura (APA), no en el bitmap.
 
 im.save(SALIDA)
 print(f'escrita: {SALIDA}  ({im.size[0]}×{im.size[1]})')
