@@ -13,6 +13,10 @@ dos Cron— y todo lo demás pasa a la columna de servicios externos. La flecha 
 del orquestador. La nota conserva sus cuatro líneas y suma una quinta que declara la
 frontera.
 
+**Pasada 135 (dictamen 12, A-03).** «Contenedores» pasa a «componentes»: son nodos
+de un mismo proceso. El canal visual del Centinela sale de la frontera como llamada a
+Gemini, y el orquestador deja de rotularse con SQLite, que es sólo su historial interno.
+
 Uso: python redibujar_figura4.py <salida.png>
 """
 import sys
@@ -104,8 +108,8 @@ caja(990, 330, 1400, 392, GRIS_B, GRIS_F,
      'Persistencia (Google Sheets)' + chr(10) + 'almacenamiento tabular', f_tit=f_ext)
 
 # ── dentro del VPS ────────────────────────────────────────────────────────────
-caja(525, 65, 920, 135, AZUL_B, AZUL_F, 'Orquestador n8n', '~195 nodos, 1 proceso, SQLite')
-caja(525, 195, 790, 265, ROJO_B, ROJO_F, 'Módulo Centinela', 'RegEx + OCR/visión')
+caja(525, 65, 920, 135, AZUL_B, AZUL_F, 'Orquestador n8n', '~195 nodos en un único proceso')
+caja(525, 195, 790, 265, ROJO_B, ROJO_F, 'Módulo Centinela', 'canal textual: RegEx')
 caja(525, 330, 920, 398, GRIS_B, GRIS_F,
      'Cron: Programador (5 min) · Feedback Loop (24 h)', f_tit=f_ext)
 
@@ -121,6 +125,7 @@ etiqueta_en(735, 165, 'veredicto')
 flecha((860, 328), (860, 137), None)
 etiqueta_en(886, 240, 'dispara')
 flecha((922, 82), (986, 91), 'analiza / genera', en_x=963, dy=-12)
+flecha((792, 215), (986, 114), 'canal visual', en_x=900, dy=-2)
 flecha((922, 98), (986, 181), 'publica', en_x=963, dy=0)
 flecha((922, 112), (986, 271), 'sube el activo', en_x=963, dy=0)
 flecha((922, 126), (986, 361), 'lee/escribe', en_x=963, dy=0)
@@ -129,10 +134,8 @@ flecha((922, 126), (986, 361), 'lee/escribe', en_x=963, dy=0)
 NY = 520
 dr.text((20, NY), 'Nota.', font=f_nota_tit, fill=TINTA)
 LINEAS = [
-    '- Un único workflow principal orquesta todo el flujo (§5.1.1, Anexo B.2); no hay '
-    'despliegue independiente por contenedor.',
-    '- El Módulo Centinela se ejecuta como nodos de función dentro del mismo proceso n8n, '
-    'no como un servicio separado.',
+    '- Nivel de contexto y de componentes: los recuadros dentro de la frontera son componentes de un único proceso n8n, no contenedores C4.',
+    '- El Módulo Centinela son nodos de función del mismo proceso; su canal visual es una llamada a Gemini, fuera de la frontera.',
     '- El bot de Telegram y la persistencia corren en infraestructura de terceros: quedan '
     'fuera de la frontera del sistema.',
     '- La publicación la emite el orquestador, que cumple el papel de capa de integración '
