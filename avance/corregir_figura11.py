@@ -29,7 +29,7 @@ ImageDraw.Draw(im).rectangle(CAJA, fill=(255, 255, 255))
 
 NOTA = ('Nota. Capturado en el entorno local de desarrollo el 18 de septiembre de 2026, '
         'antes de la corrección del canal visual. El workflow desplegado tiene hoy ~195 '
-        'nodos (§4.3, Anexo B.2); su archivo JSON está versionado en el repositorio.')
+        'nodos (Anexo B.2); su archivo JSON está versionado en el repositorio.')
 
 fuente = ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf', 11)
 d = ImageDraw.Draw(im)

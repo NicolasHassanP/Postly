@@ -129,17 +129,17 @@ flecha((922, 126), (986, 361), 'lee/escribe', en_x=963, dy=0)
 NY = 520
 dr.text((20, NY), 'Nota.', font=f_nota_tit, fill=TINTA)
 LINEAS = [
-    '- Un único workflow principal orquesta todo el flujo (§4.3, Anexo B.2); no hay '
+    '- Un único workflow principal orquesta todo el flujo (§5.1.1, Anexo B.2); no hay '
     'despliegue independiente por contenedor.',
     '- El Módulo Centinela se ejecuta como nodos de función dentro del mismo proceso n8n, '
     'no como un servicio separado.',
     '- El bot de Telegram y la persistencia corren en infraestructura de terceros: quedan '
     'fuera de la frontera del sistema.',
     '- La publicación la emite el orquestador, que cumple el papel de capa de integración '
-    '(§4.3.1); el Centinela audita y no publica.',
+    '(§5.1.1); el Centinela audita y no publica.',
     '- Cloudinary es un paso intermedio obligatorio en todos los flujos que publican: cada '
     'imagen y cada video se suben allí para que la Graph API',
-    '  pueda descargarlos (§4.7.2; Anexos B.9, C.6 y E.5). La persistencia no es una base '
+    '  pueda descargarlos (§4.4.2; Anexos B.9, C.6 y E.5). La persistencia no es una base '
     'relacional (Anexo B.5).',
 ]
 for k, l in enumerate(LINEAS):

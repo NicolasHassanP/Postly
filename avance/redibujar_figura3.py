@@ -9,12 +9,15 @@ imagen con el precio incrustado interrumpe el flujo sin gastar una inferencia de
 que es justamente el orden que la Figura 6, el §4.4.1 y el Anexo B.4 describen.
 
 **Y una segunda cosa.** El segundo paso del carril As-Is —adaptar la imagen al formato de
-feed— no tiene equivalente en el To-Be: Postly no normaliza imágenes (§4.7.2). El cronometraje
+feed— no tiene equivalente en el To-Be: Postly no normaliza imágenes (§4.4.2). El cronometraje
 lo incluye en la condición manual, de modo que parte de la reducción medida corresponde a
 trabajo que el sistema no reemplaza. La figura lo marca, porque es más honesto verlo que
 leerlo tres capítulos después.
 
 La nota se reescribe además con el entorno real (E1, Anexo B.1) en lugar de «producción».
+
+**Pasada 128.** La etiqueta del carril As-Is decía «≈ 15–30 min estimados»: la estimación
+no instrumentada se retiró del documento (C-03) y la etiqueta pasa al valor medido.
 
 Uso: python redibujar_figura3.py <salida.png>
 """
@@ -97,7 +100,7 @@ cadena([('Tomar la foto del producto', 'no computa en el cronometraje'),
         ('Revisar precios y firma manualmente', ''),
         ('Publicar en cada red por separado', '')],
        y_centro=140, x0=70, x1=W - 60, borde=AMBAR_BORDE, fondo=AMBAR_FONDO)
-d.text((W - 120, 66), '≈ 15–30 min estimados por publicación (§1.2.a; sin instrumento)',
+d.text((W - 120, 66), '≈ 9,3 min medidos por publicación (tramo operativo; §6.1.6)',
        font=f_marca, fill=TINTA, anchor='rm')
 
 # ── To-Be ───────────────────────────────────────────────────────────────────
@@ -118,10 +121,10 @@ LINEAS = [
     'entorno E1 (Anexo A, Anexo B.1). El orden de las dos auditorías',
     '  es el que la Figura 6 y el Anexo B.4 describen: la visual antes de generar los copys, '
     'la textual sobre el texto que la usuaria confirma.',
-    '- El 73,6 % de reducción (n = 12; §5.1) se midió sobre el tramo «material en mano hasta '
+    '- El 81,8 % de reducción (n = 8; §6.1.6) se midió sobre el tramo «material en mano hasta '
     'publicación confirmada». La toma de la foto no computa en',
     '  ninguna de las dos condiciones; la adaptación de la imagen sí computa en la manual y '
-    'Postly no la ejecuta, asimetría que el §5.1 acota (Anexo E.2).',
+    'Postly no la ejecuta, asimetría que el §6.1.6 acota (Anexo E.2).',
 ]
 d.text((28, 522), 'Nota.', font=ImageFont.truetype(NEGRITA, 12), fill=(40, 40, 40))
 for k, linea in enumerate(LINEAS):

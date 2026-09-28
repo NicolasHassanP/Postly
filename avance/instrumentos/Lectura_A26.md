@@ -1,0 +1,33 @@
+# Lectura prioritaria para cerrar el A-26 (dictamen 11)
+
+**Qué cierra.** El A-26 queda «Parcial» porque la revisión amplia no produjo ningún antecedente directo leído a texto completo. Se cierra de una de dos formas, y las dos son cierres completos:
+- aparece al menos un antecedente directo, que se cita donde indica la tabla; o
+- se leen estos artículos a texto completo y ninguno lo es, y el §1.6.0 lo dice con ese respaldo, no por ausencia de lectura.
+
+**Por qué a mano.** Los 11 son de acceso abierto (OpenAlex), pero los editores bloquean la descarga automatizada (TDM). Desde un navegador se bajan normalmente.
+
+**Procedimiento.**
+1. Abrir el enlace de acceso abierto de cada fila (o el DOI si el enlace falla) y descargar el PDF.
+2. Guardarlo en `avance/instrumentos/lectura_a26/` con el número de la fila: `01.pdf`, `02.pdf`, …
+3. Avisarle a Claude: lee cada PDF completo, responde la pregunta de la fila con cita de página, y propone la cita o el descarte con motivo.
+4. El resultado se registra en `Candidatos_bibliografia.csv` (columna Motivo) y en el §1.6.0.
+
+Prioridad: las filas 1 a 6 son las candidatas a antecedente directo; con esas seis leídas el A-26 ya se puede cerrar. Las 7 a 11 refuerzan citas puntuales.
+
+| # | Referencia | DOI | Acceso abierto | Pregunta que tiene que responder la lectura | Dónde se citaría |
+|---|---|---|---|---|---|
+| 01 | Das et al. (2026). *A Multi-Agent RAG Framework for Regulatory Compliance Checking of Software Requirements*. ACM Transactions on Software Engineering and Methodology | [10.1145/3785472](https://doi.org/10.1145/3785472) | [PDF/OA](https://doi.org/10.1145/3785472) | ¿Verifica automáticamente el cumplimiento de reglas normativas antes de que un artefacto se libere? ¿Sobre texto libre generado? | §1.6.0 (antecedente directo del Centinela) y §7.3 |
+| 02 | Cristina Ratiu et al. (2026). *Automated runtime temporal constraint checking for engineering process compliance*. Journal of Systems and Software | [10.1016/j.jss.2026.112868](https://doi.org/10.1016/j.jss.2026.112868) | [PDF/OA](https://doi.org/10.1016/j.jss.2026.112868) | ¿El chequeo de cumplimiento corre en tiempo de ejecución, antes de la acción, como el Centinela? ¿Qué hace ante una violación: bloquea o avisa? | §1.6.0 y §5.1.2 |
+| 03 | Wang et al. (2026). *TORA: Topic-based rule affinity for content moderation in social media communities*. Decision Support Systems | [10.1016/j.dss.2026.114750](https://doi.org/10.1016/j.dss.2026.114750) | [PDF/OA](https://www.sciencedirect.com/science/article/pii/S0167923626001399/pdf) | ¿TORA aplica reglas explícitas de una comunidad antes de publicar? ¿Reporta sensibilidad/especificidad por regla? | §1.6.0 y §6.1.4 |
+| 04 | Warner et al. (2025). *A critical reflection on the use of toxicity detection algorithms in proactive content moderation systems*. International Journal of Human-Computer Studies | [10.1016/j.ijhcs.2025.103468](https://doi.org/10.1016/j.ijhcs.2025.103468) | [PDF/OA](https://doi.org/10.1016/j.ijhcs.2025.103468) | ¿Qué objeciones plantea a bloquear contenido antes de publicarlo (moderación proactiva)? ¿Alguna se aplica a un filtro que la propia autora ve y puede corregir? | §1.6.0 y §7.3 |
+| 05 | Barrientos et al. (2026). *Impact analysis of regulatory requirement changes on business process compliance*. Information and Software Technology | [10.1016/j.infsof.2026.108079](https://doi.org/10.1016/j.infsof.2026.108079) | [PDF/OA](https://doi.org/10.1016/j.infsof.2026.108079) | ¿Combina LLM y reglas deterministas como hace Postly (regex + modelo visual)? ¿Cómo reparte qué decide cada uno? | §1.6.0 y §8.2 (clasificador semántico) |
+| 06 | Ayala-Rivera et al. (2024). *GDPR compliance via software evolution: Weaving security controls in software design*. Journal of Systems and Software | [10.1016/j.jss.2024.112144](https://doi.org/10.1016/j.jss.2024.112144) | [PDF/OA](https://doi.org/10.1016/j.jss.2024.112144) | ¿El «compliance by design» que propone se aplica a una norma de marca/comercial o sólo a GDPR? ¿Es transferible al caso? | §1.6.0 y §2.4 |
+| 07 | Jiang et al. (2023). *A Trade-off-centered Framework of Content Moderation*. ACM Transactions on Computer-Human Interaction | [10.1145/3534929](https://doi.org/10.1145/3534929) | [PDF/OA](https://dl.acm.org/doi/pdf/10.1145/3534929) | ¿Formula el intercambio sensibilidad/especificidad dentro de un mismo detector o entre detectores? (sostiene o no la corrección del §7.3) | §7.3 |
+| 08 | Cimino et al. (2026). *From natural language to executable filter code: LLM-Assisted behavioural customisation in trigger–Action Platforms*. Behaviour and Information Technology | [10.1080/0144929x.2026.2711012](https://doi.org/10.1080/0144929x.2026.2711012) | [PDF/OA](https://doi.org/10.1080/0144929x.2026.2711012) | ¿Evalúa usuarios no técnicos que automatizan con LLM en plataformas trigger-action (tipo n8n/IFTTT)? | §1.6.2 y §2.1 |
+| 09 | Rezazadeh et al. (2025). *Generative AI for growth hacking: How startups use generative AI in their growth strategies*. Journal of Business Research | [10.1016/j.jbusres.2025.115320](https://doi.org/10.1016/j.jbusres.2025.115320) | [PDF/OA](https://doi.org/10.1016/j.jbusres.2025.115320) | ¿Estudia microemprendimientos que publican con IA generativa? ¿Mencionan riesgos de cumplimiento de marca? | §1.1 y §1.6.0 |
+| 10 | Lu et al. (2025). *Image-based brand communications: an information richness approach on Instagram*. European Journal of Information Systems | [10.1080/0960085x.2025.2475956](https://doi.org/10.1080/0960085x.2025.2475956) | [PDF/OA](https://repository.lsu.edu/marketing_pubs/55) | ¿Mide la comunicación de marca por imagen en Instagram con datos reales? ¿Algo sobre precios en imagen? | §2.2 y §7.4 |
+| 11 | van Beest et al. (2023). *Cross-Instance Regulatory Compliance Checking of Business Process Event Logs*. IEEE Transactions on Software Engineering | [10.1109/tse.2023.3319086](https://doi.org/10.1109/tse.2023.3319086) | [PDF/OA](https://research.rug.nl/en/publications/d9acf67d-7233-4199-9f7a-fe1e872319f9) | ¿El chequeo de cumplimiento es sobre logs posteriores (ex post) o antes de ejecutar? (distingue el enfoque del Centinela) | §1.6.0 |
+
+## Resultado (28-09-2026)
+
+Nueve leídos a texto completo, dos no accesibles sin suscripción (10 y 11). **Ninguno es un antecedente directo**; el §1.6.0 lo declara con ese respaldo (pasada 131). Citados: Das 2026, Wang 2026 (TORA), Warner 2025, Barrientos 2026, Cimino 2026, Rezazadeh 2025. Leídos y no citados: Jiang 2023. Descartados: Cristina Ratiu 2026, Ayala-Rivera 2024. El detalle de cada uno está en la columna Motivo de `Candidatos_bibliografia.csv`.

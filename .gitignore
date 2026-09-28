@@ -93,6 +93,14 @@ avance/instrumentos/OE2_*_respuestas.csv
 avance/instrumentos/OE2_estudio4_material.csv
 avance/instrumentos/OE2_estudio4_clave.csv
 
+# OE2_estudio2_clave.csv es la clave de qué tono es cada copy mostrado al evaluador (Estudio 2,
+# correspondencia de tono): no identifica a nadie, pero mostrarla arruinaría el cegamiento de
+# cualquier evaluador que la vea en el repo público.
+avance/instrumentos/OE2_estudio2_clave.csv
+# Mismo motivo para el Estudio 3 (orden de carrusel): la clave dice qué secuencia es el envío
+# original y cuál la propuesta de la IA.
+avance/instrumentos/OE2_estudio3_clave.csv
+
 # Las 8 fotos del Estudio 1 son arte de catálogo oficial de la marca (confirmado por Nico el
 # 24-09-2026), no material propio del equipo ni de las consultoras: es el mismo problema de
 # licencia que C-08 (avance/PLAN-remediacion-auditoria-10.md) ya declara sin resolver para
@@ -100,3 +108,20 @@ avance/instrumentos/OE2_estudio4_clave.csv
 # redistribuirlo, tratándolo como avance/evidencia/ (abajo): nunca al repo público. El texto
 # generado (OE2_copys_material.csv) no tiene este problema y sí se versiona.
 avance/ImagenesEstudio1/
+
+# Formularios completados en las sesiones de la ampliación (26 y 27-09-2026), uno por
+# participante: son dato crudo de personas, igual que las planillas de arriba. Los formularios
+# en blanco (Formulario_*.docx) sí van al repo.
+avance/instrumentos/Cronometraje/
+avance/instrumentos/Cuestionario/
+avance/instrumentos/Estudio4/
+avance/instrumentos/Reclutamiento/
+# Hojas completadas por los dos evaluadores externos del Anexo E.14.
+avance/instrumentos/Estudio*_Evaluador.docx
+# Material ciego del Estudio 4: contiene los copys que escribieron las participantes.
+avance/instrumentos/OE2_estudio4_ciego.csv
+# Arte de catálogo de la marca (mismo problema de licencia que las fotos del Estudio 1).
+avance/instrumentos/Imagenes/
+avance/instrumentos/Imagenes carrusel/
+# PDFs de terceros bajados a mano para la lectura del A-26: no se redistribuyen.
+avance/instrumentos/lectura_a26/*.pdf

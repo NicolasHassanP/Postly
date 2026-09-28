@@ -103,7 +103,7 @@ LINEAS = [
     '  sin gastar una inferencia de redacción (Anexo B.4; Tabla 9, HU8). Si cualquiera de las '
     'dos auditorías detecta un precio, se notifica a la usuaria.',
     '- El flujo de video agrega una tercera respuesta —avisar sin bloquear— cuando el recorte '
-    'a 9:16 elimina el precio del material publicado (§4.5.1, §5.1).',
+    'a 9:16 elimina el precio del material publicado (§4.4.3).',
     '- La firma legal se concatena por código antes de la publicación: no depende de que el '
     'modelo la incluya (Anexo B.4).',
     '- El Módulo Centinela no es un proceso aparte ni un modelo propio: su canal visual es una '

@@ -91,6 +91,19 @@ Existe el workflow `Postly - Feedback Loop` (inactivo) como base. Necesita Cron 
    **último** post del usuario (el `append` de n8n no devuelve el `row_number` al crear). En uso normal es
    correcto; el caso raro (crear A, crear B, publicar A) queda fuera de alcance. El **"Retomar borrador"** sí es
    de fila exacta (row-aware).
+5. **Aspect ratio de imágenes (HU5 carrusel):** ⚠️ **Mitigado, no resuelto de raíz** (2026-09-27). A diferencia
+   de HU13 (video), que fuerza 1080×1920 con FFmpeg antes de publicar, el flujo de **imágenes** (carrusel y feed)
+   nunca normaliza el aspect ratio: manda la foto tal cual llega de Telegram/Cloudinary a Graph API. Si una
+   consultora sube una foto muy angosta/alargada (ratio fuera de 4:5–1.91:1, ej. una captura de pantalla o story
+   recortada), Graph API responde `400` (`code 36003 / subcode 2207009`, "The aspect ratio is not supported") y
+   el nodo `HU5: Crear hijo` corta con "Bad request - please check your parameters" — sin decirle a la usuaria
+   cuál fue el problema. Descubierto en vivo el 27-09 con la consultora C6 (imagen 360×721, ratio 0.499).
+   **Mitigación aplicada:** `HU5: Pub preparar` ahora descarga cada imagen del set, mide el JPEG (parser SOF
+   manual, sin librerías) y si el ratio cae fuera de 0.79–1.92 bloquea con el mismo mecanismo de compliance de
+   texto (`blocked`/`blockMsg` → `HU5: ¿Pub limpio?` → `HU5: Pub bloqueado`), avisando por Telegram qué imagen
+   falla y por qué. **Lo que falta para resolverlo de raíz:** recortar/rellenar automáticamente (Cloudinary
+   transform o FFmpeg) en vez de solo avisar y bloquear; y el mismo hueco existe en el feed simple (no solo
+   carrusel) — no medido todavía.
 
 ---
 

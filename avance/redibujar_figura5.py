@@ -83,9 +83,9 @@ NY = max(fin_p, fin_c) + 34
 d.text((30, NY), 'Nota.', font=ImageFont.truetype(NEGRITA, 12), fill=TINTA)
 LINEAS = [
     '- Los nombres son los de las columnas de la hoja, leídos del workflow desplegado '
-    '(Anexo B.4). TelegramUserID es el identificador que Telegram asigna a la',
+    '(Anexo B.2). TelegramUserID es el identificador que Telegram asigna a la',
     '  conversación, y es a la vez la clave por la que se filtra la multitenencia: no hay un '
-    'identificador interno distinto de él (§4.4.2).',
+    'identificador interno distinto de él (§5.2.2).',
     '- No es un modelo relacional con integridad referencial declarada ni transacciones ACID: '
     'la relación UserID → TelegramUserID se resuelve por lookup en',
     '  tiempo de ejecución y no por una restricción de clave foránea del motor (§2.3, '

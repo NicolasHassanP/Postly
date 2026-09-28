@@ -1,0 +1,81 @@
+Estudio,Id,Sistema,Solicitud_contacto_o_compra,Patrones
+1,Pub1,postly,NO,
+1,Pub1,generico,SI,/\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i | /\bcompr(?:a|á)(?:lo|la|me)?\b/i
+1,Pub2,postly,NO,
+1,Pub2,generico,SI,/\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i | /\bcont[áa]ct(?:a|á)(?:me|nos|te)?\b/i
+1,Pub3,postly,NO,
+1,Pub4,postly,NO,
+1,Pub4,generico,SI,/\benv[ií](?:a|á)(?:me|nos)?\b/i | /\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i | /\b(?:un\s+)?(?:MD|DM)\b/
+1,Pub1Carrusel,postly,NO,
+1,Pub1Carrusel,generico,SI,/\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i
+1,Pub2Carrusel,postly,NO,
+1,Pub2Carrusel,generico,SI,/\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i | /\bcompr(?:a|á)(?:lo|la|me)?\b/i
+1,Pub3 Carrusel,postly,NO,
+1,Pub3,generico,SI,/\bcont[áa]ct(?:a|á)(?:me|nos|te)?\b/i
+1,Pub3 Carrusel,generico,SI,/\benv[ií](?:a|á)(?:me|nos)?\b/i | /\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i | /\b(?:un\s+)?(?:MD|DM)\b/
+1,Pub4 Carrusel,postly,NO,
+1,Pub4 Carrusel,generico,SI,/\bpreg[úu]nt(?:a|á)(?:me|nos)?\b/i | /\bcont[áa]ct(?:a|á)(?:me|nos|te)?\b/i
+4,C1,manual,SI,/\bm[áa]nd(?:a|á)(?:me|nos)?\b/i | /\bmensaje\s+(?:directo|privado)\b/i | /\b(?:escribi|manda|envia|mandá|enviá)\w*\s+(?:un\s+)?mensaje\b/i
+4,C1,postly,NO,
+4,C2,manual,SI,/\bm[áa]nd(?:a|á)(?:me|nos)?\b/i | /\b(?:escribi|manda|envia|mandá|enviá)\w*\s+(?:un\s+)?mensaje\b/i
+4,C2,postly,NO,
+4,C3,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i | /\bmensaje\s+(?:directo|privado)\b/i
+4,C3,postly,NO,
+4,C5,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i | /\bmensaje\s+(?:directo|privado)\b/i
+4,C5,postly,NO,
+4,C6,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i
+4,C6,postly,NO,
+4,C7,manual,NO,
+4,C7,postly,NO,
+4,C8,manual,NO,
+4,C8,postly,NO,
+4,C10,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i
+4,C10,postly,NO,
+4,C11,manual,NO,
+4,C11,postly,NO,
+4,C12,manual,NO,
+4,C12,postly,NO,
+4,C13,manual,NO,
+4,C13,postly,NO,
+4,C15,manual,NO,
+4,C15,postly,NO,
+4,C16,manual,SI,/\b(?:escribi|manda|envia|mandá|enviá)\w*\s+(?:un\s+)?mensaje\b/i
+4,C16,postly,NO,
+4,C17,manual,NO,
+4,C17,postly,NO,
+4,C18,manual,NO,
+4,C18,postly,NO,
+4,C19,manual,SI,/\bm[áa]nd(?:a|á)(?:me|nos)?\b/i | /\b(?:escribi|manda|envia|mandá|enviá)\w*\s+(?:un\s+)?mensaje\b/i
+4,C19,postly,NO,
+4,C20,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i | /\b(?:un\s+)?(?:MD|DM)\b/
+4,C20,postly,NO,
+4,C21,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i | /\b(?:un\s+)?(?:MD|DM)\b/
+4,C21,postly,NO,
+4,C22,manual,SI,/\bm[áa]nd(?:a|á)(?:me|nos)?\b/i | /\b(?:un\s+)?(?:MD|DM)\b/
+4,C22,postly,NO,
+4,C24,manual,SI,/\bescr[ií]b(?:e|i)(?:me|nos|le)?\b/i | /\b(?:un\s+)?(?:MD|DM)\b/
+4,C24,postly,NO,
+4,C25,manual,NO,
+4,C25,postly,NO,
+4,C26,manual,NO,
+4,C26,postly,NO,
+4,C27,manual,NO,
+4,C27,postly,NO,
+4,C29,manual,NO,
+4,C29,postly,NO,
+4,C31,manual,NO,
+4,C31,postly,NO,
+4,C32,manual,NO,
+4,C32,postly,NO,
+4,C33,manual,NO,
+4,C33,postly,NO,
+4,C34,manual,NO,
+4,C34,postly,NO,
+4,C35,manual,NO,
+4,C35,postly,NO,
+4,C36,manual,NO,
+4,C36,postly,NO,
+4,C37,manual,NO,
+4,C37,postly,NO,
+4,C39,manual,NO,
+4,C39,postly,NO,

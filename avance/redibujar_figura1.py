@@ -112,7 +112,7 @@ LINEAS = [
     '- Los tres canjes son peticiones distintas del workflow de callback: código → token de '
     'usuaria, token de usuaria → versión larga, y de ahí al token de página.',
     '- El token que el sistema usa al publicar es el de página, y es el único cuya vigencia '
-    'mide el §5.1: la Graph API lo devuelve sin campo de expiración (Tabla 13, HU2).',
+    'mide el §6.1.5: la Graph API lo devuelve sin campo de expiración (Tabla 13, HU2).',
     '- El token nunca es visible ni ingresado manualmente por la usuaria (Anexo B.3). OAuth '
     '2.0 delega autorización; no provee no repudio ni autenticación del bot ante ella (§2.3).',
 ]

@@ -326,7 +326,7 @@
                   {
                     "text": "✅ Publicar Ahora",
                     "additionalFields": {
-                      "callback_data": "pub_final"
+                      "callback_data": "=pub_final{{ $json._g ? '_g' + $json._g : '' }}"
                     }
                   }
                 ]
@@ -338,7 +338,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "prog_final"
+                      "callback_data": "=prog_final{{ $json._g ? '_g' + $json._g : '' }}"
                     }
                   }
                 ]
@@ -384,7 +384,7 @@
                     "rightValue": "edit_1",
                     "operator": {
                       "type": "string",
-                      "operation": "equals"
+                      "operation": "startsWith"
                     },
                     "id": "bf782a83-6380-4ce8-af98-062ff29f1801"
                   }
@@ -407,7 +407,7 @@
                     "rightValue": "pub_1",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
+                      "operation": "startsWith",
                       "name": "filter.operator.equals"
                     }
                   }
@@ -430,7 +430,7 @@
                     "rightValue": "edit_2",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
+                      "operation": "startsWith",
                       "name": "filter.operator.equals"
                     }
                   }
@@ -453,7 +453,7 @@
                     "rightValue": "pub_2",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
+                      "operation": "startsWith",
                       "name": "filter.operator.equals"
                     }
                   }
@@ -476,7 +476,7 @@
                     "rightValue": "edit_3",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
+                      "operation": "startsWith",
                       "name": "filter.operator.equals"
                     }
                   }
@@ -499,7 +499,7 @@
                     "rightValue": "pub_3",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
+                      "operation": "startsWith",
                       "name": "filter.operator.equals"
                     }
                   }
@@ -522,7 +522,7 @@
                     "rightValue": "pub_final",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
+                      "operation": "startsWith",
                       "name": "filter.operator.equals"
                     }
                   }
@@ -808,7 +808,7 @@
           "values": [
             {
               "lookupColumn": "UserID",
-              "lookupValue": "={{ String($json.callback_query.message.chat.id) }}"
+              "lookupValue": "={{ String($('Telegram Trigger').first().json.callback_query.message.chat.id) }}"
             }
           ]
         },
@@ -1452,10 +1452,10 @@
     {
       "parameters": {
         "chatId": "={{ $node[\"Telegram Trigger\"].json.callback_query.message.chat.id }}",
-        "text": "=✅ *¡Publicación exitosa en Instagram!* 🎉  \n\nTu post de Mary Kay ya está en vivo 🚀 \n\n🔗 Ver publicación: \n{{ $json.permalink }}  \n\n_Publicado por Postly_ 🪄",
+        "text": "=✅ <b>¡Publicación exitosa en Instagram!</b> 🎉  \n\nTu post de Mary Kay ya está en vivo 🚀 \n\n🔗 Ver publicación: \n{{ $json.permalink }}  \n\n<i>Publicado por Postly</i> 🪄",
         "additionalFields": {
           "appendAttribution": false,
-          "parse_mode": "Markdown"
+          "parse_mode": "HTML"
         }
       },
       "type": "n8n-nodes-base.telegram",
@@ -2000,7 +2000,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const rows = $input.all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\nconst data = $('Telegram Trigger').first().json.callback_query.data;\nconst chatId = $('Telegram Trigger').first().json.callback_query.message.chat.id;\nlet texto;\nif (data === 'edit_2') texto = last.Copy_Op2;\nelse if (data === 'edit_3') texto = last.Copy_Op3;\nelse texto = last.Copy_Op1;\nreturn [{ json: { chatId, texto } }];"
+        "jsCode": "const rows = $input.all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\nconst data = String($('Telegram Trigger').first().json.callback_query.data || '').replace(/_g\\d+$/, '');\n$getWorkflowStaticData('global')['editAnchor_' + String($('Telegram Trigger').first().json.callback_query.message.chat.id)] = (String($('Telegram Trigger').first().json.callback_query.data || '').match(/_g(\\d+)$/) || [])[1] || '';\nconst chatId = $('Telegram Trigger').first().json.callback_query.message.chat.id;\nlet texto;\nif (data === 'edit_2') texto = last.Copy_Op2;\nelse if (data === 'edit_3') texto = last.Copy_Op3;\nelse texto = last.Copy_Op1;\nreturn [{ json: { chatId, texto } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2109,13 +2109,13 @@
                   {
                     "text": "✅ Publicar · Informativa",
                     "additionalFields": {
-                      "callback_data": "pub_1"
+                      "callback_data": "=pub_1_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "edit_1"
+                      "callback_data": "=edit_1_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -2127,7 +2127,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "prog_1"
+                      "callback_data": "=prog_1_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -2168,13 +2168,13 @@
                   {
                     "text": "✅ Publicar · Vendedora",
                     "additionalFields": {
-                      "callback_data": "pub_2"
+                      "callback_data": "=pub_2_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "edit_2"
+                      "callback_data": "=edit_2_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -2186,7 +2186,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "prog_2"
+                      "callback_data": "=prog_2_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -2227,13 +2227,13 @@
                   {
                     "text": "✅ Publicar · Divertida",
                     "additionalFields": {
-                      "callback_data": "pub_3"
+                      "callback_data": "=pub_3_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "edit_3"
+                      "callback_data": "=edit_3_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -2245,7 +2245,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "prog_3"
+                      "callback_data": "=prog_3_g{{ $('B: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -3149,7 +3149,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst data = $('Telegram Trigger').first().json.callback_query?.data || 'pub_1';\nlet targetRow = null, choice = 'op1';\nif (String(data).startsWith('pubR_')) {\n  const p = String(data).split('_');\n  targetRow = Number(p[1]);\n  choice = p[2] === 'final' ? 'final' : ('op' + p[2]);\n} else if (data === 'pub_2') choice = 'op2';\nelse if (data === 'pub_3') choice = 'op3';\nelse if (data === 'pub_final') choice = 'final';\nelse choice = 'op1';\nconst rows = items.map(i => i.json);\nlet row;\nif (targetRow != null) row = rows.find(r => Number(r.row_number) === targetRow) || rows[rows.length - 1];\nelse row = rows[rows.length - 1];\nreturn [{ json: { ...row, _choice: choice } }];"
+        "jsCode": "const items = $input.all();\nconst data = String($('Telegram Trigger').first().json.callback_query?.data || 'pub_1').replace(/_g\\d+$/, '');\nlet targetRow = null, choice = 'op1';\nif (String(data).startsWith('pubR_')) {\n  const p = String(data).split('_');\n  targetRow = Number(p[1]);\n  choice = p[2] === 'final' ? 'final' : ('op' + p[2]);\n} else if (data === 'pub_2') choice = 'op2';\nelse if (data === 'pub_3') choice = 'op3';\nelse if (data === 'pub_final') choice = 'final';\nelse choice = 'op1';\nconst rows = items.map(i => i.json);\nlet row;\nif (targetRow != null) row = rows.find(r => Number(r.row_number) === targetRow) || rows[rows.length - 1];\nelse row = rows[rows.length - 1];\nreturn [{ json: { ...row, _choice: choice } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -3938,13 +3938,13 @@
                   {
                     "text": "📝 Publicar · Informativa",
                     "additionalFields": {
-                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_1_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_1_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -3956,7 +3956,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "=progCar_{{ $('HU5: Parsear copys').first().json.gid }}_1"
+                      "callback_data": "=progCar_{{ $('HU5: Parsear copys').first().json.gid }}_1_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -3997,13 +3997,13 @@
                   {
                     "text": "💎 Publicar · Vendedora",
                     "additionalFields": {
-                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_2_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_2_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -4015,7 +4015,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "=progCar_{{ $('HU5: Parsear copys').first().json.gid }}_2"
+                      "callback_data": "=progCar_{{ $('HU5: Parsear copys').first().json.gid }}_2_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -4056,13 +4056,13 @@
                   {
                     "text": "🎉 Publicar · Divertida",
                     "additionalFields": {
-                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                      "callback_data": "=pubCar_{{ $('HU5: Parsear copys').first().json.gid }}_3_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                      "callback_data": "=editCar_{{ $('HU5: Parsear copys').first().json.gid }}_3_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -4074,7 +4074,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "=progCar_{{ $('HU5: Parsear copys').first().json.gid }}_3"
+                      "callback_data": "=progCar_{{ $('HU5: Parsear copys').first().json.gid }}_3_g{{ $('HU5: Intro opciones').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -4184,7 +4184,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// HU5 — marca edición de carrusel pendiente para este chat (editCar_<gid>_<n>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('editCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = rest.slice(lastU + 1);\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nstore['editPending_' + chatId] = { gid, n: Number(n), ts: Date.now() };\nreturn [{ json: { chatId, gid, n } }];"
+        "jsCode": "// HU5 — marca edición de carrusel pendiente para este chat (editCar_<gid>_<n>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '').replace(/_g\\d+$/, '');\nconst rest = data.slice('editCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = rest.slice(lastU + 1);\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nstore['editPending_' + chatId] = { gid, n: Number(n), ts: Date.now(), g: (String($('Telegram Trigger').first().json.callback_query.data || '').match(/_g(\\d+)$/) || [])[1] || '' };\nreturn [{ json: { chatId, gid, n } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4268,7 +4268,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// HU5 — aplica el texto editado al caption del carrusel y limpia el flag\nconst inp = $json;\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + inp.gid] || {};\nconst copys = set.copys || ['', '', ''];\ncopys[inp.n - 1] = inp.text;\nset.copys = copys;\nstore['carousel_' + inp.gid] = set;\ndelete store['editPending_' + inp.chatId];\nreturn [{ json: { chatId: inp.chatId, gid: inp.gid, n: inp.n, caption: inp.text } }];"
+        "jsCode": "// HU5 — aplica el texto editado al caption del carrusel y limpia el flag\nconst inp = $json;\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + inp.gid] || {};\nconst copys = set.copys || ['', '', ''];\ncopys[inp.n - 1] = inp.text;\nset.copys = copys;\nstore['carousel_' + inp.gid] = set;\nconst _g = (store['editPending_' + inp.chatId] || {}).g || '';\ndelete store['editPending_' + inp.chatId];\nreturn [{ json: { chatId: inp.chatId, gid: inp.gid, n: inp.n, caption: inp.text, _g } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4292,13 +4292,13 @@
                   {
                     "text": "📤 Publicar carrusel",
                     "additionalFields": {
-                      "callback_data": "=pubCar_{{ $json.gid }}_{{ $json.n }}"
+                      "callback_data": "=pubCar_{{ $json.gid }}_{{ $json.n }}{{ $json._g ? '_g' + $json._g : '' }}"
                     }
                   },
                   {
                     "text": "✏️ Editar de nuevo",
                     "additionalFields": {
-                      "callback_data": "=editCar_{{ $json.gid }}_{{ $json.n }}"
+                      "callback_data": "=editCar_{{ $json.gid }}_{{ $json.n }}{{ $json._g ? '_g' + $json._g : '' }}"
                     }
                   }
                 ]
@@ -4310,7 +4310,7 @@
                   {
                     "text": "🗓 Programar",
                     "additionalFields": {
-                      "callback_data": "=progCar_{{ $json.gid }}_{{ $json.n }}"
+                      "callback_data": "=progCar_{{ $json.gid }}_{{ $json.n }}{{ $json._g ? '_g' + $json._g : '' }}"
                     }
                   }
                 ]
@@ -4386,7 +4386,7 @@
     {
       "parameters": {
         "resource": "callback",
-        "queryId": "={{ $json.callback_query.id }}",
+        "queryId": "={{ $('Telegram Trigger').first().json.callback_query.id }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
@@ -4494,7 +4494,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// HU5 2b — arma el caption final (HU7 precios + HU9 firma) y recupera urls del set\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst rest = data.slice('pubCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = Number(rest.slice(lastU + 1));\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = set.urls || [];\nlet caption = (set.copys && set.copys[n - 1]) || '';\n// HU7 — precios en texto\nconst patrones = [\n  /(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i,\n  /\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i,\n  /\\d+[.,]\\d{3}/,\n  /\\d+\\s*%\\s*(off|desc|descuento)/i,\n  /\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i,\n  /\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i\n];\nlet precio = null;\nfor (const p of patrones) { const m = caption.match(p); if (m) { precio = m[0]; break; } }\nif (precio) return [{ json: { blocked: true, chatId, blockMsg: '⚠️ El texto tiene contenido prohibido: \"' + precio + '\". Editá la opción e intentá de nuevo.' } }];\n// HU9 — firma desde Config\nconst cfg = {};\ntry { const row = $('HU5: Pub leer Config').first().json || {}; for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || '-- Consultora de Belleza Independiente Mary Kay --';\nconst contacto = cfg.contacto || '';\ncaption = caption.trim();\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\nreturn [{ json: { blocked: false, chatId, gid, n, caption, copys: set.copys || [], urls, cover: urls[0] || '', total: urls.length } }];"
+        "jsCode": "// HU5 2b — arma el caption final (HU7 precios + HU9 firma) y recupera urls del set\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '').replace(/_g\\d+$/, '');\nconst rest = data.slice('pubCar_'.length);\nconst lastU = rest.lastIndexOf('_');\nconst gid = rest.slice(0, lastU);\nconst n = Number(rest.slice(lastU + 1));\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nconst set = store['carousel_' + gid] || {};\nconst urls = set.urls || [];\n// Aspect ratio — IG rechaza contenedores de carrusel fuera de 4:5 (0.8) .. 1.91:1 con\n// error 36003/2207009 (\"The aspect ratio is not supported\"). Se detecta ACA, antes de\n// pegarle a Graph API, para poder avisar por Telegram en vez de que reviente en \"Crear hijo\".\nfunction jpegSize(buf) {\n  if (buf.length < 4 || buf[0] !== 0xFF || buf[1] !== 0xD8) return null;\n  let i = 2;\n  while (i + 9 < buf.length) {\n    if (buf[i] !== 0xFF) { i++; continue; }\n    const marker = buf[i + 1];\n    if (marker === 0xD8 || marker === 0x01 || (marker >= 0xD0 && marker <= 0xD7)) { i += 2; continue; }\n    if (marker === 0xD9) break;\n    const len = buf.readUInt16BE(i + 2);\n    if (marker >= 0xC0 && marker <= 0xCF && marker !== 0xC4 && marker !== 0xC8 && marker !== 0xCC) {\n      return { height: buf.readUInt16BE(i + 5), width: buf.readUInt16BE(i + 7) };\n    }\n    i += 2 + len;\n  }\n  return null;\n}\nfor (let i = 0; i < urls.length; i++) {\n  try {\n    const raw = await this.helpers.httpRequest({ method: 'GET', url: urls[i], encoding: null });\n    const buf = Buffer.isBuffer(raw) ? raw : Buffer.from(raw);\n    const dim = jpegSize(buf);\n    if (dim && dim.width && dim.height) {\n      const ratio = dim.width / dim.height;\n      if (ratio < 0.79 || ratio > 1.92) {\n        return [{ json: { blocked: true, chatId, blockMsg: '⚠️ La imagen ' + (i + 1) + ' tiene una relación de aspecto no válida para Instagram (' + ratio.toFixed(2) + '). Usá fotos entre 4:5 y 1.91:1 (evitá capturas de pantalla o recortes muy alargados) y volvé a intentar el carrusel.' } }];\n      }\n    }\n  } catch (e) { /* si no se puede bajar/parsear, se deja pasar y decide Graph API */ }\n}\nlet caption = (set.copys && set.copys[n - 1]) || '';\n// HU7 — precios en texto\nconst patrones = [\n  /(\\$|u\\$s|us\\$|ar\\$|€|£)\\s*\\d/i,\n  /\\d\\s*[.,]?\\d*\\s*(pesos?|ars|usd|u\\$d|d[oó]lares?|euros?|mangos?|lucas?)\\b/i,\n  /\\d+[.,]\\d{3}/,\n  /\\d+\\s*%\\s*(off|desc|descuento)/i,\n  /\\b(ofertas?|promos?|promoci[oó]n(?:es)?|descuentos?|rebajas?|barat[oa]s?|econ[oó]mic[oa]s?|gratis|2x1|3x2|cuotas?|financiaci[oó]n(?:es)?|sin\\s+inter[eé]s)\\b/i,\n  /\\b(precios?|cuesta|vale|abon[aá]s?)\\s*(?:es|son|de|desde|:)?\\s*\\$?\\s*\\d/i\n];\nlet precio = null;\nfor (const p of patrones) { const m = caption.match(p); if (m) { precio = m[0]; break; } }\nif (precio) return [{ json: { blocked: true, chatId, blockMsg: '⚠️ El texto tiene contenido prohibido: \"' + precio + '\". Editá la opción e intentá de nuevo.' } }];\n// HU9 — firma desde Config\nconst cfg = {};\ntry { const row = $('HU5: Pub leer Config').first().json || {}; for (const h of Object.keys(row)) cfg[h.trim().toLowerCase()] = String(row[h] ?? '').trim(); } catch (e) {}\nconst firmaLinea = cfg.firma || '-- Consultora de Belleza Independiente Mary Kay --';\nconst contacto = cfg.contacto || '';\ncaption = caption.trim();\ncaption = caption.split(firmaLinea).join('').trim();\nif (contacto) caption = caption.split(contacto).join('').trim();\ncaption = caption + '\\n' + firmaLinea;\nif (contacto) caption = caption + '\\n' + contacto;\nreturn [{ json: { blocked: false, chatId, gid, n, caption, copys: set.copys || [], urls, cover: urls[0] || '', total: urls.length } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4923,9 +4923,10 @@
     {
       "parameters": {
         "chatId": "={{ $('HU5: Pub preparar').first().json.chatId }}",
-        "text": "=✅ *¡Carrusel publicado en Instagram!* 🎉\n\nTu carrusel de {{ $('HU5: Pub preparar').first().json.total }} imágenes ya está en vivo 🚀\n\n🔗 Ver publicación: \n{{ $('HU5: Pub permalink').first().json.permalink }}\n\n_Publicado por Postly_ 🪄",
+        "text": "=✅ <b>¡Carrusel publicado en Instagram!</b> 🎉\n\nTu carrusel de {{ $('HU5: Pub preparar').first().json.total }} imágenes ya está en vivo 🚀\n\n🔗 Ver publicación: \n{{ $('HU5: Pub permalink').first().json.permalink }}\n\n<i>Publicado por Postly</i> 🪄",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
       "type": "n8n-nodes-base.telegram",
@@ -5181,7 +5182,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// HU10/carrusel — guarda en staticData el modo de agenda: single (prog_<choice>) o carrusel (progCar_<gid>_<n>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '');\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nif (data.startsWith('progCar_')) {\n  const rest = data.slice('progCar_'.length);\n  const lastU = rest.lastIndexOf('_');\n  const gid = rest.slice(0, lastU);\n  const n = rest.slice(lastU + 1);\n  store['schedulePending_' + chatId] = { type: 'carousel', gid, choice: n, ts: Date.now() };\n  return [{ json: { chatId, type: 'carousel', gid, choice: n } }];\n} else {\n  const choice = data.slice('prog_'.length); // '1' | '2' | '3' | 'final'\n  store['schedulePending_' + chatId] = { type: 'single', choice, ts: Date.now() };\n  return [{ json: { chatId, type: 'single', choice } }];\n}\n"
+        "jsCode": "// HU10/carrusel — guarda en staticData el modo de agenda: single (prog_<choice>) o carrusel (progCar_<gid>_<n>)\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst data = String(cb.data || '').replace(/_g\\d+$/, '');\nconst chatId = String(cb.message.chat.id);\nconst store = $getWorkflowStaticData('global');\nif (data.startsWith('progCar_')) {\n  const rest = data.slice('progCar_'.length);\n  const lastU = rest.lastIndexOf('_');\n  const gid = rest.slice(0, lastU);\n  const n = rest.slice(lastU + 1);\n  store['schedulePending_' + chatId] = { type: 'carousel', gid, choice: n, ts: Date.now() };\n  return [{ json: { chatId, type: 'carousel', gid, choice: n } }];\n} else {\n  const choice = data.slice('prog_'.length); // '1' | '2' | '3' | 'final'\n  store['schedulePending_' + chatId] = { type: 'single', choice, ts: Date.now() };\n  return [{ json: { chatId, type: 'single', choice } }];\n}\n"
       },
       "name": "Sched: Set pendiente",
       "type": "n8n-nodes-base.code",
@@ -6276,13 +6277,13 @@
                   {
                     "text": "✅ Publicar Reel",
                     "additionalFields": {
-                      "callback_data": "pubVid_1"
+                      "callback_data": "=pubVid_1_g{{ $('Video: intro').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "editVid_1"
+                      "callback_data": "=editVid_1_g{{ $('Video: intro').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -6323,13 +6324,13 @@
                   {
                     "text": "✅ Publicar Reel",
                     "additionalFields": {
-                      "callback_data": "pubVid_2"
+                      "callback_data": "=pubVid_2_g{{ $('Video: intro').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "editVid_2"
+                      "callback_data": "=editVid_2_g{{ $('Video: intro').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -6370,13 +6371,13 @@
                   {
                     "text": "✅ Publicar Reel",
                     "additionalFields": {
-                      "callback_data": "pubVid_3"
+                      "callback_data": "=pubVid_3_g{{ $('Video: intro').first().json.result.message_id }}"
                     }
                   },
                   {
                     "text": "✏️ Editar",
                     "additionalFields": {
-                      "callback_data": "editVid_3"
+                      "callback_data": "=editVid_3_g{{ $('Video: intro').first().json.result.message_id }}"
                     }
                   }
                 ]
@@ -6428,7 +6429,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const chatId=String($('Telegram Trigger').first().json.callback_query.message.chat.id);\nconst data=String($('Telegram Trigger').first().json.callback_query.data||'');\nconst n=Number(data.split('_')[1])||1;\nconst store=$getWorkflowStaticData('global');\nstore['videoEditPending_'+chatId]={ n };\nconst vp=store['videoPub_'+chatId]||{};\nconst copy=(vp.copys&&vp.copys[n-1])||'';\nreturn [{ json:{ chatId, copy, n } }];"
+        "jsCode": "const chatId=String($('Telegram Trigger').first().json.callback_query.message.chat.id);\nconst data=String($('Telegram Trigger').first().json.callback_query.data||'');\nconst n=Number(data.split('_')[1])||1;\nconst store=$getWorkflowStaticData('global');\nstore['videoEditPending_'+chatId]={ n, g: (String($('Telegram Trigger').first().json.callback_query.data || '').match(/_g(\\d+)$/) || [])[1] || '' };\nconst vp=store['videoPub_'+chatId]||{};\nconst copy=(vp.copys&&vp.copys[n-1])||'';\nreturn [{ json:{ chatId, copy, n } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -6535,7 +6536,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const inp=$json;\nconst store=$getWorkflowStaticData('global');\nconst vp=store['videoPub_'+inp.chatId]||{};\nconst copys=vp.copys||['','',''];\ncopys[inp.n-1]=inp.text; vp.copys=copys;\nstore['videoPub_'+inp.chatId]=vp;\ndelete store['videoEditPending_'+inp.chatId];\nreturn [{ json:{ chatId:inp.chatId, n:inp.n, caption:inp.text } }];"
+        "jsCode": "const inp=$json;\nconst store=$getWorkflowStaticData('global');\nconst vp=store['videoPub_'+inp.chatId]||{};\nconst copys=vp.copys||['','',''];\ncopys[inp.n-1]=inp.text; vp.copys=copys;\nstore['videoPub_'+inp.chatId]=vp;\nconst _g=(store['videoEditPending_'+inp.chatId]||{}).g||'';\ndelete store['videoEditPending_'+inp.chatId];\nreturn [{ json:{ chatId:inp.chatId, n:inp.n, caption:inp.text, _g } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -6559,7 +6560,7 @@
                   {
                     "text": "✅ Publicar Reel",
                     "additionalFields": {
-                      "callback_data": "=pubVid_{{ $json.n }}"
+                      "callback_data": "=pubVid_{{ $json.n }}{{ $json._g ? '_g' + $json._g : '' }}"
                     }
                   }
                 ]
@@ -6590,7 +6591,7 @@
     {
       "parameters": {
         "resource": "callback",
-        "queryId": "={{ $json.callback_query.id }}",
+        "queryId": "={{ $('Telegram Trigger').first().json.callback_query.id }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
@@ -7021,9 +7022,10 @@
     {
       "parameters": {
         "chatId": "={{ $('Video: pub publicar').first().json.chatId }}",
-        "text": "=🎬 ¡Reel publicado en Instagram! 🎉\n\n{{ $('Video: pub publicar').first().json.permalink ? ('🔗 ' + $('Video: pub publicar').first().json.permalink) : '' }}\n\n📘 También se publicó el video en tu página de Facebook.\n\n_Publicado por Postly_ 🪄",
+        "text": "=🎬 ¡Reel publicado en Instagram! 🎉\n\n{{ $('Video: pub publicar').first().json.permalink ? ('🔗 ' + $('Video: pub publicar').first().json.permalink) : '' }}\n\n📘 También se publicó el video en tu página de Facebook.\n\n<i>Publicado por Postly</i> 🪄",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
       "type": "n8n-nodes-base.telegram",
@@ -7390,6 +7392,308 @@
           "name": "Telegram account"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Telegram Trigger').first().json.callback_query.message.message_id }}",
+        "text": "⏳ Publicando tu publicación, aguardá un momento...",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        200
+      ],
+      "name": "Publicar: Lock",
+      "id": "a1b2c3d4-1111-4a5b-9c6d-0000publock01",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('HU5: Parsear copys').first().json.chatId }}",
+        "text": "✨ ¡Listo! Te dejé 3 versiones para tu carrusel. Elegí con cuál publicar 👇",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        -1424
+      ],
+      "id": "grp-hu5-intro",
+      "name": "HU5: Intro opciones",
+      "webhookId": "d4e5f6a7-9002-4002-8002-000000000002",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "grp-grupo-registrar-imagen",
+      "name": "Grupo: registrar imagen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4076,
+        -3088
+      ],
+      "parameters": {
+        "jsCode": "// Candado de grupo: registra ids y textos exactos de las 3 versiones enviadas.\nconst intro = $('B: Intro opciones').first().json.result;\nconst store = $getWorkflowStaticData('global');\nconst now = Date.now();\nfor (const k of Object.keys(store)) if (k.indexOf('grupo_') === 0 && now - (store[k].ts || 0) > 7 * 864e5) delete store[k];\nstore['grupo_' + intro.message_id] = { chatId: String(intro.chat.id), ts: now,\n  msgs: [\"B: Opción 1\",\"B: Opción 2\",\"B: Opción 3\"].map(n => $(n).first().json.result).map(m => ({ id: m.message_id, text: m.text })) };\nreturn [{ json: { grupo: intro.message_id } }];"
+      }
+    },
+    {
+      "id": "grp-grupo-registrar-video",
+      "name": "Grupo: registrar video",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3628,
+        -2128
+      ],
+      "parameters": {
+        "jsCode": "// Candado de grupo: registra ids y textos exactos de las 3 versiones enviadas.\nconst intro = $('Video: intro').first().json.result;\nconst store = $getWorkflowStaticData('global');\nconst now = Date.now();\nfor (const k of Object.keys(store)) if (k.indexOf('grupo_') === 0 && now - (store[k].ts || 0) > 7 * 864e5) delete store[k];\nstore['grupo_' + intro.message_id] = { chatId: String(intro.chat.id), ts: now,\n  msgs: [\"Video: Opción 1\",\"Video: Opción 2\",\"Video: Opción 3\"].map(n => $(n).first().json.result).map(m => ({ id: m.message_id, text: m.text })) };\nreturn [{ json: { grupo: intro.message_id } }];"
+      }
+    },
+    {
+      "id": "grp-grupo-registrar-carrusel",
+      "name": "Grupo: registrar carrusel",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1836,
+        -1088
+      ],
+      "parameters": {
+        "jsCode": "// Candado de grupo: registra ids y textos exactos de las 3 versiones enviadas.\nconst intro = $('HU5: Intro opciones').first().json.result;\nconst store = $getWorkflowStaticData('global');\nconst now = Date.now();\nfor (const k of Object.keys(store)) if (k.indexOf('grupo_') === 0 && now - (store[k].ts || 0) > 7 * 864e5) delete store[k];\nstore['grupo_' + intro.message_id] = { chatId: String(intro.chat.id), ts: now,\n  msgs: [\"HU5: Tono 1\",\"HU5: Tono 2\",\"HU5: Tono 3\"].map(n => $(n).first().json.result).map(m => ({ id: m.message_id, text: m.text })) };\nreturn [{ json: { grupo: intro.message_id } }];"
+      }
+    },
+    {
+      "id": "grp-edit-anchor",
+      "name": "Edit: anchor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2740,
+        -2200
+      ],
+      "parameters": {
+        "jsCode": "// Candado de grupo: recupera el id de grupo de la versión que se está editando.\nconst chatId = String($('Telegram Trigger').first().json.message.chat.id);\nconst g = $getWorkflowStaticData('global')['editAnchor_' + chatId] || '';\nreturn $input.all().map(i => ({ json: { ...i.json, _g: g } }));"
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "grp-tiene",
+              "leftValue": "={{ $('Telegram Trigger').first().json.callback_query.data }}",
+              "rightValue": "_g\\d+$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Grupo: ¿tiene id?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -740,
+        600
+      ],
+      "id": "grp-tiene"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "messageId": "={{ (String($('Telegram Trigger').first().json.callback_query.data).match(/_g(\\d+)$/) || [])[1] }}",
+        "text": "🔒 Ya elegiste una versión de esta publicación. Las demás quedaron desactivadas.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -520,
+        520
+      ],
+      "name": "Grupo: Lock",
+      "id": "grp-lock",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "⚠️ Ya elegiste otra versión de esta publicación, así que esta quedó desactivada. Si querés volver a publicarla, usá Mi Agenda.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -300,
+        680
+      ],
+      "id": "grp-ya",
+      "name": "Grupo: ya elegida",
+      "webhookId": "d4e5f6a7-9002-4002-8002-000000000002",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "grp-hermanas",
+      "name": "Grupo: quitar botones",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -300,
+        360
+      ],
+      "parameters": {
+        "jsCode": "// Candado de grupo: las otras versiones pierden el teclado (se reenvía su texto tal cual).\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst m = String(cb.data || '').match(/_g(\\d+)$/);\nconst g = m && $getWorkflowStaticData('global')['grupo_' + m[1]];\nif (!g) return [];\nreturn g.msgs.filter(x => x.id !== cb.message.message_id && x.text)\n  .map(x => ({ json: { chatId: g.chatId, messageId: x.id, text: x.text } }));"
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.chatId }}",
+        "messageId": "={{ $json.messageId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -80,
+        360
+      ],
+      "name": "Grupo: editar hermanas",
+      "id": "grp-editar",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "grp-cont-0",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.callback_query.data }}",
+                    "rightValue": "prog",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "grp-cont-1",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.callback_query.data }}",
+                    "rightValue": "pubVid_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "grp-cont-2",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.callback_query.data }}",
+                    "rightValue": "pubCar_",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        600
+      ],
+      "id": "grp-continuar",
+      "name": "Grupo: continuar"
     }
   ],
   "connections": {
@@ -7519,7 +7823,7 @@
         ],
         [
           {
-            "node": "Get row(s) in sheet",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
@@ -7538,7 +7842,7 @@
         ],
         [
           {
-            "node": "Get row(s) in sheet",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
@@ -7557,14 +7861,14 @@
         ],
         [
           {
-            "node": "Get row(s) in sheet",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Get row(s) in sheet",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
@@ -7619,7 +7923,7 @@
       "main": [
         [
           {
-            "node": "Descripcion editada",
+            "node": "Edit: anchor",
             "type": "main",
             "index": 0
           }
@@ -8148,7 +8452,7 @@
         ],
         [
           {
-            "node": "HU5: Pub answer",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
@@ -8183,7 +8487,7 @@
         ],
         [
           {
-            "node": "Video: pub answer",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
@@ -8815,7 +9119,7 @@
       "main": [
         [
           {
-            "node": "HU5: Tono 1",
+            "node": "HU5: Intro opciones",
             "type": "main",
             "index": 0
           }
@@ -8826,7 +9130,7 @@
       "main": [
         [
           {
-            "node": "Sched: Set pendiente",
+            "node": "Grupo: ¿tiene id?",
             "type": "main",
             "index": 0
           }
@@ -9462,6 +9766,156 @@
         [
           {
             "node": "Video: analizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publicar: Lock": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Intro opciones": {
+      "main": [
+        [
+          {
+            "node": "HU5: Tono 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B: Opción 3": {
+      "main": [
+        [
+          {
+            "node": "Grupo: registrar imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video: Opción 3": {
+      "main": [
+        [
+          {
+            "node": "Grupo: registrar video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HU5: Tono 3": {
+      "main": [
+        [
+          {
+            "node": "Grupo: registrar carrusel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit: anchor": {
+      "main": [
+        [
+          {
+            "node": "Descripcion editada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grupo: ¿tiene id?": {
+      "main": [
+        [
+          {
+            "node": "Grupo: Lock",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Grupo: continuar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grupo: Lock": {
+      "main": [
+        [
+          {
+            "node": "Grupo: quitar botones",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Grupo: continuar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Grupo: ya elegida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grupo: quitar botones": {
+      "main": [
+        [
+          {
+            "node": "Grupo: editar hermanas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grupo: continuar": {
+      "main": [
+        [
+          {
+            "node": "Sched: Set pendiente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Video: pub answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: Pub answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Publicar: Lock",
             "type": "main",
             "index": 0
           }

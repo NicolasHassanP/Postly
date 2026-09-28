@@ -50,13 +50,17 @@ def check(etiqueta, valor, esperado, tol=0.0):
 # redactaron participantes identificables. Que falte ahi no es un defecto: es la
 # consecuencia declarada del recorte. Se distingue de un archivo roto por que la
 # ausencia sea completa —estamos en el nivel abierto— y no parcial.
-RESTRINGIDOS = {'Compliance_Campo.csv'}
+# Las planillas de la ampliación tampoco van al repositorio público (datos de personas):
+# el PDF transcribe los 32 pares en el Anexo E.2, y fuera del equipo se recalcula de ahí.
+RESTRINGIDOS = {'Compliance_Campo.csv', 'Cronometraje_datos_v2.csv', 'TAM_respuestas_v2.csv'}
 NIVEL_ABIERTO = not any((EV / r).exists() for r in RESTRINGIDOS)
 
 
 def leer(rel):
     """Carga un CSV exigiendo que todas las filas tengan los campos de la cabecera."""
     p = EV / rel
+    if not p.exists() and (_aqui / 'instrumentos' / rel).exists():
+        p = _aqui / 'instrumentos' / rel
     if not p.exists():
         if rel in RESTRINGIDOS and NIVEL_ABIERTO:
             print(f'   {rel}: no está en este nivel del depósito (acceso restringido) — se omite')
@@ -149,7 +153,7 @@ if img:
     check('agregado de los 29 F1 (§E.8)', round(v, 2), 0.94)
 
 # ═══════════════════════════════════════════ cronometraje: Tabla 7
-bloque('cronometraje — Tabla 7')
+bloque('cronometraje del PILOTO — antecedente del §6.1.6 (n = 12)')
 cr = leer('Cronometraje_datos.csv')
 if cr:
     def mmss(s):
@@ -176,7 +180,7 @@ if cr:
           round((st.mean(rs) - 70) / (st.stdev(rs) / math.sqrt(3)), 2), 0.91)
 
 # ═══════════════════════════════════════════════════ TAM: Tabla 8
-bloque('aceptacion tecnologica — Tabla 8')
+bloque('aceptacion tecnologica del PILOTO — antecedente (n = 3)')
 tam = leer('TAM_respuestas.csv')
 if tam:
     g = {'Utilidad percibida': ['PU1', 'PU2', 'PU3', 'PU4'],
@@ -189,6 +193,83 @@ if tam:
         check(k, round(st.mean([int(f[i]) for f in tam for i in items]), 2), esperado[k])
     todos = [i for its in g.values() for i in its]
     check('puntaje TAM global', round(st.mean([int(f[i]) for f in tam for i in todos]), 2), 4.57)
+
+# ═══════════════════════════ cronometraje de la AMPLIACION: Tabla 7 y §6.1.6
+# Hasta el 28-09-2026 este script solo verificaba el piloto, y el texto de la
+# ampliacion arrastraba el 9,4 min del piloto (el dato da 9,33) sin que nada avisara.
+bloque('cronometraje de la ampliacion — Tabla 7 y §6.1.6 (n = 32)')
+cr2 = leer('Cronometraje_datos_v2.csv')
+if cr2:
+    def amin(s):
+        m, sec = s.split(':')
+        return int(m) + float(sec) / 60
+    P2 = [dict(part=f['Participante'], man=amin(f['Manual_mmss']),
+               ad=amin(f['Adaptacion_mmss']), po=amin(f['Postly_mmss'])) for f in cr2]
+    for x in P2:
+        x['comp'] = x['man'] - x['ad']
+        x['red'] = (x['comp'] - x['po']) / x['comp'] * 100
+        x['redT'] = (x['man'] - x['po']) / x['man'] * 100
+    suj2 = sorted({x['part'] for x in P2})
+    por = {s: [x for x in P2 if x['part'] == s] for s in suj2}
+    med = lambda s, k: st.mean([x[k] for x in por[s]])
+    check('n de pares', len(P2), 32)
+    check('n de participantes', len(suj2), 8)
+    check('manual TOTAL, adaptacion incluida (min)', round(st.mean([x['man'] for x in P2]), 1), 9.3)
+    check('adaptacion (min)', round(st.mean([x['ad'] for x in P2]), 1), 1.8)
+    check('manual, tramo comparable (min) — fila global', round(st.mean([x['comp'] for x in P2]), 1), 7.6)
+    check('Postly (min)', round(st.mean([x['po'] for x in P2]), 1), 1.4)
+    check('ahorro medio (min)', round(st.mean([x['comp'] - x['po'] for x in P2]), 1), 6.2)
+    tabla7 = {'C1': (7.8, 1.6, 79.1), 'C2': (7.2, 1.6, 76.6), 'C3': (7.1, 1.1, 84.6),
+              'C4': (10.0, 2.2, 77.1), 'C5': (8.0, 1.0, 87.3), 'C6': (6.0, 1.0, 82.8),
+              'C7': (7.0, 1.3, 82.0), 'C8': (7.5, 1.1, 85.3)}
+    for s, esp in tabla7.items():
+        check(f'Tabla 7 fila {s} (comparable, Postly, reduccion)',
+              (round(med(s, 'comp'), 1), round(med(s, 'po'), 1), round(med(s, 'red'), 1)), esp)
+    R = [med(s, 'red') for s in suj2]
+    RT = [med(s, 'redT') for s in suj2]
+    D = [med(s, 'comp') - med(s, 'po') for s in suj2]
+    se = st.stdev(R) / math.sqrt(8)
+    check('reduccion media (%)', round(st.mean(R), 1), 81.8)
+    check('DE de la reduccion', round(st.stdev(R), 1), 3.9)
+    check('IC 95 % (t de 7 gl)', (round(st.mean(R) - 2.3646 * se, 1), round(st.mean(R) + 2.3646 * se, 1)), (78.6, 85.1))
+    check('t(7) contra el 70 %', round((st.mean(R) - 70) / se, 2), 8.51)
+    check('d frente al umbral', round((st.mean(R) - 70) / st.stdev(R), 2), 3.01)
+    check('t(7) pareada sobre los tiempos', round(st.mean(D) / (st.stdev(D) / math.sqrt(8)), 2), 19.98)
+    check('d de Cohen pareada', round(st.mean(D) / st.stdev(D), 2), 7.06)
+    check('reduccion sobre el tiempo total (%)', round(st.mean(RT), 1), 85.5)
+
+# ═══════════════════════════════════ TAM de la AMPLIACION: Tabla 8 y §6.1.7
+bloque('aceptacion tecnologica de la ampliacion — Tabla 8 y §6.1.7 (n = 8)')
+tam2 = leer('TAM_respuestas_v2.csv')
+if tam2:
+    val = lambda f, c: 6 - float(f[c]) if c.endswith('r') else float(f[c])
+    G2 = {'Utilidad percibida': ['PU1', 'PU2', 'PU3', 'PU4r', 'PU5'],
+          'Facilidad de uso percibida': ['PEOU1', 'PEOU2r', 'PEOU3', 'PEOU4'],
+          'Intencion de uso': ['BI1', 'BI2r']}
+    esp2 = {'Utilidad percibida': 4.68, 'Facilidad de uso percibida': 4.38, 'Intencion de uso': 3.94}
+
+    def alfa(cols):
+        X = [[val(f, c) for c in cols] for f in tam2]
+        k = len(cols)
+        iv = sum(st.variance([x[j] for x in X]) for j in range(k))
+        return k / (k - 1) * (1 - iv / st.variance([sum(x) for x in X]))
+
+    check('n de participantes', len(tam2), 8)
+    for k, its in G2.items():
+        check(k, st.mean([val(f, c) for f in tam2 for c in its]), esp2[k], tol=0.0051)
+    todos2 = [c for its in G2.values() for c in its]
+    check('puntaje TAM global', round(st.mean([val(f, c) for f in tam2 for c in todos2]), 2), 4.43)
+    for k, esp in zip(G2, (0.29, 0.70, 0.95)):
+        check(f'alfa de Cronbach — {k}', round(alfa(G2[k]), 2), esp)
+    pu = G2['Utilidad percibida']
+    check('alfa de Utilidad percibida sin PU1', round(alfa([c for c in pu if c != 'PU1']), 2), 0.31)
+    check('alfa de Utilidad percibida sin PU3', round(alfa([c for c in pu if c != 'PU3']), 2), 0.55)
+    for k, esp in zip(G2, (-0.33, -0.61, -0.90)):
+        inv = next(c for c in G2[k] if c.endswith('r'))
+        dire = [c for c in G2[k] if c != inv]
+        r = st.correlation([st.mean(float(f[c]) for c in dire) for f in tam2],
+                           [float(f[inv]) for f in tam2])
+        check(f'r directos/invertido — {k}', round(r, 2), esp)
 
 # ══════════════════════════════ sensibilidad del cronometraje (Anexo E.2)
 bloque('sensibilidad del cronometraje — Anexo E.2')

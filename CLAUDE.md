@@ -93,6 +93,15 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 - **Compliance de precios:** el set de patrones está duplicado en **4** nodos (`Code in JavaScript1` HU7/HU9, `HU5: Pub preparar` carrusel, `Sched: Procesar` HU10, `Video: pub publicar` HU13). Si se toca uno, tocar los cuatro: `Sched: Procesar` tenía un set propio más débil y HU10 dejaba pasar contenido que el flujo inmediato bloqueaba. Para eso está `scripts/fix-compliance-patterns.mjs`, que los unifica y es idempotente.
 - **Patchear regex por script:** NO usar heredoc de bash. Python interpreta `\b` como escape válido (backspace 0x08) y lo convierte en carácter de control, dejando la regla muerta, mientras deja `\d`/`\s` intactos. Usar la herramienta de edición de archivos, `String.raw` o `r"""`. Y validar (`node --check`, o correr el harness) **antes** de desplegar.
 - **Cloudinary desde Code:** subir con `body:{upload_preset,file:'data:...;base64,...'}` + header `content-type: application/x-www-form-urlencoded` + `json:true`. La opción `form:` da 400.
+- **Telegram + Markdown + permalink de IG = bomba de tiempo.** Los 3 mensajes de "éxito" (`Telegram Éxito`,
+  `HU5: Pub éxito`, `Video: pub éxito`) interpolaban el permalink de Instagram dentro de texto con `*negrita*`/
+  `_cursiva_` y `parse_mode: Markdown` (legacy). El shortcode del permalink (`/p/DdzICf2Fn_o/`) es
+  base64url-ish y **suele traer un `_` suelto**, que el parser de Telegram cuenta como apertura/cierre de
+  cursiva y termina desbalanceando el mensaje entero → `400 can't parse entities`. Pasó en vivo con C6 el
+  27-09 (offset del error = el `_` de cierre de "_Publicado por Postly_", no el del permalink). **Fix:** los 3
+  nodos pasaron a `parse_mode: HTML` (`<b>`/`<i>` en vez de `*`/`_`), que no le da significado especial al `_`.
+  Si se agrega un cuarto mensaje que interpole texto dinámico (permalink, caption, nombre de usuaria) dentro de
+  formato Markdown, tiene el mismo riesgo — usar HTML ahí también.
 
 ## Convenciones
 
