@@ -16,6 +16,10 @@ participantes, con la secuencia real en once pasos: la auditoría visual se sepa
 pasos 2 y 3, la generación de copys pasa a 4 y 5, y la auditoría textual queda en 7, junto a
 la firma que el paso 8 concatena por código.
 
+**Pasada 158 (dictamen 13, B-11).** Cloudinary entra como sexto participante: el activo
+se sube allí y la Graph API lo descarga desde su URL pública (pasos 12 y 13). La nota sale
+del bitmap.
+
 Uso: python redibujar_figura6.py <salida.png>
 """
 import sys
@@ -24,7 +28,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 SALIDA = sys.argv[1] if len(sys.argv) > 1 else '_figuras/Figura_6_corregida.png'
 
-W, H = 1334, 828
+W, H = 1334, 784
 REGULAR = 'C:/Windows/Fonts/segoeui.ttf'
 NEGRITA = 'C:/Windows/Fonts/segoeuib.ttf'
 ITALICA = 'C:/Windows/Fonts/segoeuii.ttf'
@@ -45,14 +49,15 @@ d = ImageDraw.Draw(im)
 
 # ── participantes ───────────────────────────────────────────────────────────
 PARTICIPANTES = [
-    ('Usuaria', 182),
-    ('Bot (n8n)', 446),
-    ('Gemini 2.5 Flash', 710),
-    ('Módulo Centinela', 974),
-    ('Meta Graph API', 1238),
+    ('Usuaria', 110),
+    ('Bot (n8n)', 330),
+    ('Gemini 2.5 Flash', 560),
+    ('Módulo Centinela', 790),
+    ('Cloudinary', 1015),
+    ('Meta Graph API', 1230),
 ]
 CAJA_Y0, CAJA_Y1 = 18, 54
-VIDA_Y1 = 686
+VIDA_Y1 = 770
 
 for nombre, x in PARTICIPANTES:
     ancho = d.textlength(nombre, font=f_caja) + 36
@@ -77,43 +82,26 @@ def flecha(y, desde, hasta, texto, vuelta=False):
 # ── la secuencia, en el orden en que el sistema la ejecuta ──────────────────
 PASOS = [
     (76, 'Usuaria', 'Bot (n8n)', '1. envía imagen(es) del producto', False),
-    (124, 'Bot (n8n)', 'Módulo Centinela', '2. invoca la auditoría visual (HU8)', False),
-    (172, 'Módulo Centinela', 'Gemini 2.5 Flash', '3. analiza la imagen (llamada de visión)',
-     False),
-    (220, 'Gemini 2.5 Flash', 'Módulo Centinela', '4. sin precio incrustado', True),
-    (268, 'Módulo Centinela', 'Bot (n8n)', '5. veredicto visual', True),
-    (316, 'Bot (n8n)', 'Gemini 2.5 Flash', '6. solicita 3 copys (segunda llamada)', False),
-    (364, 'Gemini 2.5 Flash', 'Bot (n8n)', '7. copys generados (JSON)', True),
-    (412, 'Bot (n8n)', 'Usuaria', '8. presenta 3 opciones de tono (HITL)', True),
-    (460, 'Usuaria', 'Bot (n8n)', '9. selecciona tono / edita texto', False),
-    (508, 'Bot (n8n)', 'Módulo Centinela', '10. audita el texto final (HU7, RegEx)', False),
-    (556, 'Módulo Centinela', 'Bot (n8n)', '11. veredicto textual: aprobado', True),
-    (604, 'Bot (n8n)', 'Meta Graph API', '12. publica con la firma concatenada', False),
-    (645, 'Meta Graph API', 'Bot (n8n)', '13. ID de publicación', True),
-    (678, 'Bot (n8n)', 'Usuaria', '14. confirma publicación (estado: Publicado)', True),
+    (120, 'Bot (n8n)', 'Módulo Centinela', '2. invoca la auditoría visual (HU8)', False),
+    (164, 'Módulo Centinela', 'Gemini 2.5 Flash', '3. analiza la imagen (llamada de visión)', False),
+    (208, 'Gemini 2.5 Flash', 'Módulo Centinela', '4. sin precio incrustado', True),
+    (252, 'Módulo Centinela', 'Bot (n8n)', '5. veredicto visual', True),
+    (296, 'Bot (n8n)', 'Gemini 2.5 Flash', '6. solicita 3 copys (segunda llamada)', False),
+    (340, 'Gemini 2.5 Flash', 'Bot (n8n)', '7. copys generados (JSON)', True),
+    (384, 'Bot (n8n)', 'Usuaria', '8. presenta 3 opciones de tono (HITL)', True),
+    (428, 'Usuaria', 'Bot (n8n)', '9. selecciona tono / edita texto', False),
+    (472, 'Bot (n8n)', 'Módulo Centinela', '10. audita el texto final (HU7, RegEx)', False),
+    (516, 'Módulo Centinela', 'Bot (n8n)', '11. veredicto textual: aprobado', True),
+    (560, 'Bot (n8n)', 'Cloudinary', '12. sube el activo', False),
+    (604, 'Cloudinary', 'Bot (n8n)', '13. URL pública del activo', True),
+    (648, 'Bot (n8n)', 'Meta Graph API', '14. publica con la firma concatenada', False),
+    (692, 'Meta Graph API', 'Bot (n8n)', '15. ID de publicación', True),
+    (736, 'Bot (n8n)', 'Usuaria', '16. confirma publicación (estado: Publicado)', True),
 ]
 for y, desde, hasta, texto, vuelta in PASOS:
     flecha(y, desde, hasta, texto, vuelta)
 
-# ── nota ────────────────────────────────────────────────────────────────────
-d.text((20, 706), 'Nota.', font=f_nota_tit, fill=(40, 40, 40))
-LINEAS = [
-    '- El orden es el del sistema desplegado: la auditoría visual corre ANTES de generar los '
-    'copys, de modo que una imagen con precio incrustado interrumpe el flujo',
-    '  sin gastar una inferencia de redacción (Anexo B.4; Tabla 9, HU8). Si cualquiera de las '
-    'dos auditorías detecta un precio, se notifica a la usuaria.',
-    '- El flujo de video agrega una tercera respuesta —avisar sin bloquear— cuando el recorte '
-    'a 9:16 elimina el precio del material publicado (§4.4.3).',
-    '- La firma legal se concatena por código antes de la publicación: no depende de que el '
-    'modelo la incluya (Anexo B.4).',
-    '- El Módulo Centinela no es un proceso aparte ni un modelo propio: su canal visual es una '
-    'llamada al mismo Gemini 2.5 Flash (pasos 3 y 4) y su canal textual, un nodo de código '
-    'determinista',
-    '  (paso 10). Por eso el recorrido consume DOS inferencias y no una, que es lo que el '
-    'Anexo E.5 mide en su batería de integración multimodal.',
-]
-for k, linea in enumerate(LINEAS):
-    d.text((20, 726 + k * 15), linea, font=f_nota, fill=(70, 70, 70))
+# ── nota ──: desde la pasada 158 va como texto bajo la figura (APA), no en el bitmap.
 
 im.save(SALIDA)
 print(f'escrita: {SALIDA}  ({im.size[0]}×{im.size[1]})')
