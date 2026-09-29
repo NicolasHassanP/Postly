@@ -32,6 +32,14 @@ cuerpo = [p for p in doc.paragraphs if p.style.name not in ESTILOS_INDICE]
 texto = '\n'.join(p.text for p in cuerpo)
 titulos = [p.text.strip() for p in cuerpo if p.style.name.startswith('Heading')]
 
+
+def _texto(p):
+    """Texto del párrafo incluidos los campos simples (w:fldSimple): Word convierte el número de un
+    rótulo en un campo SEQ simple al actualizar los campos, y p.text no lo ve."""
+    from docx.oxml.ns import qn
+    return ''.join(t.text or '' for t in p._p.iter(qn('w:t')))
+
+
 fallos = []
 
 
@@ -95,12 +103,12 @@ print('\n── tablas y figuras')
 for clase in ('Tabla', 'Figura'):
     rotulos = {}
     for p in cuerpo:
-        m = re.match(rf'{clase}\s+(\d+)\.\s', p.text.strip())
+        m = re.match(rf'{clase}\s+(\d+)\.\s', _texto(p).strip())
         if m:
-            rotulos.setdefault(int(m.group(1)), p.text.strip())
+            rotulos.setdefault(int(m.group(1)), _texto(p).strip())
     citas = defaultdict(int)
     for p in cuerpo:
-        t = p.text.strip()
+        t = _texto(p).strip()
         if re.match(rf'{clase}\s+\d+\.\s', t):
             continue          # el rótulo no se cita a sí mismo
         if t.startswith('Nota.'):
