@@ -128,3 +128,6 @@ avance/instrumentos/lectura_a26/*.pdf
 
 # Material de terceros (Mary Kay): no se publica en el repositorio (Anexo D)
 avance/Pautas Mary Kay*.pdf
+
+# Articulos de terceros descargados para leerlos (no se redistribuyen)
+avance/instrumentos/lectura_obras_recientes/
