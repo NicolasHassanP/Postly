@@ -20,6 +20,12 @@ la firma que el paso 8 concatena por código.
 se sube allí y la Graph API lo descarga desde su URL pública (pasos 12 y 13). La nota sale
 del bitmap.
 
+**Pasada 169 (dictamen 14, N-06).** La subida a Cloudinary pasa de los pasos 12-13 a los 2-3:
+en la imagen única el nodo «HTTP Request» sube la imagen antes de «HU8: Detección visual», que la
+lee por su URL pública, y la Graph API descarga esa misma URL al publicar (workflow del repo:
+Code in JavaScript → HTTP Request → HU8: Detección visual). En el video la subida sí es posterior
+a la detección (Anexo B.9). El diagrama representa la imagen única.
+
 Uso: python redibujar_figura6.py <salida.png>
 """
 import sys
@@ -81,20 +87,20 @@ def flecha(y, desde, hasta, texto, vuelta=False):
 
 # ── la secuencia, en el orden en que el sistema la ejecuta ──────────────────
 PASOS = [
-    (76, 'Usuaria', 'Bot (n8n)', '1. envía imagen(es) del producto', False),
-    (120, 'Bot (n8n)', 'Módulo Centinela', '2. invoca la auditoría visual (HU8)', False),
-    (164, 'Módulo Centinela', 'Gemini 2.5 Flash', '3. analiza la imagen (llamada de visión)', False),
-    (208, 'Gemini 2.5 Flash', 'Módulo Centinela', '4. sin precio incrustado', True),
-    (252, 'Módulo Centinela', 'Bot (n8n)', '5. veredicto visual', True),
-    (296, 'Bot (n8n)', 'Gemini 2.5 Flash', '6. solicita 3 copys (segunda llamada)', False),
-    (340, 'Gemini 2.5 Flash', 'Bot (n8n)', '7. copys generados (JSON)', True),
-    (384, 'Bot (n8n)', 'Usuaria', '8. presenta 3 opciones de tono (HITL)', True),
-    (428, 'Usuaria', 'Bot (n8n)', '9. selecciona tono / edita texto', False),
-    (472, 'Bot (n8n)', 'Módulo Centinela', '10. audita el texto final (HU7, RegEx)', False),
-    (516, 'Módulo Centinela', 'Bot (n8n)', '11. veredicto textual: aprobado', True),
-    (560, 'Bot (n8n)', 'Cloudinary', '12. sube el activo', False),
-    (604, 'Cloudinary', 'Bot (n8n)', '13. URL pública del activo', True),
-    (648, 'Bot (n8n)', 'Meta Graph API', '14. publica con la firma concatenada', False),
+    (76, 'Usuaria', 'Bot (n8n)', '1. envía la imagen del producto', False),
+    (120, 'Bot (n8n)', 'Cloudinary', '2. sube la imagen', False),
+    (164, 'Cloudinary', 'Bot (n8n)', '3. URL pública de la imagen', True),
+    (208, 'Bot (n8n)', 'Módulo Centinela', '4. invoca la auditoría visual (HU8) con esa URL', False),
+    (252, 'Módulo Centinela', 'Gemini 2.5 Flash', '5. analiza la imagen (llamada de visión)', False),
+    (296, 'Gemini 2.5 Flash', 'Módulo Centinela', '6. sin precio incrustado', True),
+    (340, 'Módulo Centinela', 'Bot (n8n)', '7. veredicto visual', True),
+    (384, 'Bot (n8n)', 'Gemini 2.5 Flash', '8. solicita 3 copys (segunda llamada)', False),
+    (428, 'Gemini 2.5 Flash', 'Bot (n8n)', '9. copys generados (JSON)', True),
+    (472, 'Bot (n8n)', 'Usuaria', '10. presenta 3 opciones de tono (HITL)', True),
+    (516, 'Usuaria', 'Bot (n8n)', '11. selecciona tono / edita texto', False),
+    (560, 'Bot (n8n)', 'Módulo Centinela', '12. audita el texto final (HU7, RegEx)', False),
+    (604, 'Módulo Centinela', 'Bot (n8n)', '13. veredicto textual: aprobado', True),
+    (648, 'Bot (n8n)', 'Meta Graph API', '14. publica con la firma; la API descarga la URL', False),
     (692, 'Meta Graph API', 'Bot (n8n)', '15. ID de publicación', True),
     (736, 'Bot (n8n)', 'Usuaria', '16. confirma publicación (estado: Publicado)', True),
 ]

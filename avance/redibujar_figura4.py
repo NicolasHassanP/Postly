@@ -13,6 +13,10 @@ dos Cron— y todo lo demás pasa a la columna de servicios externos. La flecha 
 del orquestador. La nota conserva sus cuatro líneas y suma una quinta que declara la
 frontera.
 
+**Pasada 172 (dictamen 14, N-39).** Se agregan el callback OAuth y los sub-workflows de publicación, que
+el Anexo B.2 declara como workflows independientes que corren en la misma instancia; la figura sale
+sin la nota (que es texto bajo la figura, desde la pasada 149) y con 500 px de alto, como en el .docx.
+
 **Pasada 135 (dictamen 12, A-03).** «Contenedores» pasa a «componentes»: son nodos
 de un mismo proceso. El canal visual del Centinela sale de la frontera como llamada a
 Gemini, y el orquestador deja de rotularse con SQLite, que es sólo su historial interno.
@@ -25,7 +29,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 SALIDA = sys.argv[1] if len(sys.argv) > 1 else '_figuras/Figura_4_corregida.png'
 
-W, H = 1421, 706
+W, H = 1421, 500
 REGULAR = 'C:/Windows/Fonts/segoeui.ttf'
 NEGRITA = 'C:/Windows/Fonts/segoeuib.ttf'
 ITALICA = 'C:/Windows/Fonts/segoeuii.ttf'
@@ -113,6 +117,10 @@ caja(525, 195, 790, 265, ROJO_B, ROJO_F, 'Módulo Centinela', 'canal textual: Re
 caja(525, 330, 920, 398, GRIS_B, GRIS_F,
      'Cron: Programador (5 min) · Feedback Loop (24 h)', f_tit=f_ext)
 
+# Pasada 172 (dictamen 14, N-39): los workflows independientes que el B.2 declara.
+caja(525, 415, 715, 460, GRIS_B, GRIS_F, 'Callback OAuth (aparte)', f_tit=f_sub)
+caja(735, 415, 920, 460, GRIS_B, GRIS_F, 'Sub-workflows de publicación', f_tit=f_sub)
+
 # ── flujos ────────────────────────────────────────────────────────────────────
 flecha((217, 95), (251, 95))
 etiqueta_en(234, 82, 'usa')
@@ -123,6 +131,8 @@ etiqueta_en(596, 165, 'audita')
 flecha((700, 193), (700, 137), None)
 etiqueta_en(735, 165, 'veredicto')
 flecha((860, 328), (860, 137), None)
+flecha((830, 400), (830, 413), None)
+etiqueta_en(870, 407, 'invoca')
 etiqueta_en(886, 240, 'dispara')
 flecha((922, 82), (986, 91), 'analiza / genera', en_x=963, dy=-12)
 flecha((792, 215), (986, 114), 'canal visual', en_x=900, dy=-2)
@@ -130,23 +140,7 @@ flecha((922, 98), (986, 181), 'publica', en_x=963, dy=0)
 flecha((922, 112), (986, 271), 'sube el activo', en_x=963, dy=0)
 flecha((922, 126), (986, 361), 'lee/escribe', en_x=963, dy=0)
 
-# ── nota ──────────────────────────────────────────────────────────────────────
-NY = 520
-dr.text((20, NY), 'Nota.', font=f_nota_tit, fill=TINTA)
-LINEAS = [
-    '- Nivel de contexto y de componentes: los recuadros dentro de la frontera son componentes de un único proceso n8n, no contenedores C4.',
-    '- El Módulo Centinela son nodos de función del mismo proceso; su canal visual es una llamada a Gemini, fuera de la frontera.',
-    '- El bot de Telegram y la persistencia corren en infraestructura de terceros: quedan '
-    'fuera de la frontera del sistema.',
-    '- La publicación la emite el orquestador, que cumple el papel de capa de integración '
-    '(§5.1.1); el Centinela audita y no publica.',
-    '- Cloudinary es un paso intermedio obligatorio en todos los flujos que publican: cada '
-    'imagen y cada video se suben allí para que la Graph API',
-    '  pueda descargarlos (§4.4.2; Anexos B.9, C.6 y E.5). La persistencia no es una base '
-    'relacional (Anexo B.5).',
-]
-for k, l in enumerate(LINEAS):
-    dr.text((20, NY + 26 + k * 26), l, font=f_nota, fill=TINTA)
+# ── nota ──: desde la pasada 149 va como texto bajo la figura (APA), no en el bitmap.
 
 im.save(SALIDA)
 print(f'GUARDADO: {SALIDA}  ({im.size[0]}x{im.size[1]})')

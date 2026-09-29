@@ -19,6 +19,10 @@ La nota se reescribe además con el entorno real (E1, Anexo B.1) en lugar de «p
 **Pasada 128.** La etiqueta del carril As-Is decía «≈ 15–30 min estimados»: la estimación
 no instrumentada se retiró del documento (C-03) y la etiqueta pasa al valor medido.
 
+**Pasada 171 (dictamen 14, N-27).** El primer paso del As-Is decía «Tomar la foto del producto», y el
+§3.4.1 describe «selección, descarga», y el Anexo E.6 establece que el material es sobre todo arte oficial
+de la marca que la consultora recibe y reenvía. Pasa a «Seleccionar y descargar la imagen del producto».
+
 **Pasada 157 (dictamen 13, M-06).** La adaptación de la imagen sí tiene equivalente en el To-Be:
 el sistema rellena la imagen única a 1:1 (§4.4.2). La nota sale del bitmap.
 
@@ -97,7 +101,7 @@ def cadena(pasos, y_centro, x0, x1, borde, fondo, alto=86):
 
 # ── As-Is ───────────────────────────────────────────────────────────────────
 carril(20, 250, 'As-Is (manual)', AMBAR_CARRIL, (140, 100, 0))
-cadena([('Tomar la foto del producto', 'no computa en el cronometraje'),
+cadena([('Seleccionar y descargar la imagen del producto', 'no computa en el cronometraje'),
         ('Adaptar la imagen al formato de feed', 'en el To-Be la hace el sistema'),
         ('Redactar el copy a mano', ''),
         ('Revisar precios y firma manualmente', ''),
