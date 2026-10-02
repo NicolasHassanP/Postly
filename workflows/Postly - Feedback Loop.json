@@ -87,7 +87,8 @@
           "cachedResultName": "Usuarios"
         },
         "options": {}
-      }
+      },
+      "executeOnce": true
     },
     {
       "name": "Traer métricas",
