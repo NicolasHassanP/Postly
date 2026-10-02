@@ -29,6 +29,18 @@ Nuevos: 0 críticos, **3 altos**, 6 medios, 3 bajos. Recalculó toda la estadís
 > profesor dice que la escritura **no sube más por N-05 y N-06**. Condensar y limpiar el cuerpo es la
 > palanca que toca todos los componentes a la vez; Desarrollo (7,8) sube con N-01 y N-08.
 
+## Estado al 01-10 (noche)
+
+- **Hecho en el sistema (VPS E3):** 1.1 OAuth (ejec. 24-25), 2.2 N-08 (ejec. 19/23), 2.3 N-09 (ejec. 27),
+  y dos bugs que aparecieron probando: texto sin contexto pisaba la última fila; lecturas de Config
+  repetidas por cada post (429 de Sheets). Workflow vigente: commit c740bad, 213 nodos, SHA-256 24075a38fa52.
+- **Hecho en el .docx (pasadas 180-182):** 1.2 (B.1, §3.5.5, §5.1.1, §8.1 OE1, §8.2, Resumen), 1.3 (Anexo E.15
+  + Tabla 16), 2.1 (OE3 «con alcance acotado»), 2.3 texto (§3.7.1, §8.2, Fig. 6), N-08 texto (§3.7.1, §7.7,
+  Fig. 5 redibujada), 2.8 (binomiales bilaterales, carruseles de dos imágenes). Además: el B.9 y la Fig. 6
+  decían que el video se sube después de la detección; se sube antes. Verificadores en verde.
+- **Falta:** 1.4 tag + hash (al final), 1.5/1.6 (terceros), 2.4+2.5 condensar y rastros, 2.6, 2.7, 2.9,
+  Bloque 3, re-exportar el PDF.
+
 ## Bloque 1 — Requisitos previos a la defensa (obligatorios)
 
 | # | Hallazgo | Estado | Acción | Quién |

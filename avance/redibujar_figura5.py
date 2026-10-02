@@ -26,7 +26,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 SALIDA = sys.argv[1] if len(sys.argv) > 1 else '_figuras/Figura_5_v3.png'
 
-W, H = 1104, 572
+W, H = 1104, 610
 REGULAR = 'C:/Windows/Fonts/segoeui.ttf'
 NEGRITA = 'C:/Windows/Fonts/segoeuib.ttf'
 ITALICA = 'C:/Windows/Fonts/segoeuii.ttf'
@@ -66,11 +66,18 @@ POSTS = [('UserID (FK → TelegramUserID)', True), ('Timestamp', False),
          ('Copy_Final', False), ('Status (Pendiente/Programado/Publicado/Fallido)', False),
          ('Fecha_Programada', False), ('PostID_IG · PostID_FB', False),
          ('Likes · Comments · Reach', False), ('Metricas_Enviadas', False)]
-CONFIG = [('firma', False), ('contacto', False)]
+# Desde el 01-10-2026 (N-08): una fila por consultora, más una fila general sin dueña.
+CONFIG = [('TelegramUserID (vacía = fila general)', True), ('firma', False), ('contacto', False)]
 
 fin_u = tabla(30, 30, 420, 'Usuarios (gid = 600115356)', USUARIOS)
 fin_p = tabla(650, 30, 424, 'Hoja 1 — Posts (gid = 0)', POSTS)
-fin_c = tabla(30, fin_u + 40, 420, 'Config (gid = 1036323678)', CONFIG)
+ini_c = fin_u + 50
+fin_c = tabla(30, ini_c, 420, 'Config (gid = 1036323678)', CONFIG)
+
+# ── Usuarios 1 — 0..1 Config (la fila propia; sin ella, la general) ─────────
+d.line((240, fin_u, 240, ini_c), fill=(60, 60, 60), width=1)
+d.text((252, fin_u + 10), '1', font=f_card, fill=TINTA, anchor='lm')
+d.text((252, ini_c - 10), '0..1', font=f_card, fill=TINTA, anchor='lm')
 
 # ── la relación 1–N ─────────────────────────────────────────────────────────
 y = 30 + 30 + 15
@@ -91,8 +98,8 @@ LINEAS = [
     '  tiempo de ejecución y no por una restricción de clave foránea del motor (§2.3, '
     'Anexo B.5).',
     '- AccessToken se cifra con AES-256-GCM antes de escribirse en la hoja (Anexo B.3). '
-    'Config tiene una sola fila de datos y alimenta la firma y el contacto',
-    '  que el sistema concatena a cada publicación (Anexo B.4).',
+    'Config tiene una fila por consultora y una general, y alimenta la firma',
+    '  y el contacto que el sistema concatena a cada publicación (Anexo B.4).',
     '- El campo Status alimenta el diagrama de estados de la Figura 2.',
 ]
 for k, linea in enumerate(LINEAS):
@@ -100,3 +107,8 @@ for k, linea in enumerate(LINEAS):
 
 im.save(SALIDA)
 print(f'escrita: {SALIDA}  ({im.size[0]}×{im.size[1]})')
+
+# La tesis incrusta el diagrama sin la nota (la nota va como texto bajo la figura).
+SIN_NOTA = SALIDA.replace('.png', '_sin_nota.png')
+im.crop((0, 0, W, max(fin_p, fin_c) + 20)).save(SIN_NOTA)
+print(f'escrita: {SIN_NOTA}')
