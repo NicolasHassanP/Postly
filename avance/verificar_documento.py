@@ -488,7 +488,7 @@ EXIGIDAS = [
     # M-15: quién es el evaluador externo
     ('externalidad de ese evaluador descansa la mitigación del sesgo', 1),
     # B-4: el §5.2 remite al Anexo C, que declaraba ampliarlo
-    ('El Anexo C documenta los ocho que el desarrollo dejó anotados', 1),
+    ('El Anexo C documenta los nueve que el desarrollo dejó anotados', 1),
     # C-1: la solicitud comercial sin precio, declarada fuera de alcance
     ('hay que sumar, por lo tanto, la solicitud comercial sin precio', 1),
     # M-5: la divergencia del canal visual, reportada y corregida
