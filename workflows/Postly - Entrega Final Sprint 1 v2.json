@@ -193,7 +193,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -2511,7 +2512,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -3576,7 +3578,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -3911,7 +3914,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -4369,7 +4373,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -7165,7 +7170,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -7266,7 +7272,8 @@
           "id": "KSLilanSYeOPXkGp",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -7811,6 +7818,102 @@
       "parameters": {
         "jsCode": "// N-09: borra de Cloudinary lo que el Centinela visual bloqueó (fix-cloudinary-bloqueadas)\nconst crypto = require('crypto');\nconst publicIdDeUrl = function publicIdDeUrl(url) {\n  const m = String(url || \"\").match(/^https?:\\/\\/res\\.cloudinary\\.com\\/([^/]+)\\/(image|video|raw)\\/upload\\/(?:v\\d+\\/)?(.+)$/);\n  if (!m) return null;\n  return { cloud: m[1], tipo: m[2], publicId: m[3].replace(/\\.[A-Za-z0-9]+$/, \"\") };\n};\nconst firmaCloudinary = (params, secret) => crypto.createHash('sha1')\n  .update(Object.keys(params).sort().map(k => k + '=' + params[k]).join('&') + secret).digest('hex');\nconst KEY = $env.CLOUDINARY_API_KEY, SECRET = $env.CLOUDINARY_API_SECRET;\nconst urls = [...new Set(((() => { for (const n of ['Video: cortar', 'Video: procesar']) { try { const j = $(n).first().json; if (j && j.videoUrl) return [j.videoUrl, ...String(j.frameUrls || '').split(',')]; } catch (e) {} } return []; })()).filter(Boolean))];\nconst borradas = [];\nfor (const u of urls) {\n  const a = publicIdDeUrl(u);\n  if (!a) continue;\n  const timestamp = Math.floor(Date.now() / 1000);\n  const signature = firmaCloudinary({ public_id: a.publicId, timestamp }, SECRET);\n  try {\n    const r = await helpers.httpRequest({ method: 'POST', url: 'https://api.cloudinary.com/v1_1/' + a.cloud + '/' + a.tipo + '/destroy',\n      body: { public_id: a.publicId, timestamp, api_key: KEY, signature },\n      headers: { 'content-type': 'application/x-www-form-urlencoded' }, json: true });\n    borradas.push({ publicId: a.publicId, tipo: a.tipo, result: r.result });\n  } catch (e) { borradas.push({ publicId: a.publicId, tipo: a.tipo, error: String(e.message || e) }); }\n}\nreturn [{ json: { borradas } }];"
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query ? $('Telegram Trigger').first().json.callback_query.message.chat.id : $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🤖 La IA (Gemini) está sobrecargada en este momento y no pudo procesar la foto. Es temporal — reintentá en un par de minutos volviendo a mandarla. 🔃",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2512,
+        -2944
+      ],
+      "name": "HU8: IA ocupada",
+      "id": "1a0c0f0e-0000-4000-8000-000000000001",
+      "webhookId": "1a0c0f0e-0000-4000-9000-000000000001",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query ? $('Telegram Trigger').first().json.callback_query.message.chat.id : $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🤖 La IA (Gemini) está sobrecargada en este momento y no pudo analizar el carrusel. Es temporal — reintentá en un par de minutos volviendo a mandar las fotos. 🔃",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2960,
+        -3312
+      ],
+      "name": "HU5: IA ocupada",
+      "id": "1a0c0f0e-0000-4000-8000-000000000002",
+      "webhookId": "1a0c0f0e-0000-4000-9000-000000000002",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query ? $('Telegram Trigger').first().json.callback_query.message.chat.id : $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🤖 La IA (Gemini) está sobrecargada en este momento y no pudo generar los textos del carrusel. Es temporal — reintentá en un par de minutos volviendo a mandar las fotos. 🔃",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        -1104
+      ],
+      "name": "HU5: IA ocupada (copys)",
+      "id": "1a0c0f0e-0000-4000-8000-000000000003",
+      "webhookId": "1a0c0f0e-0000-4000-9000-000000000003",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query ? $('Telegram Trigger').first().json.callback_query.message.chat.id : $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🤖 La IA (Gemini) está sobrecargada en este momento y no pudo procesar la imagen. Es temporal — reintentá en un par de minutos volviendo a elegir la publicación. 🔃",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1392,
+        -1688
+      ],
+      "name": "Repost: IA ocupada",
+      "id": "1a0c0f0e-0000-4000-8000-000000000004",
+      "webhookId": "1a0c0f0e-0000-4000-9000-000000000004",
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "connections": {
@@ -7877,6 +7980,13 @@
         [
           {
             "node": "Consistencia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU8: IA ocupada",
             "type": "main",
             "index": 0
           }
@@ -8462,6 +8572,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Repost: IA ocupada",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -8776,6 +8893,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "HU8: IA ocupada",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -8938,6 +9062,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "HU5: IA ocupada (copys)",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -9064,6 +9195,13 @@
         [
           {
             "node": "HU5: Parsear análisis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HU5: IA ocupada",
             "type": "main",
             "index": 0
           }
@@ -9804,6 +9942,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Video: IA ocupada",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -9846,6 +9991,13 @@
         [
           {
             "node": "Repost: HU8 parsear",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Repost: IA ocupada",
             "type": "main",
             "index": 0
           }

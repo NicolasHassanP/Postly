@@ -10,7 +10,9 @@ Una flecha gris, a la derecha, marca que el tramo sigue en el de abajo.
 
 También genera el canvas completo (Figura 16, Anexo B.2), recortado a la zona de nodos.
 
-Uso: python recortar_figura11.py <canvas.pdf> <carpeta_salida>
+Uso: python recortar_figura11.py <canvas.pdf> <carpeta_salida> [dx dy]
+     dx, dy: corrimiento en pt de la exportación respecto de la v7 (la v8, tras el renombre de los
+     IF del 02-10, salió con dx = 1 y dy = -3).
 """
 import sys
 from pathlib import Path
@@ -19,6 +21,7 @@ import pymupdf
 from PIL import Image, ImageDraw
 
 PDF, SAL = sys.argv[1], Path(sys.argv[2])
+DX, DY = (float(sys.argv[3]), float(sys.argv[4])) if len(sys.argv) > 4 else (0.0, 0.0)
 SAL.mkdir(parents=True, exist_ok=True)
 PPP = 300
 ANCHO_PX = round(15 / 2.54 * PPP)               # 15 cm, el ancho de texto de la página
@@ -39,7 +42,7 @@ doc = pymupdf.open(PDF)
 pag = doc[0]
 piezas = []
 for (x0, x1), (y0, y1) in TRAMOS:
-    pix = pag.get_pixmap(matrix=pymupdf.Matrix(ESCALA, ESCALA), clip=pymupdf.Rect(x0, y0, x1, y1))
+    pix = pag.get_pixmap(matrix=pymupdf.Matrix(ESCALA, ESCALA), clip=pymupdf.Rect(x0 + DX, y0 + DY, x1 + DX, y1 + DY))
     piezas.append(Image.frombytes('RGB', (pix.width, pix.height), pix.samples))
 
 alto = sum(p.height for p in piezas) + SEP * (len(piezas) - 1)
@@ -63,12 +66,12 @@ print(f'Figura 11: {lienzo.size} px = 15 × {alto / PPP * 2.54:.1f} cm; '
       f'×{ESCALA / (PPP / 72):.2f} → rótulos de {2.73 * ESCALA / (PPP / 72):.1f} pt')
 
 # canvas completo, para el Anexo B.2
-X0, Y0 = 185, 95
-pix = pag.get_pixmap(dpi=PPP, clip=pymupdf.Rect(X0, Y0, 1162, 1290))
+X0, Y0 = 185 + DX, 95 + DY
+pix = pag.get_pixmap(dpi=PPP, clip=pymupdf.Rect(X0, Y0, 1162 + DX, 1290 + DY))
 canvas = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
 # tapa los botones del editor (zoom, búsqueda, paneles) que flotan arriba a la derecha
 px = lambda v: round(v * PPP / 72)
-ImageDraw.Draw(canvas).rectangle((px(1108 - X0), 0, canvas.width, px(222 - Y0)),
-                                 fill=canvas.getpixel((px(1000 - X0), px(110 - Y0))))
+ImageDraw.Draw(canvas).rectangle((px(1108 + DX - X0), 0, canvas.width, px(222 + DY - Y0)),
+                                 fill=canvas.getpixel((px(1000 + DX - X0), px(110 + DY - Y0))))
 canvas.save(SAL / 'Figura_16_canvas.png', dpi=(PPP, PPP))
 print(f'canvas completo: {canvas.size} px')
