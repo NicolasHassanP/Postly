@@ -128,7 +128,7 @@ caja(15.2, 7.3, 19.7, 8.6, GRIS_B, GRIS_F, 'Persistencia (Google Sheets)\nalmace
 bloque(cm(17.45), cm(9.3), [('Servicios externos', f_sub), ('(infraestructura de terceros)', f_sub)])
 
 # ── dentro de la instancia ────────────────────────────────────────────────────
-caja(10.5, 1.4, 12.6, 8.6, AZUL_B, AZUL_F, 'Orquestador n8n', '213 nodos en un único proceso')
+caja(10.5, 1.4, 12.6, 8.6, AZUL_B, AZUL_F, 'Orquestador n8n', '217 nodos en un único proceso')
 caja(6.2, 1.4, 9.0, 2.8, ROJO_B, ROJO_F, 'Módulo Centinela', 'canal textual: RegEx')
 caja(6.2, 6.4, 9.0, 8.6, GRIS_B, GRIS_F, 'Cron', 'Programador (5 min)\nFeedback Loop (24 h)')
 caja(6.2, 9.3, 9.0, 10.5, GRIS_B, GRIS_F, 'Sub-workflows de publicación', f_tit=f_sub)

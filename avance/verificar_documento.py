@@ -737,10 +737,10 @@ else:
     check('filas de la Tabla 13', _n, 11)
     check('grado: medición / indirecta / configuración / sin evidencia',
           f"{_grado['medición']}/{_grado['indirecta']}/{_grado['configuración']}/{_grado['sin evidencia']}",
-          '4/1/4/2')
+          '5/1/4/1')
     check('resultado: cumple / parcial / no cumple / sin verificar',
           f"{_res['cumple']}/{_res['parcial']}/{_res['no cumple']}/{_res['sin verificar']}",
-          '5/2/1/3')
+          '6/2/1/2')
     check('el grado suma el total de filas', sum(_grado.values()), _n)
     check('el resultado suma el total de filas', sum(_res.values()), _n)
 
