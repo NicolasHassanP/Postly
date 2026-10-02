@@ -473,7 +473,7 @@ PROHIBIDAS = [
 ]
 # La «Fuente» de cada figura va en nota al pie y no en el rótulo (B-10): el rótulo superior
 # no puede volver a llevarla.
-EXIGIDAS_FIGURAS = 15
+EXIGIDAS_FIGURAS = 16
 # Frases que DEBEN estar: lo contrario de una frase retirada es una que no puede faltar,
 # porque un hallazgo se cierra tanto por lo que se saca como por lo que se pone.
 EXIGIDAS = [
