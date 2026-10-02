@@ -2000,7 +2000,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const rows = $input.all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\nconst data = String($('Telegram Trigger').first().json.callback_query.data || '').replace(/_g\\d+$/, '');\n$getWorkflowStaticData('global')['editAnchor_' + String($('Telegram Trigger').first().json.callback_query.message.chat.id)] = (String($('Telegram Trigger').first().json.callback_query.data || '').match(/_g(\\d+)$/) || [])[1] || '';\nconst chatId = $('Telegram Trigger').first().json.callback_query.message.chat.id;\nlet texto;\nif (data === 'edit_2') texto = last.Copy_Op2;\nelse if (data === 'edit_3') texto = last.Copy_Op3;\nelse texto = last.Copy_Op1;\nreturn [{ json: { chatId, texto } }];"
+        "jsCode": "const rows = $input.all();\nconst last = rows.length ? rows[rows.length - 1].json : {};\nconst data = String($('Telegram Trigger').first().json.callback_query.data || '').replace(/_g\\d+$/, '');\n$getWorkflowStaticData('global')['editAnchor_' + String($('Telegram Trigger').first().json.callback_query.message.chat.id)] = (String($('Telegram Trigger').first().json.callback_query.data || '').match(/_g(\\d+)$/) || [])[1] || '';\nconst chatId = $('Telegram Trigger').first().json.callback_query.message.chat.id;\nlet texto;\nif (data === 'edit_2') texto = last.Copy_Op2;\nelse if (data === 'edit_3') texto = last.Copy_Op3;\nelse texto = last.Copy_Op1;\n// editSingle: flag de edición de imagen única (fix-edit-sin-contexto)\n$getWorkflowStaticData('global')['editSingle_' + String($('Telegram Trigger').first().json.callback_query.message.chat.id)] = Date.now();\nreturn [{ json: { chatId, texto } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -7489,7 +7489,7 @@
         -2200
       ],
       "parameters": {
-        "jsCode": "// Candado de grupo: recupera el id de grupo de la versión que se está editando.\nconst chatId = String($('Telegram Trigger').first().json.message.chat.id);\nconst g = $getWorkflowStaticData('global')['editAnchor_' + chatId] || '';\nreturn $input.all().map(i => ({ json: { ...i.json, _g: g } }));"
+        "jsCode": "// Candado de grupo: recupera el id de grupo de la versión que se está editando.\nconst chatId = String($('Telegram Trigger').first().json.message.chat.id);\nconst g = $getWorkflowStaticData('global')['editAnchor_' + chatId] || '';\n// editSingle: flag de edición de imagen única (fix-edit-sin-contexto)\ndelete $getWorkflowStaticData('global')['editSingle_' + chatId];\nreturn $input.all().map(i => ({ json: { ...i.json, _g: g } }));"
       }
     },
     {
@@ -7694,6 +7694,77 @@
       ],
       "id": "grp-continuar",
       "name": "Grupo: continuar"
+    },
+    {
+      "id": "e5c1a0de-0003-4003-8003-000000000003",
+      "name": "Edit: check pendiente",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2176,
+        -2160
+      ],
+      "parameters": {
+        "jsCode": "// ¿La usuaria tocó \"✏️ Editar\" en una publicación de imagen única hace menos de 60 min?\n// Sin ese flag, un texto suelto NO es una edición (antes pisaba Copy_Final de su última fila).\nconst msg = $('Telegram Trigger').first().json.message;\nconst chatId = String(msg.chat.id);\nconst t = $getWorkflowStaticData('global')['editSingle_' + chatId];\nconst pending = !!(t && msg.text && Date.now() - t < 60 * 60 * 1000);\nreturn [{ json: { pending, chatId } }];"
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e5c1a0de-0002-4002-8002-000000000002",
+              "leftValue": "={{ $json.pending }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2288,
+        -2160
+      ],
+      "name": "Edit: ¿pendiente?",
+      "id": "e5c1a0de-0001-4001-8001-000000000001"
+    },
+    {
+      "id": "e5c1a0de-0004-4004-8004-000000000004",
+      "name": "Edit: sin contexto",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2512,
+        -2080
+      ],
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🤔 No estoy esperando un texto en este momento.\n\nSi querías editar una publicación, tocá <b>✏️ Editar</b> en la opción que te guste y después mandame el texto. Para empezar de nuevo, mandá /start.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "PavSlOIluhcuq1rF",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "connections": {
@@ -8914,7 +8985,7 @@
         ],
         [
           {
-            "node": "Get row(s) in sheet1",
+            "node": "Edit: check pendiente",
             "type": "main",
             "index": 0
           }
@@ -9916,6 +9987,35 @@
         [
           {
             "node": "Publicar: Lock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit: check pendiente": {
+      "main": [
+        [
+          {
+            "node": "Edit: ¿pendiente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit: ¿pendiente?": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit: sin contexto",
             "type": "main",
             "index": 0
           }

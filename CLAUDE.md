@@ -39,13 +39,15 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 
 ## Cómo operar n8n (IMPORTANTE)
 
-> **2026-09-14: el VPS quedó dado de baja y NO se reactiva.** El entorno de trabajo es **n8n local
-> expuesto por ngrok**. La migración al VPS de DonWeb (2026-06-29) sí ocurrió y sobre ella se validaron
-> e2e las 14 HU —por eso la tesis la documenta en pretérito y en el Anexo B.1—, pero el servidor ya no
-> está contratado. Si algún día se reactiva, los scripts aceptan `N8N_BASE_URL` y no hardcodean host.
-> Detalle histórico de la migración: `docs/contexto/memoria-claude/postly-vps-migration.md`.
+> **2026-10-01: VUELVE el VPS (DonWeb), pero es un servidor NUEVO** — no el de junio. n8n 2.15.1 + Caddy
+> (TLS) + ffmpeg estático en `/opt/n8n`, por SSH en el puerto custom con la clave ed25519 de Nico. Los 6
+> workflows se crearon con `scripts/deploy-vps-n8n.mjs`; **el VPS es ahora el entorno de producción** y el
+> n8n local queda como respaldo: **no prender el local con el principal activo**, porque le roba el webhook
+> de Telegram al VPS. El host no va en el repo: se pasa como `N8N_VPS_URL`; la key es `N8N_API_KEY_VPS`.
+> Entre el 2026-09-14 y el 2026-10-01 se trabajó solo en local (ngrok). Historia de la migración de junio:
+> `docs/contexto/memoria-claude/postly-vps-migration.md`.
 
-- n8n self-hosted local (v2.15.1). Arranque: `.\start-n8n.ps1` (carga `.env` y levanta n8n).
+- n8n self-hosted local (v2.15.1, respaldo). Arranque: `.\start-n8n.ps1` (carga `.env` y levanta n8n).
 - URL pública estable: ngrok dominio fijo → localhost:5678. **El host no va en el repo** (es un túnel a
   una máquina personal y el repo es público): vive en `.env` como `N8N_BASE_URL`.
 - **La API key es por instancia** (es un JWT firmado con el secreto de ese n8n): la del VPS da 401 en local.
@@ -60,7 +62,15 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
   `{ executionOrder: "v1" }` (`binaryMode` da 400). Activar con `POST /workflows/{id}/activate`.
 - Tras editar por API el versionId cambia → **refrescar (F5)** la pestaña de n8n antes de tocarla.
 
-### Workflows (IDs en la instancia LOCAL, que es la que se usa)
+### Workflows en el VPS (producción desde 2026-10-01)
+- `xwYkQA25a6IjRmqX` — principal (207 nodos, ACTIVO) · `QT540ZcOfxd7VfvQ` — HU2 OAuth Callback (ACTIVO).
+- `CRktCQhVfc0SAtAt` — Programador (inactivo a propósito) · `hAKJlLMklummchrT` / `SbHYUyc8KKZ71ob0` —
+  Publicar Post / Publicar Carrusel · `NmBryYPdCd91bZ4G` — Feedback Loop (versión de 5 nodos, inactivo).
+- Credenciales: Telegram `KjasJSHQg856atEZ`, Gemini `p4rr8CoI2oaS6jek`, Sheets `wpC2BPAboTLTrNpQ`.
+- `deploy-vps-n8n.mjs` reemplaza al vuelo el host del VPS de junio, que el redirect de OAuth tiene
+  hardcodeado en el principal y en HU2; el JSON del repo lo sigue teniendo.
+
+### Workflows (IDs en la instancia LOCAL, respaldo)
 - `VOgbHGLELJfRgVO5` — **"Postly - Entrega Final Sprint 1 v2"** (principal, **195 nodos**, ACTIVO). NO se llama "main".
 - `vy60xNtAvcVKRdAx` — "Postly - HU2 OAuth Callback" (endpoint `/oauth-callback`, ACTIVO).
 - `6tnvgjAZT6MajxcU` — "Postly - Programador" (Cron cada 5 min, HU10). **Inactivo a propósito:** publica de
