@@ -21,7 +21,7 @@
       "typeVersion": 1,
       "position": [
         -848,
-        -1424
+        -1088
       ],
       "webhookId": "83282633-f22d-471e-afcd-d6de439b3a79",
       "credentials": {
@@ -47,7 +47,7 @@
       "typeVersion": 1,
       "position": [
         -400,
-        -4352
+        -3792
       ],
       "id": "4e3f9654-2ba5-428a-b31b-17348195450e"
     },
@@ -84,7 +84,7 @@
       "typeVersion": 1,
       "position": [
         272,
-        -4352
+        -3792
       ],
       "id": "184aaff1-6834-44d6-99fe-3acde356c077",
       "webhookId": "ff7e5f9e-5c26-4265-b80f-762437e6b1ef",
@@ -110,7 +110,7 @@
       "typeVersion": 1,
       "position": [
         1392,
-        -4240
+        -4352
       ],
       "id": "3666374c-219e-486c-b40e-eb884579f186",
       "webhookId": "bff5bbb6-62a4-4c13-9629-629148ee4f6c",
@@ -132,7 +132,7 @@
       "typeVersion": 1,
       "position": [
         1168,
-        -3184
+        -2792
       ],
       "id": "f087874c-3478-4a9e-9722-f16c8387d89f",
       "webhookId": "56b64642-17f1-4a1f-8a2f-b1bb09109b5a",
@@ -159,7 +159,7 @@
       "typeVersion": 1,
       "position": [
         720,
-        -3040
+        -2544
       ],
       "id": "e0c4ed0e-91c6-45d9-a528-74eed80f3c2e"
     },
@@ -181,7 +181,7 @@
       "typeVersion": 1.1,
       "position": [
         2512,
-        -3088
+        -2720
       ],
       "id": "1532e6d2-edc9-4b68-853d-bb58b245177a",
       "name": "Analyze an image",
@@ -224,7 +224,7 @@
       "typeVersion": 2.3,
       "position": [
         48,
-        -3920
+        -3360
       ],
       "id": "35d16423-754a-48c8-b51c-d8f3bdcc640a",
       "name": "es volver al inicio?1"
@@ -287,7 +287,7 @@
       "typeVersion": 3.4,
       "position": [
         -624,
-        -1424
+        -1088
       ],
       "id": "c74f4045-b799-42f0-ba61-a4edff1899ad",
       "name": "Switch"
@@ -302,7 +302,7 @@
       "typeVersion": 1.2,
       "position": [
         272,
-        -304
+        -88
       ],
       "id": "a07ae990-a109-4655-9290-ffd2acae603f",
       "name": "Answer Query a callback",
@@ -354,8 +354,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2960,
-        -2320
+        3632,
+        -2000
       ],
       "id": "0bf1cbab-4b73-48d7-bece-9ee407345e31",
       "name": "Descripcion editada",
@@ -539,7 +539,7 @@
       "typeVersion": 3.4,
       "position": [
         48,
-        -96
+        160
       ],
       "id": "ac8bbd7a-0eae-4e0b-86a5-ec1be34f4650",
       "name": "Que boton toco?"
@@ -567,7 +567,7 @@
       "typeVersion": 4.4,
       "position": [
         1616,
-        -3184
+        -2792
       ],
       "id": "fc5bb46b-364f-4ea9-ac54-16b8f885502e",
       "name": "HTTP Request"
@@ -580,7 +580,7 @@
       "typeVersion": 2,
       "position": [
         1392,
-        -3184
+        -2792
       ],
       "id": "8efae140-2d14-4fc8-8349-4841e875fb53",
       "name": "Code in JavaScript"
@@ -778,7 +778,7 @@
       "typeVersion": 4.7,
       "position": [
         2736,
-        -3088
+        -2624
       ],
       "id": "66e4eba8-2c17-43a9-863e-2e3cd5cb41e7",
       "name": "Consistencia",
@@ -818,8 +818,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        272,
-        96
+        1168,
+        776
       ],
       "id": "9bea5be4-89d8-4845-aac0-849bd081206d",
       "name": "Get row(s) in sheet",
@@ -1021,8 +1021,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2736,
-        -2320
+        3184,
+        -2000
       ],
       "id": "80947461-516d-4ec5-a2f7-945ededea964",
       "name": "Descripcion en columna H",
@@ -1064,8 +1064,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2288,
-        -2320
+        2736,
+        -2000
       ],
       "id": "2a891de4-403e-4ad8-928b-2a5426d89a85",
       "name": "Get row(s) in sheet1",
@@ -1083,8 +1083,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        2512,
-        -2320
+        2960,
+        -2000
       ],
       "id": "a999ec8b-4bfd-4ed2-a01b-4aca693a588d",
       "name": "Limit"
@@ -1115,8 +1115,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2064,
-        304
+        2960,
+        1104
       ],
       "id": "0bc00573-b669-4591-ba8b-cf654348e7b4",
       "name": "IG - Crear contenedor"
@@ -1143,8 +1143,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2512,
-        304
+        3408,
+        1104
       ],
       "id": "244d3a32-54a3-4afd-9b9a-d7d9184e0810",
       "name": "IG - Publicar"
@@ -1342,8 +1342,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3184,
-        304
+        4080,
+        1104
       ],
       "id": "c5d60046-75ce-4dc9-b70e-1ff66bff3ca8",
       "name": "Actualizar Sheets",
@@ -1359,8 +1359,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2288,
-        304
+        3184,
+        1104
       ],
       "id": "d9fd9696-0be1-437f-9ccf-68b449a860a7",
       "name": "Wait",
@@ -1373,8 +1373,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        720,
-        96
+        1616,
+        1104
       ],
       "id": "f3cb5c4c-e9f8-4c73-ae5e-c283e3b82fcc",
       "name": "Resolucion - IG"
@@ -1386,8 +1386,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1168,
-        96
+        2064,
+        1104
       ],
       "id": "0fcd5086-dc0d-4074-b580-55dccadffdcb",
       "name": "Code in JavaScript1"
@@ -1420,8 +1420,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1392,
-        304
+        2288,
+        1104
       ],
       "id": "7c7ddd1a-6f69-462d-82fa-1317760c63bf",
       "name": "If"
@@ -1437,8 +1437,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1616,
-        1024
+        2512,
+        1296
       ],
       "id": "cf3cd839-aef6-46dd-889c-5a2793b09c2f",
       "name": "Telegram Error (Compliance)",
@@ -1462,8 +1462,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2960,
-        304
+        3856,
+        1104
       ],
       "id": "7aa72642-bb00-471b-b7a1-f2a29687259f",
       "name": "Telegram Éxito",
@@ -1483,8 +1483,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2736,
-        304
+        3632,
+        1104
       ],
       "id": "11a75188-b3f5-44b6-b775-bf6bfad378e3",
       "name": "Permalink"
@@ -1548,7 +1548,7 @@
       "typeVersion": 3.4,
       "position": [
         272,
-        -3840
+        -3280
       ],
       "id": "c037fd0c-5ec1-40ec-ba06-476ddc044cbc",
       "name": "Es Nueva Pub?"
@@ -1583,7 +1583,7 @@
       "typeVersion": 4.7,
       "position": [
         2512,
-        -3856
+        -3968
       ],
       "id": "1e3f1a4b-ff3f-4831-a142-bf80c797a73b",
       "name": "Get row(s) in sheet2",
@@ -1625,7 +1625,7 @@
       "typeVersion": 1.2,
       "position": [
         3632,
-        -3856
+        -3968
       ],
       "id": "265d195f-02a7-4dca-9212-fe51220745ed",
       "name": "Send a photo message",
@@ -1645,7 +1645,7 @@
       "typeVersion": 2,
       "position": [
         2960,
-        -3856
+        -3968
       ],
       "id": "9f521499-9807-4033-b57a-db8c1ea1e3e1",
       "name": "Armar tarjetas"
@@ -1666,7 +1666,7 @@
       "typeVersion": 1,
       "position": [
         -176,
-        -4064
+        -3504
       ],
       "id": "a1b2c3d4-0001-4001-8001-000000000001"
     },
@@ -1700,7 +1700,7 @@
       "typeVersion": 4.7,
       "position": [
         -176,
-        -4352
+        -3792
       ],
       "id": "a1b2c3d4-0002-4002-8002-000000000002",
       "name": "Buscar usuario",
@@ -1741,7 +1741,7 @@
       "typeVersion": 2.3,
       "position": [
         48,
-        -4352
+        -3792
       ],
       "id": "a1b2c3d4-0003-4003-8003-000000000003",
       "name": "¿Ya vinculado?"
@@ -1775,7 +1775,7 @@
       "typeVersion": 1.2,
       "position": [
         272,
-        -4160
+        -3600
       ],
       "id": "a1b2c3d4-0004-4004-8004-000000000004",
       "name": "Pedir vinculación",
@@ -1817,7 +1817,7 @@
       "typeVersion": 4.7,
       "position": [
         496,
-        -4192
+        -4304
       ],
       "id": "b2c3d4e5-0001-4001-8001-000000000001",
       "name": "HU3: Leer token",
@@ -1838,7 +1838,7 @@
       "typeVersion": 4.4,
       "position": [
         944,
-        -4192
+        -4304
       ],
       "id": "b2c3d4e5-0002-4002-8002-000000000002",
       "name": "HU3: Validar token",
@@ -1873,7 +1873,7 @@
       "typeVersion": 2.3,
       "position": [
         1168,
-        -4192
+        -4304
       ],
       "id": "b2c3d4e5-0003-4003-8003-000000000003",
       "name": "HU3: ¿Token vigente?"
@@ -1907,7 +1907,7 @@
       "typeVersion": 1.2,
       "position": [
         1392,
-        -4048
+        -4160
       ],
       "id": "b2c3d4e5-0004-4004-8004-000000000004",
       "name": "HU3: Re-vincular",
@@ -1948,8 +1948,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1616,
-        304
+        2512,
+        1104
       ],
       "id": "b2c3d4e5-0006-4006-8006-000000000006",
       "name": "HU3: Leer credenciales",
@@ -1988,7 +1988,7 @@
       "typeVersion": 4.7,
       "position": [
         272,
-        -112
+        104
       ],
       "id": "c3d4e5f6-0001-4001-8001-000000000001",
       "name": "A: Leer opción",
@@ -2007,7 +2007,7 @@
       "typeVersion": 2,
       "position": [
         496,
-        -112
+        104
       ],
       "id": "c3d4e5f6-0002-4002-8002-000000000002",
       "name": "A: Elegir opción"
@@ -2024,7 +2024,7 @@
       "typeVersion": 1.2,
       "position": [
         720,
-        -112
+        104
       ],
       "id": "c3d4e5f6-0003-4003-8003-000000000003",
       "name": "A: Instrucción editar",
@@ -2048,7 +2048,7 @@
       "typeVersion": 1.2,
       "position": [
         944,
-        -112
+        104
       ],
       "id": "c3d4e5f6-0004-4004-8004-000000000004",
       "name": "A: Texto a editar",
@@ -2068,7 +2068,7 @@
       "typeVersion": 2,
       "position": [
         2960,
-        -3088
+        -2624
       ],
       "id": "d4e5f6a7-0001-4001-8001-000000000001",
       "name": "B: Parsear opciones"
@@ -2085,7 +2085,7 @@
       "typeVersion": 1.2,
       "position": [
         3184,
-        -3088
+        -2624
       ],
       "id": "d4e5f6a7-0002-4002-8002-000000000002",
       "name": "B: Intro opciones",
@@ -2144,7 +2144,7 @@
       "typeVersion": 1.2,
       "position": [
         3408,
-        -3088
+        -2624
       ],
       "id": "d4e5f6a7-0003-4003-8003-000000000003",
       "name": "B: Opción 1",
@@ -2203,7 +2203,7 @@
       "typeVersion": 1.2,
       "position": [
         3632,
-        -3088
+        -2624
       ],
       "id": "d4e5f6a7-0004-4004-8004-000000000004",
       "name": "B: Opción 2",
@@ -2262,7 +2262,7 @@
       "typeVersion": 1.2,
       "position": [
         3856,
-        -3088
+        -2624
       ],
       "id": "d4e5f6a7-0005-4005-8005-000000000005",
       "name": "B: Opción 3",
@@ -2303,7 +2303,7 @@
       "typeVersion": 2.3,
       "position": [
         3184,
-        -3856
+        -3968
       ],
       "id": "e5f6a7b8-0001-4001-8001-000000000001",
       "name": "¿Agenda vacía?"
@@ -2337,7 +2337,7 @@
       "typeVersion": 2.3,
       "position": [
         3408,
-        -3760
+        -3872
       ],
       "id": "e5f6a7b8-0002-4002-8002-000000000002",
       "name": "¿Tarjeta con foto?"
@@ -2354,7 +2354,7 @@
       "typeVersion": 1.2,
       "position": [
         3408,
-        -3952
+        -4064
       ],
       "id": "e5f6a7b8-0003-4003-8003-000000000003",
       "name": "Agenda vacía",
@@ -2395,7 +2395,7 @@
       "typeVersion": 1.2,
       "position": [
         3632,
-        -3568
+        -3392
       ],
       "id": "e5f6a7b8-0004-4004-8004-000000000004",
       "name": "Tarjeta sin foto",
@@ -2417,7 +2417,7 @@
       "typeVersion": 1.2,
       "position": [
         48,
-        -880
+        -224
       ],
       "id": "f6a7b8c9-0002-4002-8002-000000000002",
       "name": "Repost: Answer callback",
@@ -2458,7 +2458,7 @@
       "typeVersion": 4.7,
       "position": [
         48,
-        -1552
+        -968
       ],
       "id": "f6a7b8c9-0003-4003-8003-000000000003",
       "name": "Repost: Leer fila",
@@ -2477,7 +2477,7 @@
       "typeVersion": 2,
       "position": [
         272,
-        -1552
+        -968
       ],
       "id": "f6a7b8c9-0004-4004-8004-000000000004",
       "name": "Repost: Elegir fila"
@@ -2500,7 +2500,7 @@
       "typeVersion": 1.1,
       "position": [
         1168,
-        -1648
+        -992
       ],
       "id": "f6a7b8c9-0005-4005-8005-000000000005",
       "name": "Repost: Analizar imagen",
@@ -2523,7 +2523,7 @@
       "typeVersion": 2,
       "position": [
         1392,
-        -1472
+        128
       ],
       "id": "f6a7b8c9-0006-4006-8006-000000000006",
       "name": "Repost: Parsear"
@@ -2712,7 +2712,7 @@
       "typeVersion": 4.7,
       "position": [
         1616,
-        -1472
+        128
       ],
       "id": "f6a7b8c9-0007-4007-8007-000000000007",
       "name": "Repost: Guardar fila",
@@ -2735,7 +2735,7 @@
       "typeVersion": 1.2,
       "position": [
         1840,
-        -1472
+        128
       ],
       "id": "f6a7b8c9-0008-4008-8008-000000000008",
       "name": "Repost: Intro",
@@ -2782,7 +2782,7 @@
       "typeVersion": 1.2,
       "position": [
         2064,
-        -1472
+        128
       ],
       "id": "f6a7b8c9-0009-4009-8009-000000000009",
       "name": "Repost: Opción 1",
@@ -2829,7 +2829,7 @@
       "typeVersion": 1.2,
       "position": [
         2288,
-        -1472
+        128
       ],
       "id": "f6a7b8c9-0010-4010-8010-000000000010",
       "name": "Repost: Opción 2",
@@ -2876,7 +2876,7 @@
       "typeVersion": 1.2,
       "position": [
         2512,
-        -1472
+        128
       ],
       "id": "f6a7b8c9-0011-4011-8011-000000000011",
       "name": "Repost: Opción 3",
@@ -3144,7 +3144,7 @@
       "typeVersion": 3.4,
       "position": [
         -176,
-        -704
+        184
       ],
       "id": "a7b8c9d0-0001-4001-8001-000000000001",
       "name": "Router callback"
@@ -3156,8 +3156,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        496,
-        96
+        1392,
+        1104
       ],
       "id": "a7b8c9d0-0002-4002-8002-000000000002",
       "name": "Elegir fila a publicar"
@@ -3172,7 +3172,7 @@
       "typeVersion": 1.2,
       "position": [
         48,
-        -688
+        -32
       ],
       "id": "a7b8c9d0-0003-4003-8003-000000000003",
       "name": "Resume: Answer callback",
@@ -3213,7 +3213,7 @@
       "typeVersion": 4.7,
       "position": [
         48,
-        320
+        2040
       ],
       "id": "a7b8c9d0-0004-4004-8004-000000000004",
       "name": "Resume: Leer fila",
@@ -3232,7 +3232,7 @@
       "typeVersion": 2,
       "position": [
         272,
-        320
+        2040
       ],
       "id": "a7b8c9d0-0005-4005-8005-000000000005",
       "name": "Resume: Elegir fila"
@@ -3249,7 +3249,7 @@
       "typeVersion": 1.2,
       "position": [
         496,
-        320
+        2040
       ],
       "id": "a7b8c9d0-0006-4006-8006-000000000006",
       "name": "Resume: Intro",
@@ -3290,7 +3290,7 @@
       "typeVersion": 1.2,
       "position": [
         720,
-        320
+        2040
       ],
       "id": "a7b8c9d0-0007-4007-8007-000000000007",
       "name": "Resume: Opción 1",
@@ -3331,7 +3331,7 @@
       "typeVersion": 1.2,
       "position": [
         944,
-        320
+        2040
       ],
       "id": "a7b8c9d0-0008-4008-8008-000000000008",
       "name": "Resume: Opción 2",
@@ -3372,7 +3372,7 @@
       "typeVersion": 1.2,
       "position": [
         1168,
-        320
+        2040
       ],
       "id": "a7b8c9d0-0009-4009-8009-000000000009",
       "name": "Resume: Opción 3",
@@ -3403,8 +3403,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        944,
-        96
+        1840,
+        1104
       ],
       "name": "Leer Config",
       "alwaysOutputData": true,
@@ -3448,7 +3448,7 @@
       "typeVersion": 4.7,
       "position": [
         496,
-        -3904
+        -4016
       ],
       "name": "HU3 Agenda: Leer token",
       "alwaysOutputData": true,
@@ -3469,7 +3469,7 @@
       "typeVersion": 4.4,
       "position": [
         944,
-        -3904
+        -4016
       ],
       "name": "HU3 Agenda: Validar token",
       "id": "6fe80bf8-f350-4a01-a7f3-ffc27aa8e131",
@@ -3504,7 +3504,7 @@
       "typeVersion": 2.3,
       "position": [
         1168,
-        -3904
+        -4016
       ],
       "name": "HU3 Agenda: ¿Token vigente?",
       "id": "a8ef9550-4401-49df-8a91-d316c82ddf10"
@@ -3517,7 +3517,7 @@
       "typeVersion": 2,
       "position": [
         720,
-        -4192
+        -4304
       ],
       "name": "Descifrar token",
       "id": "ea2a693a-524b-4a96-8bcf-2db722552e05"
@@ -3530,7 +3530,7 @@
       "typeVersion": 2,
       "position": [
         720,
-        -3904
+        -4016
       ],
       "name": "Descifrar token (Agenda)",
       "id": "8270f99f-71b6-4b09-bac8-346144e3fa00"
@@ -3542,8 +3542,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1840,
-        304
+        2736,
+        1104
       ],
       "name": "Descifrar credenciales",
       "id": "90818068-e89b-4bc8-b9f6-52173f0d7e05"
@@ -3566,7 +3566,7 @@
       "typeVersion": 1.1,
       "position": [
         1840,
-        -3184
+        -2792
       ],
       "name": "HU8: Detección visual",
       "id": "bc7465f8-d765-4787-8c7b-bfd191433c34",
@@ -3589,7 +3589,7 @@
       "typeVersion": 2,
       "position": [
         2064,
-        -3184
+        -2864
       ],
       "name": "HU8: Parsear detección",
       "id": "f0ce2aa1-bd72-4c0d-989c-ba632105cf5d"
@@ -3623,7 +3623,7 @@
       "typeVersion": 2.3,
       "position": [
         2288,
-        -3184
+        -2864
       ],
       "name": "HU8: ¿Precio en imagen?",
       "id": "f285e2db-650b-4801-848e-42d12b5ae987"
@@ -3640,7 +3640,7 @@
       "typeVersion": 1.2,
       "position": [
         2512,
-        -3280
+        -3104
       ],
       "name": "HU8: Imagen con precio",
       "id": "811581f0-bb06-4c19-90e0-64617f3b5825",
@@ -3681,7 +3681,7 @@
       "typeVersion": 2.3,
       "position": [
         944,
-        -3280
+        -2936
       ],
       "name": "HU5: ¿Es carrusel?",
       "id": "55b41e45-6688-4370-b27f-a74e244246bd"
@@ -3694,7 +3694,7 @@
       "typeVersion": 2,
       "position": [
         1168,
-        -3472
+        -3296
       ],
       "name": "HU5: Buffer grupo",
       "id": "6522e325-d04d-4440-a657-63a93fbf5105"
@@ -3707,7 +3707,7 @@
       "typeVersion": 1.1,
       "position": [
         1392,
-        -3472
+        -3296
       ],
       "name": "HU5: Esperar grupo",
       "webhookId": "hu5-wait-grupo",
@@ -3723,7 +3723,7 @@
       "typeVersion": 1.2,
       "position": [
         1840,
-        -3472
+        -3296
       ],
       "name": "HU5: Bajar foto",
       "id": "8dd72150-a703-486b-8bb8-69252f94b0bc",
@@ -3743,7 +3743,7 @@
       "typeVersion": 2,
       "position": [
         2064,
-        -3472
+        -3296
       ],
       "name": "HU5: A base64",
       "id": "caba12e6-e532-4875-94ab-5c6429874e99"
@@ -3771,7 +3771,7 @@
       "typeVersion": 4.4,
       "position": [
         2288,
-        -3472
+        -3296
       ],
       "name": "HU5: Subir Cloudinary",
       "id": "bff33a9a-6231-463b-a4c3-7c0d6a16bfff"
@@ -3784,7 +3784,7 @@
       "typeVersion": 2,
       "position": [
         2512,
-        -3472
+        -3296
       ],
       "name": "HU5: Juntar URLs",
       "id": "c1e2f6e9-39bf-44d8-a487-3bfd4b0101f1"
@@ -3824,7 +3824,7 @@
       "typeVersion": 1.2,
       "position": [
         3408,
-        -3376
+        -3104
       ],
       "name": "HU5: Mostrar orden",
       "id": "39dd5dfb-e937-4246-bd0b-cc6d2fc6679c",
@@ -3844,7 +3844,7 @@
       "typeVersion": 2,
       "position": [
         1616,
-        -3472
+        -3296
       ],
       "name": "HU5: ¿Ganador?",
       "id": "521b8045-ebea-470e-9331-0284dba416d7"
@@ -3859,7 +3859,7 @@
       "typeVersion": 1.2,
       "position": [
         48,
-        -1264
+        -608
       ],
       "name": "HU5: Answer carrusel",
       "id": "11cf7ee1-c9ef-4e9b-92c3-82242eb1a60f",
@@ -3879,7 +3879,7 @@
       "typeVersion": 2,
       "position": [
         272,
-        -1264
+        -608
       ],
       "name": "HU5: Preparar set",
       "id": "7ad5331b-1fa0-47b7-bf3a-3cd43903a9db"
@@ -3902,7 +3902,7 @@
       "typeVersion": 1.1,
       "position": [
         496,
-        -1264
+        -608
       ],
       "name": "HU5: Generar copys",
       "id": "c6c147f8-ac51-4333-b0de-bfbac3c0e10f",
@@ -3925,7 +3925,7 @@
       "typeVersion": 2,
       "position": [
         720,
-        -1264
+        -280
       ],
       "name": "HU5: Parsear copys",
       "id": "09664a05-fa3d-4731-b240-a10a8d85fa41"
@@ -3976,8 +3976,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1168,
-        -1264
+        1392,
+        320
       ],
       "name": "HU5: Tono 1",
       "id": "ede493eb-5f18-41fc-96c5-87a426825c31",
@@ -4035,8 +4035,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1392,
-        -1088
+        1616,
+        320
       ],
       "name": "HU5: Tono 2",
       "id": "07e93a30-774b-42fa-970f-3633a8f83936",
@@ -4094,8 +4094,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1616,
-        -1088
+        1840,
+        320
       ],
       "name": "HU5: Tono 3",
       "id": "8d21f147-fb01-4369-9c63-47c6080bcfab",
@@ -4136,7 +4136,7 @@
       "typeVersion": 2.3,
       "position": [
         3184,
-        -3472
+        -3392
       ],
       "name": "HU5: ¿Precio en carrusel?",
       "id": "f29acfef-310a-4fea-8461-57976c9211d8"
@@ -4153,7 +4153,7 @@
       "typeVersion": 1.2,
       "position": [
         3408,
-        -3568
+        -3680
       ],
       "name": "HU5: Carrusel bloqueado",
       "id": "1b0f1551-eacf-415d-a77b-166753fb9433",
@@ -4175,7 +4175,7 @@
       "typeVersion": 1.2,
       "position": [
         48,
-        -1072
+        -416
       ],
       "name": "HU5: Edit answer",
       "id": "19430bd9-2db1-4bc6-a7a7-b595aced25f8",
@@ -4195,7 +4195,7 @@
       "typeVersion": 2,
       "position": [
         272,
-        -1072
+        -416
       ],
       "name": "HU5: Set edit pendiente",
       "id": "1448c689-1b18-4983-8d12-00fa506c4034"
@@ -4212,7 +4212,7 @@
       "typeVersion": 1.2,
       "position": [
         496,
-        -1072
+        -416
       ],
       "name": "HU5: Pedir texto",
       "id": "efa51af6-c5d7-406d-b698-da4e96f25b2d",
@@ -4232,7 +4232,7 @@
       "typeVersion": 2,
       "position": [
         1840,
-        -2416
+        -2000
       ],
       "name": "HU5: Check edit pendiente",
       "id": "8c3deb6b-77ef-4c88-b886-b0f71a03753c"
@@ -4266,7 +4266,7 @@
       "typeVersion": 2.3,
       "position": [
         2064,
-        -2416
+        -2000
       ],
       "name": "HU5: ¿Edit pendiente?",
       "id": "a653a2fa-a585-4f8e-b421-3d4bfec287c3"
@@ -4279,7 +4279,7 @@
       "typeVersion": 2,
       "position": [
         2288,
-        -2512
+        -2096
       ],
       "name": "HU5: Aplicar edición",
       "id": "fcdc206c-66e2-4e6b-bed1-0ff80a7cdf00"
@@ -4331,7 +4331,7 @@
       "typeVersion": 1.2,
       "position": [
         2512,
-        -2512
+        -2096
       ],
       "name": "HU5: Reconfirmar",
       "id": "ced9ae64-389d-4b51-8e87-2ac79eb38cdf",
@@ -4361,7 +4361,7 @@
       "typeVersion": 1.1,
       "position": [
         2736,
-        -3472
+        -3296
       ],
       "name": "HU5: Analizar carrusel",
       "retryOnFail": true,
@@ -4384,7 +4384,7 @@
       "typeVersion": 2,
       "position": [
         2960,
-        -3472
+        -3392
       ],
       "name": "HU5: Parsear análisis",
       "id": "e6af6d5c-e470-4b44-8138-de624886fd73"
@@ -4398,8 +4398,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        48,
-        -496
+        944,
+        296
       ],
       "name": "HU5: Pub answer",
       "id": "4c3e2352-dc6d-412e-96bd-8c926013c044",
@@ -4440,8 +4440,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        496,
-        -496
+        1392,
+        720
       ],
       "name": "HU5: Pub leer cred",
       "id": "d703aa6f-ae1d-4be3-9d47-00ba6d3ecd24",
@@ -4459,8 +4459,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        720,
-        -496
+        1616,
+        720
       ],
       "name": "HU5: Pub descifrar",
       "id": "466496f9-4e34-4e3b-9c7b-8d2ddd79a3c7"
@@ -4484,8 +4484,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        944,
-        -496
+        1840,
+        720
       ],
       "name": "HU5: Pub leer Config",
       "alwaysOutputData": true,
@@ -4506,8 +4506,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1168,
-        -496
+        2064,
+        720
       ],
       "name": "HU5: Pub preparar",
       "id": "5b425870-3d0b-4475-aec2-dd7f0af73013"
@@ -4540,8 +4540,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1392,
-        -320
+        2288,
+        720
       ],
       "name": "HU5: ¿Pub bloqueada?",
       "id": "8c27a431-12e7-4505-8db9-bd2d6fe66334"
@@ -4557,8 +4557,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1616,
-        -320
+        2512,
+        720
       ],
       "name": "HU5: Pub bloqueado",
       "id": "135a7540-c284-4baa-ac33-1eb59ca84f45",
@@ -4577,8 +4577,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1616,
-        112
+        2512,
+        912
       ],
       "name": "HU5: Expandir URLs",
       "id": "35191744-87b6-4e87-9bec-80c0b3b7ce89"
@@ -4609,8 +4609,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1840,
-        112
+        2736,
+        912
       ],
       "name": "HU5: Crear hijo",
       "id": "39d6b1a7-5eef-4c70-8054-f25955c431eb"
@@ -4622,8 +4622,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2064,
-        112
+        2960,
+        912
       ],
       "name": "HU5: Juntar hijos",
       "id": "05d6947e-a0fb-49f1-965e-4f9db9fc3a4c"
@@ -4658,8 +4658,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2288,
-        112
+        3184,
+        912
       ],
       "name": "HU5: Crear carrusel",
       "id": "542d5e08-666d-4411-83d7-95b4709f87af"
@@ -4671,8 +4671,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2512,
-        112
+        3408,
+        912
       ],
       "name": "HU5: Wait pub",
       "webhookId": "hu5-wait-pub",
@@ -4700,8 +4700,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2736,
-        112
+        3632,
+        912
       ],
       "name": "HU5: Publicar carrusel",
       "id": "d0f02277-bf0e-47b7-9447-c4a9d5968762"
@@ -4714,8 +4714,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2960,
-        112
+        3856,
+        912
       ],
       "name": "HU5: Pub permalink",
       "id": "70ebf4a0-5fd8-4170-86c0-5792ef78197e"
@@ -4915,8 +4915,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3408,
-        112
+        4304,
+        912
       ],
       "name": "HU5: Pub guardar",
       "id": "60b00939-ab35-415d-8075-09284c98f7ea",
@@ -4939,8 +4939,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3632,
-        112
+        4528,
+        912
       ],
       "name": "HU5: Pub éxito",
       "id": "6dd92f43-d758-4dab-8cc1-28c21d5d8a64",
@@ -5143,7 +5143,7 @@
       "typeVersion": 4.7,
       "position": [
         944,
-        -1264
+        -280
       ],
       "name": "HU5: Crear pendiente",
       "id": "5e36ba36-01a3-4025-8024-9413e68fa7df",
@@ -5182,8 +5182,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -176,
-        1504
+        48,
+        2816
       ],
       "id": "d25b640d-fbd0-42d7-9418-345be4f36a02"
     },
@@ -5195,8 +5195,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        48,
-        1504
+        944,
+        1256
       ],
       "id": "3c43ce65-97ca-44c0-9ed3-7d26bc4468e6"
     },
@@ -5212,8 +5212,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        272,
-        1504
+        1168,
+        1256
       ],
       "id": "d9e14270-033d-4932-9171-065686bdc2dd",
       "webhookId": "0c68f1a2-7c96-4856-bcd5-8e13d75cf13e",
@@ -5233,7 +5233,7 @@
       "typeVersion": 2,
       "position": [
         1392,
-        -2624
+        -2096
       ],
       "id": "0585a3cb-2386-4cbf-a4b4-d223c10a7658"
     },
@@ -5267,7 +5267,7 @@
       "typeVersion": 2.3,
       "position": [
         1616,
-        -2624
+        -2096
       ],
       "id": "c8f415df-5d5f-4a59-b81d-8c8259364c12"
     },
@@ -5300,7 +5300,7 @@
       "typeVersion": 4.7,
       "position": [
         1840,
-        -2800
+        -2288
       ],
       "alwaysOutputData": true,
       "id": "d0daaee3-b277-49d0-80cb-12c566e42e87",
@@ -5332,7 +5332,7 @@
       "typeVersion": 4.7,
       "position": [
         2064,
-        -2800
+        -2288
       ],
       "alwaysOutputData": true,
       "id": "7191e830-fc22-48ec-8ab6-334e6ee67f15",
@@ -5353,7 +5353,7 @@
       "typeVersion": 2,
       "position": [
         2288,
-        -2800
+        -2288
       ],
       "id": "b5e301f8-19fd-4406-939a-23e9ee8de29f"
     },
@@ -5387,7 +5387,7 @@
       "typeVersion": 2.3,
       "position": [
         2512,
-        -2800
+        -2288
       ],
       "id": "bdb86c57-d582-4ecd-8f54-57cc37250d06"
     },
@@ -5585,7 +5585,7 @@
       "typeVersion": 4.7,
       "position": [
         2736,
-        -2896
+        -2384
       ],
       "id": "e8197acc-fdfd-475c-8ea6-4c6f9d31e8ee",
       "credentials": {
@@ -5608,7 +5608,7 @@
       "typeVersion": 1.2,
       "position": [
         2960,
-        -2896
+        -2384
       ],
       "id": "0558bd12-3fd4-45e2-ac79-890bb67cf510",
       "webhookId": "139c8fd1-f0c1-4678-a636-e22126f90ed7",
@@ -5632,7 +5632,7 @@
       "typeVersion": 1.2,
       "position": [
         2736,
-        -2608
+        -2192
       ],
       "id": "1cc70a0e-4e42-4e92-b973-d9fd42e839f1",
       "webhookId": "ded8e869-3b4d-4d38-8f67-40f2898b112a",
@@ -5669,8 +5669,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2960,
-        496
+        3856,
+        1296
       ],
       "id": "d4feb850-ae39-4d2a-b4d4-d66a401de8fa",
       "name": "FB - Publicar foto",
@@ -5688,7 +5688,7 @@
       "typeVersion": 4.4,
       "position": [
         1392,
-        -3856
+        -3968
       ],
       "name": "Sync: GET media",
       "id": "79f5f3bb-8d82-4291-b291-a25891f631ab",
@@ -5703,7 +5703,7 @@
       "typeVersion": 2,
       "position": [
         1616,
-        -3856
+        -3968
       ],
       "name": "Sync: Contar",
       "id": "f6398f7d-33e1-4846-b00c-a1ca9e8d76c7"
@@ -5736,7 +5736,7 @@
       "typeVersion": 2.3,
       "position": [
         1840,
-        -3856
+        -3968
       ],
       "name": "Sync: ¿Hay?",
       "id": "70d1272c-b63d-40c3-97b0-d2aaf1ebb5e5"
@@ -5926,7 +5926,7 @@
       "typeVersion": 4.7,
       "position": [
         2064,
-        -3920
+        -4040
       ],
       "name": "Sync: Upsert",
       "id": "9c3cf73c-f07a-450d-9b55-5a4d0a3de641",
@@ -5946,7 +5946,7 @@
       "typeVersion": 2,
       "position": [
         2288,
-        -3856
+        -3968
       ],
       "name": "Sync: Continuar",
       "id": "fbb23b54-feb6-4958-aeae-acd888031e2f"
@@ -5959,7 +5959,7 @@
       "typeVersion": 2,
       "position": [
         -400,
-        720
+        992
       ],
       "name": "Dedup callback",
       "id": "182c49bb-c1c1-4500-b317-034a01851288"
@@ -5972,7 +5972,7 @@
       "typeVersion": 2,
       "position": [
         2736,
-        -3856
+        -3968
       ],
       "name": "Sync: Métricas FB",
       "id": "cb4ac0a2-375a-478e-985d-228c9afc8d11",
@@ -5985,8 +5985,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3184,
-        112
+        4080,
+        912
       ],
       "name": "HU5: FB carrusel",
       "id": "49ddd7e4-46d2-4503-9d62-add1431b9d36",
@@ -6003,8 +6003,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        272,
-        -496
+        1168,
+        296
       ],
       "name": "HU5: Lock",
       "id": "5edf93a8-13bb-4793-a177-1b663122932d",
@@ -6045,7 +6045,7 @@
       "typeVersion": 2.2,
       "position": [
         496,
-        -2896
+        -2544
       ],
       "name": "¿Es video?",
       "id": "fad04b23-eefe-4025-9c37-236c89a99250"
@@ -6060,7 +6060,7 @@
       "typeVersion": 1.2,
       "position": [
         720,
-        -2240
+        -1472
       ],
       "name": "Video: bajar",
       "id": "06527cc6-1764-42cd-995a-2dcf824fc5e1",
@@ -6080,7 +6080,7 @@
       "typeVersion": 2,
       "position": [
         944,
-        -2240
+        -1472
       ],
       "name": "Video: procesar",
       "id": "4b16130e-faf2-43ed-8c44-27906823ce01"
@@ -6113,7 +6113,7 @@
       "typeVersion": 2.2,
       "position": [
         1168,
-        -2240
+        -1472
       ],
       "name": "Video: ¿largo?",
       "id": "d1203724-9bb9-4306-b60f-8cbf37ed7363"
@@ -6153,7 +6153,7 @@
       "typeVersion": 1.2,
       "position": [
         1392,
-        -2240
+        -1712
       ],
       "name": "Video: avisar",
       "id": "2c1c4b46-fe8e-4f68-a2a7-d9cb5b9aa7a0",
@@ -6173,7 +6173,7 @@
       "typeVersion": 2,
       "position": [
         1168,
-        512
+        2232
       ],
       "name": "Video: cortar",
       "id": "1868e418-21d1-4f0d-8aba-c2ace25f9ca2"
@@ -6190,7 +6190,7 @@
       "typeVersion": 1.2,
       "position": [
         48,
-        752
+        2376
       ],
       "name": "Video: cancelar",
       "id": "5795796e-3275-46ce-b7e2-1d10c66b0d37",
@@ -6220,7 +6220,7 @@
       "typeVersion": 1.1,
       "position": [
         2288,
-        -2032
+        -1192
       ],
       "id": "403b6ce2-33c0-47bb-92f3-043a63867f49",
       "name": "Video: analizar",
@@ -6243,7 +6243,7 @@
       "typeVersion": 2,
       "position": [
         2512,
-        -2128
+        -1240
       ],
       "name": "Video: parsear",
       "id": "111d86ea-3279-4e59-868a-a7bbddc0ebc8"
@@ -6260,7 +6260,7 @@
       "typeVersion": 1.2,
       "position": [
         2736,
-        -2128
+        -1240
       ],
       "name": "Video: intro",
       "id": "a601b449-0402-4855-a536-c48fb6ff0d3c",
@@ -6307,7 +6307,7 @@
       "typeVersion": 1.2,
       "position": [
         2960,
-        -2128
+        -1240
       ],
       "name": "Video: Opción 1",
       "id": "b176ec1d-e76f-4b5f-bbab-73249c257119",
@@ -6354,7 +6354,7 @@
       "typeVersion": 1.2,
       "position": [
         3184,
-        -2128
+        -1240
       ],
       "name": "Video: Opción 2",
       "id": "9076b0e1-83df-47a3-bb83-9ed65d23be49",
@@ -6401,7 +6401,7 @@
       "typeVersion": 1.2,
       "position": [
         3408,
-        -2128
+        -1240
       ],
       "name": "Video: Opción 3",
       "id": "ce4985e3-9c7b-4873-b49c-695896180153",
@@ -6423,7 +6423,7 @@
       "typeVersion": 1.2,
       "position": [
         48,
-        944
+        2568
       ],
       "name": "Video: edit answer",
       "id": "abf9157e-e397-41c8-9a8c-c62f801554b2",
@@ -6443,7 +6443,7 @@
       "typeVersion": 2,
       "position": [
         272,
-        944
+        2568
       ],
       "name": "Video: edit pedir",
       "id": "c9229001-4519-40aa-94fb-88708db7b51b"
@@ -6460,7 +6460,7 @@
       "typeVersion": 1.2,
       "position": [
         496,
-        944
+        2568
       ],
       "name": "Video: edit instr",
       "id": "d7b6cc35-4b2b-47b6-98e8-ee53d6324316",
@@ -6484,7 +6484,7 @@
       "typeVersion": 1.2,
       "position": [
         720,
-        944
+        2568
       ],
       "name": "Video: edit texto",
       "id": "3f4880c3-455a-4d47-a458-ddced863c12b",
@@ -6504,7 +6504,7 @@
       "typeVersion": 2,
       "position": [
         944,
-        -2624
+        -2000
       ],
       "name": "Video: check edit",
       "id": "03a5139f-a95d-4907-8359-599fa43f560d"
@@ -6537,7 +6537,7 @@
       "typeVersion": 2.2,
       "position": [
         1168,
-        -2624
+        -2000
       ],
       "name": "Video: ¿edit pend?",
       "id": "70e76358-977b-4180-a514-2c69dbfe692b"
@@ -6550,7 +6550,7 @@
       "typeVersion": 2,
       "position": [
         1392,
-        -2432
+        -1904
       ],
       "name": "Video: aplicar edit",
       "id": "b389b710-8a09-4c5a-a130-4e838d81fae1"
@@ -6584,7 +6584,7 @@
       "typeVersion": 1.2,
       "position": [
         1616,
-        -2432
+        -1904
       ],
       "name": "Video: edit ok",
       "id": "8cd64698-3ef9-489c-bc6a-3144808e13ee",
@@ -6605,8 +6605,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        48,
-        1232
+        944,
+        1064
       ],
       "name": "Video: pub answer",
       "id": "54ff252b-5b71-4540-8427-6568e7d6d216",
@@ -6647,8 +6647,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        272,
-        1232
+        1168,
+        1064
       ],
       "name": "Video: pub cred",
       "id": "e0eb2640-65e4-4ab5-a730-66d8e813134d",
@@ -6667,8 +6667,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        496,
-        1232
+        1392,
+        1296
       ],
       "name": "Video: pub descifrar",
       "id": "dea4b070-32c1-437c-9c33-f7f121882fa4"
@@ -6692,8 +6692,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        720,
-        1232
+        1616,
+        1296
       ],
       "name": "Video: pub Config",
       "id": "f83a235b-bd13-49f0-87fc-d54916919bba",
@@ -6713,8 +6713,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        944,
-        1232
+        1840,
+        1296
       ],
       "name": "Video: pub publicar",
       "id": "b41514f5-d60a-4f7d-a756-be510864347e"
@@ -6746,8 +6746,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1168,
-        1232
+        2064,
+        1296
       ],
       "name": "Video: ¿bloqueado?",
       "id": "7fd29205-01c1-446d-8150-267878ce85ea"
@@ -6763,8 +6763,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1392,
-        1120
+        2288,
+        1296
       ],
       "name": "Video: pub bloqueado",
       "id": "63ef562c-28f9-43b0-b056-8ed2b8614d7f",
@@ -6803,8 +6803,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1392,
-        1312
+        2288,
+        1488
       ],
       "name": "Video: ¿IG ok?",
       "id": "6257300e-de47-464b-a05e-fc541624283e"
@@ -6820,8 +6820,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1616,
-        1408
+        2512,
+        1680
       ],
       "name": "Video: pub error",
       "id": "ce5236b0-9837-401c-9d73-410fdce74cf8",
@@ -7016,8 +7016,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1616,
-        1216
+        2512,
+        1488
       ],
       "name": "Video: pub guardar",
       "id": "3cafd7cc-1522-42fb-a74c-fb42453fe763",
@@ -7040,8 +7040,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1840,
-        1216
+        2736,
+        1488
       ],
       "name": "Video: pub éxito",
       "id": "cdfd9278-0859-4f3b-856b-7705f6342734",
@@ -7065,7 +7065,7 @@
       "typeVersion": 1.2,
       "position": [
         2512,
-        -1936
+        -1640
       ],
       "name": "Video: IA ocupada",
       "id": "15f28d50-cfb4-4ccc-9d9a-e2d70ffaeea9",
@@ -7129,8 +7129,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3184,
-        496
+        4080,
+        1296
       ],
       "name": "FB guardar ID",
       "id": "5cdfb27e-7e73-42dd-bbdc-f70d642c6af4",
@@ -7160,7 +7160,7 @@
       "typeVersion": 1.1,
       "position": [
         1392,
-        -1888
+        -960
       ],
       "id": "vc0001",
       "name": "Video: HU8 visual",
@@ -7181,7 +7181,7 @@
       "typeVersion": 2,
       "position": [
         1616,
-        -1888
+        -544
       ],
       "id": "vc0002",
       "name": "Video: HU8 parsear"
@@ -7215,7 +7215,7 @@
       "typeVersion": 2.3,
       "position": [
         1840,
-        -1888
+        -544
       ],
       "id": "vc0003",
       "name": "Video: ¿precio en frame?"
@@ -7232,7 +7232,7 @@
       "typeVersion": 1.2,
       "position": [
         2064,
-        -2224
+        -1456
       ],
       "id": "vc0004",
       "name": "Video: frame con precio",
@@ -7262,7 +7262,7 @@
       "typeVersion": 1.1,
       "position": [
         496,
-        -1552
+        -968
       ],
       "id": "vc0005",
       "name": "Repost: HU8 visual",
@@ -7283,7 +7283,7 @@
       "typeVersion": 2,
       "position": [
         720,
-        -1552
+        -896
       ],
       "id": "vc0006",
       "name": "Repost: HU8 parsear"
@@ -7317,7 +7317,7 @@
       "typeVersion": 2.3,
       "position": [
         944,
-        -1552
+        -896
       ],
       "id": "vc0007",
       "name": "Repost: ¿precio en imagen?"
@@ -7334,7 +7334,7 @@
       "typeVersion": 1.2,
       "position": [
         1168,
-        -1456
+        -568
       ],
       "id": "vc0008",
       "name": "Repost: imagen con precio",
@@ -7375,7 +7375,7 @@
       "typeVersion": 2.3,
       "position": [
         2064,
-        -1792
+        -256
       ],
       "id": "vm0001",
       "name": "Video: ¿precio recortado?"
@@ -7392,7 +7392,7 @@
       "typeVersion": 1.2,
       "position": [
         2288,
-        -1664
+        -64
       ],
       "id": "vm0002",
       "name": "Video: aviso de recorte",
@@ -7415,8 +7415,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        160,
-        200
+        944,
+        776
       ],
       "name": "Publicar: Lock",
       "id": "a1b2c3d4-1111-4a5b-9c6d-0000publock01",
@@ -7439,7 +7439,7 @@
       "typeVersion": 1.2,
       "position": [
         1168,
-        -1424
+        -280
       ],
       "id": "grp-hu5-intro",
       "name": "HU5: Intro opciones",
@@ -7457,8 +7457,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4076,
-        -3088
+        4080,
+        -2624
       ],
       "parameters": {
         "jsCode": "// Candado de grupo: registra ids y textos exactos de las 3 versiones enviadas.\nconst intro = $('B: Intro opciones').first().json.result;\nconst store = $getWorkflowStaticData('global');\nconst now = Date.now();\nfor (const k of Object.keys(store)) if (k.indexOf('grupo_') === 0 && now - (store[k].ts || 0) > 7 * 864e5) delete store[k];\nstore['grupo_' + intro.message_id] = { chatId: String(intro.chat.id), ts: now,\n  msgs: [\"B: Opción 1\",\"B: Opción 2\",\"B: Opción 3\"].map(n => $(n).first().json.result).map(m => ({ id: m.message_id, text: m.text })) };\nreturn [{ json: { grupo: intro.message_id } }];"
@@ -7470,8 +7470,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3628,
-        -2128
+        3632,
+        -1240
       ],
       "parameters": {
         "jsCode": "// Candado de grupo: registra ids y textos exactos de las 3 versiones enviadas.\nconst intro = $('Video: intro').first().json.result;\nconst store = $getWorkflowStaticData('global');\nconst now = Date.now();\nfor (const k of Object.keys(store)) if (k.indexOf('grupo_') === 0 && now - (store[k].ts || 0) > 7 * 864e5) delete store[k];\nstore['grupo_' + intro.message_id] = { chatId: String(intro.chat.id), ts: now,\n  msgs: [\"Video: Opción 1\",\"Video: Opción 2\",\"Video: Opción 3\"].map(n => $(n).first().json.result).map(m => ({ id: m.message_id, text: m.text })) };\nreturn [{ json: { grupo: intro.message_id } }];"
@@ -7483,8 +7483,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1836,
-        -1088
+        2064,
+        320
       ],
       "parameters": {
         "jsCode": "// Candado de grupo: registra ids y textos exactos de las 3 versiones enviadas.\nconst intro = $('HU5: Intro opciones').first().json.result;\nconst store = $getWorkflowStaticData('global');\nconst now = Date.now();\nfor (const k of Object.keys(store)) if (k.indexOf('grupo_') === 0 && now - (store[k].ts || 0) > 7 * 864e5) delete store[k];\nstore['grupo_' + intro.message_id] = { chatId: String(intro.chat.id), ts: now,\n  msgs: [\"HU5: Tono 1\",\"HU5: Tono 2\",\"HU5: Tono 3\"].map(n => $(n).first().json.result).map(m => ({ id: m.message_id, text: m.text })) };\nreturn [{ json: { grupo: intro.message_id } }];"
@@ -7496,8 +7496,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2740,
-        -2200
+        3408,
+        -2000
       ],
       "parameters": {
         "jsCode": "// Candado de grupo: recupera el id de grupo de la versión que se está editando.\nconst chatId = String($('Telegram Trigger').first().json.message.chat.id);\nconst g = $getWorkflowStaticData('global')['editAnchor_' + chatId] || '';\n// editSingle: flag de edición de imagen única (fix-edit-sin-contexto)\ndelete $getWorkflowStaticData('global')['editSingle_' + chatId];\nreturn $input.all().map(i => ({ json: { ...i.json, _g: g } }));"
@@ -7531,8 +7531,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -740,
-        600
+        272,
+        912
       ],
       "id": "grp-tiene"
     },
@@ -7547,8 +7547,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -520,
-        520
+        496,
+        1608
       ],
       "name": "Grupo: Lock",
       "id": "grp-lock",
@@ -7571,8 +7571,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -300,
-        680
+        720,
+        1656
       ],
       "id": "grp-ya",
       "name": "Grupo: ya elegida",
@@ -7590,8 +7590,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -300,
-        360
+        720,
+        1464
       ],
       "parameters": {
         "jsCode": "// Candado de grupo: las otras versiones pierden el teclado (se reenvía su texto tal cual).\nconst cb = $('Telegram Trigger').first().json.callback_query;\nconst m = String(cb.data || '').match(/_g(\\d+)$/);\nconst g = m && $getWorkflowStaticData('global')['grupo_' + m[1]];\nif (!g) return [];\nreturn g.msgs.filter(x => x.id !== cb.message.message_id && x.text)\n  .map(x => ({ json: { chatId: g.chatId, messageId: x.id, text: x.text } }));"
@@ -7608,8 +7608,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -80,
-        360
+        944,
+        1464
       ],
       "name": "Grupo: editar hermanas",
       "id": "grp-editar",
@@ -7700,8 +7700,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -80,
-        600
+        720,
+        880
       ],
       "id": "grp-continuar",
       "name": "Grupo: continuar"
@@ -7712,8 +7712,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2176,
-        -2160
+        2288,
+        -1904
       ],
       "parameters": {
         "jsCode": "// ¿La usuaria tocó \"✏️ Editar\" en una publicación de imagen única hace menos de 60 min?\n// Sin ese flag, un texto suelto NO es una edición (antes pisaba Copy_Final de su última fila).\nconst msg = $('Telegram Trigger').first().json.message;\nconst chatId = String(msg.chat.id);\nconst t = $getWorkflowStaticData('global')['editSingle_' + chatId];\nconst pending = !!(t && msg.text && Date.now() - t < 60 * 60 * 1000);\nreturn [{ json: { pending, chatId } }];"
@@ -7747,8 +7747,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2288,
-        -2160
+        2512,
+        -1904
       ],
       "name": "Edit: ¿pendiente?",
       "id": "e5c1a0de-0001-4001-8001-000000000001"
@@ -7759,8 +7759,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2512,
-        -2080
+        2736,
+        -1600
       ],
       "parameters": {
         "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
@@ -7784,7 +7784,7 @@
       "typeVersion": 2,
       "position": [
         2512,
-        -3104
+        -2912
       ],
       "onError": "continueRegularOutput",
       "parameters": {
@@ -7798,7 +7798,7 @@
       "typeVersion": 2,
       "position": [
         3408,
-        -3392
+        -3488
       ],
       "onError": "continueRegularOutput",
       "parameters": {
@@ -7812,7 +7812,7 @@
       "typeVersion": 2,
       "position": [
         2064,
-        -2048
+        -448
       ],
       "onError": "continueRegularOutput",
       "parameters": {
@@ -7830,8 +7830,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2512,
-        -2944
+        2736,
+        -2912
       ],
       "name": "HU8: IA ocupada",
       "id": "1a0c0f0e-0000-4000-8000-000000000001",
@@ -7855,7 +7855,7 @@
       "typeVersion": 1.2,
       "position": [
         2960,
-        -3312
+        -3008
       ],
       "name": "HU5: IA ocupada",
       "id": "1a0c0f0e-0000-4000-8000-000000000002",
@@ -7879,7 +7879,7 @@
       "typeVersion": 1.2,
       "position": [
         720,
-        -1104
+        -704
       ],
       "name": "HU5: IA ocupada (copys)",
       "id": "1a0c0f0e-0000-4000-8000-000000000003",
@@ -7903,7 +7903,7 @@
       "typeVersion": 1.2,
       "position": [
         1392,
-        -1688
+        -768
       ],
       "name": "Repost: IA ocupada",
       "id": "1a0c0f0e-0000-4000-8000-000000000004",

@@ -26,13 +26,14 @@ SAL.mkdir(parents=True, exist_ok=True)
 PPP = 300
 ANCHO_PX = round(15 / 2.54 * PPP)               # 15 cm, el ancho de texto de la página
 
-# (x0, x1) en pt del PDF: cortes a mitad de camino entre columnas (separadas ~38,3 pt)
-# (y0, y1): la franja que ocupa cada tramo
+# Coordenadas sobre la exportación v9 (02-10, 217 nodos, canvas reordenado con «Tidy up»; rótulos de
+# 2,58 pt y columnas cada ~36,2 pt). (x0, x1): cortes a mitad de camino entre columnas; (y0, y1): la
+# franja de cada tramo. Las de la v7 están en el historial del repositorio.
 TRAMOS = [
-    ((534, 687), (333, 366)),     # Bajar Foto · Code · HTTP Request (Cloudinary) · HU8: Detección visual
-    ((687, 840), (296, 389)),     # HU8: Parsear · ¿Imagen limpia? · bloqueo + borrado | Analyze · Consistencia
-    ((840, 993), (360, 389)),     # B: Parsear opciones · Intro · Opción 1 · Opción 2
-    ((993, 1146), (360, 389)),    # Opción 3 · Grupo: registrar imagen
+    ((501, 645), (355, 392)),     # Bajar Foto · Code · HTTP Request (Cloudinary) · HU8: Detección visual
+    ((645, 789), (310, 418)),     # HU8: Parsear · ¿Precio en imagen? · aviso + borrado | Analyze · IA ocupada · Consistencia
+    ((789, 933), (386, 418)),     # B: Parsear opciones · Intro · Opción 1 · Opción 2
+    ((933, 1077), (386, 418)),    # Opción 3 · Grupo: registrar imagen
 ]
 ESCALA = ANCHO_PX / (TRAMOS[0][0][1] - TRAMOS[0][0][0])   # px por pt
 SEP = round(0.35 / 2.54 * PPP)
@@ -66,8 +67,8 @@ print(f'Figura 11: {lienzo.size} px = 15 × {alto / PPP * 2.54:.1f} cm; '
       f'×{ESCALA / (PPP / 72):.2f} → rótulos de {2.73 * ESCALA / (PPP / 72):.1f} pt')
 
 # canvas completo, para el Anexo B.2
-X0, Y0 = 185 + DX, 95 + DY
-pix = pag.get_pixmap(dpi=PPP, clip=pymupdf.Rect(X0, Y0, 1162 + DX, 1290 + DY))
+X0, Y0 = 170 + DX, 95 + DY
+pix = pag.get_pixmap(dpi=PPP, clip=pymupdf.Rect(X0, Y0, 1155 + DX, 1300 + DY))
 canvas = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
 # tapa los botones del editor (zoom, búsqueda, paneles) que flotan arriba a la derecha
 px = lambda v: round(v * PPP / 72)

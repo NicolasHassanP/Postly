@@ -45,9 +45,9 @@ test("los avisos nuevos usan la credencial y el chatId del aviso de video de la 
   }
 });
 
-test("los avisos nuevos no se superponen con ningún nodo del canvas", () => {
-  const wf = wfPrevio();
-  parchear(wf);
+test("en el canvas vigente (el del repo), los avisos no se superponen con ningún nodo", () => {
+  // el canvas de E3 se reordenó con «Tidy up» el 02-10 y el repo copió esas posiciones
+  const wf = JSON.parse(readFileSync(RUTA, "utf-8"));
   for (const nombre of NUEVOS) {
     const [x, y] = wf.nodes.find((n) => n.name === nombre).position;
     const cerca = wf.nodes.filter((n) => n.name !== nombre &&
