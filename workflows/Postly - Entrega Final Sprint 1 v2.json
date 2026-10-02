@@ -7769,6 +7769,48 @@
           "name": "Telegram account"
         }
       }
+    },
+    {
+      "id": "c1d0e9a0-0000-4000-8000-000000000000",
+      "name": "HU8: borrar de Cloudinary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2512,
+        -3104
+      ],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "jsCode": "// N-09: borra de Cloudinary lo que el Centinela visual bloqueó (fix-cloudinary-bloqueadas)\nconst crypto = require('crypto');\nconst publicIdDeUrl = function publicIdDeUrl(url) {\n  const m = String(url || \"\").match(/^https?:\\/\\/res\\.cloudinary\\.com\\/([^/]+)\\/(image|video|raw)\\/upload\\/(?:v\\d+\\/)?(.+)$/);\n  if (!m) return null;\n  return { cloud: m[1], tipo: m[2], publicId: m[3].replace(/\\.[A-Za-z0-9]+$/, \"\") };\n};\nconst firmaCloudinary = (params, secret) => crypto.createHash('sha1')\n  .update(Object.keys(params).sort().map(k => k + '=' + params[k]).join('&') + secret).digest('hex');\nconst KEY = $env.CLOUDINARY_API_KEY, SECRET = $env.CLOUDINARY_API_SECRET;\nconst urls = [...new Set(($('HTTP Request').all().map(i => i.json.secure_url)).filter(Boolean))];\nconst borradas = [];\nfor (const u of urls) {\n  const a = publicIdDeUrl(u);\n  if (!a) continue;\n  const timestamp = Math.floor(Date.now() / 1000);\n  const signature = firmaCloudinary({ public_id: a.publicId, timestamp }, SECRET);\n  try {\n    const r = await helpers.httpRequest({ method: 'POST', url: 'https://api.cloudinary.com/v1_1/' + a.cloud + '/' + a.tipo + '/destroy',\n      body: { public_id: a.publicId, timestamp, api_key: KEY, signature },\n      headers: { 'content-type': 'application/x-www-form-urlencoded' }, json: true });\n    borradas.push({ publicId: a.publicId, tipo: a.tipo, result: r.result });\n  } catch (e) { borradas.push({ publicId: a.publicId, tipo: a.tipo, error: String(e.message || e) }); }\n}\nreturn [{ json: { borradas } }];"
+      }
+    },
+    {
+      "id": "c1d0e9a0-0001-4000-8000-000000000001",
+      "name": "HU5: borrar de Cloudinary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3408,
+        -3392
+      ],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "jsCode": "// N-09: borra de Cloudinary lo que el Centinela visual bloqueó (fix-cloudinary-bloqueadas)\nconst crypto = require('crypto');\nconst publicIdDeUrl = function publicIdDeUrl(url) {\n  const m = String(url || \"\").match(/^https?:\\/\\/res\\.cloudinary\\.com\\/([^/]+)\\/(image|video|raw)\\/upload\\/(?:v\\d+\\/)?(.+)$/);\n  if (!m) return null;\n  return { cloud: m[1], tipo: m[2], publicId: m[3].replace(/\\.[A-Za-z0-9]+$/, \"\") };\n};\nconst firmaCloudinary = (params, secret) => crypto.createHash('sha1')\n  .update(Object.keys(params).sort().map(k => k + '=' + params[k]).join('&') + secret).digest('hex');\nconst KEY = $env.CLOUDINARY_API_KEY, SECRET = $env.CLOUDINARY_API_SECRET;\nconst urls = [...new Set((String($('HU5: Juntar URLs').first().json.urlList || '').split(',')).filter(Boolean))];\nconst borradas = [];\nfor (const u of urls) {\n  const a = publicIdDeUrl(u);\n  if (!a) continue;\n  const timestamp = Math.floor(Date.now() / 1000);\n  const signature = firmaCloudinary({ public_id: a.publicId, timestamp }, SECRET);\n  try {\n    const r = await helpers.httpRequest({ method: 'POST', url: 'https://api.cloudinary.com/v1_1/' + a.cloud + '/' + a.tipo + '/destroy',\n      body: { public_id: a.publicId, timestamp, api_key: KEY, signature },\n      headers: { 'content-type': 'application/x-www-form-urlencoded' }, json: true });\n    borradas.push({ publicId: a.publicId, tipo: a.tipo, result: r.result });\n  } catch (e) { borradas.push({ publicId: a.publicId, tipo: a.tipo, error: String(e.message || e) }); }\n}\nreturn [{ json: { borradas } }];"
+      }
+    },
+    {
+      "id": "c1d0e9a0-0002-4000-8000-000000000002",
+      "name": "Video: borrar de Cloudinary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        -2048
+      ],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "jsCode": "// N-09: borra de Cloudinary lo que el Centinela visual bloqueó (fix-cloudinary-bloqueadas)\nconst crypto = require('crypto');\nconst publicIdDeUrl = function publicIdDeUrl(url) {\n  const m = String(url || \"\").match(/^https?:\\/\\/res\\.cloudinary\\.com\\/([^/]+)\\/(image|video|raw)\\/upload\\/(?:v\\d+\\/)?(.+)$/);\n  if (!m) return null;\n  return { cloud: m[1], tipo: m[2], publicId: m[3].replace(/\\.[A-Za-z0-9]+$/, \"\") };\n};\nconst firmaCloudinary = (params, secret) => crypto.createHash('sha1')\n  .update(Object.keys(params).sort().map(k => k + '=' + params[k]).join('&') + secret).digest('hex');\nconst KEY = $env.CLOUDINARY_API_KEY, SECRET = $env.CLOUDINARY_API_SECRET;\nconst urls = [...new Set(((() => { for (const n of ['Video: cortar', 'Video: procesar']) { try { const j = $(n).first().json; if (j && j.videoUrl) return [j.videoUrl, ...String(j.frameUrls || '').split(',')]; } catch (e) {} } return []; })()).filter(Boolean))];\nconst borradas = [];\nfor (const u of urls) {\n  const a = publicIdDeUrl(u);\n  if (!a) continue;\n  const timestamp = Math.floor(Date.now() / 1000);\n  const signature = firmaCloudinary({ public_id: a.publicId, timestamp }, SECRET);\n  try {\n    const r = await helpers.httpRequest({ method: 'POST', url: 'https://api.cloudinary.com/v1_1/' + a.cloud + '/' + a.tipo + '/destroy',\n      body: { public_id: a.publicId, timestamp, api_key: KEY, signature },\n      headers: { 'content-type': 'application/x-www-form-urlencoded' }, json: true });\n    borradas.push({ publicId: a.publicId, tipo: a.tipo, result: r.result });\n  } catch (e) { borradas.push({ publicId: a.publicId, tipo: a.tipo, error: String(e.message || e) }); }\n}\nreturn [{ json: { borradas } }];"
+      }
     }
   ],
   "connections": {
@@ -8755,6 +8797,11 @@
             "node": "HU8: Imagen con precio",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "HU8: borrar de Cloudinary",
+            "type": "main",
+            "index": 0
           }
         ],
         [
@@ -8932,6 +8979,11 @@
         [
           {
             "node": "HU5: Carrusel bloqueado",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HU5: borrar de Cloudinary",
             "type": "main",
             "index": 0
           }
@@ -9771,6 +9823,11 @@
         [
           {
             "node": "Video: frame con precio",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Video: borrar de Cloudinary",
             "type": "main",
             "index": 0
           }

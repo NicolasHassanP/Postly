@@ -5,7 +5,8 @@ import { readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 
 const VARS = ["POSTLY_ENC_KEY", "META_ACCESS_TOKEN", "META_APP_ID", "META_APP_SECRET",
-              "META_CONFIG_ID", "META_PAGE_ID", "IG_BUSINESS_ID"];
+              "META_CONFIG_ID", "META_PAGE_ID", "IG_BUSINESS_ID",
+              "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET"];
 const SSH = ["-p", "5472", "-o", "BatchMode=yes", "root@201.32.129.22"];
 
 const env = {};
