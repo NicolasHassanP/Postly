@@ -63,9 +63,11 @@ Detalle: `docs/contexto/ESTADO-Y-ROADMAP.md`.
 - Tras editar por API el versionId cambia → **refrescar (F5)** la pestaña de n8n antes de tocarla.
 
 ### Workflows en el VPS (producción desde 2026-10-01)
-- `xwYkQA25a6IjRmqX` — principal (207 nodos, ACTIVO) · `QT540ZcOfxd7VfvQ` — HU2 OAuth Callback (ACTIVO).
-- `CRktCQhVfc0SAtAt` — Programador (inactivo a propósito) · `hAKJlLMklummchrT` / `SbHYUyc8KKZ71ob0` —
-  Publicar Post / Publicar Carrusel · `NmBryYPdCd91bZ4G` — Feedback Loop (versión de 5 nodos, inactivo).
+- `xwYkQA25a6IjRmqX` — principal (213 nodos, ACTIVO) · `QT540ZcOfxd7VfvQ` — HU2 OAuth Callback (ACTIVO).
+- `CRktCQhVfc0SAtAt` — Programador · `hAKJlLMklummchrT` / `SbHYUyc8KKZ71ob0` — Publicar Post / Publicar
+  Carrusel · `NmBryYPdCd91bZ4G` — Feedback Loop (versión de 5 nodos). **Los seis ACTIVOS desde el 2026-10-02**
+  (antes se revisó que la hoja no tuviera filas programadas). n8n 2 no deja activar el Programador si los
+  sub-workflows que invoca no están publicados: se activan primero (sólo tienen Execute Workflow Trigger).
 - Credenciales: Telegram `KjasJSHQg856atEZ`, Gemini `p4rr8CoI2oaS6jek`, Sheets `wpC2BPAboTLTrNpQ`.
 - `deploy-vps-n8n.mjs` reemplaza al vuelo el host del VPS de junio, que el redirect de OAuth tiene
   hardcodeado en el principal y en HU2; el JSON del repo lo sigue teniendo.
