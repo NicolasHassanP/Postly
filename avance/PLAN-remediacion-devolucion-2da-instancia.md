@@ -41,6 +41,20 @@ Nuevos: 0 críticos, **3 altos**, 6 medios, 3 bajos. Recalculó toda la estadís
 - **Falta:** 1.4 tag + hash (al final), 1.5/1.6 (terceros), 2.4+2.5 condensar y rastros, 2.6, 2.7, 2.9,
   Bloque 3, re-exportar el PDF.
 
+## Estado al 02-10 (madrugada)
+
+- **2.5 N-06 hecho** (pasadas 183-184): 0 rastros de revisión; los 96 nombres de archivo, sólo en la Tabla 17
+  (Anexo E.16, inventario por resultado y registro).
+- **2.4 N-05 hecho** (pasadas 185-192c, revisadas capítulo por capítulo con Nico): cuerpo de ~36.900 a **24.813**
+  palabras (sin contar el texto de las tablas, ~870), Resumen 234, 0 oraciones > 50, media 24,5. El detalle que
+  sólo vivía en el Cap. 6 pasó al Anexo E. Cap. 4: opción A (criterios de aceptación intactos).
+- **2.6 N-04 en parte**: el κ = 1,00 ya no se presenta como validación independiente (§3.5.5).
+- **PDF re-exportado: 150 páginas** (cuerpo ~76, antes ~97). Tablas 16 y 17 en el índice.
+- **Falta:** 1.4 tag + hash; 1.5/1.6 (firmas, director, Pautas: terceros); 2.7 N-11 (Figs. 1 y 4 legibles, Fig.
+  11 recortada); 2.9 Wilcoxon recalculable (quedó sólo en el Anexo E.2); Bloque 3 (respuestas a las 9
+  preguntas, guion de demo); activar Programador y Feedback Loop en E3; auditoría interna con el prompt del
+  profesor antes de subir.
+
 ## Bloque 1 — Requisitos previos a la defensa (obligatorios)
 
 | # | Hallazgo | Estado | Acción | Quién |
