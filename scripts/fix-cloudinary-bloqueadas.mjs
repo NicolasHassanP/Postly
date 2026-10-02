@@ -31,11 +31,11 @@ export function firmaCloudinary(params, secret) {
 
 // si: el IF de "¿limpia?" · aviso: el Telegram que avisa el bloqueo · urls: expresión JS
 export const RAMAS = [
-  { si: "HU8: ¿Imagen limpia?", aviso: "HU8: Imagen con precio", nodo: "HU8: borrar de Cloudinary",
+  { si: "HU8: ¿Precio en imagen?", aviso: "HU8: Imagen con precio", nodo: "HU8: borrar de Cloudinary",
     urls: "$('HTTP Request').all().map(i => i.json.secure_url)" },
-  { si: "HU5: ¿Carrusel limpio?", aviso: "HU5: Carrusel bloqueado", nodo: "HU5: borrar de Cloudinary",
+  { si: "HU5: ¿Precio en carrusel?", aviso: "HU5: Carrusel bloqueado", nodo: "HU5: borrar de Cloudinary",
     urls: "String($('HU5: Juntar URLs').first().json.urlList || '').split(',')" },
-  { si: "Video: ¿frame limpio?", aviso: "Video: frame con precio", nodo: "Video: borrar de Cloudinary",
+  { si: "Video: ¿precio en frame?", aviso: "Video: frame con precio", nodo: "Video: borrar de Cloudinary",
     // el video viene de "Video: procesar" (≤ 60 s) o de "Video: cortar" (recorte confirmado)
     urls: "(() => { for (const n of ['Video: cortar', 'Video: procesar']) { try { const j = $(n).first().json; " +
           "if (j && j.videoUrl) return [j.videoUrl, ...String(j.frameUrls || '').split(',')]; } catch (e) {} } return []; })()" },

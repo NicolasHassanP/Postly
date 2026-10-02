@@ -45,11 +45,11 @@ const REF = porNombre.get("HU8: Detección visual");
 const VIS = porNombre.get("Video: HU8 visual");
 const PARSE = porNombre.get("Video: HU8 parsear");
 const PROC = porNombre.get("Video: procesar");
-const IF = porNombre.get("Video: ¿frame limpio?");
+const IF = porNombre.get("Video: ¿precio en frame?");
 const MSG = porNombre.get("Video: frame con precio");
 for (const [n, v] of [["HU8: Detección visual", REF], ["Video: HU8 visual", VIS],
                       ["Video: HU8 parsear", PARSE], ["Video: procesar", PROC],
-                      ["Video: ¿frame limpio?", IF], ["Video: frame con precio", MSG]]) {
+                      ["Video: ¿precio en frame?", IF], ["Video: frame con precio", MSG]]) {
   if (!v) fallos.push(`falta el nodo «${n}»`);
 }
 if (fallos.length) { console.error(fallos.join("\n")); process.exit(1); }
@@ -237,7 +237,7 @@ function conectar(desde, salida, hacia) {
 }
 
 // ¿frame limpio? por false ya no va directo a analizar: pasa por el aviso de recorte
-conectar("Video: ¿frame limpio?", 1, "Video: ¿precio recortado?");
+conectar("Video: ¿precio en frame?", 1, "Video: ¿precio recortado?");
 // El aviso NO se encadena antes de la generación de copys: un nodo de Telegram emite la
 // respuesta de su API y no el item que recibió, de modo que el siguiente perdería
 // `frameUrl`. La rama «sí, hay precio recortado» se abre en dos: avisa y sigue en paralelo.

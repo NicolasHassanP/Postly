@@ -3622,7 +3622,7 @@
         2288,
         -3184
       ],
-      "name": "HU8: ¿Imagen limpia?",
+      "name": "HU8: ¿Precio en imagen?",
       "id": "f285e2db-650b-4801-848e-42d12b5ae987"
     },
     {
@@ -4134,7 +4134,7 @@
         3184,
         -3472
       ],
-      "name": "HU5: ¿Carrusel limpio?",
+      "name": "HU5: ¿Precio en carrusel?",
       "id": "f29acfef-310a-4fea-8461-57976c9211d8"
     },
     {
@@ -4538,7 +4538,7 @@
         1392,
         -320
       ],
-      "name": "HU5: ¿Pub limpio?",
+      "name": "HU5: ¿Pub bloqueada?",
       "id": "8c27a431-12e7-4505-8db9-bd2d6fe66334"
     },
     {
@@ -7191,7 +7191,7 @@
           },
           "conditions": [
             {
-              "id": "Video: ¿frame limpio?-cond",
+              "id": "Video: ¿precio en frame?-cond",
               "leftValue": "={{ $json.tiene_precio }}",
               "rightValue": "",
               "operator": {
@@ -7212,7 +7212,7 @@
         -1888
       ],
       "id": "vc0003",
-      "name": "Video: ¿frame limpio?"
+      "name": "Video: ¿precio en frame?"
     },
     {
       "parameters": {
@@ -7292,7 +7292,7 @@
           },
           "conditions": [
             {
-              "id": "Repost: ¿imagen limpia?-cond",
+              "id": "Repost: ¿precio en imagen?-cond",
               "leftValue": "={{ $json.tiene_precio }}",
               "rightValue": "",
               "operator": {
@@ -7313,7 +7313,7 @@
         -1552
       ],
       "id": "vc0007",
-      "name": "Repost: ¿imagen limpia?"
+      "name": "Repost: ¿precio en imagen?"
     },
     {
       "parameters": {
@@ -8783,14 +8783,14 @@
       "main": [
         [
           {
-            "node": "HU8: ¿Imagen limpia?",
+            "node": "HU8: ¿Precio en imagen?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HU8: ¿Imagen limpia?": {
+    "HU8: ¿Precio en imagen?": {
       "main": [
         [
           {
@@ -8974,7 +8974,7 @@
         ]
       ]
     },
-    "HU5: ¿Carrusel limpio?": {
+    "HU5: ¿Precio en carrusel?": {
       "main": [
         [
           {
@@ -9074,7 +9074,7 @@
       "main": [
         [
           {
-            "node": "HU5: ¿Carrusel limpio?",
+            "node": "HU5: ¿Precio en carrusel?",
             "type": "main",
             "index": 0
           }
@@ -9129,14 +9129,14 @@
       "main": [
         [
           {
-            "node": "HU5: ¿Pub limpio?",
+            "node": "HU5: ¿Pub bloqueada?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HU5: ¿Pub limpio?": {
+    "HU5: ¿Pub bloqueada?": {
       "main": [
         [
           {
@@ -9811,14 +9811,14 @@
       "main": [
         [
           {
-            "node": "Video: ¿frame limpio?",
+            "node": "Video: ¿precio en frame?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Video: ¿frame limpio?": {
+    "Video: ¿precio en frame?": {
       "main": [
         [
           {
@@ -9856,14 +9856,14 @@
       "main": [
         [
           {
-            "node": "Repost: ¿imagen limpia?",
+            "node": "Repost: ¿precio en imagen?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Repost: ¿imagen limpia?": {
+    "Repost: ¿precio en imagen?": {
       "main": [
         [
           {
@@ -13709,7 +13709,7 @@
           5616,
           -2128
         ],
-        "name": "HU8: ¿Imagen limpia?",
+        "name": "HU8: ¿Precio en imagen?",
         "id": "f285e2db-650b-4801-848e-42d12b5ae987"
       },
       {
@@ -14221,7 +14221,7 @@
           6560,
           -2752
         ],
-        "name": "HU5: ¿Carrusel limpio?",
+        "name": "HU5: ¿Precio en carrusel?",
         "id": "f29acfef-310a-4fea-8461-57976c9211d8"
       },
       {
@@ -14624,7 +14624,7 @@
           4736,
           -448
         ],
-        "name": "HU5: ¿Pub limpio?",
+        "name": "HU5: ¿Pub bloqueada?",
         "id": "8c27a431-12e7-4505-8db9-bd2d6fe66334"
       },
       {
@@ -17195,7 +17195,7 @@
             },
             "conditions": [
               {
-                "id": "Video: ¿frame limpio?-cond",
+                "id": "Video: ¿precio en frame?-cond",
                 "leftValue": "={{ $json.tiene_precio }}",
                 "rightValue": "",
                 "operator": {
@@ -17216,7 +17216,7 @@
           700
         ],
         "id": "vc0003",
-        "name": "Video: ¿frame limpio?"
+        "name": "Video: ¿precio en frame?"
       },
       {
         "parameters": {
@@ -17296,7 +17296,7 @@
             },
             "conditions": [
               {
-                "id": "Repost: ¿imagen limpia?-cond",
+                "id": "Repost: ¿precio en imagen?-cond",
                 "leftValue": "={{ $json.tiene_precio }}",
                 "rightValue": "",
                 "operator": {
@@ -17317,7 +17317,7 @@
           1180
         ],
         "id": "vc0007",
-        "name": "Repost: ¿imagen limpia?"
+        "name": "Repost: ¿precio en imagen?"
       },
       {
         "parameters": {
@@ -18372,14 +18372,14 @@
         "main": [
           [
             {
-              "node": "HU8: ¿Imagen limpia?",
+              "node": "HU8: ¿Precio en imagen?",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "HU8: ¿Imagen limpia?": {
+      "HU8: ¿Precio en imagen?": {
         "main": [
           [
             {
@@ -18558,7 +18558,7 @@
           ]
         ]
       },
-      "HU5: ¿Carrusel limpio?": {
+      "HU5: ¿Precio en carrusel?": {
         "main": [
           [
             {
@@ -18653,7 +18653,7 @@
         "main": [
           [
             {
-              "node": "HU5: ¿Carrusel limpio?",
+              "node": "HU5: ¿Precio en carrusel?",
               "type": "main",
               "index": 0
             }
@@ -18708,14 +18708,14 @@
         "main": [
           [
             {
-              "node": "HU5: ¿Pub limpio?",
+              "node": "HU5: ¿Pub bloqueada?",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "HU5: ¿Pub limpio?": {
+      "HU5: ¿Pub bloqueada?": {
         "main": [
           [
             {
@@ -19390,14 +19390,14 @@
         "main": [
           [
             {
-              "node": "Video: ¿frame limpio?",
+              "node": "Video: ¿precio en frame?",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Video: ¿frame limpio?": {
+      "Video: ¿precio en frame?": {
         "main": [
           [
             {
@@ -19430,14 +19430,14 @@
         "main": [
           [
             {
-              "node": "Repost: ¿imagen limpia?",
+              "node": "Repost: ¿precio en imagen?",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Repost: ¿imagen limpia?": {
+      "Repost: ¿precio en imagen?": {
         "main": [
           [
             {

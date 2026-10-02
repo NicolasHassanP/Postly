@@ -40,10 +40,10 @@ const fallos = [];
 
 const REF = porNombre.get("HU8: Detección visual");
 const REF_PARSE = porNombre.get("HU8: Parsear detección");
-const REF_IF = porNombre.get("HU8: ¿Imagen limpia?");
+const REF_IF = porNombre.get("HU8: ¿Precio en imagen?");
 const REF_MSG = porNombre.get("HU8: Imagen con precio");
 for (const [n, v] of [["HU8: Detección visual", REF], ["HU8: Parsear detección", REF_PARSE],
-                      ["HU8: ¿Imagen limpia?", REF_IF], ["HU8: Imagen con precio", REF_MSG]]) {
+                      ["HU8: ¿Precio en imagen?", REF_IF], ["HU8: Imagen con precio", REF_MSG]]) {
   if (!v) fallos.push(`falta el nodo de referencia «${n}»`);
 }
 if (fallos.length) { console.error(fallos.join("\n")); process.exit(1); }
@@ -133,7 +133,7 @@ const nuevos = [
   nodoGemini("Video: HU8 visual", "={{ $('Video: procesar').first().json.frameUrl }}", [3160, 700]),
   nodoParseo("Video: HU8 parsear", "Video: HU8 visual",
              "$('Video: procesar').first().json.frameUrl", [3400, 700]),
-  nodoIf("Video: ¿frame limpio?", [3640, 700]),
+  nodoIf("Video: ¿precio en frame?", [3640, 700]),
   nodoAviso("Video: frame con precio", AVISO_VIDEO, [3880, 620]),
 
   // ─── 2 · REPOST ─────────────────────────────────────────────────────────────
@@ -141,7 +141,7 @@ const nuevos = [
              "={{ $('Repost: Elegir fila').first().json.ImageURL }}", [2360, 1180]),
   nodoParseo("Repost: HU8 parsear", "Repost: HU8 visual",
              "$('Repost: Elegir fila').first().json.ImageURL", [2600, 1180]),
-  nodoIf("Repost: ¿imagen limpia?", [2840, 1180]),
+  nodoIf("Repost: ¿precio en imagen?", [2840, 1180]),
   nodoAviso("Repost: imagen con precio",
             "=🚫 *Detecté un precio o promoción en la imagen guardada.*\n\n" +
             "Por las normas de Mary Kay no puedo volver a publicarla.\n\n" +
@@ -183,13 +183,13 @@ else if (analizar.parameters.imageUrls === "={{ $json.frameUrl }}") {
 }
 
 conectar("Video: HU8 visual", 0, "Video: HU8 parsear");
-conectar("Video: HU8 parsear", 0, "Video: ¿frame limpio?");
-conectar("Video: ¿frame limpio?", 0, "Video: frame con precio");   // true  = tiene precio
-conectar("Video: ¿frame limpio?", 1, "Video: analizar");           // false = sigue
+conectar("Video: HU8 parsear", 0, "Video: ¿precio en frame?");
+conectar("Video: ¿precio en frame?", 0, "Video: frame con precio");   // true  = tiene precio
+conectar("Video: ¿precio en frame?", 1, "Video: analizar");           // false = sigue
 conectar("Repost: HU8 visual", 0, "Repost: HU8 parsear");
-conectar("Repost: HU8 parsear", 0, "Repost: ¿imagen limpia?");
-conectar("Repost: ¿imagen limpia?", 0, "Repost: imagen con precio");
-conectar("Repost: ¿imagen limpia?", 1, "Repost: Analizar imagen");
+conectar("Repost: HU8 parsear", 0, "Repost: ¿precio en imagen?");
+conectar("Repost: ¿precio en imagen?", 0, "Repost: imagen con precio");
+conectar("Repost: ¿precio en imagen?", 1, "Repost: Analizar imagen");
 
 // ─── 3 · CARRUSEL: el mismo criterio, en su prompt combinado ──────────────────
 const car = porNombre.get("HU5: Analizar carrusel");
