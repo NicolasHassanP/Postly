@@ -65,3 +65,19 @@ Pasada de lectura de punta a punta (las correcciones de último momento fueron l
 PDF, y la auditoría 18 en sesión limpia. Duda (a), (b), (c) del dictamen: confirmar con Nico si el
 consentimiento cubre al aportante de los videos del E.9; leer el resumen de Abendroth (2026); revisar el
 artículo 223 de Das et al. (2026) en la fuente.
+
+## Salvedades que el dictamen 17 deja en pie (para llegar a ≥ 9)
+
+| Salvedad | Causa | ¿Se puede cerrar? | Costo | Qué se necesita |
+|---|---|---|---|---|
+| N-05 oraciones > 40 palabras (12,8 %, unas 130) | Forma | Sí | Medio: una pasada larga sobre el cuerpo | Partir oraciones sin perder cifras; verificador ya existe |
+| N-05 185 remisiones «§» en el cuerpo | Forma | Parcial | Medio | Quitar las que no aportan en el Cap. 6 |
+| N-09 recomendación «aplicada» generosa; Cloudinary previo al 01-10 | Sistema | Sí | Bajo-medio | Depurar Cloudinary (acción de Nico) y reducir lo que se guarda 14 días, o rotular «parcial» |
+| N-11 / T-07 Figs. 5 y 7 chicas | Forma | Sí | Medio: regenerar figuras, +1-2 págs. | Nico decidió no hacerlo; reabrir solo si el resto no alcanza |
+| N-08 multitenencia probada con una sola usuaria | Evidencia | Sí | Medio: una prueba | Dos consultoras vinculadas a la vez en E3, con ids de ejecución |
+| N-01 E3 con un día de operación, solo equipo | Evidencia | Parcial | Bajo | Sesión con una consultora ajena al equipo, con ids; sube el OE-1 |
+| N-04 un evaluador por estudio, mismo en 1 y 4 y en el corpus | Evidencia | Sí | Alto | Segundo evaluador ciego sobre el Estudio 1 o 4 |
+| N-03 consentimientos no verificables; E.11 ya difundido | Evidencia | No desde el PDF | — | Anexar constancia al expediente; no cambia la nota |
+| Pregunta 7 (fail-open, E.6 sin respuesta cruda) | Evidencia | Sí | Medio | Repetir la corrida de los 20 casos con el script corregido |
+| Pregunta 8 (arte de marca con precio) | Texto | Sí | Bajo | Una frase en E.11: por qué no una imagen neutra |
+| Dudas: consentimiento del E.9, Abendroth, Das art. 223 | Texto | Sí | Bajo | Nico confirma; leer Abendroth; verificar Das |
