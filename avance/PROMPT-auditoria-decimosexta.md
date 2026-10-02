@@ -7,13 +7,16 @@ medís.
 
 ## Materiales
 
-- `Tesis Postly Bontorno Hassan.pdf` — el documento a auditar, y **lo único que los autores
-  entregaron**. Son **154 páginas** A4, con **16 objetos de imagen embebidos**, **16 figuras** y **17
+- `Tesis Postly Bontorno Hassan.pdf` — el documento a auditar. Son **154 páginas** A4, con **16 objetos de imagen embebidos**, **16 figuras** y **17
   tablas** numeradas, y unas **54.700 palabras** contando los tres índices. Extraé el texto completo
   (`pdftotext`, con y sin `-layout`, o `pypdf` si no está disponible) y recorrelo entero, incluidos los
   cinco anexos (A a E), donde está casi toda la evidencia empírica. Si tu extracción devuelve mucho
   menos que eso, falló y hay que arreglarla antes de opinar. Los tres índices repiten cada título y
   cada rótulo: excluilos de cualquier métrica de escritura.
+- `Pautas Mary Kay para el uso en las Redes Sociales.pdf` — el ejemplar de las Pautas de la marca que
+  los autores entregan junto con la tesis, como pidió la segunda instancia (N-10). Es la fuente
+  normativa del trabajo: contrastá contra él cada cita del Anexo D, con su número de página, y todo
+  lo que el cuerpo le atribuye a la norma.
 - `Devolucion_Postly_Bontorno_Hassan_2da_instancia.pdf` — la devolución de segunda instancia, del 29
   de septiembre de 2026, sobre la versión anterior de 165 páginas: **8,0/10**, «Aprobada con
   observaciones menores — apta para la defensa», con doce hallazgos nuevos (`N-01` … `N-12`), tres
@@ -27,7 +30,8 @@ medís.
 
 ## Alcance de la auditoría
 
-**Auditás el documento, y sólo el documento.** No tenés acceso al código fuente, al sistema
+**Auditás el documento, y sólo el documento** (más el ejemplar de las Pautas, para contrastar la
+norma). No tenés acceso al código fuente, al sistema
 desplegado, a los datos crudos ni al material complementario (repositorio y depósitos de datos), como
 tampoco los tuvo la segunda instancia. Eso define qué es y qué no es un hallazgo:
 
@@ -74,6 +78,7 @@ Repetí las mediciones instrumentales de la segunda instancia, para que la compa
 | Correspondencia cita–referencia | Citas parentéticas y narrativas contra las entradas de Referencias: citas huérfanas y referencias no citadas |
 | Existencia de referencias | Verificación por muestreo de las obras 2024–2026 contra editores y repositorios (Springer, ACM DL, IEEE, arXiv, DOI); metadatos erróneos con la fuente que los corrige |
 | Misatribuciones | Para las afirmaciones apoyadas en una cita: si la obra sostiene lo que se le atribuye |
+| Fidelidad a la norma | Cada cita textual de las Pautas, contra el ejemplar entregado: texto, página y alcance de lo que se le atribuye |
 | Calidad de escritura | Segmentación del cuerpo (Resumen a Cap. 8) en oraciones: palabras, media por oración, porcentaje de más de 40 palabras, intensificadores y remisiones «§» |
 | Rastros del proceso | Nombres de archivo (.mjs, .csv, .md, .py) en el cuerpo, menciones a versiones previas del documento y códigos de dictámenes |
 | Consistencia terminológica | Para cada concepto técnico central, las denominaciones que usa el documento |
