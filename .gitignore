@@ -139,3 +139,5 @@ avance/casos_imagen_cruda/*.jpg
 
 # material del ensayo en E3 (T-02): no va al repo publico
 avance/instrumentos/E3/
+# paquete del tercer evaluador (estudios 1 y 4): material de participantes, no va al repo
+avance/instrumentos/Evaluador3/

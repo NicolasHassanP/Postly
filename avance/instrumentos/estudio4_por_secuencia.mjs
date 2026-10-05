@@ -36,16 +36,20 @@ const secuencia = {};
 for (const f of leerCSV("Cronometraje_datos_v2.csv")) secuencia[f.Participante] = f.Secuencia.toUpperCase();
 const clave = Object.fromEntries(leerCSV("OE2_estudio4_clave.csv").map(f => [f.Par, f]));
 
-const pares = {};
+// Una cuenta por evaluador: desde el 5-oct-2026 hay dos (Ev1 y Ev4) sobre el mismo material.
+const pares = {};                                // evaluador → par → filas
 for (const r of leerCSV("OE2_estudio4_respuestas.csv")) {
   if (r.Tipo !== "copy") continue;
-  (pares[r.Par] ??= []).push(r);
+  ((pares[r.Evaluador] ??= {})[r.Par] ??= []).push(r);
 }
-const por = { MP: [0, 0], PM: [0, 0] };          // [preferencias por Postly, pares]
-for (const [par, filas] of Object.entries(pares)) {
-  const c = clave[par], s = secuencia[c.Participante];
-  const preferida = filas.find(x => x.Preferida === "si").Letra;
-  por[s][1]++; if (preferida === c.Letra_postly) por[s][0]++;
+const porEv = {};
+for (const [ev, porPar] of Object.entries(pares)) {
+  const por = (porEv[ev] = { MP: [0, 0], PM: [0, 0] });   // [preferencias por Postly, pares]
+  for (const [par, filas] of Object.entries(porPar)) {
+    const c = clave[par], s = secuencia[c.Participante];
+    const preferida = filas.find(x => x.Preferida === "si").Letra;
+    por[s][1]++; if (preferida === c.Letra_postly) por[s][0]++;
+  }
 }
 
 // Fisher exacto de dos colas para [[a, b], [c, d]]
@@ -58,8 +62,11 @@ function fisher(a, b, c, d) {
   return Math.min(1, p);
 }
 
-const [kMP, nMP] = por.MP, [kPM, nPM] = por.PM;
 console.log(`\n════ ESTUDIO 4 POR SECUENCIA (copys) ════`);
+for (const [ev, por] of Object.entries(porEv)) {
+const [kMP, nMP] = por.MP, [kPM, nPM] = por.PM;
+console.log(`  ${ev}`);
 console.log(`  manual primero (MP): Postly preferido en ${kMP}/${nMP} pares = ${(100 * kMP / nMP).toFixed(1).replace(".", ",")} %`);
 console.log(`  Postly primero (PM): Postly preferido en ${kPM}/${nPM} pares = ${(100 * kPM / nPM).toFixed(1).replace(".", ",")} %`);
 console.log(`  Fisher exacto, dos colas: p = ${fisher(kMP, nMP - kMP, kPM, nPM - kPM).toFixed(2).replace(".", ",")}`);
+}
