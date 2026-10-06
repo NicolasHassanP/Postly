@@ -18,6 +18,9 @@ medís.
   los autores entregan junto con la tesis, como pidieron la segunda (N-10) y la tercera instancia (T-03). Es la fuente
   normativa del trabajo: contrastá contra él cada cita del Anexo D, con su número de página, y todo
   lo que el cuerpo le atribuye a la norma.
+- `Consentimientos/` — los consentimientos firmados que los autores entregan junto con la tesis, como
+  pidió la tercera instancia (T-03 y §9). Contrastá contra ellos lo que declara el §3.7.6: quiénes
+  firmaron, cuándo y qué autorizaron. Son datos personales: citalos por rol y fecha, nunca por nombre.
 - `Devolucion_Postly_Bontorno_Hassan_3ra_instancia.pdf` — la devolución de tercera instancia, del 5
   de octubre de 2026, sobre la versión anterior de 160 páginas: **8,4/10**, «Aprobada — apta para la
   defensa», con nueve hallazgos nuevos (`T-01` … `T-09`: 3 medios, 6 bajos), seis observaciones de la
@@ -33,7 +36,7 @@ medís.
 ## Alcance de la auditoría
 
 **Auditás el documento, y sólo el documento** (más el ejemplar de las Pautas, para contrastar la
-norma). No tenés acceso al código fuente, al sistema
+norma, y los consentimientos). No tenés acceso al código fuente, al sistema
 desplegado, a los datos crudos ni al material complementario (repositorio y depósitos de datos), como
 tampoco los tuvieron las instancias anteriores. Eso define qué es y qué no es un hallazgo:
 
