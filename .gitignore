@@ -141,3 +141,4 @@ avance/casos_imagen_cruda/*.jpg
 avance/instrumentos/E3/
 # paquete del tercer evaluador (estudios 1 y 4): material de participantes, no va al repo
 avance/instrumentos/Evaluador3/
+avance/instrumentos/ObservacionOAuth/
