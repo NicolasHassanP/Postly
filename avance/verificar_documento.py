@@ -495,7 +495,7 @@ EXIGIDAS = [
     ('La revisión del canal visual, hecha después de la del textual', 1),
     # Redactada de nuevo en la pasada 51: los dos conjuntos de cuatro flujos no son el
     # mismo cuatro, y el §2.4 lo dice ahora nodo por nodo (A3 del octavo dictamen).
-    ('Las dos capas cubren los cuatro flujos que publican', 1),
+    ('El canal textual cubre los cuatro flujos que arman el texto a publicar', 1),  # auditoría 19, U-07: las dos capas no cubren los mismos cuatro
     ('Los dos conjuntos son de cuatro y no son el mismo cuatro', 1),
     # Pasada 43: el carrusel deja de estar respaldado sólo por la identidad de su regla,
     # y el único flujo sin caso propio queda nombrado.
